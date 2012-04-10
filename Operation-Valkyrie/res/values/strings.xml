@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD:res/values/strings.xml
     <string name="hello">Hello World, MainActivity!MUHAHAHAHHAHAHAH1337test</string>
+=======
+    <string name="hello">Hello World, MainActivity! (Milo)</string>
+>>>>>>> eea044c2a3107db99195688a467806a789c3feae:Operation-Valkyrie/res/values/strings.xml
     <string name="app_name">Operation-Valkyrie</string>
 
 </resources>
