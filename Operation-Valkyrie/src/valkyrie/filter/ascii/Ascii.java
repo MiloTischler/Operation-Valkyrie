@@ -21,5 +21,14 @@ public class Ascii implements IFilter{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getName() {
+		return this.getClass().getSimpleName();
+	}
+
+	public Bitmap getIcon() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
