@@ -1,11 +1,11 @@
-package valkyrie.filter.ascii;
+package valkyrie.filter.nofilter;
 
 import java.util.Vector;
 
 import android.graphics.Bitmap;
 import valkyrie.filter.IFilter;
 
-public class Ascii implements IFilter{
+public class NoFilter implements IFilter{
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 		// TODO Auto-generated method stub
@@ -21,5 +21,5 @@ public class Ascii implements IFilter{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
