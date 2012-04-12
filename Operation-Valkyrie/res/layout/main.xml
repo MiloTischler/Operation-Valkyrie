@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <!-- Options Panel -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/optionsPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" 
-        android:background="@android:color/white" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options" />
-    </LinearLayout>
-    <!-- Options Panel End -->
-
-
-    <!-- Camera Preview Panel -->    <RelativeLayout
+    
+    <!-- Camera Preview Panel -->
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cameraPreview"
         android:layout_width="fill_parent"
@@ -35,10 +20,29 @@
             android:text="@string/hello" />
     </RelativeLayout>
     <!-- Camera Preview Panel End -->
+    
+    
+    <!-- Options Panel -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/optionsPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        android:background="@android:color/white" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/options" />
+    </RelativeLayout>
+    <!-- Options Panel End -->
+
 
 	<!-- Action Bar -->
 	<!-- Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overleaping the Camera Preview, because that way we 
 	could miximize our preview which is nice imo. -->
 	<!-- Action Bar End -->
-</LinearLayout>
+	
+</RelativeLayout>
