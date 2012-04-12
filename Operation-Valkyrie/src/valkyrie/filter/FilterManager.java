@@ -34,4 +34,5 @@ public class FilterManager {
 	public IFilter getActiveFilter() {
 		return (IFilter) this.activeFilter;
 	}
+	
 }
