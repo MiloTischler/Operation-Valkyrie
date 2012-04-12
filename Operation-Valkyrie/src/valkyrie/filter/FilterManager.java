@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import valkyrie.filter.nofilter.NoFilter;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
+ *
+ */
 public class FilterManager {
 	private static FilterManager instance = null;
 	
