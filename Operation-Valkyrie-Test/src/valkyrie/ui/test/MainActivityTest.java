@@ -1,4 +1,4 @@
-package valkyrie.main.test;
+package valkyrie.ui.test;
 
 import valkyrie.ui.MainActivity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -7,7 +7,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	private MainActivity mainActivity;
 	
     public MainActivityTest() {
-        super("valkyrie.main.test", MainActivity.class);
+        super("valkyrie.ui", MainActivity.class);
      }
     
     @Override
