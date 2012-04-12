@@ -4,5 +4,6 @@
     <string name="hello">Hello Camera Preview Panel</string>
     <string name="app_name">Operation-Valkyrie</string>
     <string name="options">options</string>
+    <string name="sliderImageDescription">SlideDrawerImage</string>
 
 </resources>
