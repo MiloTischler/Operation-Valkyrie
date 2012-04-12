@@ -1,6 +1,9 @@
 package valkyrie.ui;
 
+import valkyrie.main.R;
+import android.app.Activity;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * 
@@ -9,8 +12,9 @@ import android.view.View;
  *
  */
 public class LayoutManager {
+
 	/**
-	 * @todo Jakob
+	 * Instance Variable. Used for Singleton.
 	 */
 	private static LayoutManager instance = null;
 
@@ -42,8 +46,10 @@ public class LayoutManager {
 	
 	/**
 	 * Registers the main layout.
+	 * @param mainView the main layout viewobject
 	 */
-	public void setContentView(View mainView) {
+	public void setMainActivity(Activity mainActivity) {
 		
+		TextView test = (TextView) mainActivity.findViewById(R.id.optionsTest);
 	}
 }
