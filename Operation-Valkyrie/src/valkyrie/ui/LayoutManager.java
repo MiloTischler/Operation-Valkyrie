@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
 import android.app.Activity;
-import android.graphics.Path.Direction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -54,17 +53,17 @@ public class LayoutManager {
 	public void notifyUI(IFilter filterObject) {
 
 		// get all childs
-		View mainView = mainActivity.findViewById(R.layout.main);
-		RelativeLayout optionsPanel = (RelativeLayout) mainView.findViewById(R.id.optionsContent);
+		RelativeLayout optionsPanel = (RelativeLayout) mainActivity.findViewById(R.id.optionsContent);
 		
 		ArrayList<View> newUIElements = new ArrayList<View>();
+		
 		Button btn = new Button(mainActivity);
 		btn.setText("Lol");
 		newUIElements.add(btn);
 		optionsPanel.addView(btn);
 		
-		// refresh
-		mainView.invalidate();
+		// refresh, not neccessary
+		//mainActivity.findViewById(R.layout.main);
 	}
 
 	/**

@@ -1,6 +1,8 @@
 package valkyrie.ui;
 
 import valkyrie.main.R;
+import valkyrie.filter.*;
+import valkyrie.filter.nofilter.NoFilter;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -20,7 +22,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 
 		// register UI components, all at once
-		//LayoutManager.getInstance().setMainActivity(this);
+		LayoutManager.getInstance().setMainActivity(this);
+		NoFilter filter = new NoFilter();
+		LayoutManager.getInstance().notifyUI(filter);
 	}
 
 }
