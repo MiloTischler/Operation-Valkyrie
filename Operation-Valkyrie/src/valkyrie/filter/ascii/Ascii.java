@@ -11,7 +11,7 @@ import valkyrie.filter.IFilter;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
  *
  */
-public class Ascii implements IFilter{
+public class Ascii implements IFilter {
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 		// TODO Auto-generated method stub
@@ -24,6 +24,15 @@ public class Ascii implements IFilter{
 	}
 
 	public Vector<Object> getUIElements() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getName() {
+		return this.getClass().getSimpleName();
+	}
+
+	public Bitmap getIcon() {
 		// TODO Auto-generated method stub
 		return null;
 	}

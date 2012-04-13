@@ -5,6 +5,7 @@
     android:orientation="horizontal" >
 
     <!-- Camera Preview Panel -->
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cameraPreview"
@@ -22,20 +23,39 @@
 
 
     <!-- Options Panel -->
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/optionsPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
 
-        <TextView
+    <SlidingDrawer
+        android:id="@+id/optionsPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/cameraPreview"
+        android:content="@+id/optionsContent"
+        android:handle="@+id/handle"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/handle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/options"
-            android:id="@+id/optionsTest" />
-    </RelativeLayout>
+            android:contentDescription="@string/sliderImageDescription"
+            android:src="@drawable/ic_launcher" />
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/optionsContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/optionsTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options" />
+        </RelativeLayout>
+    </SlidingDrawer>
+
     <!-- Options Panel End -->
 
 
@@ -43,7 +63,7 @@
     <!--
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overleaping the Camera Preview, because that way we 
-	could miximize our preview which is nice imo.
+	could miximize our preview which is nice imo.
     -->
     <!-- Action Bar End -->
 
