@@ -22,19 +22,37 @@
 
 
     <!-- Options Panel -->
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <SlidingDrawer
         android:id="@+id/optionsPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/cameraPreview"
+        android:content="@+id/optionsContent"
+        android:handle="@+id/handle"
+        android:orientation="horizontal" >
 
-        <TextView
+        <ImageView
+            android:id="@+id/handle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/options" />
-    </RelativeLayout>
+            android:contentDescription="@string/sliderImageDescription"
+            android:src="@drawable/ic_launcher" />
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/optionsContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/optionsTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options" />
+        </RelativeLayout>
+    </SlidingDrawer>
     <!-- Options Panel End -->
 
 
