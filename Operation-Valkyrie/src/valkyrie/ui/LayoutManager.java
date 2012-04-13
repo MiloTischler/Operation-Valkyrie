@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -12,9 +13,13 @@ import android.widget.RelativeLayout;
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
- * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Schweighofer, Milo Tischler 
+ * © Milo Tischler, Jakob Schweighofer, Alexander
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
+ */
+/**
+ * Singleton Class. Used to manage interactions with UI elements.
  */
 public class LayoutManager {
 
@@ -28,11 +33,14 @@ public class LayoutManager {
 	 */
 	private Activity mainActivity = null;
 
+	private ArrayList<UpdateableRelativeLayout> registeredComponents = null;
+
 	/**
 	 * Default-Konstruktor, der nicht auﬂerhalb dieser Klasse aufgerufen werden
 	 * kann.
 	 */
 	private LayoutManager() {
+		this.registeredComponents = new ArrayList<UpdateableRelativeLayout>();
 	}
 
 	/**
@@ -53,27 +61,36 @@ public class LayoutManager {
 	public void notifyUI(IFilter filterObject) {
 
 		// get all childs
-		RelativeLayout optionsPanel = (RelativeLayout) mainActivity.findViewById(R.id.optionsContent);
-		
+		RelativeLayout optionsPanel = (RelativeLayout) mainActivity
+				.findViewById(R.id.optionsContent);
+
 		ArrayList<View> newUIElements = new ArrayList<View>();
-		
+
 		Button btn = new Button(mainActivity);
 		btn.setText("Lol");
 		newUIElements.add(btn);
 		optionsPanel.addView(btn);
-		
-		// refresh, not neccessary
-		//mainActivity.findViewById(R.layout.main);
+
 	}
 
 	/**
 	 * Registers the main layout.
 	 * 
 	 * @param mainView
-	 *            the main layout view object
+	 *            the main Activity object
 	 */
 	public void setMainActivity(Activity mainActivity) {
 		this.mainActivity = mainActivity;
+	}
+
+	/**
+	 * @todo Jakob
+	 */
+	public void registerUpdateableComponent(UpdateableRelativeLayout component) {
+
+		Log.d("FasuDebug", "Registered " + component.getId());
+		this.registeredComponents.add(component);
+
 	}
 
 }

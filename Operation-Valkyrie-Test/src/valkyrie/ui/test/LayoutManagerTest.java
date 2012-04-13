@@ -1,5 +1,9 @@
 package valkyrie.ui.test;
 
+import java.lang.reflect.Field;
+
+import valkyrie.ui.LayoutManager;
+import android.app.Activity;
 import android.test.AndroidTestCase;
 
 /**
@@ -11,22 +15,22 @@ import android.test.AndroidTestCase;
  */
 public class LayoutManagerTest extends AndroidTestCase {
 
-	/*
-	 * public LayoutManagerTest() { }
-	 * 
-	 * @Override protected void setUp() {
-	 * 
-	 * }
-	 */
-
-	// is this really neccessary?? it would cause an additional getter or 
-	// public member variable only for testing purposes...
-	public void testSetMainActivity() {
-
+	public void testSetMainActivity() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		
+		// simulate programs mainActivity
+		Activity mainActivity = new Activity();
+		
+		// set it
+		LayoutManager.getInstance().setMainActivity(mainActivity);
+		
+		// check if 
+		Field field = LayoutManager.class.getDeclaredField("mainActivity");
+		field.setAccessible(true);
+		
+		LayoutManager object = LayoutManager.getInstance();
+		Activity returnObj = (Activity) field.get(object);
+		
+		assertNotNull(returnObj);
 	}
 	
-	// this will be a harder one...
-	public void testNotifyUI() {
-		
-	}
 }
