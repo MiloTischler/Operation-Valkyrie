@@ -24,12 +24,10 @@ public class FileManagerTest extends AndroidTestCase{
     	
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
     	FileManager fm = new FileManager();
-    	for(int i = 0; i < 10 ; i++) {
+    	for(int i = 0; i < 2 ; i++) {
     	fm.saveImageToGallery(bitmap);
     	}
-//    	File file = getContext().getFileStreamPath(pathName + bitmap);
-
-    	assertTrue("Image is here",fm.imageExists());
+    	assertTrue("Image is here",fm.imageExists(fm.getLatestImage()));
     }
     
     public void testLoadImage() {
@@ -38,6 +36,10 @@ public class FileManagerTest extends AndroidTestCase{
     
     public void testDeleteImage() {
     	//TODO laurenz
+    	FileManager fm = new FileManager();
+    	String imageName = fm.getLatestImage();
+    	fm.deleteImageFromGallery(imageName);   	
+    	
     }
 }
 

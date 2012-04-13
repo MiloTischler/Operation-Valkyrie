@@ -14,57 +14,47 @@ import android.util.Log;
 public class FileManager {
 	final static String tag = "FileManager";
 	final static String fileName = "IMG";
-	final static String pathName = Environment.getExternalStorageDirectory()
-			.toString() + "/Valkyrie/Gallery/";
-	
+	final static String zeros = "0000";
+	final static String pathName = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 
 	public void saveImageToGallery(Bitmap bitmap) {
-		File pathtest = new File(pathName);
-		if (!pathtest.exists())
-			pathtest.mkdirs();
 		OutputStream fOut = null;
-		// get the number of the last image
-		
 		File directory = new File(pathName);
+		if (!directory.exists())
+			directory.mkdirs();
 		File files[] = directory.listFiles();
-		File lastfile = new File("test");
+		File file;
+		if (files.length > 0) {
+			int highestnumber = 0;
+			for (File f : files) {
+				if (f.exists()) {
 
-		String[] filename = null;
-		int highestnumber = 0;
-		for (File f : files) {
+					Log.d("DEBUGName", f.getName());
+					int newhighest = Integer.parseInt(getLatestImage().substring(3, getLatestImage().length() - 4));
+					if (newhighest >= highestnumber) {
+						highestnumber = newhighest + 1;
+					}
+					Log.d("DEBUG", String.valueOf(highestnumber));
 
-			if(f.exists()) {
-			lastfile= f;
-			filename = lastfile.toString().split("/"); 
-			int newhighest = Integer.parseInt(filename[filename.length-1].substring(3, filename[filename.length-1].length()-4));
-			if(newhighest > highestnumber)
-				Log.d("DEBUG", String.valueOf(highestnumber));
-				highestnumber = highestnumber+1;
+				}
 			}
-		}
-		
-		Log.d("DEBUG", String.valueOf(highestnumber));
-		
-		
-		//
-		
-		File file ;
-		
-		if(lastfile.exists()){
-			
-			file = new File(pathName, fileName+ highestnumber +  ".png");
-		}
-		else {
-		 file = new File(pathName, fileName + 1 + ".png");
+
+			String filenumber = zeros + highestnumber;
+			filenumber = filenumber.substring(filenumber.length() - 4);
+
+			file = new File(pathName, fileName + filenumber + ".png");
+		} else {
+			String filenumber = zeros + 1;
+			filenumber = filenumber.substring(filenumber.length() - 4);
+			file = new File(pathName, fileName + filenumber + ".png");
 		}
 
 		try {
-			fOut = new FileOutputStream(file);
 
+			fOut = new FileOutputStream(file);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
 			fOut.flush();
 			fOut.close();
-
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 
@@ -93,20 +83,37 @@ public class FileManager {
 	}
 
 	public void deleteImageFromGallery(String imageName) {
+		File fileToDelete = new File(pathName + imageName);
+		if (fileToDelete.exists())
+			fileToDelete.delete();
 
 	}
 
 	// testing purpose only:
-	public Boolean imageExists() {
-		File directory = new File(pathName);
-		File files[] = directory.listFiles();
-
-		for (File f : files) {
-
-			f.exists();
-			return true;
-		}
+	public Boolean imageExists(String imageName) {
+				if (getLatestImage().equals(imageName))
+				return true;	
 		return false;
+	}
+	
+	public String getLatestImage() {
+		File directory = new File(pathName);
+		String imageName = null;
+		File files[] = directory.listFiles();
+		int highestnumber = 0;
+			for (File f : files) {
+				if (f.exists()) {
+
+					Log.d("DEBUGName", f.getName());
+					int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
+					if (newhighest >= highestnumber) {
+						highestnumber = newhighest + 1;
+						imageName = f.getName();
+					}
+					Log.d("DEBUG", String.valueOf(highestnumber));
+				}
+			}
+		return imageName;
 	}
 
 }
