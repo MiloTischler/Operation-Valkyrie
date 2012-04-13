@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.os.Environment;
 import android.util.Log;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 
-//TODO: filters need a way to access context
+//TODO: filters need a way to access context -> use asset folder
 
 /**
  * 
@@ -18,7 +20,7 @@ import valkyrie.main.R;
  *
  */
 public class FilterManager {
-	private static String tag = "FilterManager";
+	private static final String TAG = "FilterManager";
 	
 	private static FilterManager instance = null;
 
@@ -39,7 +41,7 @@ public class FilterManager {
 	}
 
 	public void changeFilter(IFilter filter) {
-		Log.i(tag, "Changed filter to: " +  filter.getClass().getName());
+		Log.i(TAG, "Changed filter to: " +  filter.getClass().getName());
 		
 		this.activeFilter = filter;
 	}
@@ -57,14 +59,14 @@ public class FilterManager {
 			try {
 				filter = (IFilter) Class.forName(filterName).newInstance();
 			} catch (IllegalAccessException e) {
-				Log.e(tag, e.getMessage());
+				Log.e(TAG, e.getMessage());
 			} catch (InstantiationException e) {
-				Log.e(tag, e.getMessage());
+				Log.e(TAG, e.getMessage());
 			} catch (ClassNotFoundException e) {
-				Log.e(tag, e.getMessage());
+				Log.e(TAG, e.getMessage());
 			} finally {
 				if(filter != null) {
-					Log.i(tag, "Added filter to list: " +  filter.getClass().getName());
+					Log.i(TAG, "Added filter to list: " +  filter.getClass().getName());
 					
 					this.filters.add(filter);
 				}
@@ -76,5 +78,9 @@ public class FilterManager {
 
 	public IFilter getActiveFilter() {
 		return (IFilter) this.activeFilter;
+	}
+	
+	public String getAssetFolder(IFilter filter) {		
+		return "";
 	}
 }
