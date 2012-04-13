@@ -9,6 +9,8 @@ import android.util.Log;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 
+//TODO: filters need a way to access context
+
 public class FilterManager {
 	private static String tag = "FilterManager";
 	

@@ -8,18 +8,15 @@ import valkyrie.filter.IFilter;
 public class NoFilter implements IFilter{
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void manipulateImage(Bitmap bitmap) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Vector<Object> getUIElements() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector<Object>();
 	}
 
 	public String getName() {

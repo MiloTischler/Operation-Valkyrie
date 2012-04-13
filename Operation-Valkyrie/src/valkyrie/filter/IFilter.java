@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import android.graphics.Bitmap;
 
+
 public interface IFilter {
 	public String getName();
 	public Bitmap getIcon();
