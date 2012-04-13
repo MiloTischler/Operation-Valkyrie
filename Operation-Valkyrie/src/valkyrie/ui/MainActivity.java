@@ -21,7 +21,10 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 
 		// register UI components, all at once
-		// LayoutManager.getInstance().setMainActivity(this);
+
+		LayoutManager.getInstance().setContentView(this.findViewById(R.layout.main));
+		
+
 	}
 
 }

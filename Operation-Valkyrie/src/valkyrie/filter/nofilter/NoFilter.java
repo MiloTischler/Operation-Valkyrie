@@ -1,4 +1,4 @@
-package valkyrie.filter.ascii;
+package valkyrie.filter.nofilter;
 
 import java.util.Vector;
 
@@ -11,7 +11,7 @@ import valkyrie.filter.IFilter;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
  *
  */
-public class Ascii implements IFilter{
+public class NoFilter implements IFilter{
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 		// TODO Auto-generated method stub
@@ -36,5 +36,5 @@ public class Ascii implements IFilter{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
