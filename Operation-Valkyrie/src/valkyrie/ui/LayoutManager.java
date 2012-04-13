@@ -56,13 +56,14 @@ public class LayoutManager {
 		// get all childs
 		View mainView = mainActivity.findViewById(R.layout.main);
 		RelativeLayout optionsPanel = (RelativeLayout) mainView.findViewById(R.id.optionsContent);
-
+		
 		ArrayList<View> newUIElements = new ArrayList<View>();
 		Button btn = new Button(mainActivity);
 		btn.setText("Lol");
 		newUIElements.add(btn);
 		optionsPanel.addView(btn);
 		
+		// refresh
 		mainView.invalidate();
 	}
 
