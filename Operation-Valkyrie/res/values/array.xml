@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filters">
+        <item>valkyrie.filter.nofilter.NoFilter</item>
+        <item>valkyrie.filter.ascii.Ascii</item>
+    </string-array>
+</resources>
