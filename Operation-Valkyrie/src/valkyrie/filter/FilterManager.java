@@ -11,6 +11,12 @@ import valkyrie.main.R;
 
 //TODO: filters need a way to access context
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
+ *
+ */
 public class FilterManager {
 	private static String tag = "FilterManager";
 	
