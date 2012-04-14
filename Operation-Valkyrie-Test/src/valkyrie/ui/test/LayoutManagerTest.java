@@ -23,7 +23,7 @@ public class LayoutManagerTest extends AndroidTestCase {
 		// set it
 		LayoutManager.getInstance().setMainActivity(mainActivity);
 		
-		// check if 
+		// check if private attribute was set correctly, via reflection
 		Field field = LayoutManager.class.getDeclaredField("mainActivity");
 		field.setAccessible(true);
 		
@@ -32,5 +32,7 @@ public class LayoutManagerTest extends AndroidTestCase {
 		
 		assertNotNull(returnObj);
 	}
+	
+	
 	
 }
