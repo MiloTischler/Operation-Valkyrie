@@ -14,6 +14,11 @@ import android.test.AndroidTestCase;
  * 
  */
 public class LayoutManagerTest extends AndroidTestCase {
+	
+	public void testGetInstance() {
+		LayoutManager layoutManager = LayoutManager.getInstance();
+		assertNotNull(layoutManager);
+	}
 
 	public void testSetMainActivity() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		
@@ -32,7 +37,5 @@ public class LayoutManagerTest extends AndroidTestCase {
 		
 		assertNotNull(returnObj);
 	}
-	
-	
 	
 }

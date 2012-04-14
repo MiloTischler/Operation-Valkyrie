@@ -16,7 +16,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 	public UpdateableRelativeLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		Log.d("FasuDebug","I#m created");
+		Log.d("FasuDebug","I'm created");
 		LayoutManager.getInstance().registerUpdateableComponent(this);
 	}
 

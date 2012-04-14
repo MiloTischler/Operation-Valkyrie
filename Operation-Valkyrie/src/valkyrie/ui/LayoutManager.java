@@ -3,12 +3,8 @@ package valkyrie.ui;
 import java.util.ArrayList;
 
 import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 import android.app.Activity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 
 /**
  * 
@@ -56,20 +52,12 @@ public class LayoutManager {
 	}
 
 	/**
-	 * @todo Jakob
+	 * Force all registered (updateable Components) to update.
+	 * 
+	 * @param filterObject
+	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
-
-		// get all childs
-		RelativeLayout optionsPanel = (RelativeLayout) mainActivity
-				.findViewById(R.id.optionsContent);
-
-		ArrayList<View> newUIElements = new ArrayList<View>();
-
-		Button btn = new Button(mainActivity);
-		btn.setText("Lol");
-		newUIElements.add(btn);
-		optionsPanel.addView(btn);
 
 	}
 
@@ -84,7 +72,10 @@ public class LayoutManager {
 	}
 
 	/**
-	 * @todo Jakob
+	 * All Updateable Components used in the main XML File, will register this way when they are created.
+	 * 
+	 * @param component
+	 *            An UpdateableRelativeLayout element
 	 */
 	public void registerUpdateableComponent(UpdateableRelativeLayout component) {
 
