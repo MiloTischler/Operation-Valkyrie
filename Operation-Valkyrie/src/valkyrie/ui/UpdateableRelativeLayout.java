@@ -1,6 +1,8 @@
 package valkyrie.ui;
 
 import android.content.Context;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 /**
@@ -11,8 +13,11 @@ import android.widget.RelativeLayout;
  */
 public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
 
-	public UpdateableRelativeLayout(Context context) {
-		super(context);
+
+	public UpdateableRelativeLayout(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		Log.d("FasuDebug","I'm created");
+		LayoutManager.getInstance().registerUpdateableComponent(this);
 	}
 
 	public void redrawUI() {

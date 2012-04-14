@@ -3,19 +3,19 @@ package valkyrie.ui;
 import java.util.ArrayList;
 
 import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 import android.app.Activity;
-import android.graphics.Path.Direction;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.util.Log;
 
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
- * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Schweighofer, Milo Tischler 
+ * © Milo Tischler, Jakob Schweighofer, Alexander
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
+ */
+/**
+ * Singleton Class. Used to manage interactions with UI elements.
  */
 public class LayoutManager {
 
@@ -29,11 +29,14 @@ public class LayoutManager {
 	 */
 	private Activity mainActivity = null;
 
+	private ArrayList<UpdateableRelativeLayout> registeredComponents = null;
+
 	/**
 	 * Default-Konstruktor, der nicht auﬂerhalb dieser Klasse aufgerufen werden
 	 * kann.
 	 */
 	private LayoutManager() {
+		this.registeredComponents = new ArrayList<UpdateableRelativeLayout>();
 	}
 
 	/**
@@ -49,32 +52,36 @@ public class LayoutManager {
 	}
 
 	/**
-	 * @todo Jakob
+	 * Force all registered (updateable Components) to update.
+	 * 
+	 * @param filterObject
+	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
 
-		// get all childs
-		View mainView = mainActivity.findViewById(R.layout.main);
-		RelativeLayout optionsPanel = (RelativeLayout) mainView.findViewById(R.id.optionsContent);
-		
-		ArrayList<View> newUIElements = new ArrayList<View>();
-		Button btn = new Button(mainActivity);
-		btn.setText("Lol");
-		newUIElements.add(btn);
-		optionsPanel.addView(btn);
-		
-		// refresh
-		mainView.invalidate();
 	}
 
 	/**
 	 * Registers the main layout.
 	 * 
 	 * @param mainView
-	 *            the main layout view object
+	 *            the main Activity object
 	 */
 	public void setMainActivity(Activity mainActivity) {
 		this.mainActivity = mainActivity;
+	}
+
+	/**
+	 * All Updateable Components used in the main XML File, will register this way when they are created.
+	 * 
+	 * @param component
+	 *            An UpdateableRelativeLayout element
+	 */
+	public void registerUpdateableComponent(UpdateableRelativeLayout component) {
+
+		Log.d("FasuDebug", "Registered " + component.getId());
+		this.registeredComponents.add(component);
+
 	}
 
 }
