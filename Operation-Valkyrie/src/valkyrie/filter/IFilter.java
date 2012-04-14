@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
  *
  */
+
 public interface IFilter {
 	public String getName();
 	public Bitmap getIcon();
