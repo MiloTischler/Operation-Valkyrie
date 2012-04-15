@@ -1,9 +1,11 @@
 package valkyrie.filter.test;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.nofilter.NoFilter;
+
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -14,6 +16,7 @@ import android.util.Log;
  *
  */
 public class FilterAssetsTest extends AndroidTestCase{
+	private static final String TAG = "FilterAssetsTest";
 	
 	public FilterAssetsTest() {
 		super();
@@ -29,18 +32,24 @@ public class FilterAssetsTest extends AndroidTestCase{
     	FilterAssets noFilterAssets = new FilterAssets(noFilter, this.getContext());
     	
     	try {
-			for(String file : noFilterAssets.list("icon")) {
-				Log.d("LOLAA", file);
-			}
+			assertTrue(noFilterAssets.list("icon").length > 0);
+			assertTrue(noFilterAssets.list("/").length == 0);
+			assertTrue(noFilterAssets.list("").length == 0);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage());
 		}
     	
-    	assertTrue(true);
     }
     
     public void testOpen() {
-    	assertTrue(true);
+    	NoFilter noFilter = new NoFilter();
+    	FilterAssets noFilterAssets = new FilterAssets(noFilter, this.getContext());
+    	
+    	try {
+			InputStream test = noFilterAssets.open("icon/" + noFilterAssets.list("icon")[0]);
+			assertNotNull(test);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage());
+		}
     }
 }

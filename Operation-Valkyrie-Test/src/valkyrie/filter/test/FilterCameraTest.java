@@ -2,9 +2,12 @@ package valkyrie.filter.test;
 
 import java.util.ArrayList;
 
+import org.opencv.highgui.VideoCapture;
+
 import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.filter.FilterCamera;
+import valkyrie.filter.FilterAssets;
 
 import android.test.AndroidTestCase;
 
@@ -15,6 +18,7 @@ import android.test.AndroidTestCase;
  *
  */
 public class FilterCameraTest extends AndroidTestCase {
+	private static final String TAG = "FilterCameraTest";
 	
 	public FilterCameraTest() {
 		super();
@@ -26,7 +30,7 @@ public class FilterCameraTest extends AndroidTestCase {
     }
     
     public void testGetFilterList() {
-    	FilterCamera filterCamera = new FilterCamera(mContext, valkyrie.main.R.array.filters);
+    	FilterCamera filterCamera = new FilterCamera(getContext(), valkyrie.main.R.array.filters);
     	
     	assertNotNull(filterCamera.getFilterList());
     	assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);

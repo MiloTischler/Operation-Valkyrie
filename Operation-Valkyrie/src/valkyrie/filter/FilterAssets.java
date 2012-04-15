@@ -31,7 +31,7 @@ public class FilterAssets {
 		return this.assetManager.list(this.filterPath + "/" + path);
 	}
 	
-	public InputStream open(String fileName) {
-		return this.open(this.filterPath + "/" + fileName);
+	public InputStream open(String fileName) throws IOException {
+		return this.assetManager.open(this.filterPath + "/" + fileName);
 	}
 }

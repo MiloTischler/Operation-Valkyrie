@@ -2,7 +2,9 @@ package valkyrie.ui;
 
 import java.io.IOException;
 
+import valkyrie.filter.FilterCamera;
 import valkyrie.main.R;
+
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
