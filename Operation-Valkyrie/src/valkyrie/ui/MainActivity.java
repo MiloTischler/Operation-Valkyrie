@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import android.app.Activity;
@@ -23,6 +24,12 @@ public class MainActivity extends Activity {
 		// register UI components, all at once
 		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
+		
+		
+		// Ritzys filter test
+		//Ascii asciiFilter = new Ascii();
+		
+		
 		LayoutManager.getInstance().notifyUI(filter);
 	}
 
