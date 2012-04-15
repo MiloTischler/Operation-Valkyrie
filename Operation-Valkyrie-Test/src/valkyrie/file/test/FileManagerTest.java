@@ -25,9 +25,9 @@ public class FileManagerTest extends AndroidTestCase{
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
     	FileManager fm = new FileManager();
     	comparedImage = fm.getLatestImage();
-    	for(int i = 0; i < 2 ; i++) {
+    	
     	fm.saveImageToGallery(bitmap);
-    	}
+    	
     	assertFalse("Image is not another one",comparedImage.equals(fm.getLatestImage()));
     }
     
