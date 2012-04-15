@@ -5,6 +5,8 @@ import java.util.Vector;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
+
+import valkyrie.filter.FilterAssets;
 import valkyrie.filter.IFilter;
 
 /**
@@ -59,6 +61,11 @@ public class Ascii implements IFilter {
 	public Bitmap getIcon() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setup(FilterAssets filterAssets, Boolean firstRun) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

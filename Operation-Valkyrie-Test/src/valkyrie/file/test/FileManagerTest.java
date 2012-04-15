@@ -7,6 +7,12 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.test.AndroidTestCase;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
+ *
+ */
 public class FileManagerTest extends AndroidTestCase{
 
 	final static String pathName =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
@@ -32,13 +38,16 @@ public class FileManagerTest extends AndroidTestCase{
     
     public void testLoadImage() {
     	//TODO laurenz
+    	fail("Not yet implemented");
     }
     
     public void testDeleteImage() {
     	//TODO laurenz
     	FileManager fm = new FileManager();
     	String imageName = fm.getLatestImage();
-    	fm.deleteImageFromGallery(imageName);   	
+    	fm.deleteImageFromGallery(imageName);   
+    	
+    	fail("Not yet implemented");
     	
     }
 }

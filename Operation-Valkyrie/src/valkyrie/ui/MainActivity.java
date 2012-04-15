@@ -1,10 +1,18 @@
 package valkyrie.ui;
 
+
+import java.io.IOException;
+
+import valkyrie.filter.FilterCamera;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
+
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * 
@@ -20,8 +28,8 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
 		// register UI components, all at once
+
 		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
 		
