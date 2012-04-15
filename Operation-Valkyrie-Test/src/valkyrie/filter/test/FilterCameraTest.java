@@ -2,12 +2,12 @@ package valkyrie.filter.test;
 
 import java.util.ArrayList;
 
-import org.opencv.highgui.VideoCapture;
-
+import valkyrie.filter.FilterCamera;
 import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
-import valkyrie.filter.FilterCamera;
 import valkyrie.filter.FilterAssets;
+
+import org.opencv.*;
 
 import android.test.AndroidTestCase;
 
@@ -73,7 +73,6 @@ public class FilterCameraTest extends AndroidTestCase {
     }
 
     public void testIsFirstRun() {
-    	// TODO: implement test
-    	assertTrue(true);
+    	fail("Not yet implemented");
     }
 }
