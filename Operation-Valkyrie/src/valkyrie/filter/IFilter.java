@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import android.graphics.Bitmap;
 
-
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
