@@ -70,5 +70,6 @@ public class FilterCameraTest extends AndroidTestCase {
 
     public void testIsFirstRun() {
     	// TODO: implement test
+    	assertTrue(true);
     }
 }
