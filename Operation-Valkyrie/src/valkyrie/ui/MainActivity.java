@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MainActivity extends Activity {
 
 		// register UI components, all at once
 
-		LayoutManager.getInstance().setContentView(this.findViewById(R.layout.main));
+//		LayoutManager.getInstance().setMainActivity(this);
 //		CameraPreview cameraPre = new CameraPreview(this) {
 //			
 //			public void run() {
@@ -30,6 +31,11 @@ public class MainActivity extends Activity {
 //				// whatever
 //			}
 //		};
+
+
+		LayoutManager.getInstance().setMainActivity(this);
+		NoFilter filter = new NoFilter();
+		LayoutManager.getInstance().notifyUI(filter);
 
 	}
 

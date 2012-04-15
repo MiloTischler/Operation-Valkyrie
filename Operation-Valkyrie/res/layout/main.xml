@@ -22,27 +22,45 @@
 
 
     <!-- Options Panel -->
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <SlidingDrawer
         android:id="@+id/optionsPanel"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/cameraPreview"
+        android:content="@+id/optionsContent"
+        android:handle="@+id/handle"
+        android:orientation="horizontal" >
 
-        <TextView
+        <ImageView
+            android:id="@+id/handle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/options" />
-    </RelativeLayout>
+            android:contentDescription="@string/sliderImageDescription"
+            android:src="@drawable/ic_launcher" />
+
+        <valkyrie.ui.UpdateableRelativeLayout
+            xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
+            android:id="@+id/optionsContent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/optionsTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options" />
+        </valkyrie.ui.UpdateableRelativeLayout>
+    </SlidingDrawer>
     <!-- Options Panel End -->
 
 
     <!-- Action Bar -->
     <!--
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
-	Panel can have a semi-transparent background while overleaping the Camera Preview, because that way we 
-	could miximize our preview which is nice imo.
+	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
+	could maximize our preview which is nice imo.
     -->
     <!-- Action Bar End -->
 
