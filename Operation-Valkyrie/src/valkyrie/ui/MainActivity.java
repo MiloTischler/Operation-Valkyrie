@@ -23,7 +23,13 @@ public class MainActivity extends Activity {
 		// register UI components, all at once
 
 		LayoutManager.getInstance().setContentView(this.findViewById(R.layout.main));
-		
+//		CameraPreview cameraPre = new CameraPreview(this) {
+//			
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				// whatever
+//			}
+//		};
 
 	}
 
