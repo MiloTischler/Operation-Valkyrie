@@ -18,11 +18,21 @@ public class FileManager {
 	final static String IMGCOUNT = "0000";
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 
+	public FileManager() {
+		initFileManager();
+	}
+	
+	private void initFileManager() {
+		File file = new File(SDPATH);
+		if(!file.exists())
+			file.mkdirs();
+	}
+	
 	public void saveImageToGallery(Bitmap bitmap) {
 		OutputStream fOut = null;
 		File directory = new File(SDPATH);
-		if (!directory.exists())
-			directory.mkdirs();
+//		if (!directory.exists())
+//			directory.mkdirs();
 		File files[] = directory.listFiles();
 		File file;
 		if (files.length > 0) {
@@ -74,13 +84,17 @@ public class FileManager {
 
 	public Bitmap loadImageFromGallery(String imageName) {
 		InputStream is = FileManager.class.getResourceAsStream(SDPATH + imageName);
-        return BitmapFactory.decodeStream(is);
-		
+		return BitmapFactory.decodeStream(is);
+
 	}
 
 	public Bitmap loadImageFromInternal(String imageName) {
-		InputStream is = FileManager.class.getResourceAsStream(SDPATH + imageName);
-        return BitmapFactory.decodeStream(is);
+		File imageFile = new File(SDPATH + imageName);
+		if (imageFile.exists()) {
+			InputStream is = FileManager.class.getResourceAsStream(SDPATH + imageName);
+			return BitmapFactory.decodeStream(is);
+		} else
+			return null;
 	}
 
 	public void deleteImageFromGallery(String imageName) {
@@ -90,25 +104,27 @@ public class FileManager {
 
 	}
 
-	
 	public String getLatestImage() {
 		File directory = new File(SDPATH);
 		String imageName = null;
 		File files[] = directory.listFiles();
 		int highestnumber = 0;
-			for (File f : files) {
-				if (f.exists()) {
+		for (File f : files) {
+			if (f.exists()) {
 
-					Log.d("DEBUGName", f.getName());
-					int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
-					if (newhighest >= highestnumber) {
-						highestnumber = newhighest + 1;
-						imageName = f.getName();
-					}
-					Log.d("DEBUG", String.valueOf(highestnumber));
+				Log.d("DEBUGName", f.getName());
+				int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
+				if (newhighest >= highestnumber) {
+					highestnumber = newhighest + 1;
+					imageName = f.getName();
 				}
+				Log.d("DEBUG", String.valueOf(highestnumber));
 			}
-		return imageName;
+		}
+		if (imageName != null)
+			return imageName;
+		else 
+			return "Error";
 	}
 
 }

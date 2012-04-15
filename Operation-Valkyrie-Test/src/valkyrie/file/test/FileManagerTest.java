@@ -9,7 +9,7 @@ import android.test.AndroidTestCase;
 
 public class FileManagerTest extends AndroidTestCase{
 
-	final static String pathName =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
+	final static String SDPATH =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	
 	public FileManagerTest() {
         super();
@@ -20,10 +20,12 @@ public class FileManagerTest extends AndroidTestCase{
     	super.setUp();
     }
     
+    
     public void testSaveImage() {
     	String comparedImage;
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
     	FileManager fm = new FileManager();
+    	
     	comparedImage = fm.getLatestImage();
     	
     	fm.saveImageToGallery(bitmap);
@@ -32,15 +34,25 @@ public class FileManagerTest extends AndroidTestCase{
     }
     
     public void testLoadImage() {
-    	//TODO laurenz
+    	FileManager fm = new FileManager();
+    	
+    	fm.loadImageFromGallery(fm.getLatestImage());
+    	assertTrue(fm.getLatestImage() != null);
+    	
     }
     
     public void testDeleteImage() {
 
     	FileManager fm = new FileManager();
     	String imageName = fm.getLatestImage();
-    	fm.deleteImageFromGallery(imageName);   	
+    	fm.deleteImageFromGallery(imageName);  
+    	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));
     	
+    }
+    public void testFolderEmpty() {
+//    	FileManager fm = new FileManager();
+    	File file = new File(SDPATH);
+    	assertTrue("Folder not yet created", file.exists());
     }
 }
 
