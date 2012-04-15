@@ -56,7 +56,11 @@ public class FilterCamera extends VideoCapture {
 	}
 	
 	public void setActiveFilter(IFilter filter) {
-		this.activeFilter = filter;
+		for(IFilter storedFilter : this.filters) {
+			if(filter.getClass().getName() == storedFilter.getClass().getName()) {
+				this.activeFilter = storedFilter;
+			}
+		}
 	}
 	
 	public IFilter getActiveFilter() {
@@ -68,6 +72,8 @@ public class FilterCamera extends VideoCapture {
 	}
 	
 	private Boolean isFirstRun() {
+		//TODO: implement via shared preferences
+		
 		return true;
 	}
 }
