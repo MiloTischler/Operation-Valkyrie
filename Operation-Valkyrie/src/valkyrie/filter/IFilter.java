@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
  *
  */
 public interface IFilter {
+	public void setup(FilterAssets filterAssets, Boolean firstRun);
 	public String getName();
 	public Bitmap getIcon();
 	public void manipulatePreviewImage(Bitmap bitmap);
