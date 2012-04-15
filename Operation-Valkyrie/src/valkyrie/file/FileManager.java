@@ -4,22 +4,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 
 public class FileManager {
-	final static String tag = "FileManager";
-	final static String fileName = "IMG";
-	final static String zeros = "0000";
-	final static String pathName = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
+	final static String TAG = "FileManager";
+	final static String IMGNAME = "IMG";
+	final static String IMGCOUNT = "0000";
+	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 
 	public void saveImageToGallery(Bitmap bitmap) {
 		OutputStream fOut = null;
-		File directory = new File(pathName);
+		File directory = new File(SDPATH);
 		if (!directory.exists())
 			directory.mkdirs();
 		File files[] = directory.listFiles();
@@ -39,14 +41,14 @@ public class FileManager {
 				}
 			}
 
-			String filenumber = zeros + highestnumber;
+			String filenumber = IMGCOUNT + highestnumber;
 			filenumber = filenumber.substring(filenumber.length() - 4);
 
-			file = new File(pathName, fileName + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".png");
 		} else {
-			String filenumber = zeros + 1;
+			String filenumber = IMGCOUNT + 1;
 			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(pathName, fileName + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".png");
 		}
 
 		try {
@@ -61,7 +63,7 @@ public class FileManager {
 			Log.e("FileManager", e.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.e(tag, e.toString());
+			Log.e(TAG, e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -71,33 +73,26 @@ public class FileManager {
 	}
 
 	public Bitmap loadImageFromGallery(String imageName) {
-
-		Bitmap bitmap = null;
-		return bitmap;
+		InputStream is = FileManager.class.getResourceAsStream(SDPATH + imageName);
+        return BitmapFactory.decodeStream(is);
+		
 	}
 
 	public Bitmap loadImageFromInternal(String imageName) {
-		// TODO Laurenz
-		Bitmap bitmap = null;
-		return bitmap;
+		InputStream is = FileManager.class.getResourceAsStream(SDPATH + imageName);
+        return BitmapFactory.decodeStream(is);
 	}
 
 	public void deleteImageFromGallery(String imageName) {
-		File fileToDelete = new File(pathName + imageName);
+		File fileToDelete = new File(SDPATH + imageName);
 		if (fileToDelete.exists())
 			fileToDelete.delete();
 
 	}
 
-	// testing purpose only:
-	public Boolean imageExists(String imageName) {
-				if (getLatestImage().equals(imageName))
-				return true;	
-		return false;
-	}
 	
 	public String getLatestImage() {
-		File directory = new File(pathName);
+		File directory = new File(SDPATH);
 		String imageName = null;
 		File files[] = directory.listFiles();
 		int highestnumber = 0;
