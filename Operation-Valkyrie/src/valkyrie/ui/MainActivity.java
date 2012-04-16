@@ -9,6 +9,7 @@ import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
