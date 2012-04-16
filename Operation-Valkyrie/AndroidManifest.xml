@@ -12,7 +12,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     
     <application
-        android:icon="@drawable/valkyrie"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
             android:name="valkyrie.ui.MainActivity"

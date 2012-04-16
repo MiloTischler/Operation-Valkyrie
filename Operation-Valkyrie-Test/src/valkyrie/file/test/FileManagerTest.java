@@ -15,7 +15,7 @@ import android.test.AndroidTestCase;
  */
 public class FileManagerTest extends AndroidTestCase{
 
-	final static String pathName =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
+	final static String SDPATH =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	
 	public FileManagerTest() {
         super();
@@ -26,29 +26,40 @@ public class FileManagerTest extends AndroidTestCase{
     	super.setUp();
     }
     
+    
     public void testSaveImage() {
-    	
+    	String comparedImage;
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
     	FileManager fm = new FileManager();
-    	for(int i = 0; i < 2 ; i++) {
+    	
+    	comparedImage = fm.getLatestImage();
+    	
     	fm.saveImageToGallery(bitmap);
-    	}
-    	assertTrue("Image is here",fm.imageExists(fm.getLatestImage()));
+    	
+    	assertFalse("Error: Image wasn't saved",comparedImage.equals(fm.getLatestImage()));
     }
     
     public void testLoadImage() {
-    	//TODO laurenz
-    	fail("Not yet implemented");
+    	FileManager fm = new FileManager();
+    	
+    	fm.loadImageFromGallery(fm.getLatestImage());
+    	assertTrue("Error: Couldn't load Image", fm.getLatestImage() != "Error");
+
     }
     
     public void testDeleteImage() {
-    	//TODO laurenz
+
     	FileManager fm = new FileManager();
     	String imageName = fm.getLatestImage();
-    	fm.deleteImageFromGallery(imageName);   
+
+    	fm.deleteImageFromGallery(imageName);  
+    	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));
+
     	
-    	fail("Not yet implemented");
-    	
+    }
+    public void testFolderEmpty() {
+    	File file = new File(SDPATH);
+    	assertTrue("Folder not yet created", file.exists());
     }
 }
 
