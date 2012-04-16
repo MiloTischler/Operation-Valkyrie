@@ -1,9 +1,18 @@
 package valkyrie.ui;
 
+
+import java.io.IOException;
+
+import valkyrie.filter.FilterCamera;
+import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
+
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * 
@@ -20,9 +29,9 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
 		// register UI components, all at once
 
+<<<<<<< HEAD
 //		LayoutManager.getInstance().setMainActivity(this);
 //		CameraPreview cameraPre = new CameraPreview(this) {
 //			
@@ -33,8 +42,16 @@ public class MainActivity extends Activity {
 //		};
 
 
+=======
+>>>>>>> 19d7d698041e2726e71dea89fe9acbae6c69dec9
 		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
+		
+		
+		// Ritzys filter test
+		//Ascii asciiFilter = new Ascii();
+		
+		
 		LayoutManager.getInstance().notifyUI(filter);
 
 	}

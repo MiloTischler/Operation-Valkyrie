@@ -3,6 +3,7 @@ package valkyrie.filter.nofilter;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import valkyrie.filter.FilterAssets;
 import valkyrie.filter.IFilter;
 
 /**
@@ -34,4 +35,8 @@ public class NoFilter implements IFilter{
 		return null;
 	}
 
+	public void setup(FilterAssets filterAssets, Boolean firstRun) {
+		// TODO Auto-generated method stub
+		
+	}
 }
