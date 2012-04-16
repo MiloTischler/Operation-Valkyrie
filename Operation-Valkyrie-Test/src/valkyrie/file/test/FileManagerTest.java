@@ -36,14 +36,14 @@ public class FileManagerTest extends AndroidTestCase{
     	
     	fm.saveImageToGallery(bitmap);
     	
-    	assertFalse("Image is not another one",comparedImage.equals(fm.getLatestImage()));
+    	assertFalse("Error: Image wasn't saved",comparedImage.equals(fm.getLatestImage()));
     }
     
     public void testLoadImage() {
     	FileManager fm = new FileManager();
     	
     	fm.loadImageFromGallery(fm.getLatestImage());
-    	assertTrue(fm.getLatestImage() != "Error");
+    	assertTrue("Error: Couldn't load Image", fm.getLatestImage() != "Error");
 
     }
     
@@ -58,7 +58,6 @@ public class FileManagerTest extends AndroidTestCase{
     	
     }
     public void testFolderEmpty() {
-//    	FileManager fm = new FileManager();
     	File file = new File(SDPATH);
     	assertTrue("Folder not yet created", file.exists());
     }
