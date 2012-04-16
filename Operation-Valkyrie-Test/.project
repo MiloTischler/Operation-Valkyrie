@@ -3,6 +3,7 @@
 	<name>Operation-Valkyrie-Test</name>
 	<comment></comment>
 	<projects>
+		<project>OpenCV-2.3.1</project>
 		<project>Operation-Valkyrie</project>
 	</projects>
 	<buildSpec>

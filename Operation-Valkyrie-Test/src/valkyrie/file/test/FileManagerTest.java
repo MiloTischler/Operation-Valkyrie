@@ -7,6 +7,12 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.test.AndroidTestCase;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
+ *
+ */
 public class FileManagerTest extends AndroidTestCase{
 
 	final static String SDPATH =Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
@@ -37,16 +43,18 @@ public class FileManagerTest extends AndroidTestCase{
     	FileManager fm = new FileManager();
     	
     	fm.loadImageFromGallery(fm.getLatestImage());
-    	assertTrue(fm.getLatestImage() != null);
-    	
+    	assertTrue(fm.getLatestImage() != "Error");
+
     }
     
     public void testDeleteImage() {
 
     	FileManager fm = new FileManager();
     	String imageName = fm.getLatestImage();
+
     	fm.deleteImageFromGallery(imageName);  
     	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));
+
     	
     }
     public void testFolderEmpty() {
