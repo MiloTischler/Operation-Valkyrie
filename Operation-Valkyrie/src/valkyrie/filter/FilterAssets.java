@@ -6,6 +6,12 @@ import java.io.InputStream;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+//TODO: problem.. maybe some filters want to write files..
+// .. solution: Export their assets folder in internal storage by installation O.O
+// .. give them a handle to that exported folder
+
+// or.. not by installation, maybe check if folder in storage exists
+
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
