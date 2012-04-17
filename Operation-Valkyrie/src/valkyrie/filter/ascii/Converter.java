@@ -29,11 +29,11 @@ import valkyrie.filter.IFilter;
  */
 
 public class Converter {
+	private int[] LUT;
 	
-	
-	public Converter() {
+	public Converter(int[] LUT) {
 		// TODO Auto-generated constructor stub
-		
+		this.LUT = LUT;
 	}
 	
 	public Bitmap bitmapToGrayScale(Bitmap bmpOriginal) {  
@@ -58,7 +58,7 @@ public class Converter {
 			textLine = "";
 			for (int j = 0; j < gray.getWidth(); j++) {
 				//here goes LUT
-				 textLine += (char)Color.red(gray.getPixel(j, i));	
+				 textLine += (char)this.LUT[Color.red(gray.getPixel(j, i))];	
 			}
 			textVec.add(textLine);
 		}
@@ -81,7 +81,6 @@ public class Converter {
 		String line = imageText.get(0);
 		Rect rect = new Rect();
 		paint.getTextBounds(line, 0, line.length(), rect);
-		
 		
 			//Log.d("valkyrie",  image);
 		Bitmap mybitmap = Bitmap.createBitmap(rect.width(), fontsize * imageText.size(), Bitmap.Config.RGB_565);
@@ -119,5 +118,4 @@ public class Converter {
 
 	}
 	
-	private int[] lut;
 }
