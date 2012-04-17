@@ -28,14 +28,21 @@ public class Ascii implements IFilter {
 		for(int i = 0; i < 100; i++){
 			colors[i] = Color.YELLOW;
 			if((i % 10) == 0)
-				colors[i] = Color.BLUE;
+				colors[i] = Color.RED;
 		}
 		this.bm = Bitmap.createBitmap(colors,10, 10, Bitmap.Config.RGB_565);
 		Log.d("valkyrie", this.bm.getPixel(1, 1) + " lol");
 		
+		this.fonts = new Vector<Font>();
+		for (String name : this.fontsList) {
+			this.fonts.add(new Font(name));
+		}	
 		
-		this.converter = new Converter();
+		this.converter = new Converter(this.fonts.get(0).getLUT());
 		manipulatePreviewImage(this.bm);
+		
+	
+		
 	}
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
@@ -68,4 +75,10 @@ public class Ascii implements IFilter {
 		
 	}
 	
+	
+	private Vector<Font> fonts;
+	private String fontsList[] = {
+			"test1",
+			"test2"
+	};
 }
