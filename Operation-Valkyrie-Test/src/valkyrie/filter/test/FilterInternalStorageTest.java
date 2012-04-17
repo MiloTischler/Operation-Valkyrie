@@ -18,4 +18,12 @@ public class FilterInternalStorageTest extends AndroidTestCase {
     	super.setUp();
     	fail("Not yet implemented..");
     }
+    
+    public void testOpenFile() {
+    	fail("Not yet implemented..");
+    }
+    
+    public void testWriteFile() {
+    	fail("Not yet implemented..");
+    }
 }

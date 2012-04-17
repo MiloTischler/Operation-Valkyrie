@@ -21,6 +21,8 @@ public class FilterInternalStorage {
 	public FilterInternalStorage(IFilter filter, Context context) {
 		this.filterPath = new String(filter.getClass().getSimpleName());
 		this.context = context;
+		
+		//TODO: Check if folder for filter exists, otherwise create it!
 	}
 	
 	public FileOutputStream openFileOutput(String fileName) throws FileNotFoundException {
@@ -29,5 +31,9 @@ public class FilterInternalStorage {
 	
 	public FileInputStream openFileInput(String fileName) throws FileNotFoundException {
 		return this.context.openFileInput(this.filterPath + "/" + fileName);
+	}
+	
+	private boolean folderExists() {
+		return true;
 	}
 }

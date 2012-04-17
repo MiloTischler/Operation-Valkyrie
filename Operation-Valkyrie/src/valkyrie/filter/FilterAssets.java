@@ -27,6 +27,8 @@ public class FilterAssets {
 	public FilterAssets(IFilter filter, Context context) {
 		this.filterPath = new String(filter.getClass().getSimpleName());
 		this.assetManager = context.getAssets();
+		
+		//TODO: Check if assets folder exits?
 	}
 	
 	public String[] list(String path) throws IOException {
@@ -39,5 +41,9 @@ public class FilterAssets {
 	
 	public InputStream open(String fileName) throws IOException {
 		return this.assetManager.open(this.filterPath + "/" + fileName);
+	}
+	
+	private boolean folderExists() {
+		return true;
 	}
 }
