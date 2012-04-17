@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 //TODO: problem.. maybe some filters want to write files..
 // .. solution: Export their assets folder in internal storage by installation O.O
@@ -28,7 +29,7 @@ public class FilterAssets {
 		this.filterPath = new String(filter.getClass().getSimpleName());
 		this.assetManager = context.getAssets();
 		
-		//TODO: Check if assets folder exits?
+		Log.i(TAG, "Init asset folder access for filter: " + filter.getClass().getSimpleName());
 	}
 	
 	public String[] list(String path) throws IOException {
@@ -41,9 +42,5 @@ public class FilterAssets {
 	
 	public InputStream open(String fileName) throws IOException {
 		return this.assetManager.open(this.filterPath + "/" + fileName);
-	}
-	
-	private boolean folderExists() {
-		return true;
 	}
 }

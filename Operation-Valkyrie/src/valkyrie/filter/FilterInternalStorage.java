@@ -1,10 +1,12 @@
 package valkyrie.filter;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * 
@@ -17,12 +19,14 @@ public class FilterInternalStorage {
 	
 	private String filterPath = null;
 	private Context context = null;
+	private File filterFolder = null;
 	
 	public FilterInternalStorage(IFilter filter, Context context) {
 		this.filterPath = new String(filter.getClass().getSimpleName());
 		this.context = context;
+		this.filterFolder = this.context.getDir(this.filterPath, Context.MODE_PRIVATE);
 		
-		//TODO: Check if folder for filter exists, otherwise create it!
+		Log.i(TAG, "New internal storage folder for filter: " + filter.getClass().getSimpleName());
 	}
 	
 	public FileOutputStream openFileOutput(String fileName) throws FileNotFoundException {
@@ -33,7 +37,11 @@ public class FilterInternalStorage {
 		return this.context.openFileInput(this.filterPath + "/" + fileName);
 	}
 	
-	private boolean folderExists() {
-		return true;
+	public boolean rootFolderExists() {
+		if(this.filterFolder.isDirectory() && this.filterFolder.exists()) {
+			return true;
+		}
+		
+		return false;
 	}
 }
