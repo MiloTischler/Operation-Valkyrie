@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 		
 		
 		// Ritzys filter test
-		Ascii asciiFilter = new Ascii();
+		//Ascii asciiFilter = new Ascii();
 		
 		
 		LayoutManager.getInstance().notifyUI(filter);
