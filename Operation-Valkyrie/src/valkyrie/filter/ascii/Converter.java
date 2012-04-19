@@ -29,11 +29,8 @@ import valkyrie.filter.IFilter;
  */
 
 public class Converter {
-	private int[] LUT;
 	
-	public Converter(int[] LUT) {
-		// TODO Auto-generated constructor stub
-		this.LUT = LUT;
+	public Converter() {
 	}
 	
 	public Bitmap bitmapToGrayScale(Bitmap bmpOriginal) {  
@@ -51,14 +48,14 @@ public class Converter {
 
 	}
 	
-	public Vector<String> grayScaleToAsciiText(Bitmap gray){
+	public Vector<String> grayScaleToAsciiText(Bitmap gray, int[] LUT){
 		Vector<String> textVec = new Vector<String>();
 		String textLine;
 		for (int i = 0; i < gray.getHeight(); i++) {
 			textLine = "";
 			for (int j = 0; j < gray.getWidth(); j++) {
 				//here goes LUT
-				 textLine += (char)this.LUT[Color.red(gray.getPixel(j, i))];	
+				 textLine += (char)LUT[Color.red(gray.getPixel(j, i))];	
 			}
 			textVec.add(textLine);
 		}
@@ -69,7 +66,7 @@ public class Converter {
 	
 	public void asciiTextToImage(Vector<String> imageText){
 		// get right size and dont save bmp
-		int fontsize = 20;
+		int fontsize = 5;
 		//font options go here
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
@@ -82,7 +79,7 @@ public class Converter {
 		Rect rect = new Rect();
 		paint.getTextBounds(line, 0, line.length(), rect);
 		
-			//Log.d("valkyrie",  image);
+	    Log.d("valkyrie", "Image size:" + rect.width() + " | " + (fontsize * imageText.size()) );
 		Bitmap mybitmap = Bitmap.createBitmap(rect.width(), fontsize * imageText.size(), Bitmap.Config.RGB_565);
 		Canvas c = new Canvas(mybitmap);
 		c.drawColor(Color.WHITE);
@@ -112,9 +109,6 @@ public class Converter {
 			e.printStackTrace();
 		}
 		Log.d("valkyrie",  "finish");	
-
-
-//		MediaStore.Images.Media.insertImage(getContentResolver(),file.getAbsolutePath(),file.getName(),file.getName());
 
 	}
 	
