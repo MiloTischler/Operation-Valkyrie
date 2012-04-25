@@ -33,35 +33,31 @@ public class FilterInternalStorageTest extends AndroidTestCase {
 	public void testWriteAndOpenFile() {
 		this.writeAndOpenFile("test.txt");
 	}
-	
-	public void testWriteAndOpenFileInDir() {
-		this.writeAndOpenFile("test123/test.txt");
-	}
-	
+
 	public void testRootFolderExists() {
 		NoFilter noFilter = new NoFilter();
-		
+
 		FilterInternalStorage internalStorage = new FilterInternalStorage(noFilter, this.getContext());
-		
+
 		String filterPath = new String(noFilter.getClass().getSimpleName());
-		
+
 		File filterFolder = this.getContext().getDir(filterPath, Context.MODE_PRIVATE);
-		
+
 		assertTrue(filterFolder.exists());
 		assertTrue(filterFolder.isDirectory());
-		
-		filterFolder.delete();
-		
+
+		deleteDir(filterFolder);
+
 		assertFalse(internalStorage.rootFolderExists());
 		assertFalse(filterFolder.isDirectory());
 		assertFalse(filterFolder.exists());
 	}
-	
+
 	private void writeAndOpenFile(String path) {
 		NoFilter noFilter = new NoFilter();
 
 		FilterInternalStorage internalStorage = new FilterInternalStorage(noFilter, this.getContext());
-		
+
 		assertNotNull(internalStorage);
 
 		String fileContent = "That's a testcase of the class " + TAG;
@@ -74,7 +70,7 @@ public class FilterInternalStorageTest extends AndroidTestCase {
 
 		try {
 			out = internalStorage.openFileOutput(fileName);
-			
+
 			assertNotNull(out);
 
 			for (int ch = 0; ch < buffer.length; ch++) {
@@ -91,17 +87,17 @@ public class FilterInternalStorageTest extends AndroidTestCase {
 
 		// lets open the file
 		FileInputStream in = null;
-		
+
 		StringBuffer fileContentComp = new StringBuffer();
-		
+
 		try {
 			in = internalStorage.openFileInput(fileName);
-			
+
 			assertNotNull(in);
-			
+
 			int ch;
-			
-			while((ch = in.read()) != -1) {
+
+			while ((ch = in.read()) != -1) {
 				fileContentComp.append((char) ch);
 			}
 		} catch (FileNotFoundException e) {
@@ -109,8 +105,28 @@ public class FilterInternalStorageTest extends AndroidTestCase {
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage());
 		}
-		
+
 		// compare the content
 		assertTrue(fileContent.equals(fileContentComp.toString()));
+	}
+
+	/**
+	 * QUELLE: http://javaalmanac.com/egs/java.io/DeleteDir.html
+	 * @param dir
+	 * @return
+	 */
+	public static boolean deleteDir(File dir) {
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success) {
+					return false;
+				}
+			}
+		}
+
+		// The directory is now empty so delete it
+		return dir.delete();
 	}
 }

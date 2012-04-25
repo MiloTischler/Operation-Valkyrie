@@ -47,7 +47,8 @@ public class FilterCamera extends VideoCapture {
 				Log.e(TAG, e.getMessage());
 			} finally {
 				if (filter != null) {
-					filter.setup(new FilterAssets(filter, context), this.isFirstRun());
+					filter.setup(new FilterInternalStorage(filter, context), new FilterAssets(filter, context),
+							this.isFirstRun());
 
 					Log.i(TAG, "Load and setup filter: " + filter.getClass().getName());
 
