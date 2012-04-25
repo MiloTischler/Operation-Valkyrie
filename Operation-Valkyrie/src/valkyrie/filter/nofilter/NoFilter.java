@@ -4,15 +4,16 @@ import java.util.Vector;
 
 import android.graphics.Bitmap;
 import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
- *
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
  */
-public class NoFilter implements IFilter{
+public class NoFilter implements IFilter {
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 
@@ -35,8 +36,8 @@ public class NoFilter implements IFilter{
 		return null;
 	}
 
-	public void setup(FilterAssets filterAssets, Boolean firstRun) {
+	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
