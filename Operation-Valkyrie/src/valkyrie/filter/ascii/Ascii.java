@@ -25,6 +25,12 @@ public class Ascii implements IFilter {
 	private Font activeFont;	
 	private Converter converter;
 	
+	private Vector<Font> fonts;
+	private String fontsList[] = {
+			"test1",
+			"test2"
+	};
+	
 	public Ascii(){
 		//test bitmap
 		int[] colors = new int[10 * 10];
@@ -100,11 +106,4 @@ public class Ascii implements IFilter {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	private Vector<Font> fonts;
-	private String fontsList[] = {
-			"test1",
-			"test2"
-	};
 }
