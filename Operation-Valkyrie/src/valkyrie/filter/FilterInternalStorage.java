@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 
 import android.content.Context;
 import android.util.Log;
@@ -29,15 +31,15 @@ public class FilterInternalStorage {
 		Log.i(TAG, "New internal storage folder for filter: " + filter.getClass().getSimpleName());
 	}
 	
-	public FileOutputStream openFileOutput(String fileName) throws FileNotFoundException {
-		return this.context.openFileOutput(this.filterPath + "/" + fileName, Context.MODE_PRIVATE);
+	public FileOutputStream openFileOutput(String fileName) throws FileNotFoundException {				
+		return new FileOutputStream(this.filterFolder.getPath() + "/" + fileName);
 	}
 	
 	public FileInputStream openFileInput(String fileName) throws FileNotFoundException {
-		return this.context.openFileInput(this.filterPath + "/" + fileName);
+		return new FileInputStream(this.filterFolder.getPath() + "/" + fileName);
 	}
 	
-	public boolean rootFolderExists() {
+	public boolean rootFolderExists() {		
 		if(this.filterFolder.isDirectory() && this.filterFolder.exists()) {
 			return true;
 		}
