@@ -58,15 +58,16 @@ public class LayoutManager {
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
-
+		
 	}
 
 	/**
-	 * Registers the main layout.
+	 * Registers the main layout. @TODO: Useless?! (MILO set deprecated)
 	 * 
 	 * @param mainView
 	 *            the main Activity object
 	 */
+	@Deprecated
 	public void setMainActivity(Activity mainActivity) {
 		this.mainActivity = mainActivity;
 	}
