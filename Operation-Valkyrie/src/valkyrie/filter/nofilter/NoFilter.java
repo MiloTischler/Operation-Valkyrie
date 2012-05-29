@@ -1,8 +1,10 @@
 package valkyrie.filter.nofilter;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import android.widget.RelativeLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
@@ -23,8 +25,8 @@ public class NoFilter implements IFilter {
 
 	}
 
-	public Vector<Object> getUIElements() {
-		return new Vector<Object>();
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
+		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 
 	public String getName() {
