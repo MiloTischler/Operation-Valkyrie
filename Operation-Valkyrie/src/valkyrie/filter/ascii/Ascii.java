@@ -2,6 +2,7 @@ package valkyrie.filter.ascii;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
@@ -90,9 +92,9 @@ public class Ascii implements IFilter {
 		
 	}
 
-	public Vector<Object> getUIElements() {
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
 		// TODO Auto-generated method stub
-		return null;
+		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 
 	public String getName() {
