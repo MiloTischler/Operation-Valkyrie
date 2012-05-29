@@ -2,11 +2,9 @@ package valkyrie.ui;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
-import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Button;
 
 /**
  * 
@@ -15,6 +13,7 @@ import android.widget.Button;
  * 
  */
 public class MainActivity extends Activity {
+	private static final String TAG = "MainActivity";
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -24,9 +23,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 		// register UI components, all at once
 
-		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
-		
 		
 		// Ritzys filter test
 		//Ascii asciiFilter = new Ascii();

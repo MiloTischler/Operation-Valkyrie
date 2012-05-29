@@ -40,12 +40,14 @@
             android:contentDescription="@string/filterOptionsHandleDescription"
             android:src="@drawable/sliding_drawer_handle_left" />
 
+        <!-- is 30% transparent (0xAA = 170) -->
         <valkyrie.ui.UpdateableRelativeLayout
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
             android:id="@+id/filterOptionsContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@android:color/white"
+            style="@android:style/Theme.Translucent"
+            android:background="#AA000000" 
             android:orientation="horizontal" >
 
             <TextView

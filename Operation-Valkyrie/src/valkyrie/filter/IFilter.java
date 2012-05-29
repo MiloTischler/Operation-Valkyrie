@@ -1,8 +1,10 @@
 package valkyrie.filter;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -20,6 +22,6 @@ public interface IFilter {
 	public void manipulatePreviewImage(Bitmap bitmap);
 
 	public void manipulateImage(Bitmap bitmap);
-
-	public Vector<Object> getUIElements();
+	
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements();
 }
