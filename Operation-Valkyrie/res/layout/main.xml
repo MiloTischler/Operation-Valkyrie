@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <!-- Camera Preview Panel -->
+    <!-- Camera Preview Panel begin -->
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/cameraPreview"
@@ -21,26 +21,28 @@
     <!-- Camera Preview Panel End -->
 
 
-    <!-- Options Panel -->
-    <SlidingDrawer
-        android:id="@+id/optionsPanel"
+    <!-- Filter Options Panel begin -->
+    <valkyrie.widget.MultiDirectionSlidingDrawer
+        xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
+        android:id="@+id/filterOptionsPanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignLeft="@+id/cameraPreview"
-        android:content="@+id/optionsContent"
-        android:handle="@+id/handle"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        my:direction="leftToRight"
+        my:handle="@+id/filterOptionsHandle"
+        my:content="@+id/filterOptionsContent">
 
         <ImageView
-            android:id="@+id/handle"
+            android:id="@+id/filterOptionsHandle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/sliderImageDescription"
-            android:src="@drawable/ic_launcher" />
+            android:contentDescription="@string/filterOptionsHandleDescription"
+            android:src="@drawable/sliding_drawer_handle_left" />
 
         <valkyrie.ui.UpdateableRelativeLayout
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-            android:id="@+id/optionsContent"
+            android:id="@+id/filterOptionsContent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@android:color/white"
@@ -52,11 +54,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/options" />
         </valkyrie.ui.UpdateableRelativeLayout>
-    </SlidingDrawer>
-    <!-- Options Panel End -->
+    </valkyrie.widget.MultiDirectionSlidingDrawer>
+    <!-- Filter Options Panel End -->
 
 
-    <!-- Action Bar -->
+    <!-- Action Bar Begin -->
     <!--
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
