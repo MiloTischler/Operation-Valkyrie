@@ -1,19 +1,12 @@
 package valkyrie.ui;
 
-
-import java.io.IOException;
-
-import valkyrie.filter.FilterCamera;
-import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
+import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 
 /**
  * 
@@ -22,7 +15,7 @@ import android.util.Log;
  * 
  */
 public class MainActivity extends Activity {
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
