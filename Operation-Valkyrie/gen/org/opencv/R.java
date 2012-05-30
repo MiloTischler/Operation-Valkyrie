@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package valkyrie.main;
+package org.opencv;
 
 public final class R {
     public static final class array {

@@ -1,42 +1,39 @@
 package valkyrie.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Vector;
 
 import valkyrie.filter.IFilter;
-import android.app.Activity;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
- * Schweighofer, Milo Tischler 
- * © Milo Tischler, Jakob Schweighofer, Alexander
- * Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+
 /**
  * Singleton Class. Used to manage interactions with UI elements.
  */
 public class LayoutManager {
+	private static final String TAG = "LayoutManager";
 
 	/**
 	 * Instance Variable. Used for Singleton.
 	 */
 	private static LayoutManager instance = null;
 
-	/**
-	 * Contains the mainActivity of the Program.
-	 */
-	private Activity mainActivity = null;
-
-	private ArrayList<UpdateableRelativeLayout> registeredComponents = null;
+	private ArrayList<IUpdateableUI> registeredComponents = null;
 
 	/**
 	 * Default-Konstruktor, der nicht auﬂerhalb dieser Klasse aufgerufen werden
 	 * kann.
 	 */
 	private LayoutManager() {
-		this.registeredComponents = new ArrayList<UpdateableRelativeLayout>();
+		this.registeredComponents = new ArrayList<IUpdateableUI>();
 	}
 
 	/**
@@ -58,17 +55,11 @@ public class LayoutManager {
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
+		HashMap<Integer, Vector<RelativeLayout>> uiElements = filterObject.getUIElements();
 
-	}
-
-	/**
-	 * Registers the main layout.
-	 * 
-	 * @param mainView
-	 *            the main Activity object
-	 */
-	public void setMainActivity(Activity mainActivity) {
-		this.mainActivity = mainActivity;
+		for (IUpdateableUI registeredComponent : this.registeredComponents) {
+			registeredComponent.redrawUI(uiElements);
+		}
 	}
 
 	/**
@@ -78,10 +69,17 @@ public class LayoutManager {
 	 *            An UpdateableRelativeLayout element
 	 */
 	public void registerUpdateableComponent(UpdateableRelativeLayout component) {
-
-		Log.d("FasuDebug", "Registered " + component.getId());
 		this.registeredComponents.add(component);
+	}
 
+	/**
+	 * Removes a registered Updateable Component
+	 * 
+	 * @param component
+	 *            An UpdateableRelativeLayout element
+	 */
+	public void removeUpdateableComponent(UpdateableRelativeLayout component) {
+		this.registeredComponents.remove(component);
 	}
 
 }

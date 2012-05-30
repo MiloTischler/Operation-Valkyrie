@@ -1,12 +1,19 @@
 package valkyrie.filter.ascii;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
 /**
@@ -18,40 +25,76 @@ import valkyrie.filter.IFilter;
 public class Ascii implements IFilter {
 	
 	private Bitmap bm;
-	
-	
+	private Font activeFont;	
 	private Converter converter;
 	
+	private Vector<Font> fonts;
+	private String fontsList[] = {
+			"test1",
+			"test2"
+	};
+	
+	/**
+	 * TODO: Sry aber bei mir wirft des a nullpointer exception wenn ich alle filter für den
+	 * filtermanager instancier, lg milo
+	 */
 	public Ascii(){
-		//test bitmap
-		int[] colors = new int[10 * 10];
-		for(int i = 0; i < 100; i++){
-			colors[i] = Color.YELLOW;
-			if((i % 10) == 0)
-				colors[i] = Color.BLUE;
-		}
-		this.bm = Bitmap.createBitmap(colors,10, 10, Bitmap.Config.RGB_565);
-		Log.d("valkyrie", this.bm.getPixel(1, 1) + " lol");
-		
-		
-		this.converter = new Converter();
-		manipulatePreviewImage(this.bm);
+//		//test bitmap
+//		int[] colors = new int[10 * 10];
+//		for(int i = 0; i < 100; i++){
+//			colors[i] = Color.YELLOW;
+//			if((i % 10) == 0)
+//				colors[i] = Color.RED;
+//		}
+//		//this.bm = Bitmap.createBitmap(colors,10, 10, Bitmap.Config.RGB_565);
+//        
+//
+//        FileInputStream in;
+//        BufferedInputStream buf;
+//        String path = Environment.getExternalStorageDirectory().toString();
+//        try {
+//       	    in = new FileInputStream( path + "/oruxmaps/cursors/neodraig2.png");
+//            buf = new BufferedInputStream(in);
+//            this.bm = BitmapFactory.decodeStream(buf);
+//            if (in != null) {
+//         	in.close();
+//            }
+//            if (buf != null) {
+//         	buf.close();
+//            }
+//        } catch (Exception e) {
+//            Log.e("Error reading file", e.toString());
+//        }
+//		
+//		
+//		
+//		Log.d("valkyrie", this.bm.getPixel(1, 1) + " lol");
+//		
+//		this.fonts = new Vector<Font>();
+//		for (String name : this.fontsList) {
+//			this.fonts.add(new Font(name, true));
+//		}
+//		
+//		this.activeFont = this.fonts.get(0);
+//		
+//		this.converter = new Converter();
+//		manipulatePreviewImage(this.bm);
 	}
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
-		Log.d("valkyrie",  bm2.getPixel(0, 0) +  " lol2");	
-		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2));
+		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
 	}
 
 	public void manipulateImage(Bitmap bitmap) {
-		// TODO Auto-generated method stub
+		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
+		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
 		
 	}
 
-	public Vector<Object> getUIElements() {
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
 		// TODO Auto-generated method stub
-		return null;
+		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 
 	public String getName() {
@@ -63,9 +106,8 @@ public class Ascii implements IFilter {
 		return null;
 	}
 
-	public void setup(FilterAssets filterAssets, Boolean firstRun) {
+	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

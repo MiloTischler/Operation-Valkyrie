@@ -30,7 +30,7 @@ public class FilterCameraTest extends AndroidTestCase {
     }
     
     public void testGetFilterList() {
-    	FilterCamera filterCamera = new FilterCamera(getContext(), valkyrie.main.R.array.filters);
+    	FilterCamera filterCamera = new FilterCamera(mContext, valkyrie.main.R.array.filters);
     	
     	assertNotNull(filterCamera.getFilterList());
     	assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);

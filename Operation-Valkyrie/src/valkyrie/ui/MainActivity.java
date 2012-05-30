@@ -1,18 +1,16 @@
 package valkyrie.ui;
 
-
-import java.io.IOException;
-
-import valkyrie.filter.FilterCamera;
-import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -22,7 +20,11 @@ import android.util.Log;
  * 
  */
 public class MainActivity extends Activity {
-
+	private static final String TAG = "MainActivity"; 
+	
+	private ImageView handle = null;
+	private SurfaceView camera = null;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,7 @@ public class MainActivity extends Activity {
 		// register UI components, all at once
 
 
-		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
-		
 		
 		// Ritzys filter test
 		//Ascii asciiFilter = new Ascii();
@@ -42,10 +42,33 @@ public class MainActivity extends Activity {
 		
 		LayoutManager.getInstance().notifyUI(filter);
 		
-		//CameraPreview camPrev = new CameraPreview(this);
+
+		this.handle = (ImageView) this.findViewById(R.id.filterOptionsHandle);
+		this.camera = (SurfaceView) this.findViewById(R.id.cameraPreview);
 		
+		this.handle.setOnLongClickListener (new View.OnLongClickListener()
+		{
+		    public boolean onLongClick (View v)
+		    {
+		    	camera.setVisibility(View.GONE);
+		    	
+		    	Log.d(TAG, "OMFG OMFG OMFG");
+		    			
+		        return false;
+		    }
+		});
+		
+		this.handle.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				camera.setVisibility(View.GONE);
+				
+				Log.d(TAG, "LOL OMFG OMFG OMFG");
+			}
+		});
 		
 
 	}
+	
 
 }
