@@ -67,4 +67,16 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		
 		assertTrue(filterOptionsHandle.getRight() == filterOptionsHandle.getWidth());
 	}
+	
+	public void testTakePhoto() {
+		fail("Not yet implemented");
+	}
+	
+	public void testShowGallery() {
+		fail("Not yet implemented");
+	}
+	
+	public void testToggleFilterEffect() {
+		fail("Not yet implemented");
+	}
 }
