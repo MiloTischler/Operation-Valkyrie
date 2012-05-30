@@ -81,12 +81,13 @@ containing a value of this type.
     }
     public static final class id {
         public static final int bottomToTop=0x7f050001;
-        public static final int cameraPreview=0x7f050004;
-        public static final int filterOptionsContent=0x7f050007;
-        public static final int filterOptionsHandle=0x7f050006;
-        public static final int filterOptionsPanel=0x7f050005;
+        public static final int cameraPreviewDispatcher=0x7f050004;
+        public static final int cameraPreviewView=0x7f050005;
+        public static final int filterOptionsContent=0x7f050008;
+        public static final int filterOptionsHandle=0x7f050007;
+        public static final int filterOptionsPanel=0x7f050006;
         public static final int leftToRight=0x7f050002;
-        public static final int optionsTest=0x7f050008;
+        public static final int optionsTest=0x7f050009;
         public static final int rightToLeft=0x7f050000;
         public static final int topToBottom=0x7f050003;
     }
@@ -95,6 +96,7 @@ containing a value of this type.
     }
     public static final class string {
         public static final int app_name=0x7f060001;
+        public static final int cameraPreviewViewDescription=0x7f060004;
         public static final int filterOptionsHandleDescription=0x7f060003;
         public static final int hello=0x7f060000;
         public static final int options=0x7f060002;
