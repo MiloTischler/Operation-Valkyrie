@@ -3,9 +3,16 @@ package valkyrie.ui;
 import valkyrie.main.R;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.SoundEffectConstants;
+import android.view.View;
 import android.view.Window;
-
+import android.widget.Toast;
 
 /**
  * 
@@ -14,26 +21,49 @@ import android.view.Window;
  * 
  */
 public class MainActivity extends Activity {
-	private static final String TAG = "MainActivity"; 
-	
+	private static final String TAG = "MainActivity";
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
-		//Disable window title bar, for full screen camera preview
+		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		//Set activity layout
+
+		// Set activity layout
 		this.setContentView(R.layout.main);
-		
-		//Start capturing the camera for the preview
+
+		// Start capturing the camera for the preview
 		CameraPreviewView cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.cameraPreviewView);
-		
-		CameraPreviewDispatcher cameraPreviewDispatcher = (CameraPreviewDispatcher) this.findViewById(R.id.cameraPreviewDispatcher);
+
+		CameraPreviewDispatcher cameraPreviewDispatcher = (CameraPreviewDispatcher) this
+				.findViewById(R.id.cameraPreviewDispatcher);
 		cameraPreviewDispatcher.setCameraPreviewView(cameraPreviewView);
 	}
-	
 
+	public void takePhoto(View view) {
+		//Just a dummy text to appear..
+		Toast.makeText(this.getApplicationContext(), "Take Photo Clicked", Toast.LENGTH_SHORT).show();
+
+		//Play take photo sound effect
+		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+
+		if (volume != 0) {
+			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
+					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+			
+			if(shootSpound != null) {
+				shootSpound.start();
+			} else {
+				view.playSoundEffect(SoundEffectConstants.CLICK);
+			}
+		}
+		
+		//TODO: Implementation of takePhoto
+
+		Log.d("Tag", "clicked: takePhoto");
+	}
 }

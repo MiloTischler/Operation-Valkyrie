@@ -85,6 +85,12 @@
             android:contentDescription="@string/filterOptionsHandleDescription"
             android:src="@drawable/actionbar_backgorund" />
         
+        <Button
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:text="@string/trigger"
+		     android:onClick="takePhoto" />
+        
     </RelativeLayout>    
     <!-- Action Bar end -->
 </RelativeLayout>

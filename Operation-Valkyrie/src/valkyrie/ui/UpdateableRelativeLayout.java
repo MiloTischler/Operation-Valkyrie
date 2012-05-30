@@ -22,7 +22,6 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	}
 
 	public void redrawUI(HashMap<Integer, Vector<RelativeLayout>> uiElements) {
-		// TODO Auto-generated method stub
 		
 		
 	}

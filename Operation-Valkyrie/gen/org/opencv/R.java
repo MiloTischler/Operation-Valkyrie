@@ -103,6 +103,7 @@ containing a value of this type.
         public static final int filterOptionsHandleDescription=0x7f060003;
         public static final int hello=0x7f060000;
         public static final int options=0x7f060002;
+        public static final int trigger=0x7f060005;
     }
     public static final class styleable {
         /** Attributes that can be used with a MultiDirectionSlidingDrawer.
