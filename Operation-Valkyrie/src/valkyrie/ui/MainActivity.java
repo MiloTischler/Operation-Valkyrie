@@ -31,19 +31,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 		// register UI components, all at once
 
-<<<<<<< HEAD
-//		LayoutManager.getInstance().setMainActivity(this);
-//		CameraPreview cameraPre = new CameraPreview(this) {
-//			
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				// whatever
-//			}
-//		};
 
-
-=======
->>>>>>> 19d7d698041e2726e71dea89fe9acbae6c69dec9
 		LayoutManager.getInstance().setMainActivity(this);
 		NoFilter filter = new NoFilter();
 		
@@ -53,6 +41,10 @@ public class MainActivity extends Activity {
 		
 		
 		LayoutManager.getInstance().notifyUI(filter);
+		
+		//CameraPreview camPrev = new CameraPreview(this);
+		
+		
 
 	}
 
