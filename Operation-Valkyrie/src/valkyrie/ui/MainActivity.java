@@ -45,6 +45,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void takePhoto(View view) {
+		Log.d("Tag", "clicked: takePhoto");
+		
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Photo Clicked", Toast.LENGTH_SHORT).show();
 
@@ -64,17 +66,25 @@ public class MainActivity extends Activity {
 		}
 
 		// TODO: Implementation of takePhoto
-
-		Log.d("Tag", "clicked: takePhoto");
 	}
 
 	public void showGallery(View view) {
+		Log.d("Tag", "clicked: showGallery");
+		
+		// Just a dummy text to appear..
+		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
+		
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of showGallery
 	}
 
 	public void toggleFilterEffect(View view) {
+		Log.d("Tag", "clicked: toggleFilterEffect");
+		
+		// Just a dummy text to appear..
+		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
+		
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of toggleFilterEffect
