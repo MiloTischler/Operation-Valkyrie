@@ -74,12 +74,15 @@ containing a value of this type.
         public static final int topOffset=0x7f010004;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int real_valkyrie=0x7f020001;
-        public static final int sliding_drawer_handle_left=0x7f020002;
-        public static final int valkyrie=0x7f020003;
+        public static final int actionbar_backgorund=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int real_valkyrie=0x7f020002;
+        public static final int sliding_drawer_handle_left=0x7f020003;
+        public static final int valkyrie=0x7f020004;
     }
     public static final class id {
+        public static final int actionBar=0x7f05000a;
+        public static final int actionBarBackground=0x7f05000b;
         public static final int bottomToTop=0x7f050001;
         public static final int cameraPreviewDispatcher=0x7f050004;
         public static final int cameraPreviewView=0x7f050005;
