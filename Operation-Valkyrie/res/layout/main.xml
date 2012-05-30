@@ -4,17 +4,22 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <!-- Camera Preview Panel begin -->
-    <valkyrie.ui.CameraPreviewView
+    <!-- Camera Preview Panel begin -->        
+    <valkyrie.ui.CameraPreviewDispatcher
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-        android:id="@+id/cameraPreview"
+        android:id="@+id/cameraPreviewDispatcher"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
-            
-    </valkyrie.ui.CameraPreviewView>
+        android:orientation="vertical" />
+    
+    <valkyrie.ui.CameraPreviewView
+        xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
+        android:id="@+id/cameraPreviewView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        android:contentDescription="@string/cameraPreviewViewDescription" />
     <!-- Camera Preview Panel End -->
-
 
     <!-- Filter Options Panel begin -->
     <valkyrie.widget.MultiDirectionSlidingDrawer
@@ -22,7 +27,7 @@
         android:id="@+id/filterOptionsPanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignLeft="@+id/cameraPreview"
+        android:layout_alignLeft="@+id/cameraPreviewView"
         android:orientation="horizontal" 
         my:direction="leftToRight"
         my:handle="@+id/filterOptionsHandle"

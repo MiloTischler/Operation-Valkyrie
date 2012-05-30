@@ -5,5 +5,5 @@
     <string name="app_name">Operation-Valkyrie</string>
     <string name="options">Options</string>
     <string name="filterOptionsHandleDescription">Filter Options Handle</string>
-
+	<string name="cameraPreviewViewDescription">Camera Preview View</string>
 </resources>
