@@ -5,6 +5,12 @@ import valkyrie.main.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -13,7 +19,10 @@ import android.os.Bundle;
  * 
  */
 public class MainActivity extends Activity {
-	private static final String TAG = "MainActivity";
+	private static final String TAG = "MainActivity"; 
+	
+	private ImageView handle = null;
+	private SurfaceView camera = null;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -30,6 +39,32 @@ public class MainActivity extends Activity {
 		
 		
 		LayoutManager.getInstance().notifyUI(filter);
+		
+		this.handle = (ImageView) this.findViewById(R.id.filterOptionsHandle);
+		this.camera = (SurfaceView) this.findViewById(R.id.cameraPreview);
+		
+		this.handle.setOnLongClickListener (new View.OnLongClickListener()
+		{
+		    public boolean onLongClick (View v)
+		    {
+		    	camera.setVisibility(View.GONE);
+		    	
+		    	Log.d(TAG, "OMFG OMFG OMFG");
+		    			
+		        return false;
+		    }
+		});
+		
+		this.handle.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				camera.setVisibility(View.GONE);
+				
+				Log.d(TAG, "LOL OMFG OMFG OMFG");
+			}
+		});
+		
 	}
+	
 
 }
