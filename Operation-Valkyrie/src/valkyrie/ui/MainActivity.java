@@ -36,34 +36,47 @@ public class MainActivity extends Activity {
 		this.setContentView(R.layout.main);
 
 		// Start capturing the camera for the preview
-		CameraPreviewView cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.cameraPreviewView);
+		CameraPreviewView cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
 
 		CameraPreviewDispatcher cameraPreviewDispatcher = (CameraPreviewDispatcher) this
-				.findViewById(R.id.cameraPreviewDispatcher);
+				.findViewById(R.id.camera_preview_dispatcher);
+
 		cameraPreviewDispatcher.setCameraPreviewView(cameraPreviewView);
 	}
 
 	public void takePhoto(View view) {
-		//Just a dummy text to appear..
+		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Photo Clicked", Toast.LENGTH_SHORT).show();
 
-		//Play take photo sound effect
+		// Play take photo sound effect
 		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 
 		if (volume != 0) {
 			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
 					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-			
-			if(shootSpound != null) {
+
+			if (shootSpound != null) {
 				shootSpound.start();
 			} else {
 				view.playSoundEffect(SoundEffectConstants.CLICK);
 			}
 		}
-		
-		//TODO: Implementation of takePhoto
+
+		// TODO: Implementation of takePhoto
 
 		Log.d("Tag", "clicked: takePhoto");
+	}
+
+	public void showGallery(View view) {
+		view.playSoundEffect(SoundEffectConstants.CLICK);
+
+		// TODO: Implementation of showGallery
+	}
+
+	public void toggleFilterEffect(View view) {
+		view.playSoundEffect(SoundEffectConstants.CLICK);
+
+		// TODO: Implementation of toggleFilterEffect
 	}
 }

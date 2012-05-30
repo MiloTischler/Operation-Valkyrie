@@ -4,7 +4,10 @@
     <string name="hello">Hello Camera Preview Panel</string>
     <string name="app_name">Operation-Valkyrie</string>
     <string name="options">Options</string>
-    <string name="filterOptionsHandleDescription">Filter Options Handle</string>
-	<string name="cameraPreviewViewDescription">Camera Preview View</string>
+    <string name="filter_options_handle_description">Filter Options Handle</string>
+	<string name="camera_preview_view_description">Camera Preview View</string>
 	<string name="trigger">Photo</string>
+	<string name="gallery">Gallery</string>
+	<string name="filter_effect_toggle">Toggle</string>
+	<string name="action_bar_background_description">Action Bar Background</string>
 </resources>

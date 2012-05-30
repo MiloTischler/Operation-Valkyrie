@@ -8,43 +8,43 @@
     <!-- Camera Preview Panel begin -->        
     <valkyrie.ui.CameraPreviewDispatcher
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-        android:id="@+id/cameraPreviewDispatcher"
+        android:id="@+id/camera_preview_dispatcher"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" />
     
     <valkyrie.ui.CameraPreviewView
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-        android:id="@+id/cameraPreviewView"
+        android:id="@+id/camera_preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" 
-        android:contentDescription="@string/cameraPreviewViewDescription" />
+        android:contentDescription="@string/camera_preview_view_description" />
     <!-- Camera Preview Panel end -->
 
     <!-- Filter Options Panel begin (width = 350dp)-->
     <valkyrie.widget.MultiDirectionSlidingDrawer
         xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
-        android:id="@+id/filterOptionsPanel"
+        android:id="@+id/filter_options_panel"
         android:layout_width="350dp"
         android:layout_height="fill_parent"
         android:orientation="horizontal" 
         my:direction="leftToRight"
-        my:handle="@+id/filterOptionsHandle"
-        my:content="@+id/filterOptionsContent">
+        my:handle="@+id/filter_options_handle"
+        my:content="@+id/filter_options_content">
 
         <!-- Handle to drag the Filter Options Panel -->
         <ImageView
-            android:id="@+id/filterOptionsHandle"
+            android:id="@+id/filter_options_handle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/filterOptionsHandleDescription"
+            android:contentDescription="@string/filter_options_handle_description"
             android:src="@drawable/sliding_drawer_handle_left" />
 
         <!-- Layout for the options is 30% transparent (0xAA = 170) -->
         <valkyrie.ui.UpdateableRelativeLayout
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-            android:id="@+id/filterOptionsContent"
+            android:id="@+id/filter_options_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             style="@android:style/Theme.Translucent"
@@ -53,7 +53,7 @@
 
             <!-- Just a demo text -->
             <TextView
-                android:id="@+id/optionsTest"
+                android:id="@+id/options_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/options" />
@@ -69,7 +69,7 @@
     -->
     <RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/actionBar"
+    android:id="@+id/action_bar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentRight="true" 
@@ -79,17 +79,34 @@
         
         <!-- Action Bar background image -->
         <ImageView
-            android:id="@+id/actionBarBackground"
+            android:id="@+id/action_bar_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/filterOptionsHandleDescription"
+            android:contentDescription="@string/action_bar_background_description"
             android:src="@drawable/actionbar_backgorund" />
         
         <Button
-		     android:layout_height="wrap_content"
-		     android:layout_width="wrap_content"
-		     android:text="@string/trigger"
-		     android:onClick="takePhoto" />
+            android:id="@+id/gallery"
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:text="@string/gallery"
+		    android:onClick="showGallery" />
+        
+        <Button
+            android:id="@+id/trigger"
+            android:layout_below="@+id/gallery"
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:text="@string/trigger"
+		    android:onClick="takePhoto" />
+        
+        <Button
+            android:id="@+id/filter_effect_toggle"
+            android:layout_below="@+id/trigger"
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:text="@string/filter_effect_toggle"
+		    android:onClick="toggleFilterEffect" />
         
     </RelativeLayout>    
     <!-- Action Bar end -->
