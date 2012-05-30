@@ -17,6 +17,12 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 	private static final String TAG = "CameraPreviewDispatcher";
 	
@@ -87,20 +93,13 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
                 bmp = this.processFrame(this.filterCamera);
             }
 
-            if (bmp != null) {
-//                Canvas canvas = this.surfaceHolder.lockCanvas();
-//                if (canvas != null) {
-//                    canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);
-//                    this.surfaceHolder.unlockCanvasAndPost(canvas);
-//                }
-
-            	
-            	
+            if (bmp != null) {            	
             	Canvas canvas = this.surfaceHolder.lockCanvas();
 	            if (canvas != null) {
 	            	canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);
 	            	this.cameraPreviewView.setCameraCanvas(canvas);
 	            	this.cameraPreviewView.postInvalidate();
+	          
 	            	this.surfaceHolder.unlockCanvasAndPost(canvas);
 	            }
             	

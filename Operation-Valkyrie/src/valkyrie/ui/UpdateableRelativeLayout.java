@@ -26,5 +26,4 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 		
 		
 	}
-
 }
