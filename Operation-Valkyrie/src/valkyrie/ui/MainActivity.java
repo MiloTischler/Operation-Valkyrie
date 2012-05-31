@@ -1,5 +1,7 @@
 package valkyrie.ui;
 
+import java.util.Currency;
+
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 
@@ -8,6 +10,7 @@ import valkyrie.main.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -89,9 +92,18 @@ public class MainActivity extends Activity {
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
-
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-
+		
+		Log.d(TAG, "try to start second Activity for Gallery");
+		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
+		
+		try{
+			MainActivity.this.startActivity(myIntent);		
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		Log.d(TAG, "Gallery Activity started");
+	
 		// TODO: Implementation of showGallery
 	}
 
