@@ -9,6 +9,7 @@ import org.opencv.highgui.VideoCapture;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.ui.CameraPreviewView;
+import valkyrie.ui.LayoutManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -74,6 +75,7 @@ public class FilterCamera extends VideoCapture {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 
 				this.activeFilter = storedFilter;
+				LayoutManager.getInstance().notifyUI(this.activeFilter);
 			}
 		}
 	}

@@ -53,16 +53,8 @@ public class MainActivity extends Activity {
 		
 		// Initialize filter camera and start preview
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
+		this.filterCamera.setActiveFilter(new NoFilter());
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
-		
-		RelativeLayout lay = (RelativeLayout) this.findViewById(R.id.nofilter);
-		if (lay == null)
-			Log.d("FasuDebug", "1Retrieved layout is null!");
-		else 
-			Log.d("FasuDebug", "1Retrieved is NOT null!");
-		
-		Ascii asciiFilter = new Ascii();
-		LayoutManager.getInstance().notifyUI(asciiFilter);
 	}
 
 	public void takePicture(View view) {
