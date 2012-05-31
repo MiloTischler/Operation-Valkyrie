@@ -93,7 +93,6 @@ public class Ascii implements IFilter {
 	}
 
 	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
-		// TODO Auto-generated method stub
 		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 
@@ -102,12 +101,10 @@ public class Ascii implements IFilter {
 	}
 
 	public Bitmap getIcon() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -41,13 +41,13 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
 	public void testFilterOptionsPanelSlideOut() {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this.getActivity()
-				.findViewById(valkyrie.main.R.id.filterOptionsPanel);
+				.findViewById(valkyrie.main.R.id.filter_options_panel);
 		
 		assertNotNull(multiDirectionSlidingDrawer);
 
 		Display display = this.getActivity().getWindowManager().getDefaultDisplay();
 
-		ImageView filterOptionsHandle = (ImageView) this.getActivity().findViewById(valkyrie.main.R.id.filterOptionsHandle);
+		ImageView filterOptionsHandle = (ImageView) this.getActivity().findViewById(valkyrie.main.R.id.filter_options_handle);
 
 		assertNotNull(filterOptionsHandle);
 		
@@ -66,5 +66,17 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		this.solo.sleep(500);
 		
 		assertTrue(filterOptionsHandle.getRight() == filterOptionsHandle.getWidth());
+	}
+	
+	public void testTakePhoto() {
+		fail("Not yet implemented");
+	}
+	
+	public void testShowGallery() {
+		fail("Not yet implemented");
+	}
+	
+	public void testToggleFilterEffect() {
+		fail("Not yet implemented");
 	}
 }

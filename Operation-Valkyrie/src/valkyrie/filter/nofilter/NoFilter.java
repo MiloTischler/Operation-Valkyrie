@@ -34,12 +34,10 @@ public class NoFilter implements IFilter {
 	}
 
 	public Bitmap getIcon() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
-		// TODO Auto-generated method stub
 
 	}
 }

@@ -611,7 +611,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
 	private void moveHandle( int position )
 	{
 		final View handle = mHandle;
-		Log.d("LOL", "LOLA LOLA"); /* @TODO: Maybe an entry point for our bug.. */
+
 		if ( mVertical ) {
 			if ( position == EXPANDED_FULL_OPEN ) {
 				if( mInvert )
