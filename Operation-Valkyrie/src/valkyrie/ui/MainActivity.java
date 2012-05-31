@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
@@ -106,6 +107,19 @@ public class MainActivity extends Activity {
 			super.onBackPressed();
 		}
 	}
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
+				.findViewById(R.id.filter_options_panel);
+		
+	    if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
+	    	multiDirectionSlidingDrawer.animateOpen();
+	    }
+		
+		return super.onKeyUp(keyCode, event);
+	}
+	
 
 	@Override
 	protected void onDestroy() {
@@ -127,5 +141,12 @@ public class MainActivity extends Activity {
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
 
 		super.onResume();
+	}
+	
+	@Override
+	protected void onStop() {
+		this.filterCamera.release();
+		
+		super.onStop();
 	}
 }
