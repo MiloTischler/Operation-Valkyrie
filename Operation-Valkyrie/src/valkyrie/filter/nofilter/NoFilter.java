@@ -3,7 +3,6 @@ package valkyrie.filter.nofilter;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import valkyrie.filter.FilterAssets;
@@ -26,11 +25,17 @@ public class NoFilter implements IFilter {
 
 	}
 
+	/**
+	 * Returns the defined UI-Elements for the Options Panel as whole RelativeLayout.
+	 * 
+	 * @param mainActivity
+	 *            Activity, the main activity of the Program. Gives us access to the LayoutInflater.
+	 */
 	public RelativeLayout getUIElements(Activity mainActivity) {
 
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-		
+
 		return (RelativeLayout) inflater.inflate(R.layout.nofilter, null);
 	}
 
