@@ -5,6 +5,7 @@ import org.opencv.highgui.Highgui;
 
 import valkyrie.filter.FilterCamera;
 import valkyrie.main.R;
+import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,13 +47,6 @@ public class MainActivity extends Activity {
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
 	}
-	
-	@Override
-	protected void onDestroy() {
-		this.filterCamera.release();
-		
-		super.onDestroy();
-	}
 
 	public void takePicture(View view) {
 		Log.d("Tag", "clicked: takePicture");
@@ -76,7 +70,7 @@ public class MainActivity extends Activity {
 		}
 
 		// TODO: Implementation of takePhoto
-		//byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
+		// byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
 	}
 
 	public void showGallery(View view) {
@@ -99,5 +93,39 @@ public class MainActivity extends Activity {
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of toggleFilterEffect
+	}
+
+	@Override
+	public void onBackPressed() {
+		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
+				.findViewById(R.id.filter_options_panel);
+
+		if (multiDirectionSlidingDrawer.isOpened()) {
+			multiDirectionSlidingDrawer.animateClose();
+		} else {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		this.filterCamera.release();
+
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onPause() {
+		this.filterCamera.release();
+
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
+		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+
+		super.onResume();
 	}
 }
