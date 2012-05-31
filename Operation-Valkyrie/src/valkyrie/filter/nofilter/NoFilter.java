@@ -3,6 +3,7 @@ package valkyrie.filter.nofilter;
 import java.util.HashMap;
 import java.util.Vector;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.RelativeLayout;
 import valkyrie.filter.FilterAssets;
@@ -25,7 +26,7 @@ public class NoFilter implements IFilter {
 
 	}
 
-	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements(Activity mainActivity) {
 		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 

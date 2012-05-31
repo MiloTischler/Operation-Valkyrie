@@ -29,9 +29,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
-
 	private FilterCamera filterCamera = null;
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,10 @@ public class MainActivity extends Activity {
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
-
+		
+		// initialize LayoutManager
+		LayoutManager.getInstance().setMainActivity(this);
+		
 		// Initialize filter camera and start preview
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
