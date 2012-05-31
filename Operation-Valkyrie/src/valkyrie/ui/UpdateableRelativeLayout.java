@@ -1,8 +1,5 @@
 package valkyrie.ui;
 
-import java.util.HashMap;
-import java.util.Vector;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
@@ -10,8 +7,8 @@ import android.widget.RelativeLayout;
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
- *
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
  */
 public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
 	private static final String TAG = "UpdateableRelativeLayout";
@@ -21,8 +18,20 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 		LayoutManager.getInstance().registerUpdateableComponent(this);
 	}
 
-	public void redrawUI(HashMap<Integer, Vector<RelativeLayout>> uiElements) {
-		
-		
+	/**
+	 * Redraws this UI Component.
+	 * 
+	 * @param uiElements
+	 *            RelativeLayout, containing all UI-Elements belonging to the Filter.
+	 */
+	public void redrawUI(RelativeLayout uiElements) {
+
+		// remove all child elements from this layout
+		this.removeAllViews();
+
+		// add possibly new elements to panel
+		this.addView(uiElements);
+
 	}
+
 }
