@@ -54,11 +54,11 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 	}
 
-	public void takePhoto(View view) {
-		Log.d("Tag", "clicked: takePhoto");
+	public void takePicture(View view) {
+		Log.d("Tag", "clicked: takePicture");
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Take Photo Clicked", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
 		// Play take photo sound effect
 		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -76,6 +76,7 @@ public class MainActivity extends Activity {
 		}
 
 		// TODO: Implementation of takePhoto
+		//byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
 	}
 
 	public void showGallery(View view) {

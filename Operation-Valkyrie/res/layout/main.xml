@@ -96,7 +96,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"
 		    android:text="@string/trigger"
-		    android:onClick="takePhoto" />
+		    android:onClick="takePicture" />
         
         <Button
             android:id="@+id/filter_effect_toggle"
