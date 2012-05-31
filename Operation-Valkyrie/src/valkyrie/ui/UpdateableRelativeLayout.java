@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 /**
@@ -23,9 +22,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	}
 
 	public void redrawUI(HashMap<Integer, Vector<RelativeLayout>> uiElements) {
-		// TODO Auto-generated method stub
 		
 		
 	}
-
 }

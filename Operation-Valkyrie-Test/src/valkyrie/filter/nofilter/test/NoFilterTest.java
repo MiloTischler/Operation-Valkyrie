@@ -9,7 +9,8 @@ import android.test.AndroidTestCase;
  *
  */
 public class NoFilterTest extends AndroidTestCase {
-
+	private static final String TAG = "NoFilterTest";
+	
 	public NoFilterTest() {
         super();
      }

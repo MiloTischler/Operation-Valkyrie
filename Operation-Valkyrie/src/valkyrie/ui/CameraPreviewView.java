@@ -17,14 +17,33 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-	private static final String TAG = "CameraPreviewView";
+	private static final String TAG = "CameraPreviewDispatcher";
 	
 	private SurfaceHolder surfaceHolder = null;
 	
 	private FilterCamera filterCamera = null;
 	
 	private Context context = null;
+	
+	private boolean running = false;
+	
+	public CameraPreviewView(Context context) {
+		super(context);
+		
+		this.context = context;
+		
+		this.surfaceHolder = this.getHolder();
+		this.surfaceHolder.addCallback(this);
+		
+		Log.i(TAG, "Instantiated new " + this.getClass());
+	}
 	
     public CameraPreviewView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -51,10 +70,26 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         
         return null;
     }
+    
+    public void start(FilterCamera filterCamera) {
+    	Log.i(TAG, "Started processing thread");
+    	
+    	this.filterCamera = filterCamera;
+    	
+    	if(this.filterCamera != null) {
+    		this.running = true;
+    	}
+    }
+    
+    public void stop() {
+    	Log.i(TAG, "Stoped processing thread");
+    	this.running = false;
+    }
 
 	public void run() {
 		Log.i(TAG, "Starting processing thread");
-        while (true) {
+		
+        while (this.running) {
             Bitmap bmp = null;
 
             synchronized (this) {
@@ -69,13 +104,13 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
                 bmp = this.processFrame(this.filterCamera);
             }
 
-            if (bmp != null) {
-                Canvas canvas = this.surfaceHolder.lockCanvas();
-                if (canvas != null) {
-                    canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);
-                    this.surfaceHolder.unlockCanvasAndPost(canvas);
-                }
-                
+            if (bmp != null) {            	
+            	Canvas canvas = this.surfaceHolder.lockCanvas();
+	            if (canvas != null) {
+	            	canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);	          
+	            	this.surfaceHolder.unlockCanvasAndPost(canvas);
+	            }
+            	
                 bmp.recycle();
             }
         }
@@ -100,16 +135,7 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
 	public void surfaceCreated(SurfaceHolder arg0) {
 		Log.i(TAG, "surfaceCreated");
 		
-		this.filterCamera = new FilterCamera(this.context, valkyrie.main.R.array.filters);
-		
-		if (this.filterCamera.isOpened()) {
-            (new Thread(this)).start();
-        } else {
-        	this.filterCamera.release();
-        	this.filterCamera = null;
-            Log.e(TAG, "Failed to open native camera");
-        }
-		
+		(new Thread(this)).start();		
 	}
 
 	public void surfaceDestroyed(SurfaceHolder arg0) {
