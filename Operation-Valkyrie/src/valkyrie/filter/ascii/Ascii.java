@@ -24,6 +24,7 @@ public class Ascii implements IFilter {
 	private Bitmap bm;
 	private Font activeFont;	
 	private Converter converter;
+	private Settings settings;
 	
 	public Ascii(){
 		//test bitmap

@@ -83,7 +83,7 @@ public class Font {
 			// Log.d("valkyrie", rect.width() + "|" + rect.height());
 			// Log.d("valkyrie", image);
 			if ((rect.width() != 0) && (rect.height() != 0)) {
-				Bitmap mybitmap = Bitmap.createBitmap(12, 25,
+				Bitmap mybitmap = Bitmap.createBitmap(25, 25,
 						Bitmap.Config.RGB_565);
 				Canvas c = new Canvas(mybitmap);
 				c.drawColor(Color.WHITE);
@@ -152,10 +152,13 @@ public class Font {
         
         //finally our lut
         int i = 0;
+        int test = 0;
         for (Map.Entry entry : sortedMap.entrySet()) {
         	if (entry.getValue().equals(-1.0) || entry.getValue().equals(-2.0))
+        	{
+        		test++;
         	    this.LUT[i] = 96; 
-        	else
+        	}else
         		this.LUT[i] = (Integer) entry.getKey(); 
         	Log.d("valkyrie", entry.getKey() + "");
         	
@@ -163,6 +166,7 @@ public class Font {
         }
         
         Log.d("valkyrie",java.util.Arrays.toString(this.LUT));
+        Log.d("valkyrie",test + "|");
 		
 
 	}
