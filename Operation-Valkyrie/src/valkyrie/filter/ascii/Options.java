@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 public class Options {
 
@@ -17,9 +16,4 @@ public class Options {
 	private boolean antiAliasing;
 	private boolean isColor;
 
-	private ArrayList<View> uiElements;
-
-	public Options() {
-		uiElements.add(null);
-	}
 }

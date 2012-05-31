@@ -1,9 +1,13 @@
 package valkyrie.ui;
 
+import java.util.logging.Logger;
+
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 
 import valkyrie.filter.FilterCamera;
+import valkyrie.filter.ascii.Ascii;
+import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 
@@ -19,6 +23,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
@@ -49,6 +54,15 @@ public class MainActivity extends Activity {
 		// Initialize filter camera and start preview
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		
+		RelativeLayout lay = (RelativeLayout) this.findViewById(R.id.nofilter);
+		if (lay == null)
+			Log.d("FasuDebug", "1Retrieved layout is null!");
+		else 
+			Log.d("FasuDebug", "1Retrieved is NOT null!");
+		
+		Ascii asciiFilter = new Ascii();
+		LayoutManager.getInstance().notifyUI(asciiFilter);
 	}
 
 	public void takePicture(View view) {

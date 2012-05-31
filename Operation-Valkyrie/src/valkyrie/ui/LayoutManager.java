@@ -1,8 +1,6 @@
 package valkyrie.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
@@ -72,8 +70,8 @@ public class LayoutManager {
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
-		HashMap<Integer, Vector<RelativeLayout>> uiElements = filterObject.getUIElements(mainActivity);
-
+		RelativeLayout uiElements = filterObject.getUIElements(mainActivity);
+		
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}

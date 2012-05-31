@@ -5,12 +5,14 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Vector;
 
+import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
 import valkyrie.filter.FilterAssets;
@@ -93,9 +95,11 @@ public class Ascii implements IFilter {
 	/**
 	 * Returns the defined UI-Elements for the Options Panel.
 	 */
-	public HashMap<Integer, Vector<RelativeLayout>> getUIElements(Activity mainActivity) {
+	public RelativeLayout getUIElements(Activity mainActivity) {
+		final LayoutInflater inflater = (LayoutInflater) mainActivity
+				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
 		
-		return new HashMap<Integer, Vector<RelativeLayout>>();
+		return (RelativeLayout) inflater.inflate(R.layout.ascii, null);
 	}
 
 	public String getName() {
