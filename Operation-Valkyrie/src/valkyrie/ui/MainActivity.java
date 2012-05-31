@@ -1,5 +1,9 @@
 package valkyrie.ui;
 
+import org.opencv.core.Size;
+import org.opencv.highgui.Highgui;
+
+import valkyrie.filter.FilterCamera;
 import valkyrie.main.R;
 
 import android.app.Activity;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -22,6 +27,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
+
+	private FilterCamera filterCamera = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -35,18 +42,21 @@ public class MainActivity extends Activity {
 		// Set activity layout
 		this.setContentView(R.layout.main);
 
-		// Start capturing the camera for the preview
-		CameraPreviewView cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
-
-		CameraPreviewDispatcher cameraPreviewDispatcher = (CameraPreviewDispatcher) this
-				.findViewById(R.id.camera_preview_dispatcher);
-
-		cameraPreviewDispatcher.setCameraPreviewView(cameraPreviewView);
+		// Initialise filter camera and start preview
+		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
+		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+	}
+	
+	@Override
+	protected void onDestroy() {
+		this.filterCamera.release();
+		
+		super.onDestroy();
 	}
 
 	public void takePhoto(View view) {
 		Log.d("Tag", "clicked: takePhoto");
-		
+
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Photo Clicked", Toast.LENGTH_SHORT).show();
 
@@ -70,10 +80,10 @@ public class MainActivity extends Activity {
 
 	public void showGallery(View view) {
 		Log.d("Tag", "clicked: showGallery");
-		
+
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
-		
+
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of showGallery
@@ -81,10 +91,10 @@ public class MainActivity extends Activity {
 
 	public void toggleFilterEffect(View view) {
 		Log.d("Tag", "clicked: toggleFilterEffect");
-		
+
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
-		
+
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of toggleFilterEffect
