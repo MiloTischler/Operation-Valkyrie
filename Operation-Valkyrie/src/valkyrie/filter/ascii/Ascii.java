@@ -93,12 +93,15 @@ public class Ascii implements IFilter {
 	}
 
 	/**
-	 * Returns the defined UI-Elements for the Options Panel.
+	 * Returns the defined UI-Elements for the Options Panel as whole RelativeLayout.
+	 * 
+	 * @param mainActivity
+	 *            Activity, the main activity of the Program. Gives us access to the LayoutInflater.
 	 */
 	public RelativeLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-		
+
 		return (RelativeLayout) inflater.inflate(R.layout.ascii, null);
 	}
 

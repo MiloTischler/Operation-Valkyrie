@@ -20,6 +20,14 @@ public interface IFilter {
 	public void manipulatePreviewImage(Bitmap bitmap);
 
 	public void manipulateImage(Bitmap bitmap);
-	
+
+	/**
+	 * Retrieves the filter specific options panel.
+	 * 
+	 * @param mainActivity
+	 *            The main activity of the program. Needed for layout inflation.
+	 * @return RelativeLayout a RelativeLayout containing all UI-Elements, which can be directly embedded into the
+	 *         main.xml layout.
+	 */
 	public RelativeLayout getUIElements(Activity mainActivity);
 }
