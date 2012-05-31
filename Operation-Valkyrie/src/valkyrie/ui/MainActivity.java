@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		// Set activity layout
 		this.setContentView(R.layout.main);
 
-		// Initialise filter camera and start preview
+		// Initialize filter camera and start preview
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
 		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
 	}
