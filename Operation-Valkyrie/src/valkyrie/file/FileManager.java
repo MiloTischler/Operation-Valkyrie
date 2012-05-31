@@ -67,11 +67,8 @@ public class FileManager {
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-
 			Log.e("FileManager", e.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			Log.e(TAG, e.toString());
 			e.printStackTrace();
 		}

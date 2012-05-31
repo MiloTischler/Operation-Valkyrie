@@ -9,6 +9,7 @@ import android.test.AndroidTestCase;
  *
  */
 public class AsciiTest extends AndroidTestCase {
+	private static final String TAG = "AsciiTest";
 	
 	public AsciiTest() {
         super();
