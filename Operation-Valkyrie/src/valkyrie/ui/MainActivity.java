@@ -1,11 +1,9 @@
 package valkyrie.ui;
 
-import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
+import java.util.logging.Logger;
 
-
-import android.view.ViewGroup.LayoutParams;
-import valkyrie.filter.FilterManager;
+import valkyrie.filter.ascii.Ascii;
+import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 
@@ -23,6 +21,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
@@ -33,11 +32,7 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
-
-	private FilterManager filterManager = null;
 	
-	private byte[] lastCameraPicture = null;
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

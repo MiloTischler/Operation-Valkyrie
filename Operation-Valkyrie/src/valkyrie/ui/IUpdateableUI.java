@@ -1,8 +1,5 @@
 package valkyrie.ui;
 
-import java.util.HashMap;
-import java.util.Vector;
-
 import android.widget.RelativeLayout;
 
 /**
@@ -16,6 +13,6 @@ public interface IUpdateableUI {
 	/**
 	 * @todo Jakob
 	 */
-	public void redrawUI(HashMap<Integer, Vector<RelativeLayout>> uiElements);
+	public void redrawUI(RelativeLayout uiElements);
 	
 }

@@ -1,10 +1,10 @@
 package valkyrie.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 import valkyrie.filter.IFilter;
+import valkyrie.main.R;
+import android.app.Activity;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
@@ -25,6 +25,11 @@ public class LayoutManager {
 	 * Instance Variable. Used for Singleton.
 	 */
 	private static LayoutManager instance = null;
+
+	/**
+	 * Contains the mainActivity of the Program.
+	 */
+	private Activity mainActivity = null;
 
 	private ArrayList<IUpdateableUI> registeredComponents = null;
 
@@ -49,14 +54,24 @@ public class LayoutManager {
 	}
 
 	/**
+	 * Registers the main layout.
+	 * 
+	 * @param mainView
+	 *            the main Activity object
+	 */
+	public void setMainActivity(Activity mainActivity) {
+		this.mainActivity = mainActivity;
+	}
+
+	/**
 	 * Force all registered (updateable Components) to update.
 	 * 
 	 * @param filterObject
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
-		HashMap<Integer, Vector<RelativeLayout>> uiElements = filterObject.getUIElements();
-
+		RelativeLayout uiElements = filterObject.getUIElements(mainActivity);
+		
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}

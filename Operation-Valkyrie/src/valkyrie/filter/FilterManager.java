@@ -3,13 +3,9 @@ package valkyrie.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
-import org.opencv.highgui.VideoCapture;
-
 import valkyrie.filter.nofilter.NoFilter;
-import valkyrie.main.R;
-import valkyrie.ui.CameraPreviewViewCV;
+import valkyrie.ui.CameraPreviewView;
+import valkyrie.ui.LayoutManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,14 +25,11 @@ public class FilterManager {
 	private Context context = null;
 	private IFilter activeFilter = new NoFilter();
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
-	private CameraPreviewViewCV cameraPreviewView = null;
 
 	public FilterManager(Context context, Integer filterArray) {
 		Log.i(TAG, "Initialized opencv camera");
 
 		this.context = context;
-		
-		this.cameraPreviewView = cameraPreviewView;
 
 		this.filters.clear();
 
@@ -72,8 +65,6 @@ public class FilterManager {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 
 				this.activeFilter = storedFilter;
-				
-				this.cameraPreviewView.setFilter(this.activeFilter);
 			}
 		}
 	}

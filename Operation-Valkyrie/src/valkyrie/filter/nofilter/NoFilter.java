@@ -1,9 +1,9 @@
 package valkyrie.filter.nofilter;
 
-import java.util.HashMap;
-import java.util.Vector;
-
+import valkyrie.main.R;
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
@@ -25,8 +25,18 @@ public class NoFilter implements IFilter {
 
 	}
 
-	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
-		return new HashMap<Integer, Vector<RelativeLayout>>();
+	/**
+	 * Returns the defined UI-Elements for the Options Panel as whole RelativeLayout.
+	 * 
+	 * @param mainActivity
+	 *            Activity, the main activity of the Program. Gives us access to the LayoutInflater.
+	 */
+	public RelativeLayout getUIElements(Activity mainActivity) {
+
+		final LayoutInflater inflater = (LayoutInflater) mainActivity
+				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
+
+		return (RelativeLayout) inflater.inflate(R.layout.nofilter, null);
 	}
 
 	public String getName() {
