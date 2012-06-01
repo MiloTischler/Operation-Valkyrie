@@ -2,6 +2,7 @@ package valkyrie.ui;
 
 import java.util.logging.Logger;
 
+
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
@@ -40,6 +41,13 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+
+
+		
+		
+		// Ritzys filter test
+		Ascii asciiFilter = new Ascii();
+		asciiFilter.test();
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -118,6 +126,7 @@ public class MainActivity extends Activity {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
 				.findViewById(R.id.filter_options_panel);
+
 
 		if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
 			multiDirectionSlidingDrawer.animateOpen();
