@@ -13,6 +13,7 @@ import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 /**
@@ -35,7 +38,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private FilterCamera filterCamera = null;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,10 @@ public class MainActivity extends Activity {
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
-		
+
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
-		
+
 		// Initialize filter camera and start preview
 		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
 		this.filterCamera.setActiveFilter(new NoFilter());
@@ -102,6 +105,55 @@ public class MainActivity extends Activity {
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of toggleFilterEffect
+		// TODO: Reset or delete or reorganize Shared Prefs (options)
+	}
+
+	/**
+	 * Is called when a filter option was changed.
+	 * Stores options value into shared preferences.
+	 * 
+	 * @param view
+	 *            the View-Object which has triggered this event.
+	 */
+	public void filterOptionChanged(View view) {
+		String optionName = view.getTag().toString();
+
+		if (view instanceof SeekBar) {
+			int seekBarValue = ((SeekBar) view).getProgress();
+			SeekBar seekBar = (SeekBar) view;
+			
+			OnSeekBarChangeListener sl = new OnSeekBarChangeListener() {
+				
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				public void onStartTrackingTouch(SeekBar seekBar) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+					// TODO Auto-generated method stub
+					
+				}
+			};
+			
+			seekBar.setOnSeekBarChangeListener(sl);
+			
+			Toast.makeText(this.getApplicationContext(), "Option Changed: " + optionName + " value: " + seekBarValue,
+					Toast.LENGTH_SHORT).show();
+		}
+
+		// store the value in the shared preferences
+		// wenn Camera fertig: activeFilter.getName();
+		String filterName = "nofilter";
+
+		// SharedPreferences settings = getSharedPreferences(filterName, 0);
+		// boolean silent = settings.getBoolean("silentMode", false);
+		// SharedPreferences.Editor editor = settings.edit();
+		// editor.putString(optionName,);
 	}
 
 	@Override
@@ -115,19 +167,18 @@ public class MainActivity extends Activity {
 			super.onBackPressed();
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
 				.findViewById(R.id.filter_options_panel);
-		
-	    if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
-	    	multiDirectionSlidingDrawer.animateOpen();
-	    }
-		
+
+		if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
+			multiDirectionSlidingDrawer.animateOpen();
+		}
+
 		return super.onKeyUp(keyCode, event);
 	}
-	
 
 	@Override
 	protected void onDestroy() {
@@ -150,11 +201,11 @@ public class MainActivity extends Activity {
 
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onStop() {
 		this.filterCamera.release();
-		
+
 		super.onStop();
 	}
 }

@@ -35,7 +35,7 @@ public class NoFilter implements IFilter {
 
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-
+	
 		return (RelativeLayout) inflater.inflate(R.layout.nofilter, null);
 	}
 

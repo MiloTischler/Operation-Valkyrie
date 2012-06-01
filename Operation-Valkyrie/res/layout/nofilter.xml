@@ -14,15 +14,29 @@
 
             <Button
                 android:id="@+id/nofilter_test"
+                android:tag="option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lol, You added no Filter, noob!! more Filter = more BALLS!" />
+                android:text="Lol, You added no Filter, noob!! more Filter = more BALLS!"
+                android:onClick="filterOptionChanged" />
+        </TableRow>
+        
+        <TableRow>
+
+            <Button
+                android:id="@+id/nofilter_test2"
+                android:tag="button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lol, You added no Filter, noob!! more Filter = more BALLS!"
+                android:onClick="filterOptionChanged" />
         </TableRow>
 
         <TableRow>
 
             <SeekBar
                 android:id="@+id/nofilter_seekbar"
+                android:tag="seekbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:max="100" />
