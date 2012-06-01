@@ -1,9 +1,6 @@
 package valkyrie.ui;
 
-import java.util.HashMap;
-import java.util.Vector;
-
-import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 /**
  * 
@@ -16,6 +13,6 @@ public interface IUpdateableUI {
 	/**
 	 * @todo Jakob
 	 */
-	public void redrawUI(HashMap<Integer, Vector<RelativeLayout>> uiElements);
+	public void redrawUI(TableLayout uiElements);
 	
 }
