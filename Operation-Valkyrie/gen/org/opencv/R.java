@@ -92,9 +92,8 @@ containing a value of this type.
         public static final int filter_options_panel=0x7f050006;
         public static final int gallery=0x7f05000c;
         public static final int leftToRight=0x7f050002;
-        public static final int nofilter_seekbar=0x7f050011;
-        public static final int nofilter_test=0x7f05000f;
-        public static final int nofilter_test2=0x7f050010;
+        public static final int nofilter_option0=0x7f05000f;
+        public static final int nofilter_option1=0x7f050010;
         public static final int options_test=0x7f050009;
         public static final int rightToLeft=0x7f050000;
         public static final int topToBottom=0x7f050003;

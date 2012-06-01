@@ -2,7 +2,7 @@ package valkyrie.filter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 /**
  * 
@@ -29,5 +29,5 @@ public interface IFilter {
 	 * @return RelativeLayout a RelativeLayout containing all UI-Elements, which can be directly embedded into the
 	 *         main.xml layout.
 	 */
-	public RelativeLayout getUIElements(Activity mainActivity);
+	public TableLayout getUIElements(Activity mainActivity);
 }

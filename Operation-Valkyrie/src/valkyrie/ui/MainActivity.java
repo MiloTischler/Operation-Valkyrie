@@ -108,54 +108,6 @@ public class MainActivity extends Activity {
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 
-	/**
-	 * Is called when a filter option was changed.
-	 * Stores options value into shared preferences.
-	 * 
-	 * @param view
-	 *            the View-Object which has triggered this event.
-	 */
-	public void filterOptionChanged(View view) {
-		String optionName = view.getTag().toString();
-
-		if (view instanceof SeekBar) {
-			int seekBarValue = ((SeekBar) view).getProgress();
-			SeekBar seekBar = (SeekBar) view;
-			
-			OnSeekBarChangeListener sl = new OnSeekBarChangeListener() {
-				
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-					// TODO Auto-generated method stub
-					
-				}
-			};
-			
-			seekBar.setOnSeekBarChangeListener(sl);
-			
-			Toast.makeText(this.getApplicationContext(), "Option Changed: " + optionName + " value: " + seekBarValue,
-					Toast.LENGTH_SHORT).show();
-		}
-
-		// store the value in the shared preferences
-		// wenn Camera fertig: activeFilter.getName();
-		String filterName = "nofilter";
-
-		// SharedPreferences settings = getSharedPreferences(filterName, 0);
-		// boolean silent = settings.getBoolean("silentMode", false);
-		// SharedPreferences.Editor editor = settings.edit();
-		// editor.putString(optionName,);
-	}
-
 	@Override
 	public void onBackPressed() {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
