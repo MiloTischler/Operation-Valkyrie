@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 /**
@@ -32,7 +34,7 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,14 @@ public class MainActivity extends Activity {
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
-		
-		CameraPreviewDispatcher dispatcher = (CameraPreviewDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
+
+		// initialize LayoutManager
+		LayoutManager.getInstance().setMainActivity(this);
+
+		CameraPreviewDispatcher dispatcher = (CameraPreviewDispatcher) this
+				.findViewById(R.id.camera_preview_dispatcher);
 		CameraPreviewView view = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
-		
+
 		dispatcher.setPreview(view);
 	}
 
@@ -93,6 +99,7 @@ public class MainActivity extends Activity {
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// TODO: Implementation of toggleFilterEffect
+		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 
 	@Override

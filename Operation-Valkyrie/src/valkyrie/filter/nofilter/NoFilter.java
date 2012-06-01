@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
@@ -31,12 +32,12 @@ public class NoFilter implements IFilter {
 	 * @param mainActivity
 	 *            Activity, the main activity of the Program. Gives us access to the LayoutInflater.
 	 */
-	public RelativeLayout getUIElements(Activity mainActivity) {
+	public TableLayout getUIElements(Activity mainActivity) {
 
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-
-		return (RelativeLayout) inflater.inflate(R.layout.nofilter, null);
+	
+		return (TableLayout) inflater.inflate(R.layout.nofilter, null);
 	}
 
 	public String getName() {

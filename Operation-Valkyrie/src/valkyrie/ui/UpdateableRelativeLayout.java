@@ -2,7 +2,10 @@ package valkyrie.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 /**
  * 
@@ -24,14 +27,24 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	 * @param uiElements
 	 *            RelativeLayout, containing all UI-Elements belonging to the Filter.
 	 */
-	public void redrawUI(RelativeLayout uiElements) {
+	public void redrawUI(TableLayout uiElements) {
 
 		// remove all child elements from this layout
 		this.removeAllViews();
 
+		this.buildUI(uiElements);
+		
 		// add possibly new elements to panel
 		this.addView(uiElements);
 
+	}
+	
+	private void buildUI(TableLayout uiElements) {
+		int childCount = uiElements.getChildCount();
+		for(int i = 0; i < childCount; i++) {
+			View child = uiElements.getChildAt(i);
+			Log.d("FasuDebug", "Child: " + i + " id: " + child.getId());
+		}
 	}
 
 }
