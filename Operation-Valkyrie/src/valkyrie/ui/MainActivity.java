@@ -2,10 +2,6 @@ package valkyrie.ui;
 
 import java.util.logging.Logger;
 
-import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
-
-import valkyrie.filter.FilterCamera;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
@@ -13,9 +9,11 @@ import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,7 +32,6 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
-	private FilterCamera filterCamera = null;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -48,17 +45,14 @@ public class MainActivity extends Activity {
 		// Set activity layout
 		this.setContentView(R.layout.main);
 		
-		// initialize LayoutManager
-		LayoutManager.getInstance().setMainActivity(this);
+		CameraPreviewDispatcher dispatcher = (CameraPreviewDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
+		CameraPreviewView view = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
 		
-		// Initialize filter camera and start preview
-		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
-		this.filterCamera.setActiveFilter(new NoFilter());
-		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		dispatcher.setPreview(view);
 	}
 
 	public void takePicture(View view) {
-		Log.d("Tag", "clicked: takePicture");
+		Log.d(TAG, "clicked: takePicture - S1");
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
@@ -77,9 +71,6 @@ public class MainActivity extends Activity {
 				view.playSoundEffect(SoundEffectConstants.CLICK);
 			}
 		}
-
-		// TODO: Implementation of takePhoto
-		// byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
 	}
 
 	public void showGallery(View view) {
@@ -115,46 +106,16 @@ public class MainActivity extends Activity {
 			super.onBackPressed();
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
 				.findViewById(R.id.filter_options_panel);
-		
-	    if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
-	    	multiDirectionSlidingDrawer.animateOpen();
-	    }
-		
+
+		if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
+			multiDirectionSlidingDrawer.animateOpen();
+		}
+
 		return super.onKeyUp(keyCode, event);
-	}
-	
-
-	@Override
-	protected void onDestroy() {
-		this.filterCamera.release();
-
-		super.onDestroy();
-	}
-
-	@Override
-	protected void onPause() {
-		this.filterCamera.release();
-
-		super.onPause();
-	}
-
-	@Override
-	protected void onResume() {
-		this.filterCamera = new FilterCamera(this.getApplicationContext(), R.array.filters);
-		this.filterCamera.startPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
-
-		super.onResume();
-	}
-	
-	@Override
-	protected void onStop() {
-		this.filterCamera.release();
-		
-		super.onStop();
 	}
 }

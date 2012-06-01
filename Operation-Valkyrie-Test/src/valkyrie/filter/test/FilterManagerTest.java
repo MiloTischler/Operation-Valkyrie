@@ -2,7 +2,7 @@ package valkyrie.filter.test;
 
 import java.util.ArrayList;
 
-import valkyrie.filter.FilterCamera;
+import valkyrie.filter.FilterManager;
 import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.filter.FilterAssets;
@@ -17,10 +17,10 @@ import android.test.AndroidTestCase;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
  *
  */
-public class FilterCameraTest extends AndroidTestCase {
+public class FilterManagerTest extends AndroidTestCase {
 	private static final String TAG = "FilterCameraTest";
 	
-	public FilterCameraTest() {
+	public FilterManagerTest() {
 		super();
 	}
 	
@@ -30,7 +30,7 @@ public class FilterCameraTest extends AndroidTestCase {
     }
     
     public void testGetFilterList() {
-    	FilterCamera filterCamera = new FilterCamera(mContext, valkyrie.main.R.array.filters);
+    	FilterManager filterCamera = new FilterManager(mContext, valkyrie.main.R.array.filters);
     	
     	assertNotNull(filterCamera.getFilterList());
     	assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);
@@ -53,7 +53,7 @@ public class FilterCameraTest extends AndroidTestCase {
     }
     
     public void testActiveFilter() {
-    	FilterCamera filterCamera = new FilterCamera(mContext, valkyrie.main.R.array.filters);
+    	FilterManager filterCamera = new FilterManager(mContext, valkyrie.main.R.array.filters);
     	
     	assertNotNull(filterCamera.getActiveFilter());
     	

@@ -1,172 +1,112 @@
 package valkyrie.ui;
 
-import java.util.List;
-
-import org.opencv.android.Utils;
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
-import org.opencv.highgui.VideoCapture;
-
-import valkyrie.filter.FilterCamera;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
+import android.hardware.Camera;
+import android.hardware.Camera.Size;
 
-/**
- * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
- * 
- */
-public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-	private static final String TAG = "CameraPreviewDispatcher";
-	
+public class CameraPreviewView extends SurfaceView implements Camera.PreviewCallback {
+	private static final String TAG = "CameraPreviewView";
+
+	private Bitmap actBmp = null;
+
+	private int[] pixels = null;
+
+	private Size previewSize = null;
+
 	private SurfaceHolder surfaceHolder = null;
-	
-	private FilterCamera filterCamera = null;
-	
-	private Context context = null;
-	
-	private boolean running = false;
-	
+
 	public CameraPreviewView(Context context) {
 		super(context);
-		
-		this.context = context;
-		
+
 		this.surfaceHolder = this.getHolder();
-		this.surfaceHolder.addCallback(this);
-		
-		Log.i(TAG, "Instantiated new " + this.getClass());
-	}
-	
-    public CameraPreviewView(Context context, AttributeSet attr) {
-        super(context, attr);
-        
-        this.context = context;
-        
-        this.surfaceHolder = this.getHolder();
-        this.surfaceHolder.addCallback(this);
-        
-        Log.i(TAG, "Instantiated new " + this.getClass());
-    }
-    
-    private Bitmap processFrame(VideoCapture capture) {
-    	Mat rgba = new Mat();
-    	
-    	capture.retrieve(rgba, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
-    	
-    	Bitmap bmp = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888);
-    	
-    	if (Utils.matToBitmap(rgba, bmp))
-            return bmp;
-
-        bmp.recycle();
-        
-        return null;
-    }
-    
-    public void start(FilterCamera filterCamera) {
-    	Log.i(TAG, "Started processing thread");
-    	
-    	this.filterCamera = filterCamera;
-    	
-    	if(this.filterCamera != null) {
-    		this.running = true;
-    	}
-    }
-    
-    public void stop() {
-    	Log.i(TAG, "Stoped processing thread");
-    	this.running = false;
-    }
-
-	public void run() {
-		Log.i(TAG, "Starting processing thread");
-		
-        while (this.running) {
-            Bitmap bmp = null;
-
-            synchronized (this) {
-                if (this.filterCamera == null)
-                    break;
-
-                if (!this.filterCamera.grab()) {
-                    Log.e(TAG, "mCamera.grab() failed");
-                    break;
-                }
-
-                bmp = this.processFrame(this.filterCamera);
-            }
-
-            if (bmp != null) {            	
-            	Canvas canvas = this.surfaceHolder.lockCanvas();
-	            if (canvas != null) {
-	            	canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);	          
-	            	this.surfaceHolder.unlockCanvasAndPost(canvas);
-	            }
-            	
-                bmp.recycle();
-            }
-        }
-
-        Log.i(TAG, "Finishing processing thread");
 	}
 
-	public void surfaceChanged(SurfaceHolder surfaceHolder, int frameFormat, int frameWidth, int frameHeight) {
-		Log.i(TAG, "surfaceChanged");
-		
-		synchronized (this) {
-			if(this.filterCamera != null && this.filterCamera.isOpened()) {
-				Size frameSize = this.getCameraPreviewSize(frameWidth, frameHeight);
-				
-				this.filterCamera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, frameSize.width);
-				this.filterCamera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, frameSize.height);
+	public CameraPreviewView(Context context, AttributeSet attr) {
+		super(context, attr);
+
+		this.surfaceHolder = this.getHolder();
+	}
+
+	public void setPreviewSize(Size previewSize) {
+		this.previewSize = previewSize;
+
+		this.pixels = new int[this.previewSize.width * this.previewSize.height];
+	}
+
+	public void onPreviewFrame(byte[] data, Camera camera) {
+		if (camera == null)
+			return;
+
+		// transforms NV21 pixel data into RGB pixels
+		this.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
+
+		Log.d("Pixels", this.previewSize.width + " - " + this.previewSize.height);
+
+		Canvas canvas = this.surfaceHolder.lockCanvas();
+
+		this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
+
+		Log.i("Pixels",
+				"The top right pixel has the following RGB (hexadecimal) values:"
+						+ Integer.toHexString(this.actBmp.getPixel(10, 10)));
+
+		Paint paint = new Paint();
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(20);
+
+		canvas.drawBitmap(this.actBmp, 0, 0, paint);
+		canvas.drawText("Got it!", 100, 100, paint);
+
+		this.surfaceHolder.unlockCanvasAndPost(canvas);
+
+		this.actBmp.recycle();
+
+	}
+
+	void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
+
+		final int frameSize = width * height;
+
+		for (int j = 0, yp = 0; j < height; j++) {
+			int uvp = frameSize + (j >> 1) * width, u = 0, v = 0;
+			for (int i = 0; i < width; i++, yp++) {
+				int y = (0xff & ((int) yuv420sp[yp])) - 16;
+				if (y < 0)
+					y = 0;
+				if ((i & 1) == 0) {
+					v = (0xff & yuv420sp[uvp++]) - 128;
+					u = (0xff & yuv420sp[uvp++]) - 128;
+				}
+
+				int y1192 = 1192 * y;
+				int r = (y1192 + 1634 * v);
+				int g = (y1192 - 833 * v - 400 * u);
+				int b = (y1192 + 2066 * u);
+
+				if (r < 0)
+					r = 0;
+				else if (r > 262143)
+					r = 262143;
+				if (g < 0)
+					g = 0;
+				else if (g > 262143)
+					g = 262143;
+				if (b < 0)
+					b = 0;
+				else if (b > 262143)
+					b = 262143;
+
+				rgb[yp] = 0xff000000 | ((r << 6) & 0xff0000) | ((g >> 2) & 0xff00) | ((b >> 10) & 0xff);
 			}
 		}
-		
 	}
-
-	public void surfaceCreated(SurfaceHolder arg0) {
-		Log.i(TAG, "surfaceCreated");
-		
-		(new Thread(this)).start();		
-	}
-
-	public void surfaceDestroyed(SurfaceHolder arg0) {
-        Log.i(TAG, "surfaceDestroyed");
-        
-        if (this.filterCamera != null) {
-            synchronized (this) {
-            	this.filterCamera.release();
-            	this.filterCamera = null;
-            }
-        }
-	}
-	
-	private Size getCameraPreviewSize(int frameWidth, int frameHeight) {
-		
-		List<Size> supportedPreviewSizes = this.filterCamera.getSupportedPreviewSizes(); 
-		
-		int bestFrameWidth = frameWidth;
-		int bestFrameHeight = frameHeight;
-		
-		double minDiff = Double.MAX_VALUE;
-		
-        for (Size supportedPreviewSize : supportedPreviewSizes) {
-            if (Math.abs(supportedPreviewSize.height - frameHeight) < minDiff) {
-            	bestFrameWidth = (int) supportedPreviewSize.width;
-            	bestFrameHeight = (int) supportedPreviewSize.height;
-                minDiff = Math.abs(supportedPreviewSize.height - frameHeight);
-            }
-        }
-		
-		return new Size(bestFrameWidth, bestFrameHeight);
-	}
-
 }
