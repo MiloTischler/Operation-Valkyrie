@@ -6,8 +6,11 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageFormat;
 import android.graphics.Paint;
 import android.graphics.Bitmap.Config;
 import android.hardware.Camera;
@@ -46,14 +49,27 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		if (camera == null)
 			return;
 
+		int format = camera.getParameters().getPreviewFormat();
+
 		// transforms NV21 pixel data into RGB pixels
-		this.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
+		switch (format) {
+		case ImageFormat.NV21:
+		case ImageFormat.YUY2:
+			Log.i(TAG, "Camera preview using NV21 or YUY2");
+			this.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
+			this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
+			break;
+		case ImageFormat.JPEG:
+		case ImageFormat.RGB_565:
+			Log.i(TAG, "Camera preview using JPEG or RGB");
+			this.actBmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+		default:
+			Log.e(TAG, "Camera preview format not supported!");
+		}
 
 		Log.d("Pixels", this.previewSize.width + " - " + this.previewSize.height);
 
 		Canvas canvas = this.surfaceHolder.lockCanvas();
-
-		this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
 
 		Log.i("Pixels",
 				"The top right pixel has the following RGB (hexadecimal) values:"
