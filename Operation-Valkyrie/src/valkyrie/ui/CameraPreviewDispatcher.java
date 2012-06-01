@@ -48,9 +48,7 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
 		this.camera = Camera.open();
 		try {
 			
-			SurfaceView view = new SurfaceView(this.getContext());
-			
-			this.camera.setPreviewDisplay(view.getHolder());
+			this.camera.setPreviewDisplay(this.surfaceHolder);
 
 			this.camera.setPreviewCallback(this.cameraPreviewView);
 			
@@ -101,7 +99,7 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
 		this.camera.setParameters(parameters);
 		
 		this.cameraPreviewView.setPreviewSize(this.previewSize);
-		
+			
 		this.camera.startPreview();
 	}
 	
