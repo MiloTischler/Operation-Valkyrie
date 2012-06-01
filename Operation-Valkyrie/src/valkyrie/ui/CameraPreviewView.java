@@ -46,6 +46,7 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	}
 
 	public void onPreviewFrame(byte[] data, Camera camera) {
+		
 		if (camera == null)
 			return;
 
