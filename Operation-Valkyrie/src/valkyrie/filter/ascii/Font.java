@@ -64,7 +64,7 @@ public class Font {
 		Map<Integer, Double> intensityList = new HashMap<Integer, Double>();
 
 		double min = 1, max = 0;
-		for (int i = 0; i < 255; i++) {
+		for (int i = 32; i < 127; i++) {
 			letter = "";
 			letter += (char) i;
 			int fontsize = 20;
@@ -79,31 +79,25 @@ public class Font {
 
 			Rect rect = new Rect();
 			paint.getTextBounds(letter, 0, 1, rect);
-			// Log.d("valkyrie", letter);
-			// Log.d("valkyrie", rect.width() + "|" + rect.height());
-			// Log.d("valkyrie", image);
-			if ((rect.width() != 0) && (rect.height() != 0)) {
 				Bitmap mybitmap = Bitmap.createBitmap(25, 25,
 						Bitmap.Config.RGB_565);
 				Canvas c = new Canvas(mybitmap);
 				c.drawColor(Color.WHITE);
 				c.drawText(letter, 0, 20, paint);
-				String path = Environment.getExternalStorageDirectory()
-						.toString();
-				OutputStream fOut = null;
-				File file = new File(path + "/lol/", "lol" + i + ".jpg");
-				try {
-					fOut = new FileOutputStream(file);
-					mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-					fOut.flush();
-					fOut.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				String path = Environment.getExternalStorageDirectory()
+//						.toString();
+//				OutputStream fOut = null;
+//				File file = new File(path + "/lol/", "lol" + i + ".jpg");
+//				try {
+//					fOut = new FileOutputStream(file);
+//					mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//					fOut.flush();
+//					fOut.close();
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
 				int blackPixelCounter = 0;
 				int imgPixels = mybitmap.getHeight() * mybitmap.getWidth();
 				for (int y = 0; y < mybitmap.getHeight(); y++) {
@@ -115,10 +109,6 @@ public class Font {
 				}
 				double intensity = (double) blackPixelCounter
 						/ (double) imgPixels;
-				// Log.d("valkyrie", intensity +" ");
-				if (blackPixelCounter == 40) {
-					intensityList.put(i, -2.0);
-				} else {
 					intensityList.put(i, intensity);
 					if (intensity > max) {
 						max = intensity;
@@ -126,49 +116,30 @@ public class Font {
 						min = intensity;
 					}
 
-				}
-
-			} else {
-				intensityList.put(i, -1.0);
-			}
 		}
-		// Log.d("valkyrie", java.util.Arrays.toString(intensityList.));
-		Log.d("valkyrie", max + "|" + min);
 		Iterator iterator=intensityList.entrySet().iterator();
-		 
-//        for (Map.Entry entry : intensityList.entrySet()) {
-//        	Log.d("valkyrie", "Key : " + entry.getKey() 
-//       			+ " Value : " + entry.getValue());
-//        }
-		// now lets sort this shit
 		Map<Integer,Double> sortedMap =  sortByComparator(intensityList);
-
-
-//		Log.d("valkyrie", max + "|" + min);
-//        for (Map.Entry entry : sortedMap.entrySet()) {
-//        	Log.d("valkyrie", "Key : " + entry.getKey() 
-//       			+ " Value : " + entry.getValue());
-//        }
         
         //finally our lut
-        int i = 0;
+        int i = 255;
         int test = 0;
         for (Map.Entry entry : sortedMap.entrySet()) {
-        	if (entry.getValue().equals(-1.0) || entry.getValue().equals(-2.0))
+        	if(i >= 58)
         	{
-        		test++;
-        	    this.LUT[i] = 96; 
-        	}else
         		this.LUT[i] = (Integer) entry.getKey(); 
-        	Log.d("valkyrie", entry.getKey() + "");
-        	
-        	i++;
+        		i--;
+        		this.LUT[i] = (Integer) entry.getKey(); 
+        		i--;
+        		this.LUT[i] = (Integer) entry.getKey(); 
+        		i--;
+        	}
+        	else{
+        		this.LUT[i] = (Integer) entry.getKey(); 
+        		i--;
+        		this.LUT[i] = (Integer) entry.getKey(); 
+        		i--;
+        	}
         }
-        
-        Log.d("valkyrie",java.util.Arrays.toString(this.LUT));
-        Log.d("valkyrie",test + "|");
-		
-
 	}
 
 	/**

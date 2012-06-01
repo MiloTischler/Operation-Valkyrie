@@ -1,18 +1,21 @@
 package valkyrie.filter.nofilter;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import android.graphics.Bitmap;
+import android.widget.RelativeLayout;
 import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
- *
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
  */
-public class NoFilter implements IFilter{
+public class NoFilter implements IFilter {
 
 	public void manipulatePreviewImage(Bitmap bitmap) {
 
@@ -22,8 +25,8 @@ public class NoFilter implements IFilter{
 
 	}
 
-	public Vector<Object> getUIElements() {
-		return new Vector<Object>();
+	public HashMap<Integer, Vector<RelativeLayout>> getUIElements() {
+		return new HashMap<Integer, Vector<RelativeLayout>>();
 	}
 
 	public String getName() {
@@ -31,12 +34,10 @@ public class NoFilter implements IFilter{
 	}
 
 	public Bitmap getIcon() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void setup(FilterAssets filterAssets, Boolean firstRun) {
-		// TODO Auto-generated method stub
-		
+	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
+
 	}
 }
