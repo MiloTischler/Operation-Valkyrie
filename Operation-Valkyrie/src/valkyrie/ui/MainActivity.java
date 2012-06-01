@@ -47,7 +47,6 @@ public class MainActivity extends Activity {
 		
 		// Ritzys filter test
 		Ascii asciiFilter = new Ascii();
-		asciiFilter.test();
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
