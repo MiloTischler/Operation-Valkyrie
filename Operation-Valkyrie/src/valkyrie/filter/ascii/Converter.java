@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Vector;
+import java.lang.Math;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -74,20 +75,34 @@ public class Converter {
 		paint.setTextSize(fontsize);
 		paint.setAntiAlias(true);
 		paint.setTypeface(Typeface.MONOSPACE);
+		paint.setTextAlign(Align.CENTER);
 		
 		String line = imageText.get(0);
 		Rect rect = new Rect();
 		paint.getTextBounds(line, 0, line.length(), rect);
-		
-	    Log.d("valkyrie", "Image size:" + rect.width() + " | " + (fontsize * imageText.size()) );
-		Bitmap mybitmap = Bitmap.createBitmap(rect.width(), fontsize * imageText.size(), Bitmap.Config.RGB_565);
+		int width = fontsize * line.length();
+		int hight = fontsize * imageText.size();
+	    Log.d("valkyrie", "Image size:" + width + " | " + hight);
+		Bitmap mybitmap = Bitmap.createBitmap(width, hight, Bitmap.Config.RGB_565);
 		Canvas c = new Canvas(mybitmap);
 		c.drawColor(Color.WHITE);
 		
-		int hight = fontsize;
+		int hightPos = fontsize;
+		int widthPos = fontsize;
+		String chara = "";
+		char[] lineArray;
 		for(int i = 0; i < imageText.size(); i++){
-			c.drawText(imageText.get(i),0,hight - 1,paint);
-			hight += fontsize;
+			lineArray = imageText.get(i).toCharArray();
+			widthPos = 0;
+			for (char string : lineArray) 
+			{
+				chara = "";
+				chara += string;
+				c.drawText(chara,widthPos,hightPos,paint);
+			//	Log.d("valkyrie", "Image size:" + widthPos + " | " + hightPos);
+				widthPos += fontsize;
+			}
+			hightPos += fontsize;
 		}
 		
 		
@@ -109,5 +124,145 @@ public class Converter {
 		Log.d("valkyrie",  "finish");	
 
 	}
+	
+	
+	public void grayScaleToAsciiPrieview(Bitmap gray, int[] LUT){
+		String textLine;
+		
+		Log.d("valkyrie",  "start");	
+		int fontsize = 7;
+		//font options go here
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.FILL);
+		paint.setColor(Color.BLACK);
+		paint.setTextSize(fontsize);
+		paint.setAntiAlias(true);
+		paint.setTypeface(Typeface.MONOSPACE);
+		paint.setTextAlign(Align.CENTER);
+		
+
+		int width = gray.getWidth() - (gray.getWidth() % fontsize);
+		int hight = gray.getHeight() - (gray.getHeight() % fontsize);
+		Bitmap mybitmap = Bitmap.createBitmap(width, hight, Bitmap.Config.RGB_565);
+		Canvas c = new Canvas(mybitmap);
+		c.drawColor(Color.WHITE);
+		
+		int hightPos = fontsize;
+		int widthPos = 0;
+		int pixelSum = 0;
+		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
+			widthPos = 0;
+			for (int j = 0; j < (hight - fontsize); j = j + fontsize) {
+				pixelSum = 0;
+				textLine = "";
+				for(int x = i; x < (i + fontsize); x++)
+				{
+					for(int y = j; y < (j + fontsize); y++)
+					{
+						pixelSum += Color.red(gray.getPixel(x, y));
+					}
+				}
+				
+				textLine += (char)LUT[Math.round((float)pixelSum / ((float)fontsize * (float)fontsize))];	
+				c.drawText(textLine,hightPos,widthPos,paint);
+				widthPos += fontsize;
+			}
+			hightPos += fontsize;
+		}
+		
+		
+		// saving shouldnt be done here
+		String path = Environment.getExternalStorageDirectory().toString();
+		OutputStream fOut = null;
+		File file = new File(path, "lol2.jpg");
+		try {
+			fOut = new FileOutputStream(file);
+			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			fOut.flush();
+			fOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.d("valkyrie",  "finish");		
+	}
+	
+	public void colorToAsciiPrieview(Bitmap gray, int[] LUT, Bitmap color){
+		String textLine;
+		
+		Log.d("valkyrie",  "start");	
+		int fontsize = 7;
+		//font options go here
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.FILL);
+		paint.setTextSize(fontsize);
+		paint.setAntiAlias(true);
+		paint.setTypeface(Typeface.MONOSPACE);
+		paint.setTextAlign(Align.CENTER);
+		
+
+		int width = gray.getWidth() - (gray.getWidth() % fontsize);
+		int hight = gray.getHeight() - (gray.getHeight() % fontsize);
+		Bitmap mybitmap = Bitmap.createBitmap(width, hight, Bitmap.Config.RGB_565);
+		Canvas c = new Canvas(mybitmap);
+		c.drawColor(Color.WHITE);
+		
+		int hightPos = fontsize;
+		int widthPos = 0;
+		int pixelSum = 0;
+		int redSum = 0;
+		int greenSum = 0;
+		int blueSum = 0;
+		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
+			widthPos = 0;
+			for (int j = 0; j < (hight - fontsize); j = j + fontsize) {
+				pixelSum = 0;
+				blueSum = 0;
+				greenSum = 0;
+				redSum = 0;
+				textLine = "";
+				for(int x = i; x < (i + fontsize); x++)
+				{
+					for(int y = j; y < (j + fontsize); y++)
+					{
+						pixelSum += Color.red(gray.getPixel(x, y));
+						redSum += Color.red(color.getPixel(x, y));
+						greenSum += Color.green(color.getPixel(x, y));
+						blueSum += Color.blue(color.getPixel(x, y));
+					}
+				}
+				
+				textLine += (char)LUT[Math.round((float)pixelSum / ((float)fontsize * (float)fontsize))];	
+				redSum = Math.round((float)redSum / ((float)fontsize * (float)fontsize));	
+				greenSum = Math.round((float)greenSum / ((float)fontsize * (float)fontsize));	
+				blueSum = Math.round((float)blueSum / ((float)fontsize * (float)fontsize));	
+				paint.setColor(Color.rgb(redSum, greenSum, blueSum));
+				c.drawText(textLine,hightPos,widthPos,paint);
+				widthPos += fontsize;
+			}
+			hightPos += fontsize;
+		}
+		
+		
+		// saving shouldnt be done here
+		String path = Environment.getExternalStorageDirectory().toString();
+		OutputStream fOut = null;
+		File file = new File(path, "lol3.jpg");
+		try {
+			fOut = new FileOutputStream(file);
+			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			fOut.flush();
+			fOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.d("valkyrie",  "finish");		
+	}
+	
+	
+	
 	
 }
