@@ -7,6 +7,7 @@ import valkyrie.main.R;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 /**
  * 
@@ -70,8 +71,8 @@ public class LayoutManager {
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
-		RelativeLayout uiElements = filterObject.getUIElements(mainActivity);
-		
+		TableLayout uiElements = filterObject.getUIElements(mainActivity);
+			
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}

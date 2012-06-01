@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
@@ -98,11 +99,11 @@ public class Ascii implements IFilter {
 	 * @param mainActivity
 	 *            Activity, the main activity of the Program. Gives us access to the LayoutInflater.
 	 */
-	public RelativeLayout getUIElements(Activity mainActivity) {
+	public TableLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
 
-		return (RelativeLayout) inflater.inflate(R.layout.ascii, null);
+		return (TableLayout) inflater.inflate(R.layout.ascii, null);
 	}
 
 	public String getName() {

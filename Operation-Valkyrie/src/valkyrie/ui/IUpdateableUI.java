@@ -1,6 +1,6 @@
 package valkyrie.ui;
 
-import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 /**
  * 
@@ -13,6 +13,6 @@ public interface IUpdateableUI {
 	/**
 	 * @todo Jakob
 	 */
-	public void redrawUI(RelativeLayout uiElements);
+	public void redrawUI(TableLayout uiElements);
 	
 }
