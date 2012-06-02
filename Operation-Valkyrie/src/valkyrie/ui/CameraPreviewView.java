@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.filter.IFilter;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -7,7 +8,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
@@ -26,6 +26,8 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	private Size previewSize = null;
 
 	private SurfaceHolder surfaceHolder = null;
+	
+	private IFilter filter = null;
 
 	public CameraPreviewView(Context context) {
 		super(context);
@@ -37,6 +39,10 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		super(context, attr);
 
 		this.surfaceHolder = this.getHolder();
+	}
+	
+	public void setFilter(IFilter Filter) {
+		this.filter = filter;
 	}
 
 	public void setPreviewSize(Size previewSize) {
@@ -76,12 +82,17 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 				"The top right pixel has the following RGB (hexadecimal) values:"
 						+ Integer.toHexString(this.actBmp.getPixel(10, 10)));
 
-		Paint paint = new Paint();
-		paint.setColor(Color.WHITE);
-		paint.setTextSize(20);
-
-		canvas.drawBitmap(this.actBmp, 0, 0, paint);
-		canvas.drawText("Got it!", 100, 100, paint);
+//		Paint paint = new Paint();
+//		paint.setColor(Color.WHITE);
+//		paint.setTextSize(20);
+//
+//		canvas.drawText("Got it!", 100, 100, paint);
+		
+		if(this.filter != null) {
+			this.filter.manipulatePreviewImage(this.actBmp);
+		}
+		
+		canvas.drawBitmap(this.actBmp, 0, 0, null);
 
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
