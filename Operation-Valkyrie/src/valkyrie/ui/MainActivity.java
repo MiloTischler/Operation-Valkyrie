@@ -42,9 +42,6 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-
-		
-		
 		// Ritzys filter test
 		Ascii asciiFilter = new Ascii();
 
@@ -56,6 +53,11 @@ public class MainActivity extends Activity {
 
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
+		
+		// schweigis Filter Test
+		NoFilter nofilt0r = new NoFilter();
+		LayoutManager.getInstance().notifyUI(nofilt0r);
+		// schweigis Test end
 
 		CameraPreviewDispatcher dispatcher = (CameraPreviewDispatcher) this
 				.findViewById(R.id.camera_preview_dispatcher);
