@@ -2,7 +2,7 @@ package valkyrie.ui;
 
 import java.util.logging.Logger;
 
-
+import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
@@ -10,6 +10,7 @@ import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -21,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -36,6 +38,9 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
+	private FilterManager filterManager = null;
+	private CameraDispatcher cameraDispatcher = null;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +48,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// Ritzys filter test
-		Ascii asciiFilter = new Ascii();
+		// Ascii asciiFilter = new Ascii();
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		final Window window = this.getWindow(); 
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
@@ -59,11 +67,12 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().notifyUI(nofilt0r);
 		// schweigis Test end
 
-		CameraPreviewDispatcher dispatcher = (CameraPreviewDispatcher) this
-				.findViewById(R.id.camera_preview_dispatcher);
-		CameraPreviewView view = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
+		// initialize FilterManager
+		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters);
 
-		dispatcher.setPreview(view);
+		// initialize CameraDispatcher
+		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
+		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
 	}
 
 	public void takePicture(View view) {
@@ -72,20 +81,22 @@ public class MainActivity extends Activity {
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
-		// Play take photo sound effect
-		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+//		// Play take photo sound effect
+//		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+//		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+//
+//		if (volume != 0) {
+//			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
+//					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+//
+//			if (shootSpound != null) {
+//				shootSpound.start();
+//			} else {
+//				view.playSoundEffect(SoundEffectConstants.CLICK);
+//			}
+//		}
 
-		if (volume != 0) {
-			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
-					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-
-			if (shootSpound != null) {
-				shootSpound.start();
-			} else {
-				view.playSoundEffect(SoundEffectConstants.CLICK);
-			}
-		}
+		Bitmap picture = this.cameraDispatcher.takePicture();
 	}
 
 	public void showGallery(View view) {
@@ -127,7 +138,6 @@ public class MainActivity extends Activity {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
 				.findViewById(R.id.filter_options_panel);
-
 
 		if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
 			multiDirectionSlidingDrawer.animateOpen();
