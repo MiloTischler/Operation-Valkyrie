@@ -10,6 +10,7 @@ import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -46,8 +47,8 @@ public class MainActivity extends Activity {
 		
 		
 		// Ritzys filter test
-		Ascii asciiFilter = new Ascii();
-		asciiFilter.test();
+	//	Ascii asciiFilter = new Ascii();
+	//	asciiFilter.test();
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -88,13 +89,24 @@ public class MainActivity extends Activity {
 	}
 
 	public void showGallery(View view) {
-		Log.d("Tag", "clicked: showGallery");
+	Log.d("Tag", "clicked: showGallery");
 
+		
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-
+		Log.d(TAG, "!!!!!createing new Intent");
+		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
+		try{
+			Log.d(TAG, "!!!!!startnewActivity");
+			MainActivity.this.startActivity(myIntent);
+			Log.d(TAG, "!!!!!newActivity should run now");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		Log.d(TAG, "!!!!!end of showGallery Function");
 		// TODO: Implementation of showGallery
 	}
 
