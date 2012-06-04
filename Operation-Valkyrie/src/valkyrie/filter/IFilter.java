@@ -17,9 +17,9 @@ public interface IFilter {
 
 	public Bitmap getIcon();
 
-	public void manipulatePreviewImage(Bitmap bitmap);
+	public Bitmap manipulatePreviewImage(Bitmap bitmap);
 
-	public void manipulateImage(Bitmap bitmap);
+	public Bitmap manipulateImage(Bitmap bitmap);
 
 	/**
 	 * Retrieves the filter specific options panel.

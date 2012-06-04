@@ -41,7 +41,7 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		this.surfaceHolder = this.getHolder();
 	}
 	
-	public void setFilter(IFilter Filter) {
+	public void setFilter(IFilter filter) {
 		this.filter = filter;
 	}
 
@@ -88,8 +88,9 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 //
 //		canvas.drawText("Got it!", 100, 100, paint);
 		
-		if(this.filter != null) {
-			this.filter.manipulatePreviewImage(this.actBmp);
+		if(this.filter != null && this.actBmp != null) {
+			Log.d("OMFG", "THERE IS A FILTER!");
+			this.actBmp = this.filter.manipulatePreviewImage(this.actBmp);
 		}
 		
 		canvas.drawBitmap(this.actBmp, 0, 0, null);
