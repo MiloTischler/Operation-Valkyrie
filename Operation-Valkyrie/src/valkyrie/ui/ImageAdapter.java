@@ -50,11 +50,11 @@ public class ImageAdapter extends BaseAdapter {
 				
 				// not necessary if i have some thumbnails
 				Bitmap previewBitmap = Bitmap.createScaledBitmap(BitmapFactory
-						.decodeFile(imageList[i].getAbsolutePath(), o), 120, 80,
+						.decodeFile(imageList[i].getAbsolutePath(), o), 1184/10 , 720/10 ,
 						false);
 				bitmapFull = Bitmap.createScaledBitmap(BitmapFactory
 						.decodeFile(imageList[i].getAbsolutePath(), ofull),
-						1184, 720, false);
+						1184, 845, false);
 
 				bitFullVec.add(bitmapFull);
 

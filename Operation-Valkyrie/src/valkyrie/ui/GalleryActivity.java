@@ -32,7 +32,9 @@ public class GalleryActivity extends Activity {
 	private String TAG = "GalleryActivity";
 	private String SDPATH = Environment.getExternalStorageState()
 			+ Environment.DIRECTORY_PICTURES;
-
+	private File files = new File(Environment.getExternalStorageDirectory() + "/Valkyrie/Gallery");
+	private File fileList[];
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "oncreate");
@@ -41,17 +43,20 @@ public class GalleryActivity extends Activity {
 		setContentView(R.layout.gallery);
 		// save some pictures from drawable to sdcard for gallery preview
 		 FileManager fileManager = new FileManager();
-
+		 fileList = files.listFiles();
+		 
+		 if (fileList.length == 0){
+			 Log.d(TAG, "no files in gallery produce some ...");
 		// -------------------create some files----------------------------
 		// Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
 		// R.drawable.hydrangeas);
 		// fileManager.saveImageToGallery(bitmap);
-//		 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-//		 R.drawable.desert));
-//		 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-//		 R.drawable.chrysanthemum));
-//		 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-//		 R.drawable.tulips));
+	//	 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
+	//	 R.drawable.desert));
+	//	 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
+	//	 R.drawable.chrysanthemum));
+		 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
+		 R.drawable.tulips));
 		 // fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 		// R.drawable.jellyfish));
 		// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
@@ -62,7 +67,8 @@ public class GalleryActivity extends Activity {
 		// R.drawable.tulips));
 		// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 		// R.drawable.jellyfish));
-
+		 }else{
+			 Log.d(TAG, fileList.length +" files in gallery ...");}
 		// ------------------------------------------------------------------
 		Log.d(TAG, "start creating thumbnls");
 		// createThumbnls();
