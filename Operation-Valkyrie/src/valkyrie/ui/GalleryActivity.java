@@ -38,13 +38,14 @@ public class GalleryActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+		// save some pictures from drawable to sdcard for gallery preview
+		createPictures();
+		// ------------------------------------------------------------------
+
 		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
 
-		// save some pictures from drawable to sdcard for gallery preview
-		createPictures();
-		// ------------------------------------------------------------------
 
 
 		GridView gallery = (GridView) findViewById(R.id.gallery);
@@ -112,7 +113,7 @@ public class GalleryActivity extends Activity {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
 
-		if (fileList.length == 0) {
+		if (fileList.length == 1) {
 			Log.d(TAG, "no files in gallery produce some ...");
 			// -------------------create some files----------------------------
 			// Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
@@ -122,14 +123,14 @@ public class GalleryActivity extends Activity {
 			// R.drawable.desert));
 			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 			// R.drawable.chrysanthemum));
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.tulips));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.jellyfish));
+			//fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+			//		this.getResources(), R.drawable.tulips));
+			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
+			 R.drawable.jellyfish));
 			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 			// R.drawable.desert));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.chrysanthemum));
+			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
+			 R.drawable.chrysanthemum));
 			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 			// R.drawable.tulips));
 			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),

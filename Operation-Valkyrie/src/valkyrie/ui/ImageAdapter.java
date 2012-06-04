@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
 
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d(TAG, "in getview");
+		
 		ImageView imageView;
 
 		if (convertView == null) { // if it's not recycled, initialize some
@@ -57,7 +57,6 @@ public class ImageAdapter extends BaseAdapter {
 //		imageView = (ImageView) convertView;
 		Log.i(TAG, "Image adapter setImage ");
 		imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
-		Log.d(TAG, "after setImageResource getview");
 		return imageView;
 	}
 
