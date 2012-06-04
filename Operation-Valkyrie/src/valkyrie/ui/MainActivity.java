@@ -103,23 +103,16 @@ public class MainActivity extends Activity {
 	public void showGallery(View view) {
 	Log.d("Tag", "clicked: showGallery");
 
-		
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
-
+		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-		Log.d(TAG, "!!!!!createing new Intent");
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
-		try{
-			Log.d(TAG, "!!!!!startnewActivity");
-			MainActivity.this.startActivity(myIntent);
-			Log.d(TAG, "!!!!!newActivity should run now");
+		try{	
+			MainActivity.this.startActivity(myIntent);	
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		Log.d(TAG, "!!!!!end of showGallery Function");
-		// TODO: Implementation of showGallery
+		// TODO: Implementation of showGallery ... in progress
 	}
 
 	public void toggleFilterEffect(View view) {
