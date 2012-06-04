@@ -52,8 +52,8 @@ public class MainActivity extends Activity {
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		final Window window = this.getWindow(); 
+
+		final Window window = this.getWindow();
 		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		// Set activity layout
@@ -61,14 +61,11 @@ public class MainActivity extends Activity {
 
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
-		
-		// schweigis Filter Test
-		NoFilter nofilt0r = new NoFilter();
-		LayoutManager.getInstance().notifyUI(nofilt0r);
-		// schweigis Test end
 
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters);
+		// start with no filter by default
+		this.filterManager.setActiveFilter(new NoFilter());
 
 		// initialize CameraDispatcher
 		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
@@ -81,20 +78,20 @@ public class MainActivity extends Activity {
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
-//		// Play take photo sound effect
-//		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-//		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-//
-//		if (volume != 0) {
-//			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
-//					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-//
-//			if (shootSpound != null) {
-//				shootSpound.start();
-//			} else {
-//				view.playSoundEffect(SoundEffectConstants.CLICK);
-//			}
-//		}
+		// // Play take photo sound effect
+		// AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		// int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+		//
+		// if (volume != 0) {
+		// MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
+		// Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+		//
+		// if (shootSpound != null) {
+		// shootSpound.start();
+		// } else {
+		// view.playSoundEffect(SoundEffectConstants.CLICK);
+		// }
+		// }
 
 		Bitmap picture = this.cameraDispatcher.takePicture();
 	}

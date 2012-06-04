@@ -6,7 +6,6 @@ import valkyrie.filter.IFilter;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.util.Log;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 /**
