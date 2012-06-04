@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.provider.MediaStore.Images;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +27,43 @@ public class ImageAdapter extends BaseAdapter {
 	public Vector<Bitmap> bitFullVec = new Vector<Bitmap>();
 	private File file = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");
+	Time currentTime = new Time();
+
 
 	public ImageAdapter(Context c) {
 		mContext = c;
 		Log.d(TAG, "Constructor");
-		Bitmap bitmapFull;
-		BitmapFactory.Options o = new BitmapFactory.Options();
-		BitmapFactory.Options ofull = new BitmapFactory.Options();
-		o.inSampleSize = 6;
-		ofull.inSampleSize = 2;
-		imageList = file.listFiles();
-		for (int i = 0; i < imageList.length - 6; i++) {
-			Log.i(TAG,"Image adapter durchlauf : " + i + ": path" + imageList[i].getAbsolutePath());
-	//not necessary if i have some thumbnails
-			Bitmap previewBitmap = Bitmap.createScaledBitmap(
-					BitmapFactory.decodeFile(imageList[i].getAbsolutePath(),o),
-					85, 85, false);
-			bitmapFull = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeFile(imageList[i].getAbsolutePath()
-							,ofull),500,300,false);
+		Integer info = bitVec.size();
+		Log.d(TAG, info.toString());
 		
-			bitFullVec.add(bitmapFull);
+	
+			Bitmap bitmapFull;
+			BitmapFactory.Options o = new BitmapFactory.Options();
+			BitmapFactory.Options ofull = new BitmapFactory.Options();
+			o.inSampleSize = 6;
+			ofull.inSampleSize = 2;
 
-		//	Bitmap b = BitmapFactory.decodeFile(imageList[i].getAbsolutePath());
-			bitVec.add(previewBitmap);//b);
-		}
+			imageList = file.listFiles();
+			for (int i = 0; i < imageList.length; i++) {
+				Log.i(TAG, "Image adapter durchlauf : " + i + ": path"
+						+ imageList[i].getAbsolutePath());
+				
+				// not necessary if i have some thumbnails
+				Bitmap previewBitmap = Bitmap.createScaledBitmap(BitmapFactory
+						.decodeFile(imageList[i].getAbsolutePath(), o), 120, 80,
+						false);
+				bitmapFull = Bitmap.createScaledBitmap(BitmapFactory
+						.decodeFile(imageList[i].getAbsolutePath(), ofull),
+						1184, 720, false);
+
+				bitFullVec.add(bitmapFull);
+
+				// Bitmap b =
+				// BitmapFactory.decodeFile(imageList[i].getAbsolutePath());
+				bitVec.add(previewBitmap);// b);
+			}
+			
+		
 		this.pictures = bitVec.size();
 		Log.d(TAG, "Constructor over and out");
 	}
@@ -85,37 +98,37 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		Log.i(TAG,"Image adapter setImage " );
+		Log.i(TAG, "Image adapter setImage ");
 		imageView.setImageBitmap(bitVec.elementAt(position));
-//		imageView.setImageBitmap(Bitmap.createScaledBitmap(
-//				BitmapFactory.decodeFile(imageList[position].getAbsolutePath()),
-//				85, 85, false));
+		// imageView.setImageBitmap(Bitmap.createScaledBitmap(
+		// BitmapFactory.decodeFile(imageList[position].getAbsolutePath()),
+		// 85, 85, false));
 
 		Log.d(TAG, "after setImageResource getview");
 		return imageView;
 	}
-//---------------test--------------------
-	protected void finalize() throws Throwable
-	{
+
+	// ---------------test--------------------
+	protected void finalize() throws Throwable {
+		recycleBmps();
+		super.finalize();
+	}
+
+	// ----------------------------------------
+	public void recycleBmps() {
 		int i = 0;
 		for (Bitmap e : bitVec) {
-			
+
 			e.recycle();
 			Log.d(TAG, "recycle Bitmap " + i);
 			i++;
 		}
-	  super.finalize(); 
-	} 
-	
-//----------------------------------------
-//	public void recycleBmps() {
-//		int i = 0;
-//		for (Bitmap e : bitVec) {
-//		
-//			e.recycle();
-//			Log.d(TAG, "recycle Bitmap " + i);
-//			i++;
-//		}
-//
-//	}
+		for (Bitmap e : bitFullVec) {
+
+			e.recycle();
+			Log.d(TAG, "recycle2 Bitmap " + i);
+			i++;
+		}
+
+	}
 }

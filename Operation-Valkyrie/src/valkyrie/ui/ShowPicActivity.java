@@ -12,6 +12,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.gesture.*;
 
 public class ShowPicActivity extends Activity implements OnTouchListener {
@@ -28,6 +29,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private float x = 0;
 	private float y = 0;
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -39,7 +41,9 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 
 		ImageView imageview = (ImageView) findViewById(R.id.full_image_view);
 		imageview.setOnTouchListener(this);
+	//	imageview.setScaleType(ScaleType.CENTER_CROP);
 		imageview.setImageBitmap(imageAdapter.bitFullVec.elementAt(position));
+	//	imageview.setScaleType(ScaleType.MATRIX);
 
 	}
 
@@ -56,6 +60,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		//	view.setImageBitmap(imageAdapter.bitFullVec.get(i));
 			x = event.getX();
 			y = event.getY();
+			
 			mode = DRAG;
 			break;
 		case MotionEvent.ACTION_UP:
