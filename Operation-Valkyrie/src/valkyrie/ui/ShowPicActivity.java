@@ -73,6 +73,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 			//yActionUp = event.getY(1);
 			break;
 		case MotionEvent.ACTION_MOVE:
+		
 			if (mode == DRAG) {
 				matrix.set(savedMatrix);
 				matrix.postTranslate(event.getX() - xDown, event.getY() - yDown);
