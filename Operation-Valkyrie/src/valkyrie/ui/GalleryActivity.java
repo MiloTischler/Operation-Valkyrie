@@ -19,8 +19,10 @@ import android.widget.Toast;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -44,8 +46,9 @@ public class GalleryActivity extends Activity {
 		// save some pictures from drawable to sdcard for gallery preview
 		createPictures();
 		// ------------------------------------------------------------------
-
-		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
+		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
+				.getDefaultDisplay();
+		DecodeBitmaps decodeBitmaps = new DecodeBitmaps(d.getWidth(),d.getHeight());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
 
@@ -123,7 +126,8 @@ public class GalleryActivity extends Activity {
 	private void createPictures() {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
-
+		
+			
 		if (fileList.length == 0) {
 			Log.d(TAG, "no files in gallery produce some ...");
 			// -------------------create some files----------------------------
