@@ -92,11 +92,11 @@ public class DecodeBitmaps {
 				Log.d(TAG, "th :" + th + "  i :" + i + "but thumblist.length: "
 						+ thumbList.length);
 				Log.d(TAG,
-						i + " " + thumbList[i].getName()
+						i + " " + thumbList[th].getName()
 								+ " already Exists in "
-								+ thumbList[i].getAbsolutePath());
+								+ thumbList[th].getAbsolutePath());
 
-				bitmapThumb = BitmapFactory.decodeFile(thumbList[i]
+				bitmapThumb = BitmapFactory.decodeFile(thumbList[th]
 						.getAbsolutePath());
 				thumbs.add(bitmapThumb);
 				th++;
