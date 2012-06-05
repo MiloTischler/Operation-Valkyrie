@@ -18,7 +18,7 @@ import android.view.WindowManager;
 
 public class DecodeBitmaps {
 
-	private static boolean done = false;
+	public static boolean done = false;
 	private String TAG = "DecodeBitmaps";
 	private File files = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");
@@ -27,9 +27,9 @@ public class DecodeBitmaps {
 	private File fileList[];
 	private File thumbList[];
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
-	public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
+	//public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
 	public static Vector<String> fullImgPosition= new Vector<String>();
-	public FileManager fileManager = new FileManager();
+	private FileManager fileManager = new FileManager();
 
 
 	
@@ -40,6 +40,9 @@ public class DecodeBitmaps {
 			Log.d(TAG, "all work here was done hours ago ;)");
 
 		} else
+
+			fullImgPosition.clear();
+			thumbs.clear();
 			decodeBitmap();
 	}
 
@@ -109,6 +112,7 @@ public class DecodeBitmaps {
 								85, false);
 
 				saveAThumb(newThumb, fileList[i].getName());
+				
 				thumbs.add(newThumb);
 			}
 		}
@@ -151,10 +155,10 @@ public class DecodeBitmaps {
 			b.recycle();
 			Log.d(TAG, i + " Bitmaps recycled");
 		}
-		for (Bitmap b : DecodeBitmaps.fullImg) {
-			b.recycle();
-			i++;
-			Log.d(TAG, i + " Bitmaps recycled");
-		}
+//		for (Bitmap b : DecodeBitmaps.fullImg) {
+//			b.recycle();
+//			i++;
+//			Log.d(TAG, i + " Bitmaps recycled");
+//		}
 	}
 }
