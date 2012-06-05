@@ -4,31 +4,29 @@ import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.gesture.*;
+
 
 public class ShowPicActivity extends Activity implements OnTouchListener {
 
 	private String TAG = "ShowPicActivity";
-	ImageAdapter imageAdapter = new ImageAdapter(this);
 	Matrix matrix = new Matrix();
 	Matrix savedMatrix = new Matrix();
 	static final int NONE = 0;
 	static final int DRAG = 1;
 	static final int ZOOM = 2;
 	int mode = NONE;
-	private int i = 0;
-	private float x = 0;
-	private float y = 0;
-
+	private float xDown  = 0;
+	private float yDown  = 0;
+	private PointF mid = new PointF();
+	private float oldDist;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,9 +39,9 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 
 		ImageView imageview = (ImageView) findViewById(R.id.full_image_view);
 		imageview.setOnTouchListener(this);
-	//	imageview.setScaleType(ScaleType.CENTER_CROP);
-		imageview.setImageBitmap(imageAdapter.bitFullVec.elementAt(position));
-	//	imageview.setScaleType(ScaleType.MATRIX);
+		// imageview.setScaleType(ScaleType.CENTER_CROP);
+		imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
+		// imageview.setScaleType(ScaleType.MATRIX);
 
 	}
 
@@ -56,38 +54,86 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
 		case MotionEvent.ACTION_DOWN:
+			Log.d(TAG, "ACTIONDOWN");
 			savedMatrix.set(matrix);
-		//	view.setImageBitmap(imageAdapter.bitFullVec.get(i));
-			x = event.getX();
-			y = event.getY();
-			
+			// view.setImageBitmap(imageAdapter.bitFullVec.get(i));
+			xDown = event.getX();
+			yDown = event.getY();
+
 			mode = DRAG;
 			break;
 		case MotionEvent.ACTION_UP:
+			Log.d(TAG, "ACTIONUP");
+			break;
 		case MotionEvent.ACTION_POINTER_UP:
+			Log.d(TAG, "ACTIONPOINTERUP");
 			mode = NONE;
 			Log.d(TAG, "mode=NONE");
+			//xActionUp = event.getX(1);
+			//yActionUp = event.getY(1);
 			break;
 		case MotionEvent.ACTION_MOVE:
+		
 			if (mode == DRAG) {
 				matrix.set(savedMatrix);
-				matrix.postTranslate(event.getX() - x, event.getY() - y);
-			}else if (mode == ZOOM) {
-				matrix.set(savedMatrix);
-				matrix.postScale((float)1.2,(float) 1.2, 600, 370);
-				
+				matrix.postTranslate(event.getX() - xDown, event.getY() - yDown);
+			} else if (mode == ZOOM) {
+
+				float newDist = spacing(event);
+				Log.d(TAG, "newDist=" + newDist);
+				if (newDist > 10f) {
+					Log.d(TAG, "!!!!1");
+					matrix.set(savedMatrix);
+					Log.d(TAG, "!!!!2");
+					float scale = newDist / oldDist;
+					Log.d(TAG, "!!!!3");
+					matrix.postScale(scale, scale, mid.x, mid.y);
+					Log.d(TAG, "!!!!4");
+				}
 			}
 			break;
+		// if (Math.abs(xActionUp - xActionDown) < 150) {
+		// matrix.set(savedMatrix);
+		// matrix.postScale((float) 0.8, (float) 0.8, 600, 370);
+		// } else if (Math.abs(xActionUp - xActionDown) > 150) {
+		// matrix.set(savedMatrix);
+		// matrix.postScale((float) 1.2, (float) 1.2, 600, 370);
+		// }
+		// }
+
 		case MotionEvent.ACTION_POINTER_DOWN:
-			mode = ZOOM;
-			
-			
+			// Log.d(TAG, "ACTIONPOINTERDOWN");
+			// xActionDown = event.getX(1);
+			// yActionDown = event.getY(1);
+			// mode = ZOOM;
+			oldDist = spacing(event);
+			Log.d(TAG, "oldDist=" + oldDist);
+			if (oldDist > 10f) {
+				savedMatrix.set(matrix);
+				Log.d(TAG, "krachboom");
+				midPoint(mid, event);
+				mode = ZOOM;
+				Log.d(TAG, "mode=ZOOM");
+			}
 			break;
+
 		}
 
 		view.setImageMatrix(matrix);
 
 		return true;
+	}
+
+	private float spacing(MotionEvent event) {
+		float x = event.getX(0) - event.getX(1);
+		float y = event.getY(0) - event.getY(1);
+		return FloatMath.sqrt(x * x + y * y);
+	}
+
+	private void midPoint(PointF point, MotionEvent event) {
+		float x = event.getX(0) + event.getX(1);
+		float y = event.getY(0) + event.getY(1);
+		point.set(x / 2, y / 2);
 	}
 
 	private void dumpEvent(MotionEvent event) {
