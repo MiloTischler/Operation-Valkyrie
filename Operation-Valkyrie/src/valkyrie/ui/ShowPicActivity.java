@@ -52,11 +52,12 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 
-		imageview.setImageBitmap(Bitmap.createScaledBitmap(
-				BitmapFactory.decodeFile(
-						DecodeBitmaps.fullImgPosition.get(position), fullOpt),
-				d.getWidth(), d.getHeight(), false));
-
+//		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+//				BitmapFactory.decodeFile(
+//						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
+//				d.getWidth(), d.getHeight(), false));
+		imageview.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
 		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
 		// imageview.setScaleType(ScaleType.MATRIX);
 
