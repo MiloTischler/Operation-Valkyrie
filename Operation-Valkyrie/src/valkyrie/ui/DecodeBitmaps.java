@@ -27,6 +27,7 @@ public class DecodeBitmaps {
 	public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
 	public FileManager fileManager = new FileManager();
 
+	
 	public DecodeBitmaps() {
 
 		if (done == true) {
@@ -50,9 +51,10 @@ public class DecodeBitmaps {
 			Bitmap bitmapFull;
 			Log.d(TAG, fileList[i].getName());
 			Log.d(TAG, "-----------------------------");
-
+			// TODO: too slow if those were calculated on every startup from the app
 			bitmapFull = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
 					fileList[i].getAbsolutePath(), fullOpt), 1184, 720, false);
+
 			fullImg.add(bitmapFull);
 
 		}
@@ -76,6 +78,7 @@ public class DecodeBitmaps {
 				// + fileList[i].getName());
 			}
 
+			
 			if (match) {
 
 				Log.d(TAG, "th :" + th + "  i :" + i + "but thumblist.length: "
@@ -102,6 +105,11 @@ public class DecodeBitmaps {
 			}
 		}
 		done = true;
+		//only for dev testing
+		for (int i = fileList.length ; i < thumbList.length; i++){
+			thumbs.add(BitmapFactory.decodeFile(thumbList[i].getAbsolutePath()));
+			Log.d(TAG, i +"  adding more thumbs which will cause NullpointersEx on click :)");
+		}
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
@@ -126,4 +134,17 @@ public class DecodeBitmaps {
 
 	}
 
+	private void recycleBitmaps(){
+		int i = 0;
+		for (Bitmap b : DecodeBitmaps.thumbs) {
+			i++;
+			b.recycle();
+			Log.d(TAG, i + " Bitmaps recycled");
+		}
+		for (Bitmap b : DecodeBitmaps.fullImg) {
+			b.recycle();
+			i++;
+			Log.d(TAG, i + " Bitmaps recycled");
+		}
+	}
 }

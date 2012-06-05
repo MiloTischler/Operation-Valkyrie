@@ -104,6 +104,7 @@ public class MainActivity extends Activity {
 	Log.d("Tag", "clicked: showGallery");
 
 		// Just a dummy text to appear..
+		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
 		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);

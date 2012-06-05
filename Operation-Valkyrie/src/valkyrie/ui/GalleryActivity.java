@@ -42,7 +42,7 @@ public class GalleryActivity extends Activity {
 		createPictures();
 		// ------------------------------------------------------------------
 
-		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
+		//DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
 
@@ -141,18 +141,6 @@ public class GalleryActivity extends Activity {
 
 	}
 	
-	private void recycleBitmaps(){
-		int i = 0;
-		for (Bitmap b : DecodeBitmaps.thumbs) {
-			i++;
-			b.recycle();
-			Log.d(TAG, i + " Bitmaps recycled");
-		}
-		for (Bitmap b : DecodeBitmaps.fullImg) {
-			b.recycle();
-			i++;
-			Log.d(TAG, i + " Bitmaps recycled");
-		}
-	}
+
 
 }
