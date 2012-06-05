@@ -4,6 +4,7 @@ import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Camera;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -50,10 +51,13 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 
-		imageview.setImageBitmap(Bitmap.createScaledBitmap(
-				BitmapFactory.decodeFile(
-						DecodeBitmaps.fullImgPosition.get(position), fullOpt),
-				d.getWidth(), d.getHeight(), false));
+
+//		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+//				BitmapFactory.decodeFile(
+//						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
+//				d.getWidth(), d.getHeight(), false));
+		imageview.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
 
 		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
 		// imageview.setScaleType(ScaleType.MATRIX);
@@ -152,16 +156,13 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	}
 
 	private void dumpEvent(MotionEvent event) {
-		String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
-				"POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+		String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE", "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
 		StringBuilder sb = new StringBuilder();
 		int action = event.getAction();
 		int actionCode = action & MotionEvent.ACTION_MASK;
 		sb.append("event ACTION_").append(names[actionCode]);
-		if (actionCode == MotionEvent.ACTION_POINTER_DOWN
-				|| actionCode == MotionEvent.ACTION_POINTER_UP) {
-			sb.append("(pid ").append(
-					action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
+		if (actionCode == MotionEvent.ACTION_POINTER_DOWN || actionCode == MotionEvent.ACTION_POINTER_UP) {
+			sb.append("(pid ").append(action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
 			sb.append(")");
 		}
 		sb.append("[");

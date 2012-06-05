@@ -126,8 +126,6 @@ public class GalleryActivity extends Activity {
 	private void createPictures() {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
-		
-			
 		if (fileList.length == 0) {
 			Log.d(TAG, "no files in gallery produce some ...");
 			// -------------------create some files----------------------------
@@ -139,6 +137,7 @@ public class GalleryActivity extends Activity {
 		} else {
 			Log.d(TAG, fileList.length + " files in gallery. No need for more.");
 		}
+
 
 	}
 	

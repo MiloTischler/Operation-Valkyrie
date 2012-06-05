@@ -26,6 +26,7 @@ public class FileManager {
 
 	public FileManager() {
 		initFileManager();
+		
 	}
 	
 	private void initFileManager() {
@@ -127,7 +128,7 @@ public class FileManager {
 			Log.e(TAG, e.toString());
 			e.printStackTrace();
 		}
-	//	bitmap.recycle();
+//		bitmap.recycle();
 	}
 
 	public void saveImageToInternal(Bitmap bitmap) {
