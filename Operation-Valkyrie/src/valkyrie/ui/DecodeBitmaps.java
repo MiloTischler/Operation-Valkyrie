@@ -27,9 +27,9 @@ public class DecodeBitmaps {
 	private File fileList[];
 	private File thumbList[];
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
-	public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
+	//public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
 	public static Vector<String> fullImgPosition= new Vector<String>();
-	public FileManager fileManager = new FileManager();
+	private FileManager fileManager = new FileManager();
 
 
 	
@@ -40,8 +40,9 @@ public class DecodeBitmaps {
 			Log.d(TAG, "all work here was done hours ago ;)");
 
 		} else
-			thumbs.clear();
+
 			fullImgPosition.clear();
+			thumbs.clear();
 			decodeBitmap();
 	}
 
@@ -154,10 +155,10 @@ public class DecodeBitmaps {
 			b.recycle();
 			Log.d(TAG, i + " Bitmaps recycled");
 		}
-		for (Bitmap b : DecodeBitmaps.fullImg) {
-			b.recycle();
-			i++;
-			Log.d(TAG, i + " Bitmaps recycled");
-		}
+//		for (Bitmap b : DecodeBitmaps.fullImg) {
+//			b.recycle();
+//			i++;
+//			Log.d(TAG, i + " Bitmaps recycled");
+//		}
 	}
 }

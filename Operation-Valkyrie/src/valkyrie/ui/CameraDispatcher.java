@@ -161,7 +161,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			// @TODO: .. we should start a image processing thread here ..
 			if(filter != null) {
 				filter.manipulateImage(picture);
-				filemanager.saveImageToGallery(picture);
+//				filemanager.saveImageToGallery(picture);
 			}
 			
 			data = null;
