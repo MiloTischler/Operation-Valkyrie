@@ -2,17 +2,21 @@ package valkyrie.ui;
 
 import valkyrie.main.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.FloatMath;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-
 
 public class ShowPicActivity extends Activity implements OnTouchListener {
 
@@ -23,8 +27,8 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	static final int DRAG = 1;
 	static final int ZOOM = 2;
 	int mode = NONE;
-	private float xDown  = 0;
-	private float yDown  = 0;
+	private float xDown = 0;
+	private float yDown = 0;
 	private PointF mid = new PointF();
 	private float oldDist;
 
@@ -40,7 +44,18 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		ImageView imageview = (ImageView) findViewById(R.id.full_image_view);
 		imageview.setOnTouchListener(this);
 		// imageview.setScaleType(ScaleType.CENTER_CROP);
-		imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
+		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
+		fullOpt.inSampleSize = 2;
+		
+		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
+				.getDefaultDisplay();
+
+		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+				BitmapFactory.decodeFile(
+						DecodeBitmaps.fullImgPosition.get(position), fullOpt),
+				d.getWidth(), d.getHeight(), false));
+
+		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
 		// imageview.setScaleType(ScaleType.MATRIX);
 
 	}
@@ -69,11 +84,11 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 			Log.d(TAG, "ACTIONPOINTERUP");
 			mode = NONE;
 			Log.d(TAG, "mode=NONE");
-			//xActionUp = event.getX(1);
-			//yActionUp = event.getY(1);
+			// xActionUp = event.getX(1);
+			// yActionUp = event.getY(1);
 			break;
 		case MotionEvent.ACTION_MOVE:
-		
+
 			if (mode == DRAG) {
 				matrix.set(savedMatrix);
 				matrix.postTranslate(event.getX() - xDown, event.getY() - yDown);
