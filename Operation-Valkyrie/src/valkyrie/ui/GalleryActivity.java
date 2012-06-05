@@ -45,7 +45,7 @@ public class GalleryActivity extends Activity {
 		createPictures();
 		// ------------------------------------------------------------------
 
-		//DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
+		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
 
@@ -72,13 +72,17 @@ public class GalleryActivity extends Activity {
 	}
 
 	@Override
-	public void onPause() {
-
-	
+	public void onPause() {	
 		super.onPause();
 	}
 	
-	
+	@Override
+	public void onBackPressed (){
+	//	DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
+	//	decodeBitmaps.recycleBitmaps();
+		super.onBackPressed();
+		
+	}
 	
 
 	/*
@@ -123,25 +127,11 @@ public class GalleryActivity extends Activity {
 		if (fileList.length == 1) {
 			Log.d(TAG, "no files in gallery produce some ...");
 			// -------------------create some files----------------------------
-			// Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.hydrangeas);
-			// fileManager.saveImageToGallery(bitmap);
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.desert));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.chrysanthemum));
-			//fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-			//		this.getResources(), R.drawable.tulips));
 			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
 			 R.drawable.jellyfish));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.desert));
 			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			 R.drawable.chrysanthemum));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.tulips));
-			// fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			// R.drawable.jellyfish));
+			 R.drawable.tulips));
+
 		} else {
 			Log.d(TAG, fileList.length + " files in gallery. No need for more.");
 		}

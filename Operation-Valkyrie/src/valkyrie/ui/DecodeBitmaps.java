@@ -113,6 +113,8 @@ public class DecodeBitmaps {
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
+		
+		
 
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 40, bytes);
@@ -134,7 +136,7 @@ public class DecodeBitmaps {
 
 	}
 
-	private void recycleBitmaps(){
+	public void recycleBitmaps(){
 		int i = 0;
 		for (Bitmap b : DecodeBitmaps.thumbs) {
 			i++;
