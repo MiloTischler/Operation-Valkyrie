@@ -3,8 +3,12 @@ package valkyrie.ui;
 import java.io.IOException;
 import java.util.List;
 
+import valkyrie.filter.IFilter;
+
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
@@ -14,20 +18,20 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolder.Callback {
+public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraPreviewDispatcher";
 	
-	SurfaceHolder surfaceHolder = null;
-
+	private SurfaceHolder surfaceHolder = null;
+	private CameraPreviewView cameraPreviewView;
+	
 	private Camera camera = null;
-
 	private Parameters parameters;
-
 	private Size previewSize;
 	
-	private CameraPreviewView cameraPreviewView;
+	private IFilter filter = null;
+	private Bitmap picture = null;
 
-	public CameraPreviewDispatcher(Context context) {
+	public CameraDispatcher(Context context) {
 		super(context);
 
 		this.surfaceHolder = getHolder();
@@ -35,7 +39,7 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
 		this.surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 
-	public CameraPreviewDispatcher(Context context, AttributeSet attr) {
+	public CameraDispatcher(Context context, AttributeSet attr) {
 		super(context, attr);
 
 		this.surfaceHolder = getHolder();
@@ -44,6 +48,10 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
 	}
 	
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
+		
+		if(this.cameraPreviewView == null) {
+			Log.e(TAG, "Unable to start camera preview, camera preview view is null");
+		}
 		
 		this.camera = Camera.open();
 		try {
@@ -106,4 +114,55 @@ public class CameraPreviewDispatcher extends SurfaceView implements SurfaceHolde
 	public void setPreview(CameraPreviewView cameraPreviewView) {
 		this.cameraPreviewView = cameraPreviewView;
 	}
+	
+	public void setFilter(IFilter filter) {
+		this.filter = filter;
+		
+		if(this.cameraPreviewView != null) {
+			this.cameraPreviewView.setFilter(this.filter);
+		} else {
+			Log.e(TAG, "Unable to set filter to camera preview, camera preview viw is null");
+		}
+	}
+	
+	public Bitmap takePicture() {
+		if(this.camera != null) {
+			this.camera.takePicture(shutterCallback, null, pictureCallback);
+			return this.picture;
+		} else {
+			Log.e(TAG, "Unable to take picture, camera is null");
+			return null;
+		}
+	}
+	
+	private Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+
+		public void onShutter() {
+			Log.i(TAG, "Shutter Callback");
+		}
+		
+	};
+	
+	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+		
+		public void onPictureTaken(byte[] data, Camera camera) {
+			Log.i(TAG, "Picture Callback");
+			camera.stopPreview();
+			
+			if(picture != null) {
+				picture.recycle();
+			}
+			
+			picture = BitmapFactory.decodeByteArray(data, 0, data.length);
+			
+			// @TODO: .. we should start a image processing thread here ..
+			if(filter != null) {
+				filter.manipulateImage(picture);
+			}
+			
+			data = null;
+			
+			camera.startPreview();
+		}
+	};
 }
