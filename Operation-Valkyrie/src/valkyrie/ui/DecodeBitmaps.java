@@ -8,10 +8,13 @@ import java.util.Vector;
 
 import valkyrie.file.FileManager;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class DecodeBitmaps {
 
@@ -25,10 +28,12 @@ public class DecodeBitmaps {
 	private File thumbList[];
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
 	public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
+	public static Vector<String> fullImgPosition= new Vector<String>();
 	public FileManager fileManager = new FileManager();
 
+
 	
-	public DecodeBitmaps() {
+	public DecodeBitmaps(int width, int heigth) {
 
 		if (done == true) {
 			// TODO: its too static ;)
@@ -45,20 +50,23 @@ public class DecodeBitmaps {
 		BitmapFactory.Options thumbOpt = new BitmapFactory.Options();
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		thumbOpt.inSampleSize = 6;
-		fullOpt.inSampleSize = 2;
+		fullOpt.inSampleSize = 4;
+		
 
-		for (int i = 0; i < fileList.length; i++) {
+		for (Integer i = 0; i < fileList.length; i++) {
 			Bitmap bitmapFull;
 			Log.d(TAG, fileList[i].getName());
 			Log.d(TAG, "-----------------------------");
 			// TODO: too slow if those were calculated on every startup from the app
-			bitmapFull = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
-					fileList[i].getAbsolutePath(), fullOpt), 1184, 720, false);
-
-			fullImg.add(bitmapFull);
-
+	//		bitmapFull = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
+	//				fileList[i].getAbsolutePath(), fullOpt), 1184, 720, false);
+	//		bitmapFull = BitmapFactory.decodeFile(fileList[i].getAbsolutePath(),fullOpt);
+	//		fullImg.add(bitmapFull);
+			fullImgPosition.add(fileList[i].getAbsolutePath());
+			
 		}
 
+		
 		int th = 0;
 		for (int i = 0; i < fileList.length; i++) {
 
@@ -107,10 +115,10 @@ public class DecodeBitmaps {
 		}
 		done = true;
 		//only for dev testing
-		for (int i = fileList.length ; i < thumbList.length; i++){
-			thumbs.add(BitmapFactory.decodeFile(thumbList[i].getAbsolutePath()));
-			Log.d(TAG, i +"  adding more thumbs which will cause NullpointersEx on click :)");
-		}
+	//	for (int i = fileList.length ; i < thumbList.length; i++){
+	//		thumbs.add(BitmapFactory.decodeFile(thumbList[i].getAbsolutePath()));
+	//		Log.d(TAG, i +"  adding more thumbs which will cause NullpointersEx on click :)");
+	//	}
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
