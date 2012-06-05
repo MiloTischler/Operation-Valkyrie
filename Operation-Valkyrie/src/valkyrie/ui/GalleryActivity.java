@@ -25,11 +25,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
+import android.widget.GridView;
+
 import android.widget.ImageView;
 
 public class GalleryActivity extends Activity {
 
 	private String TAG = "GalleryActivity";
+
 	private File files = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");
 	private File fileList[];
@@ -48,10 +51,12 @@ public class GalleryActivity extends Activity {
 
 
 
+
 		GridView gallery = (GridView) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 
 		gallery.setOnItemClickListener(new OnItemClickListener() {
+
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
@@ -63,10 +68,12 @@ public class GalleryActivity extends Activity {
 			}
 		});
 		Log.d(TAG, "after onItemClickListener");
+
 	}
 
 	@Override
 	public void onPause() {
+
 	
 		super.onPause();
 	}
@@ -141,6 +148,7 @@ public class GalleryActivity extends Activity {
 
 	}
 	
+
 
 
 }
