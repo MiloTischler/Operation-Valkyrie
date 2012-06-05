@@ -75,8 +75,11 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int actionbar_backgorund=0x7f020000;
+        public static final int camera_lens=0x7f02000c;
         public static final int chrysanthemum=0x7f020001;
         public static final int desert=0x7f020002;
+        public static final int filter=0x7f02000d;
+        public static final int gallery=0x7f02000b;
         public static final int hydrangeas=0x7f020003;
         public static final int ic_launcher=0x7f020004;
         public static final int jellyfish=0x7f020005;

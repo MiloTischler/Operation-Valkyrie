@@ -4,24 +4,21 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-
-    <!-- Camera Preview Panel begin --> 
+    <!-- Camera Preview Panel begin -->
 
     <valkyrie.ui.CameraPreviewView
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
         android:id="@+id/camera_preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:orientation="vertical" />
 
-        android:orientation="vertical" /> 
-    
     <valkyrie.ui.CameraDispatcher
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
         android:id="@+id/camera_preview_dispatcher"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" /> 
-    
+        android:orientation="vertical" />
 
     <ImageView
         android:layout_width="fill_parent"
@@ -79,7 +76,7 @@
     <!--
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
-	could maximize our preview which is nice imo.
+	could maximize our preview which is nice imo.
     -->
 
     <RelativeLayout
@@ -89,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="#AA000000"
+        android:background="@null"
         android:orientation="horizontal" >
 
         <!-- Action Bar background image -->
@@ -98,32 +95,44 @@
             android:id="@+id/action_bar_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/action_bar_background_description"
-            android:src="@drawable/actionbar_backgorund" />
+            android:background="@null"
+            android:contentDescription="@string/action_bar_background_description" />
+        <!-- android:src="@drawable/actionbar_back_transparent" -->
 
-        <Button
+        <ImageButton
             android:id="@+id/gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@id/action_bar_background"
+            android:background="@android:color/transparent"
             android:onClick="showGallery"
+            android:src="@+drawable/gallery"
             android:text="@string/gallery" />
 
-        <Button
+        <ImageButton
             android:id="@+id/trigger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/gallery"
+            android:layout_below="@id/gallery"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
             android:onClick="takePicture"
+            android:src="@+drawable/camera_lens"
             android:text="@string/trigger" />
 
-        <Button
+        <ImageButton
             android:id="@+id/filter_effect_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/trigger"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@id/action_bar_background"
+            android:background="@android:color/transparent"
             android:onClick="toggleFilterEffect"
+            android:src="@+drawable/filter"
             android:text="@string/filter_effect_toggle" />
     </RelativeLayout>
+
     <!-- Action Bar end -->
 
 </RelativeLayout>
