@@ -102,8 +102,8 @@ containing a value of this type.
         public static final int camera_preview_dispatcher=0x7f05000a;
         public static final int camera_preview_view=0x7f050009;
         public static final int filter_effect_toggle=0x7f050012;
-        public static final int filter_options_content=0x7f05000d;
-        public static final int filter_options_handle=0x7f05000c;
+        public static final int filter_options_content=0x7f05000c;
+        public static final int filter_options_handle=0x7f05000d;
         public static final int filter_options_panel=0x7f05000b;
         public static final int full_image_view=0x7f050015;
         public static final int gallery=0x7f050008;
