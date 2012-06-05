@@ -30,7 +30,10 @@ public class FileManager {
 	
 	private void initFileManager() {
 		File file = new File(SDPATH);
+		File thumb = new File(THUMBPATH);
 		if(!file.exists())
+			file.mkdirs();
+		else if (!thumb.exists()) 
 			file.mkdirs();
 	}
 	
@@ -150,11 +153,10 @@ public class FileManager {
 	public void deleteImageFromGallery(String imageName) {
 		File fileToDelete = new File(SDPATH + imageName);
 		File thumbToDelete = new File(THUMBPATH + imageName);
-		if (fileToDelete.exists()) {
+		if (fileToDelete.exists()){
 			fileToDelete.delete();
 			thumbToDelete.delete();
 		}
-		
 
 	}
 
