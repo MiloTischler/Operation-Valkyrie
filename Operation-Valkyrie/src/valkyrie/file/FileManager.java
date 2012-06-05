@@ -149,8 +149,12 @@ public class FileManager {
 
 	public void deleteImageFromGallery(String imageName) {
 		File fileToDelete = new File(SDPATH + imageName);
-		if (fileToDelete.exists())
+		File thumbToDelete = new File(THUMBPATH + imageName);
+		if (fileToDelete.exists()) {
 			fileToDelete.delete();
+			thumbToDelete.delete();
+		}
+		
 
 	}
 
