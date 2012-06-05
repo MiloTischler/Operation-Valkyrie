@@ -55,7 +55,6 @@ public class FileManager {
 						highestnumber = newhighest + 1;
 					}
 					Log.d("DEBUG", String.valueOf(highestnumber));
-
 				}
 			}
 
