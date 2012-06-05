@@ -124,7 +124,7 @@ public class GalleryActivity extends Activity {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
 
-		if (fileList.length == 1) {
+		if (fileList.length == 0) {
 			Log.d(TAG, "no files in gallery produce some ...");
 			// -------------------create some files----------------------------
 			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
