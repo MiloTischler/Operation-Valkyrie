@@ -3,6 +3,7 @@ package valkyrie.ui;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private float yDown  = 0;
 	private PointF mid = new PointF();
 	private float oldDist;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

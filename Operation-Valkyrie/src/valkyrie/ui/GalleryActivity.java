@@ -123,6 +123,7 @@ public class GalleryActivity extends Activity {
 	private void createPictures() {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
+		
 
 		if (fileList.length == 0) {
 			Log.d(TAG, "no files in gallery produce some ...");

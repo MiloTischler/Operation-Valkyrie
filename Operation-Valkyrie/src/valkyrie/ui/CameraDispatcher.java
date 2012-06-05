@@ -3,6 +3,7 @@ package valkyrie.ui;
 import java.io.IOException;
 import java.util.List;
 
+import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
 
 
@@ -154,7 +155,9 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			}
 			
 			picture = BitmapFactory.decodeByteArray(data, 0, data.length);
-			
+			FileManager filemanager = new FileManager();
+			filemanager.saveImageToGallery(picture);
+			DecodeBitmaps.done = false;
 			// @TODO: .. we should start a image processing thread here ..
 			if(filter != null) {
 				filter.manipulateImage(picture);

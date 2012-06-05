@@ -4,6 +4,7 @@ package valkyrie.ui;
 import java.util.logging.Logger;
 
 
+import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.nofilter.NoFilter;
@@ -106,7 +107,9 @@ public class MainActivity extends Activity {
 //			}
 //		}
 
+
 		Bitmap picture = this.cameraDispatcher.takePicture();
+
 
 		// Play take photo sound effect
 		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
