@@ -40,6 +40,8 @@ public class DecodeBitmaps {
 			Log.d(TAG, "all work here was done hours ago ;)");
 
 		} else
+			thumbs.clear();
+			fullImgPosition.clear();
 			decodeBitmap();
 	}
 
