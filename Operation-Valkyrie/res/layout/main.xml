@@ -79,7 +79,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentRight="true" 
     style="@android:style/Theme.Translucent"
-    android:background="#AA000000" 
+    android:background="@null" 
     android:orientation="horizontal" >
         
         <!-- Action Bar background image -->
@@ -88,28 +88,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/action_bar_background_description"
-            android:src="@drawable/actionbar_backgorund" />
+            android:src="@drawable/actionbar_back_transparent"
+            android:background="@null" />
         
-        <Button
+        <ImageButton
             android:id="@+id/gallery"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignRight="@id/action_bar_background"
+		    android:src="@+drawable/gallery"
+		    android:background="@android:color/transparent"
 		    android:text="@string/gallery"
 		    android:onClick="showGallery" />
         
-        <Button
+        <ImageButton
             android:id="@+id/trigger"
-            android:layout_below="@+id/gallery"
+            android:layout_below="@id/gallery"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"
+		    android:layout_centerVertical="true"
+		    android:src="@+drawable/camera_lens"
+		    android:background="@android:color/transparent"
 		    android:text="@string/trigger"
 		    android:onClick="takePicture" />
         
-        <Button
+        <ImageButton
             android:id="@+id/filter_effect_toggle"
-            android:layout_below="@+id/trigger"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignRight="@id/action_bar_background"
+		    android:src="@+drawable/gallery"
+		    android:background="@android:color/transparent"
 		    android:text="@string/filter_effect_toggle"
 		    android:onClick="toggleFilterEffect" />
         
