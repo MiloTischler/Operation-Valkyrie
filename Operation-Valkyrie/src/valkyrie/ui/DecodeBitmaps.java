@@ -54,7 +54,7 @@ public class DecodeBitmaps {
 			// TODO: too slow if those were calculated on every startup from the app
 			bitmapFull = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
 					fileList[i].getAbsolutePath(), fullOpt), 1184, 720, false);
-
+		//	bitmapFull = BitmapFactory.decodeFile(fileList[i].getAbsolutePath());
 			fullImg.add(bitmapFull);
 
 		}

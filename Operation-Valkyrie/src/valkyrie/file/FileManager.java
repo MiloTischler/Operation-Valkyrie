@@ -33,8 +33,8 @@ public class FileManager {
 		File thumb = new File(THUMBPATH);
 		if(!file.exists())
 			file.mkdirs();
-		else if (!thumb.exists()) 
-			file.mkdirs();
+		if (!thumb.exists()) 
+			thumb.mkdirs();
 	}
 	
 	public void saveImageToGallery(Bitmap bitmap) {
