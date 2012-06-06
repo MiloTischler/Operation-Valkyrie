@@ -9,7 +9,11 @@ import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,16 +55,19 @@ public class Ascii implements IFilter {
 
 	}
 	
-	public void manipulatePreviewImage(Bitmap bitmap) {
-		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
-		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
-		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), this.bm);
+	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
+		
+		return bitmap;
+//		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
+//		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
+//		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
 	}
 
-	public void manipulateImage(Bitmap bitmap) {
+	public Bitmap manipulateImage(Bitmap bitmap) {
 		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
 		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
-
+		
+		return bitmap;
 	}
 
 	/**

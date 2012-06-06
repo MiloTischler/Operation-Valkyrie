@@ -18,12 +18,12 @@ import valkyrie.filter.IFilter;
  */
 public class NoFilter implements IFilter {
 
-	public void manipulatePreviewImage(Bitmap bitmap) {
-
+	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
+		return bitmap;
 	}
 
-	public void manipulateImage(Bitmap bitmap) {
-
+	public Bitmap manipulateImage(Bitmap bitmap) {
+		return bitmap;
 	}
 
 	/**
