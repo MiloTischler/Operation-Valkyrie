@@ -3,6 +3,7 @@ package valkyrie.ui;
 import java.io.IOException;
 import java.util.List;
 
+import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
 

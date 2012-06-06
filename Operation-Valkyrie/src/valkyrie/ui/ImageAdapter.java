@@ -2,6 +2,7 @@ package valkyrie.ui;
 
 
 
+import valkyrie.file.DecodeBitmaps;
 import android.content.Context;
 
 import android.util.Log;
