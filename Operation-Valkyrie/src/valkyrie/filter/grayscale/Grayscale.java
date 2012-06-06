@@ -6,6 +6,7 @@ import org.opencv.imgproc.Imgproc;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
@@ -36,7 +37,13 @@ public class Grayscale implements IFilter {
 	}
 
 	public Bitmap manipulateImage(Bitmap bitmap) {
-		return this.toGrayscale(bitmap);
+		if(bitmap == null) {
+			Log.d("OMGOMG", "OMFG is null..");
+		} else {
+			Log.d("OMGOMG", "OMFG is NOT null..");
+		}
+		
+		return bitmap;
 	}
 
 	public TableLayout getUIElements(Activity mainActivity) {
@@ -45,6 +52,8 @@ public class Grayscale implements IFilter {
 	
 	private Bitmap toGrayscale(Bitmap bitmap) {
 		Mat bitmapMat = Utils.bitmapToMat(bitmap);
+		
+		Bitmap.Config config = bitmap.getConfig();
 		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
