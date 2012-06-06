@@ -19,12 +19,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 
 public class ShowPicActivity extends Activity implements OnTouchListener {
 
 	private String TAG = "ShowPicActivity";
 	Matrix matrix = new Matrix();
 	Matrix savedMatrix = new Matrix();
+	Matrix fullMatrix = new Matrix();
 	static final int NONE = 0;
 	static final int DRAG = 1;
 	static final int ZOOM = 2;
@@ -33,6 +41,12 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private float yDown = 0;
 	private PointF mid = new PointF();
 	private float oldDist;
+	private int OPTIMUM_WIDTH = 0;
+	private int OPTIMUM_HEIGHT = 1;
+    private Float res[] = new Float[2];
+	
+    
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,31 +59,86 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 
 		ImageView imageview = (ImageView) findViewById(R.id.full_image_view);
 		imageview.setOnTouchListener(this);
-		// imageview.setScaleType(ScaleType.CENTER_CROP);
+		imageview.setScaleType(ScaleType.CENTER);
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		fullOpt.inSampleSize = 2;
+		Bitmap bitmap = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
 		
-		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
-				.getDefaultDisplay();
 
+		setResolutions(bitmap,imageview);
+		Log.d("setResolution", "Drehdich+++ ?");
+		
+	
+		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+				BitmapFactory.decodeFile(
+						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
+				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false));
+		//imageview.setImageBitmap(bitmap);
 
-//		imageview.setImageBitmap(Bitmap.createScaledBitmap(
-//				BitmapFactory.decodeFile(
-//						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
-//				d.getWidth(), d.getHeight(), false));
-		imageview.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
 		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
 
 		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
 		// imageview.setScaleType(ScaleType.MATRIX);
+		
 
 	}
+    
+    public Float[] getResolutions(){
+    	return this.res;
+    }
+    
+    public void setResolutions(Bitmap bitmap, ImageView imageView){
+    	Log.d("setResolution", "u omfg ?");
+    	Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+    	Float disWidth = (float) d.getWidth();
+    	Float disHeight = (float)  d.getHeight();
+    	Float bitWidth =  (float) bitmap.getWidth();
+    	Float bitHeight =  (float) bitmap.getHeight();
+    	Log.d("setResolution", "u omfg ?");
+    	Float optimumScalWidth = 0f;
+    	Float optimumScalHeight = 0f;
+    	Float width, height;
+    	width = 0f;
+    	height = 0f;
+    	
+    	if ((disWidth >= disHeight)){
+    		
+    		Log.d("setResolution", "==1==");
+    	
+    	
+    		optimumScalWidth = disWidth / bitWidth;
+    		optimumScalHeight = disHeight / bitHeight;
+    		this.res[OPTIMUM_WIDTH] =  (bitWidth * optimumScalHeight);
+    		this.res[OPTIMUM_HEIGHT] =  (bitHeight * optimumScalHeight);
+    	} else if (disWidth <= disHeight){
+    		optimumScalWidth = disWidth / bitWidth;
+    		optimumScalHeight = disHeight / bitHeight;
+    		this.res[OPTIMUM_WIDTH] =  (bitWidth * optimumScalWidth);
+    		this.res[OPTIMUM_HEIGHT] =  (bitHeight * optimumScalWidth);
+    	} else {	
+    		imageView.setScaleType(ScaleType.CENTER_INSIDE);
+    		}
 
+    	Log.d("setResolution", "Display Width : " + disWidth);
+    	Log.d("setResolution", "Display Height: " + disHeight);
+    	Log.d("setResolution", "Bitmap Width  : " + bitWidth);
+    	Log.d("setResolution", "Bitmap Height : " + bitHeight);
+    	Log.d("setResolution", "OPTIMUM_WIDTH : " + res[OPTIMUM_WIDTH]);
+    	Log.d("setResolution", "OPTIMUM_HEIGHT: " + res[OPTIMUM_HEIGHT]);
+    	Log.d("setResolution", "OPTIMUM_SCALEH: " + optimumScalHeight);
+    	Log.d("setResolution", "OPTIMUM_SCALEW: " + optimumScalWidth);
+    	Log.d("setResolution", "width		  : " + width);
+    	Log.d("setResolution", "height		  : " + height);
+    }
+
+    
+    
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
 
 		ImageView view = (ImageView) v;
 		dumpEvent(event);
+		view.setScaleType(ScaleType.MATRIX);
 
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 

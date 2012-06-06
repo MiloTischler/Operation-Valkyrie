@@ -1,4 +1,4 @@
-package valkyrie.file;
+/*package valkyrie.ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
+import valkyrie.file.FileManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,14 +16,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
-/**
- * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
- * 
- */
-
-public class DecodeBitmaps {
+public class DecodeBitmaps2 {
 
 	public static boolean done = false;
 	private String TAG = "DecodeBitmaps";
@@ -39,14 +33,13 @@ public class DecodeBitmaps {
 
 
 	
-	public DecodeBitmaps(int width, int heigth) {
+	public DecodeBitmaps2(int width, int heigth) {
 
 		if (done == true) {
 			// TODO: its too static ;)
 			Log.d(TAG, "all work here was done hours ago ;)");
 
 		} else
-
 			fullImgPosition.clear();
 			thumbs.clear();
 			decodeBitmap();
@@ -146,7 +139,7 @@ public class DecodeBitmaps {
 
 	public void recycleBitmaps(){
 		int i = 0;
-		for (Bitmap b : DecodeBitmaps.thumbs) {
+		for (Bitmap b : DecodeBitmaps2.thumbs) {
 			i++;
 			b.recycle();
 			Log.d(TAG, i + " Bitmaps recycled");
@@ -158,3 +151,4 @@ public class DecodeBitmaps {
 //		}
 	}
 }
+*/
