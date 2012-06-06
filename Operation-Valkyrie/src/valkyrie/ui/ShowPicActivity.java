@@ -44,14 +44,15 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private int OPTIMUM_WIDTH = 0;
 	private int OPTIMUM_HEIGHT = 1;
     private Float res[] = new Float[2];
-	
+	private Bitmap bitmapG;
     
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
+		Log.d("setResolution", "Drehdich+++ 1?");
 		super.onCreate(savedInstanceState);
+		Log.d("setResolution", "Drehdich+++ 2?");
 		setContentView(R.layout.showpic);
 		Intent intent = getIntent();
 
@@ -62,19 +63,24 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		imageview.setScaleType(ScaleType.CENTER);
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		fullOpt.inSampleSize = 2;
-		Bitmap bitmap = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
+		Log.d("setResolution", "Drehdich+++ 2.2?");
+		setResolutions(BitmapFactory.decodeFile(
+				DecodeBitmaps.fullImgPosition.get(position)),imageview);
+		 bitmapG = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
+						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
+				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false);
 		
+		Log.d("setResolution", "Drehdich+++ 3?");
 
-		setResolutions(bitmap,imageview);
-		Log.d("setResolution", "Drehdich+++ ?");
+		Log.d("setResolution", "Drehdich+++ 4?");
 		
 	
-		imageview.setImageBitmap(Bitmap.createScaledBitmap(
-				BitmapFactory.decodeFile(
-						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
-				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false));
-		//imageview.setImageBitmap(bitmap);
-
+//		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+//				BitmapFactory.decodeFile(
+//						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
+//				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false));
+		imageview.setImageBitmap(bitmapG);
+		Log.d("setResolution", "Drehdich+++ 5?");
 		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
 
 		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
@@ -129,9 +135,15 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
     	Log.d("setResolution", "OPTIMUM_SCALEW: " + optimumScalWidth);
     	Log.d("setResolution", "width		  : " + width);
     	Log.d("setResolution", "height		  : " + height);
+    	bitmap.recycle();
     }
 
-    
+    @Override
+    public void onBackPressed(){
+    	Log.d("setResolution", "Drehdich+++ onBack?");
+    	bitmapG.recycle();
+    	super.onBackPressed();
+    }
     
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
