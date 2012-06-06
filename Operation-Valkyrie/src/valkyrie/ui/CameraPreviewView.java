@@ -29,6 +29,9 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	private SurfaceHolder surfaceHolder = null;
 	
 	private IFilter filter = null;
+	
+	private long fpsTime = 0;
+	private int frameCounter = 0;
 
 	public CameraPreviewView(Context context) {
 		super(context);
@@ -57,15 +60,26 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		if (camera == null || this.getVisibility() == View.GONE) {
 			return;
 		}
-
+		
+		//Calculate FPS
+		this.frameCounter++;
+		
+		long delay = System.currentTimeMillis() - this.fpsTime;
+		if (delay > 1000) {            
+            Log.i(TAG, "Preview Frame FPS:" + (((double)frameCounter)/delay)*1000);
+            
+            this.frameCounter = 0;
+            this.fpsTime = System.currentTimeMillis(); 
+        }
+		
+		//Convert data[] to bitmap
 		int format = camera.getParameters().getPreviewFormat();
 
-		// transforms NV21 pixel data into RGB pixels
 		switch (format) {
 		case ImageFormat.NV21:
 		case ImageFormat.YUY2:
 			Log.i(TAG, "Camera preview using NV21 or YUY2");
-			this.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
+			CameraPreviewView.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
 			this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
 			break;
 		case ImageFormat.JPEG:
@@ -76,6 +90,7 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 			Log.e(TAG, "Camera preview format not supported!");
 		}
 
+		//Draw bitmap on surface canvas
 		Canvas canvas = this.surfaceHolder.lockCanvas();
 		
 		if(this.filter != null && this.actBmp != null) {
@@ -86,13 +101,13 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
+		//Cleanup
 		if(this.actBmp != null) {
 			this.actBmp.recycle();
 		}
-
 	}
 
-	void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
+	private static void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
 
 		final int frameSize = width * height;
 
