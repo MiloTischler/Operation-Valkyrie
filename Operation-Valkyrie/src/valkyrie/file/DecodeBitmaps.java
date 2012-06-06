@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.file;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-import valkyrie.file.FileManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;

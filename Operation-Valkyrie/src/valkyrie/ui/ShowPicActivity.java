@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.file.DecodeBitmaps;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Context;
