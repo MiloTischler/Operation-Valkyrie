@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.file.DecodeBitmaps;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +20,12 @@ import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 
 public class ShowPicActivity extends Activity implements OnTouchListener {
 
@@ -38,6 +45,8 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private int OPTIMUM_HEIGHT = 1;
     private Float res[] = new Float[2];
 	
+    
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		fullOpt.inSampleSize = 2;
 		Bitmap bitmap = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
 		
+
 		setResolutions(bitmap,imageview);
 		Log.d("setResolution", "Drehdich+++ ?");
 		
@@ -64,7 +74,9 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
 				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false));
 		//imageview.setImageBitmap(bitmap);
+
 		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
+
 		// imageview.setImageBitmap(DecodeBitmaps.fullImg.get(position));
 		// imageview.setScaleType(ScaleType.MATRIX);
 		
@@ -214,16 +226,13 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	}
 
 	private void dumpEvent(MotionEvent event) {
-		String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
-				"POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+		String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE", "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
 		StringBuilder sb = new StringBuilder();
 		int action = event.getAction();
 		int actionCode = action & MotionEvent.ACTION_MASK;
 		sb.append("event ACTION_").append(names[actionCode]);
-		if (actionCode == MotionEvent.ACTION_POINTER_DOWN
-				|| actionCode == MotionEvent.ACTION_POINTER_UP) {
-			sb.append("(pid ").append(
-					action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
+		if (actionCode == MotionEvent.ACTION_POINTER_DOWN || actionCode == MotionEvent.ACTION_POINTER_UP) {
+			sb.append("(pid ").append(action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
 			sb.append(")");
 		}
 		sb.append("[");

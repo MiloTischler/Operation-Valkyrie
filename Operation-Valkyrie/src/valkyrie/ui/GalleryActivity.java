@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.Currency;
 import java.util.Vector;
 
+import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.main.R;
 
@@ -31,6 +32,12 @@ import android.widget.GridView;
 
 import android.widget.ImageView;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class GalleryActivity extends Activity {
 
 	private String TAG = "GalleryActivity";

@@ -1,4 +1,4 @@
-package valkyrie.ui;
+/*package valkyrie.ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class DecodeBitmaps {
+public class DecodeBitmaps2 {
 
 	public static boolean done = false;
 	private String TAG = "DecodeBitmaps";
@@ -33,7 +33,7 @@ public class DecodeBitmaps {
 
 
 	
-	public DecodeBitmaps(int width, int heigth) {
+	public DecodeBitmaps2(int width, int heigth) {
 
 		if (done == true) {
 			// TODO: its too static ;)
@@ -139,7 +139,7 @@ public class DecodeBitmaps {
 
 	public void recycleBitmaps(){
 		int i = 0;
-		for (Bitmap b : DecodeBitmaps.thumbs) {
+		for (Bitmap b : DecodeBitmaps2.thumbs) {
 			i++;
 			b.recycle();
 			Log.d(TAG, i + " Bitmaps recycled");
@@ -151,3 +151,4 @@ public class DecodeBitmaps {
 //		}
 	}
 }
+*/

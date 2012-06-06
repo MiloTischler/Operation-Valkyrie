@@ -2,6 +2,7 @@ package valkyrie.ui;
 
 
 
+import valkyrie.file.DecodeBitmaps;
 import android.content.Context;
 
 import android.util.Log;
@@ -10,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 
 public class ImageAdapter extends BaseAdapter {
 	private Context mContext;
@@ -57,16 +65,8 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-
-//		imageView = (ImageView) convertView;
 		Log.i(TAG, "Image adapter setImage ");
 		imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
 		return imageView;
 	}
-
-
-
-	
-
-
 }

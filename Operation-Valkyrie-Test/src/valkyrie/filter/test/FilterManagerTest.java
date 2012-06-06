@@ -6,9 +6,13 @@ import valkyrie.filter.FilterManager;
 import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.filter.FilterAssets;
+import valkyrie.main.R;
+import valkyrie.ui.CameraDispatcher;
+import valkyrie.ui.MainActivity;
 
 import org.opencv.*;
 
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 
 /**
@@ -17,11 +21,11 @@ import android.test.AndroidTestCase;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
  *
  */
-public class FilterManagerTest extends AndroidTestCase {
+public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private static final String TAG = "FilterCameraTest";
 	
 	public FilterManagerTest() {
-		super();
+		super("valkyrie.ui", MainActivity.class);
 	}
 	
     @Override
@@ -30,7 +34,8 @@ public class FilterManagerTest extends AndroidTestCase {
     }
     
     public void testGetFilterList() {
-    	FilterManager filterCamera = new FilterManager(mContext, valkyrie.main.R.array.filters);
+    	CameraDispatcher cameraDispatcher = (CameraDispatcher) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_dispatcher);
+    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraDispatcher);
     	
     	assertNotNull(filterCamera.getFilterList());
     	assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);
@@ -53,7 +58,8 @@ public class FilterManagerTest extends AndroidTestCase {
     }
     
     public void testActiveFilter() {
-    	FilterManager filterCamera = new FilterManager(mContext, valkyrie.main.R.array.filters);
+    	CameraDispatcher cameraDispatcher = (CameraDispatcher) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_dispatcher);
+    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraDispatcher);
     	
     	assertNotNull(filterCamera.getActiveFilter());
     	

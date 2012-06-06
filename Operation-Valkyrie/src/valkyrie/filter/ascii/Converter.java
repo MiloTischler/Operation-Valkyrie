@@ -245,20 +245,20 @@ public class Converter {
 		}
 		
 		
-		// saving shouldnt be done here
-		String path = Environment.getExternalStorageDirectory().toString();
-		OutputStream fOut = null;
-		File file = new File(path, "lol3.jpg");
-		try {
-			fOut = new FileOutputStream(file);
-			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-			fOut.flush();
-			fOut.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// saving shouldnt be done here ..
+//		String path = Environment.getExternalStorageDirectory().toString();
+//		OutputStream fOut = null;
+//		File file = new File(path, "lol3.jpg");
+//		try {
+//			fOut = new FileOutputStream(file);
+//			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//			fOut.flush();
+//			fOut.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		Log.d("valkyrie",  "finish");		
 	}
 	
