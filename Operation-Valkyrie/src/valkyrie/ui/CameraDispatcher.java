@@ -1,12 +1,13 @@
 package valkyrie.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
-
+import valkyrie.main.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -24,14 +26,14 @@ import android.widget.Toast;
 
 public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraPreviewDispatcher";
-	
+
 	private SurfaceHolder surfaceHolder = null;
 	private CameraPreviewView cameraPreviewView;
-	
-	private Camera camera = null;
+
+	public Camera camera = null;
 	private Parameters parameters;
 	private Size previewSize;
-	
+
 	private IFilter filter = null;
 	private Bitmap picture = null;
 	
@@ -52,20 +54,20 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.surfaceHolder.addCallback(this);
 		this.surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
-	
+
 	public void surfaceCreated(SurfaceHolder surfaceHolder) {
-		
-		if(this.cameraPreviewView == null) {
+
+		if (this.cameraPreviewView == null) {
 			Log.e(TAG, "Unable to start camera preview, camera preview view is null");
 		}
-		
+
 		this.camera = Camera.open();
 		try {
-			
+
 			this.camera.setPreviewDisplay(this.surfaceHolder);
 
 			this.camera.setPreviewCallback(this.cameraPreviewView);
-			
+
 			this.parameters = this.camera.getParameters();
 
 		} catch (IOException exception) {
@@ -76,8 +78,8 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 	}
 
 	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-		Log.d(TAG,"Stopping preview in SurfaceDestroyed().");
-		
+		Log.d(TAG, "Stopping preview in SurfaceDestroyed().");
+
 		this.camera.setPreviewCallback(null);
 		this.camera.stopPreview();
 		this.camera.release();
@@ -86,14 +88,16 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 	}
 
 	public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int w, int h) {
-		
-		if(this.camera == null)
+
+		if (this.camera == null)
 			return;
-			
+
 		List<Camera.Size> supportedPreviewSizes = this.parameters.getSupportedPreviewSizes();
 		
 		Parameters params = this.camera.getParameters();
 		  List<Camera.Size> sizes = params.getSupportedPictureSizes();
+
+
 
 		int bestFrameWidth = w;
 		int bestFrameHeight = h;
@@ -111,25 +115,34 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.parameters.setPreviewSize(bestFrameWidth, bestFrameHeight);
 		
 		this.parameters.setPreviewFormat(ImageFormat.NV21);
+
 		this.parameters.setPictureFormat(ImageFormat.JPEG);
 		this.parameters.setJpegQuality(50);
-		
+
 		this.previewSize = this.parameters.getPreviewSize();
 		
 		this.parameters.setPictureSize(sizes.get(1).width, sizes.get(1).height);
 
+		// for some tests - Laurenz
+		// setting the resolution of the picture taken
+        
+        
+
+
+		this.parameters.setPictureSize(sizes.get(0).width, sizes.get(0).height);
+
 		// set the camera's settings
 		this.camera.setParameters(parameters);
-		
+
 		this.cameraPreviewView.setPreviewSize(this.previewSize);
-			
+
 		this.camera.startPreview();
 	}
-	
-	
+
 	public void setPreview(CameraPreviewView cameraPreviewView) {
 		this.cameraPreviewView = cameraPreviewView;
 	}
+
 	
 	public void displayPreview(boolean display) {
 		if(display) {
@@ -151,16 +164,19 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.filter = filter;
 		
 		if(this.cameraPreviewView != null && this.filter != null) {
+
 			this.cameraPreviewView.setFilter(this.filter);
 		} else {
 			Log.e(TAG, "Unable to set filter to camera preview, camera preview viw is null");
 		}
 	}
-	
+
 	public Bitmap takePicture() {
+
 		if(this.camera != null) {
 			this.cameraLock = true;
 			
+
 			this.camera.takePicture(shutterCallback, null, pictureCallback);
 			
 			return this.picture;
@@ -169,19 +185,20 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			return null;
 		}
 	}
-	
+
 	private Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
 
 		public void onShutter() {
 			Log.i(TAG, "Shutter Callback");
 		}
-		
+
 	};
-	
+
 	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
-		
+
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.i(TAG, "Picture Callback");
+
 			
 			//camera.stopPreview(); -> not necessary .. ?
 			
@@ -198,6 +215,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 				}
 				
 				//Some filemanager stuff i don't understand x)
+				// saving the captured image to the SD
 				FileManager filemanager = new FileManager();
 				filemanager.saveImageToGallery(picture);
 				DecodeBitmaps.done = false;
@@ -212,5 +230,5 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			
 			data = null;
 		}
-	};
+	};	
 }
