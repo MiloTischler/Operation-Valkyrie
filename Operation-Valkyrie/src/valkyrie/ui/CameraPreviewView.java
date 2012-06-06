@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -53,8 +54,9 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 
 	public void onPreviewFrame(byte[] data, Camera camera) {
 		
-		if (camera == null)
+		if (camera == null || this.getVisibility() == View.GONE) {
 			return;
+		}
 
 		int format = camera.getParameters().getPreviewFormat();
 
@@ -74,30 +76,19 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 			Log.e(TAG, "Camera preview format not supported!");
 		}
 
-		Log.d("Pixels", this.previewSize.width + " - " + this.previewSize.height);
-
 		Canvas canvas = this.surfaceHolder.lockCanvas();
-
-		Log.i("Pixels",
-				"The top right pixel has the following RGB (hexadecimal) values:"
-						+ Integer.toHexString(this.actBmp.getPixel(10, 10)));
-
-//		Paint paint = new Paint();
-//		paint.setColor(Color.WHITE);
-//		paint.setTextSize(20);
-//
-//		canvas.drawText("Got it!", 100, 100, paint);
 		
 		if(this.filter != null && this.actBmp != null) {
-			Log.d("OMFG", "THERE IS A FILTER!");
 			this.actBmp = this.filter.manipulatePreviewImage(this.actBmp);
 		}
 		
 		canvas.drawBitmap(this.actBmp, 0, 0, null);
-
+		
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
-		this.actBmp.recycle();
+		if(this.actBmp != null) {
+			this.actBmp.recycle();
+		}
 
 	}
 

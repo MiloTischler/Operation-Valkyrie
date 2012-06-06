@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Toast;
 
 public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
@@ -119,6 +120,22 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 	
 	public void setPreview(CameraPreviewView cameraPreviewView) {
 		this.cameraPreviewView = cameraPreviewView;
+	}
+	
+	public void displayPreview(boolean display) {
+		if(display) {
+			this.cameraPreviewView.setVisibility(View.VISIBLE);
+		} else {
+			this.cameraPreviewView.setVisibility(View.GONE);
+		}
+	}
+	
+	public boolean isPreviewDisplayed() {
+		if(this.cameraPreviewView.getVisibility() == View.VISIBLE) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void setFilter(IFilter filter) {

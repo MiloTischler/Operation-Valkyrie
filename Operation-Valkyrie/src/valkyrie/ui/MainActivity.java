@@ -41,7 +41,6 @@ public class MainActivity extends Activity {
 
 	private FilterManager filterManager = null;
 	private CameraDispatcher cameraDispatcher = null;
-	private CameraPreviewView cameraPreviewView = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -62,10 +61,8 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().setMainActivity(this);
 
 		// initialize CameraDispatcher and CameraPreviewView
-		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
-		this.cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
-				
-		this.cameraDispatcher.setPreview(this.cameraPreviewView);
+		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);				
+		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
 		
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
@@ -114,7 +111,13 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-
+		
+		if(this.cameraDispatcher.isPreviewDisplayed()) {
+			this.cameraDispatcher.displayPreview(false);
+		} else {
+			this.cameraDispatcher.displayPreview(true);
+		}
+		
 		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
