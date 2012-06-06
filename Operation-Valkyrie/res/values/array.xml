@@ -5,6 +5,7 @@
     <string-array name="filters">
         <item>valkyrie.filter.nofilter.NoFilter</item>
         <item>valkyrie.filter.ascii.Ascii</item>
+        <item>valkyrie.filter.grayscale.Grayscale</item>
     </string-array>
     <!-- List of available filters end -->
     

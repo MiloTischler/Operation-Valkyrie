@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
@@ -20,8 +21,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.view.View;
+import android.widget.Toast;
 
 public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraPreviewDispatcher";
@@ -35,6 +36,8 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 	private IFilter filter = null;
 	private Bitmap picture = null;
+	
+	private boolean cameraLock = false;
 
 	public CameraDispatcher(Context context) {
 		super(context);
@@ -107,7 +110,11 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		}
 
 		this.parameters.setPreviewSize(bestFrameWidth, bestFrameHeight);
+		
 		this.parameters.setPreviewFormat(ImageFormat.NV21);
+
+		this.parameters.setPictureFormat(ImageFormat.JPEG);
+		this.parameters.setJpegQuality(50);
 
 		this.previewSize = this.parameters.getPreviewSize();
 
@@ -131,10 +138,28 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.cameraPreviewView = cameraPreviewView;
 	}
 
+	
+	public void displayPreview(boolean display) {
+		if(display) {
+			this.cameraPreviewView.setVisibility(View.VISIBLE);
+		} else {
+			this.cameraPreviewView.setVisibility(View.GONE);
+		}
+	}
+	
+	public boolean isPreviewDisplayed() {
+		if(this.cameraPreviewView.getVisibility() == View.VISIBLE) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void setFilter(IFilter filter) {
 		this.filter = filter;
+		
+		if(this.cameraPreviewView != null && this.filter != null) {
 
-		if (this.cameraPreviewView != null) {
 			this.cameraPreviewView.setFilter(this.filter);
 		} else {
 			Log.e(TAG, "Unable to set filter to camera preview, camera preview viw is null");
@@ -142,8 +167,13 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 	}
 
 	public Bitmap takePicture() {
-		if (this.camera != null) {
+
+		if(this.camera != null) {
+			this.cameraLock = true;
+			
+
 			this.camera.takePicture(shutterCallback, null, pictureCallback);
+			
 			return this.picture;
 		} else {
 			Log.e(TAG, "Unable to take picture, camera is null");
@@ -163,30 +193,37 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.i(TAG, "Picture Callback");
-			camera.stopPreview();
 
-			if (picture != null) {
+			
+			//camera.stopPreview(); -> not necessary .. ?
+			
+			if(picture != null) {
 				picture.recycle();
 			}
-
-			picture = BitmapFactory.decodeByteArray(data, 0, data.length);
-			/*
-			 * this is just temporay to save the pictures taken.
-			 */
-			FileManager filemanager = new FileManager();
-			filemanager.saveImageToGallery(picture);
-			DecodeBitmaps.done = false;
-			/*
-			 * 
-			 */
+			
 			// @TODO: .. we should start a image processing thread here ..
-			if (filter != null) {
-				filter.manipulateImage(picture);
+			try {
+				picture = BitmapFactory.decodeByteArray(data, 0, data.length);
+				
+				if(filter != null) {
+					picture = filter.manipulateImage(picture);
+				}
+				
+				//Some filemanager stuff i don't understand x)
+				// saving the captured image to the SD
+				FileManager filemanager = new FileManager();
+				filemanager.saveImageToGallery(picture);
+				DecodeBitmaps.done = false;
+				
+			} catch(Exception e) {
+				Log.e(TAG, e.toString());
 			}
-
-			data = null;
-
+			
+			cameraLock = false;
+			
 			camera.startPreview();
+			
+			data = null;
 		}
 	};	
 }

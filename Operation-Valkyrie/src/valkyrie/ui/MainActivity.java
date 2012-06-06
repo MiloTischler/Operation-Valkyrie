@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
+import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
@@ -58,11 +59,6 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 
-		// Ritzys filter test
-
-		// Ascii asciiFilter = new Ascii();
-		// asciiFilter.test();
-
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -75,12 +71,13 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
-		// initialize FilterManager
-		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters);
-
-		// initialize CameraDispatcher
-		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
+		// initialize CameraDispatcher and CameraPreviewView
+		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);				
 		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		
+		// initialize FilterManager
+		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
+		this.filterManager.setActiveFilter(new Grayscale());
 
 	}
 
@@ -152,7 +149,13 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-
+		
+		if(this.cameraDispatcher.isPreviewDisplayed()) {
+			this.cameraDispatcher.displayPreview(false);
+		} else {
+			this.cameraDispatcher.displayPreview(true);
+		}
+		
 		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
@@ -181,6 +184,17 @@ public class MainActivity extends Activity {
 		return super.onKeyUp(keyCode, event);
 	}
 
+	@Override
+	protected void onPause() {
+		Log.i(TAG, "onPause called");
+		
+		super.onPause();
+	}
 	
-
+	@Override
+	protected void onResume() {
+		Log.i(TAG, "onResume called");
+		
+		super.onResume();
+	}
 }
