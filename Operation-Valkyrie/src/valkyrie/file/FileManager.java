@@ -62,17 +62,17 @@ public class FileManager {
 			String filenumber = IMGCOUNT + highestnumber;
 			filenumber = filenumber.substring(filenumber.length() - 4);
 
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		} else {
 			String filenumber = IMGCOUNT + 1;
 			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		}
 
 		try {
 
 			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {
@@ -82,53 +82,6 @@ public class FileManager {
 			e.printStackTrace();
 		}
 		bitmap.recycle();
-	}
-	
-	public void saveImageToThumbs(Bitmap bitmap) {
-		OutputStream fOut = null;
-		File directory = new File(THUMBPATH);
-//		if (!directory.exists())
-//			directory.mkdirs();
-		File files[] = directory.listFiles();
-		File file;
-		if (files.length > 0) {
-			int highestnumber = 0;
-			for (File f : files) {
-				if (f.exists()) {
-
-					Log.d("DEBUGName", f.getName());
-					int newhighest = Integer.parseInt(getLatestImage().substring(3, getLatestImage().length() - 4));
-					if (newhighest >= highestnumber) {
-						highestnumber = newhighest + 1;
-					}
-					Log.d("DEBUG", String.valueOf(highestnumber));
-
-				}
-			}
-
-			String filenumber = IMGCOUNT + highestnumber;
-			filenumber = filenumber.substring(filenumber.length() - 4);
-
-			file = new File(THUMBPATH, IMGNAME + filenumber + ".png");
-		} else {
-			String filenumber = IMGCOUNT + 1;
-			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(THUMBPATH, IMGNAME + filenumber + ".png");
-		}
-
-		try {
-
-			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
-			fOut.flush();
-			fOut.close();
-		} catch (FileNotFoundException e) {
-			Log.e("FileManager", e.toString());
-		} catch (IOException e) {
-			Log.e(TAG, e.toString());
-			e.printStackTrace();
-		}
-//		bitmap.recycle();
 	}
 
 	public void saveImageToInternal(Bitmap bitmap) {

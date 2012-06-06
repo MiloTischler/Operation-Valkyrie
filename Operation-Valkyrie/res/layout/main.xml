@@ -64,7 +64,7 @@
                 android:id="@+id/options_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options" />
+                android:text="@string/options" />            
         </valkyrie.ui.UpdateableRelativeLayout>
     </valkyrie.widget.MultiDirectionSlidingDrawer>
     <!-- Filter Options Panel end -->
@@ -74,7 +74,9 @@
     <!--
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
+
 	could maximize our preview which is nice imo.
+
     -->
 
     <RelativeLayout
@@ -92,9 +94,11 @@
         <ImageView
             android:id="@+id/action_bar_background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:contentDescription="@string/action_bar_background_description"
+            android:scaleType="fitXY" 
             android:src="@drawable/actionbar_back_transparent" />
 
         <ImageButton
@@ -113,6 +117,7 @@
             android:id="@+id/trigger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignRight="@id/action_bar_background"
             android:layout_below="@id/gallery"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
