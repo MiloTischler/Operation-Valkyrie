@@ -62,17 +62,17 @@ public class FileManager {
 			String filenumber = IMGCOUNT + highestnumber;
 			filenumber = filenumber.substring(filenumber.length() - 4);
 
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		} else {
 			String filenumber = IMGCOUNT + 1;
 			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		}
 
 		try {
 
 			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {
@@ -109,17 +109,17 @@ public class FileManager {
 			String filenumber = IMGCOUNT + highestnumber;
 			filenumber = filenumber.substring(filenumber.length() - 4);
 
-			file = new File(THUMBPATH, IMGNAME + filenumber + ".png");
+			file = new File(THUMBPATH, IMGNAME + filenumber + ".jpg");
 		} else {
 			String filenumber = IMGCOUNT + 1;
 			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(THUMBPATH, IMGNAME + filenumber + ".png");
+			file = new File(THUMBPATH, IMGNAME + filenumber + ".jpg");
 		}
 
 		try {
 
 			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {

@@ -77,6 +77,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.camera.stopPreview();
 		this.camera.release();
 		this.camera = null;
+		
 	}
 
 	public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int w, int h) {
@@ -85,6 +86,9 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			return;
 			
 		List<Camera.Size> supportedPreviewSizes = this.parameters.getSupportedPreviewSizes();
+		
+		Parameters params = this.camera.getParameters();
+		  List<Camera.Size> sizes = params.getSupportedPictureSizes();
 
 		int bestFrameWidth = w;
 		int bestFrameHeight = h;
@@ -103,6 +107,8 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		this.parameters.setPreviewFormat(ImageFormat.NV21);
 		
 		this.previewSize = this.parameters.getPreviewSize();
+		
+		this.parameters.setPictureSize(sizes.get(1).width, sizes.get(1).height);
 
 		// set the camera's settings
 		this.camera.setParameters(parameters);
@@ -111,6 +117,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			
 		this.camera.startPreview();
 	}
+	
 	
 	public void setPreview(CameraPreviewView cameraPreviewView) {
 		this.cameraPreviewView = cameraPreviewView;
