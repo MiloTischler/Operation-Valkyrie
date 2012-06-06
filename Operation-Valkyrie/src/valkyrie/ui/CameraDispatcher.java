@@ -115,7 +115,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 		this.parameters.setPictureFormat(ImageFormat.JPEG);
 		this.parameters.setJpegQuality(50);
-
+		
 		this.previewSize = this.parameters.getPreviewSize();
 
 		// for some tests - Laurenz
@@ -171,7 +171,6 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		if(this.camera != null) {
 			this.cameraLock = true;
 			
-
 			this.camera.takePicture(shutterCallback, null, pictureCallback);
 			
 			return this.picture;
@@ -193,7 +192,6 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.i(TAG, "Picture Callback");
-
 			
 			//camera.stopPreview(); -> not necessary .. ?
 			
@@ -210,7 +208,6 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 				}
 				
 				//Some filemanager stuff i don't understand x)
-				// saving the captured image to the SD
 				FileManager filemanager = new FileManager();
 				filemanager.saveImageToGallery(picture);
 				DecodeBitmaps.done = false;
