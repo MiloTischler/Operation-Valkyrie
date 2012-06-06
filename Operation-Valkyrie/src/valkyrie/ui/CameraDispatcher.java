@@ -102,6 +102,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		}
 
 		this.parameters.setPreviewSize(bestFrameWidth, bestFrameHeight);
+		
 		this.parameters.setPreviewFormat(ImageFormat.NV21);
 		this.parameters.setPictureFormat(ImageFormat.JPEG);
 		this.parameters.setJpegQuality(50);

@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <!-- Camera Preview Panel begin --> 
+    <!-- Camera Preview Panel begin -->         
     <valkyrie.ui.CameraPreviewView
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
         android:id="@+id/camera_preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" /> 
+        android:orientation="vertical" />
     
     <valkyrie.ui.CameraDispatcher
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"

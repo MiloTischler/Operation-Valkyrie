@@ -41,15 +41,13 @@ public class MainActivity extends Activity {
 
 	private FilterManager filterManager = null;
 	private CameraDispatcher cameraDispatcher = null;
+	private CameraPreviewView cameraPreviewView = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
-		// Ritzys filter test
-		// Ascii asciiFilter = new Ascii();
 
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -63,9 +61,11 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
-		// initialize CameraDispatcher
+		// initialize CameraDispatcher and CameraPreviewView
 		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
-		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		this.cameraPreviewView = (CameraPreviewView) this.findViewById(R.id.camera_preview_view);
+				
+		this.cameraDispatcher.setPreview(this.cameraPreviewView);
 		
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
