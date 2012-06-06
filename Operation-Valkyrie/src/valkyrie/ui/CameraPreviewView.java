@@ -42,7 +42,7 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	}
 	
 	public void setFilter(IFilter Filter) {
-		this.filter = filter;
+		this.filter = Filter;
 	}
 
 	public void setPreviewSize(Size previewSize) {
