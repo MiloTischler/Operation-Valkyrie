@@ -101,7 +101,7 @@ public class Ascii implements IFilter {
         String path = Environment.getExternalStorageDirectory().toString();
         try {
        	    //in = new FileInputStream( path + "/oruxmaps/cursors/neodraig2.png");
-        	in = new FileInputStream( path + "/Pictures/Screenshots/Screenshot_2012-06-01-17-00-21.png");
+        	in = new FileInputStream( path + "/Valkyrie/Screenshots/Screenshot_2012-06-01-17-00-21.png");
         	buf = new BufferedInputStream(in);
             this.bm = BitmapFactory.decodeStream(buf);
             if (in != null) {

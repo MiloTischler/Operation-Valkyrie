@@ -1,7 +1,10 @@
 package valkyrie.ui;
 
+
 import java.util.logging.Logger;
 
+
+import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
@@ -11,8 +14,13 @@ import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+
+
+import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.hardware.Camera;
+
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -32,8 +40,9 @@ import android.widget.Toast;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 public class MainActivity extends Activity {
@@ -57,6 +66,7 @@ public class MainActivity extends Activity {
 		// Set activity layout
 		this.setContentView(R.layout.main);
 
+
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
@@ -67,6 +77,7 @@ public class MainActivity extends Activity {
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
 		this.filterManager.setActiveFilter(new Grayscale());
+
 	}
 
 	public void takePicture(View view) {
@@ -74,6 +85,7 @@ public class MainActivity extends Activity {
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
+
 
 //		// Play take photo sound effect
 //		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -90,18 +102,47 @@ public class MainActivity extends Activity {
 //			}
 //		}
 
+
 		Bitmap picture = this.cameraDispatcher.takePicture();
+
+
+		// Play take photo sound effect
+		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+
+		if (volume != 0) {
+			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
+					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+
+			if (shootSpound != null) {
+				shootSpound.start();
+			} else {
+				view.playSoundEffect(SoundEffectConstants.CLICK);
+			}
+
+		}
+
+		// TODO: Implementation of takePhoto
+		//byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
+
+
 	}
 
 	public void showGallery(View view) {
-		Log.d("Tag", "clicked: showGallery");
+	Log.d("Tag", "clicked: showGallery");
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
 
+
+		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-
-		// TODO: Implementation of showGallery
+		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
+		try{	
+			MainActivity.this.startActivity(myIntent);	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		// TODO: Implementation of showGallery ... in progress
 	}
 
 	public void toggleFilterEffect(View view) {

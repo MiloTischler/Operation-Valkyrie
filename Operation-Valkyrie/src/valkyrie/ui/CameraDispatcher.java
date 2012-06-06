@@ -3,6 +3,7 @@ package valkyrie.ui;
 import java.io.IOException;
 import java.util.List;
 
+import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
 
 
@@ -187,6 +188,12 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 				if(filter != null) {
 					picture = filter.manipulateImage(picture);
 				}
+				
+				//Some filemanager stuff i don't understand x)
+				FileManager filemanager = new FileManager();
+				filemanager.saveImageToGallery(picture);
+				DecodeBitmaps.done = false;
+				
 			} catch(Exception e) {
 				Log.e(TAG, e.toString());
 			}
