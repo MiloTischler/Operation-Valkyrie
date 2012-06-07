@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
+
 		// initialize CameraDispatcher and CameraPreviewView
 		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
 		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
