@@ -60,10 +60,12 @@ public class Converter {
 		
 		String textLine = new String();
 
+		//		Imgproc.cvtColor(gray, gray, Imgproc.COLOR_RGB2HSV, 4);
+		
+//		Imgproc.Canny(gray, gray, 1f, 1f);
+		
 		Bitmap mybitmap = Bitmap.createBitmap(gray.width(), gray.height(), Bitmap.Config.RGB_565);
 		Imgproc.resize(gray, gray, new Size(width, height));
-		
-		Imgproc.cvtColor(gray, gray, Imgproc.COLOR_RGB2HSV, 4);
 		
 		Canvas canvas = new Canvas(mybitmap);
 		canvas.drawColor(Color.WHITE);
@@ -77,7 +79,7 @@ public class Converter {
 				textLine = "";
 				m = i;
 				n = j;
-				textLine += (char) LUT[(int) gray.get(n, m)[2]];
+				textLine += (char) LUT[(int) gray.get(n, m)[0]];
 				canvas.drawText(textLine, hightPos, widthPos, this.paint);
 
 				widthPos += this.fontsize;

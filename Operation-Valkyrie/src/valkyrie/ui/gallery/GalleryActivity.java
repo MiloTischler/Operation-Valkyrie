@@ -80,6 +80,73 @@ public class GalleryActivity extends Activity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		
+		SubMenu gods = menu.addSubMenu("Show me the Gods");
+		gods.add("Paul");
+		gods.add("Laurenz");
+		gods.add("Milo");
+		gods.add("Ritzy");
+		gods.add("Schweigi");
+		return super.onCreateOptionsMenu(menu);
+	}
+
+
+	@Override 
+	public void onOptionsMenuClosed(Menu menu){
+		Toast.makeText(this.getApplicationContext(),
+				"Nah ? Afraid to see them, go and DIE !!! xD PUSSY :)", Toast.LENGTH_LONG).show();
+		super.onOptionsMenuClosed(menu);
+	}
+
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		FileManager fileManager = new FileManager();
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inSampleSize = 4;
+
+		if (item.getTitle() == "Laurenz") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.laurenz, opt));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps();
+			onCreate(savedInsta);
+
+		} else if (item.getTitle() == "Milo") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.milo, opt));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps();
+			onCreate(savedInsta);
+
+		} else if (item.getTitle() == "Schweigi") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.schweigi, opt));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps();
+			onCreate(savedInsta);
+		} else if (item.getTitle() == "Paul") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.paul, opt));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps();
+			onCreate(savedInsta);
+		} else if (item.getTitle() == "Ritzy") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.ritzy, opt));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps();
+			onCreate(savedInsta);
+
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
@@ -207,10 +274,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		for (Bitmap b : DecodeBitmaps.thumbs) {
-			b.recycle();
-			Log.d(TAG, "recycling bitmaps");
-		}
+
 	}
 
 }

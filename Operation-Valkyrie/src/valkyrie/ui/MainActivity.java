@@ -67,9 +67,11 @@ public class MainActivity extends Activity {
 				.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
+
 		this.filterManager = new FilterManager(this.getApplicationContext(),
 				R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
+
 	}
 
 	public void takePicture(View view) {
@@ -112,10 +114,16 @@ public class MainActivity extends Activity {
 
 	public void showGallery(View view) {
 		Log.d("TAG", "clicked: showGallery");
+		for (Bitmap b : DecodeBitmaps.thumbs) {
+			b.recycle();
+			Log.d(TAG, "recycling bitmaps");
+		}
+
 		File galleryFiles = new File(Environment.getExternalStorageDirectory()
 				+ "/Valkyrie/Gallery/");
 
-		if ((galleryFiles.listFiles() == null) || (galleryFiles.listFiles().length == 0)) {
+		if ((galleryFiles.listFiles() == null)
+				|| (galleryFiles.listFiles().length == 0)) {
 			Toast.makeText(
 					this.getApplicationContext(),
 					"There are no Files taken yet, make some to open the Gallery",
