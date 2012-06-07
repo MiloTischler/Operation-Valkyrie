@@ -74,7 +74,7 @@ public class LayoutManager {
 	public void notifyUI(IFilter filterObject) {
 		this.activeFilter = filterObject;
 		TableLayout uiElements = filterObject.getUIElements(mainActivity);
-
+		
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}

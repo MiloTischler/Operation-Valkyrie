@@ -27,9 +27,9 @@ import valkyrie.main.R;
 
 public class Grayscale implements IFilter {
 	private static final String TAG = "Grayscale";
-	
+
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
-		
+
 	}
 
 	public String getName() {
@@ -42,24 +42,24 @@ public class Grayscale implements IFilter {
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
-		
+
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		Utils.matToBitmap(bitmapMat, bitmap);
 		bitmapMat.release();
-		
+
 		return bitmap;
 	}
 
 	public Bitmap manipulateImage(Mat bitmapMat) {		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
-		
+
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		Utils.matToBitmap(bitmapMat, bitmap);
 		bitmapMat.release();
-		
+
 		return bitmap;
 	}
-	
+
 	public int getFilterCaptureFormat() {
 		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
 	}
@@ -70,22 +70,22 @@ public class Grayscale implements IFilter {
 
 		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
-	
+
 	@Deprecated
 	private Bitmap toGrayscale(Mat bitmapMat) {
-		if(bitmapMat == null) {
+		if (bitmapMat == null) {
 			Log.e(TAG, "Bitmap Mat is null");
 		}
-		
+
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
-		
+
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
-		
+
 		Utils.matToBitmap(bitmapMat, bitmap);
-		
+
 		bitmapMat.release();
-		
+
 		return bitmap;
 	}
 
