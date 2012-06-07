@@ -44,7 +44,7 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 	private int OPTIMUM_WIDTH = 0;
 	private int OPTIMUM_HEIGHT = 1;
     private Float res[] = new Float[2];
-	
+	private Bitmap bitmap;
     
 
 
@@ -62,18 +62,19 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		imageview.setScaleType(ScaleType.CENTER);
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		fullOpt.inSampleSize = 2;
-		Bitmap bitmap = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
+		Bitmap bitmap2 = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
 		
 
-		setResolutions(bitmap,imageview);
+		setResolutions(bitmap2,imageview);
 		Log.d("setResolution", "Drehdich+++ ?");
+		bitmap2.recycle();
 		
 	
-		imageview.setImageBitmap(Bitmap.createScaledBitmap(
+		bitmap = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeFile(
 						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
-				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false));
-		//imageview.setImageBitmap(bitmap);
+				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false);
+		imageview.setImageBitmap(bitmap);
 
 		Log.d(TAG, DecodeBitmaps.fullImgPosition.get(position));
 
@@ -85,6 +86,12 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
     
     public Float[] getResolutions(){
     	return this.res;
+    }
+    
+    @Override
+    public void onBackPressed(){
+    	bitmap.recycle();
+    	super.onBackPressed();
     }
     
     public void setResolutions(Bitmap bitmap, ImageView imageView){

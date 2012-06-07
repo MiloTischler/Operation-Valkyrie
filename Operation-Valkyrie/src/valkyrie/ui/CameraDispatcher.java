@@ -1,14 +1,10 @@
 package valkyrie.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
-import valkyrie.main.R;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,13 +12,11 @@ import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
 
 public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraPreviewDispatcher";

@@ -1,30 +1,16 @@
 package valkyrie.ui;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
-import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
-import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
-import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
-
 import android.app.Activity;
 import android.content.Context;
-
 import android.content.Intent;
-
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,12 +18,6 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
