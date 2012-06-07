@@ -3,7 +3,6 @@ package valkyrie.filter.grayscale;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -18,8 +17,12 @@ import valkyrie.filter.IFilter;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+
+
 public class Grayscale implements IFilter {
 
+	private static final String TAG = "Grayscale";
+	
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 		
 	}
@@ -51,7 +54,7 @@ public class Grayscale implements IFilter {
 	}
 	
 	private Bitmap toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);
+		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
 		
 		Bitmap.Config config = bitmap.getConfig();
 		

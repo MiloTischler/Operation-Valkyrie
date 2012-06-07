@@ -64,16 +64,8 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-
-//		imageView = (ImageView) convertView;
 		Log.i(TAG, "Image adapter setImage ");
 		imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
 		return imageView;
 	}
-
-
-
-	
-
-
 }

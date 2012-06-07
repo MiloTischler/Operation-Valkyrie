@@ -32,6 +32,12 @@ import android.widget.GridView;
 
 import android.widget.ImageView;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class GalleryActivity extends Activity {
 
 	private String TAG = "GalleryActivity";

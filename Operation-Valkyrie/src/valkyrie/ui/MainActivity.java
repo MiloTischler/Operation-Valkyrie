@@ -9,13 +9,9 @@ import valkyrie.ui.gallery.GalleryActivity;
 import valkyrie.ui.preview.CameraDispatcher;
 import valkyrie.ui.preview.CameraPreviewView;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
-
 import android.app.Activity;
-
 import android.content.Intent;
-
 import android.graphics.Bitmap;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;

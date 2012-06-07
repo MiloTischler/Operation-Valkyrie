@@ -21,7 +21,7 @@ import android.hardware.Camera;
  * 
  */
 public class FilterManager {
-	private static final String TAG = "FilterCamera";
+	private static final String TAG = "FilterManager";
 
 	private Context context = null;
 	private CameraDispatcher cameraDispatcher = null;
@@ -64,11 +64,9 @@ public class FilterManager {
 
 	public void setActiveFilter(IFilter filter) {
 		for (IFilter storedFilter : this.filters) {
-			if (filter.getClass().getName() == storedFilter.getClass().getName()) {
+			if (filter.getClass().getName().equals(storedFilter.getClass().getName()))  {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
-
 				this.activeFilter = storedFilter;
-				
 				this.cameraDispatcher.setFilter(this.activeFilter);
 			}
 		}
