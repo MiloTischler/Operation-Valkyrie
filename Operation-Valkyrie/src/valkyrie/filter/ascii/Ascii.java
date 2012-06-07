@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 
 import valkyrie.main.R;
 import android.app.Activity;
@@ -23,7 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
@@ -61,7 +61,7 @@ public class Ascii implements IFilter {
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		
 
-		return this.converter.grayScale8BitToAsciiPrieview(this.converter.toGrayscale(bitmapMat), this.activeFont.getLUT());
+		return this.converter.grayScale8BitToAsciiPrieview(bitmapMat, this.activeFont.getLUT());
 //		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
 //		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
 ////		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
@@ -80,7 +80,7 @@ public class Ascii implements IFilter {
 	}
 	
 	public int getFilterCaptureFormat() {
-		return FilterCaptureFormat.Grey;
+		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
 	}
 
 	/**
