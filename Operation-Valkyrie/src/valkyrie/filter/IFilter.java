@@ -1,5 +1,7 @@
 package valkyrie.filter;
 
+import org.opencv.core.Mat;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.TableLayout;
@@ -16,10 +18,12 @@ public interface IFilter {
 	public String getName();
 
 	public Bitmap getIcon();
-
-	public Bitmap manipulatePreviewImage(Bitmap bitmap);
-
-	public Bitmap manipulateImage(Bitmap bitmap);
+	
+	public Bitmap manipulatePreviewImage(Mat bitmap);
+	
+	public Bitmap manipulateImage(Mat bitmap);
+	
+	public int getFilterCaptureFormat();
 
 	/**
 	 * Retrieves the filter specific options panel.

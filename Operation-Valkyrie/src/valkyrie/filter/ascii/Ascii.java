@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
+
 import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -55,19 +58,23 @@ public class Ascii implements IFilter {
 
 	}
 	
-	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		
-		return bitmap;
+		return null;
 //		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
 //		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
 //		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
 	}
 
-	public Bitmap manipulateImage(Bitmap bitmap) {
-		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
-		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
+	public Bitmap manipulateImage(Mat bitmapMat) {
+//		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
+//		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
 		
-		return bitmap;
+		return null;
+	}
+	
+	public int getFilterCaptureFormat() {
+		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
 	}
 
 	/**
@@ -113,7 +120,7 @@ public class Ascii implements IFilter {
         } catch (Exception e) {
             Log.e("Error reading file", e.toString());
         }
-		manipulatePreviewImage(this.bm);
-		manipulateImage(this.bm);
+//		manipulatePreviewImage(this.bm);
+//		manipulateImage(this.bm);
 	}
 }

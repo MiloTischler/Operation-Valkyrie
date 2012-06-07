@@ -4,14 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <!-- Camera Preview Panel begin -->
 
-    <valkyrie.ui.CameraPreviewView
+    <!-- Camera Preview Panel begin -->             
+    <valkyrie.ui.preview.CameraPreviewViewCV
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
         android:id="@+id/camera_preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" />
+
 
     <valkyrie.ui.CameraDispatcher
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
@@ -19,6 +20,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" />
+=======
+>>>>>>> 88e5cc3eeb269d5e8d899272e919f131de863d8c
 
     <ImageView
         android:layout_width="fill_parent"
@@ -29,7 +32,6 @@
 
 
     <!-- Filter Options Panel begin (width = 350dp) -->
-
     <valkyrie.widget.MultiDirectionSlidingDrawer
         xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
         android:id="@+id/filter_options_panel"
@@ -80,29 +82,9 @@
         </valkyrie.ui.UpdateableRelativeLayout>
     </valkyrie.widget.MultiDirectionSlidingDrawer>
     <!-- Filter Options Panel end -->
-
+    
 
     <!-- Action Bar begin -->
-    <!--
-    Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
-	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
-
-	could maximize our preview which is nice imo.<LinearLayout
-                xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
-                xmlns:binding="http://www.gueei.com/android-binding/"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical" >
-
-                <valkyrie.colorpicker.ColorPicker
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textSize="18dp"
-                    binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
-                    binding:color="Color" />
-            </LinearLayout>
-    -->
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -165,7 +147,6 @@
             android:src="@+drawable/filter"
             android:text="@string/filter_effect_toggle" />
     </RelativeLayout>
-
     <!-- Action Bar end -->
 
 </RelativeLayout>

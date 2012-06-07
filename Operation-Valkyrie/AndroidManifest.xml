@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="valkyrie.ui.GalleryActivity"
+            android:name="valkyrie.ui.gallery.GalleryActivity"
             android:label="Gallery" >
         </activity>
         <activity
-            android:name="valkyrie.ui.ShowPicActivity"
+            android:name="valkyrie.ui.gallery.ShowPicActivity"
             android:label="showPic" 
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>

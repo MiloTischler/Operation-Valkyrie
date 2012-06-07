@@ -7,8 +7,8 @@ import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.filter.FilterAssets;
 import valkyrie.main.R;
-import valkyrie.ui.CameraDispatcher;
 import valkyrie.ui.MainActivity;
+import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import org.opencv.*;
 
@@ -34,8 +34,8 @@ public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActi
     }
     
     public void testGetFilterList() {
-    	CameraDispatcher cameraDispatcher = (CameraDispatcher) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_dispatcher);
-    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraDispatcher);
+    	CameraPreviewViewCV cameraPreviewView = (CameraPreviewViewCV) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_view);
+    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraPreviewView);
     	
     	assertNotNull(filterCamera.getFilterList());
     	assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);
@@ -58,8 +58,8 @@ public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActi
     }
     
     public void testActiveFilter() {
-    	CameraDispatcher cameraDispatcher = (CameraDispatcher) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_dispatcher);
-    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraDispatcher);
+    	CameraPreviewViewCV cameraPreviewView = (CameraPreviewViewCV) this.getActivity().findViewById(valkyrie.main.R.id.camera_preview_view);
+    	FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters, cameraPreviewView);
     	
     	assertNotNull(filterCamera.getActiveFilter());
     	

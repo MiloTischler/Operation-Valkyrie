@@ -1,5 +1,9 @@
 package valkyrie.filter.nofilter;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
+
 import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -18,11 +22,19 @@ import valkyrie.filter.IFilter;
  */
 public class NoFilter implements IFilter {
 
-	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
 		return bitmap;
 	}
 
-	public Bitmap manipulateImage(Bitmap bitmap) {
+	public Bitmap manipulateImage(Mat bitmapMat) {
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
 		return bitmap;
 	}
 
@@ -38,6 +50,10 @@ public class NoFilter implements IFilter {
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
 	
 		return (TableLayout) inflater.inflate(R.layout.nofilter, null);
+	}
+	
+	public int getFilterCaptureFormat() {
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA;
 	}
 
 	public String getName() {

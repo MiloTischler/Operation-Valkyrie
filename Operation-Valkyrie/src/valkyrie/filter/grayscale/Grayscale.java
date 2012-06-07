@@ -2,14 +2,17 @@ package valkyrie.filter.grayscale;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 
 /**
  * 
@@ -18,9 +21,7 @@ import valkyrie.filter.IFilter;
  * 
  */
 
-
 public class Grayscale implements IFilter {
-
 	private static final String TAG = "Grayscale";
 	
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
@@ -35,33 +36,51 @@ public class Grayscale implements IFilter {
 		return null;
 	}
 
-	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
-		return this.toGrayscale(bitmap);
-	}
-
-	public Bitmap manipulateImage(Bitmap bitmap) {
-		if(bitmap == null) {
-			Log.d("OMGOMG", "OMFG is null..");
-		} else {
-			Log.d("OMGOMG", "OMFG is NOT null..");
-		}
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
 		
 		return bitmap;
 	}
 
-	public TableLayout getUIElements(Activity mainActivity) {
-		return null;
+	public Bitmap manipulateImage(Mat bitmapMat) {
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
+		return bitmap;
 	}
 	
-	private Bitmap toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
+	public int getFilterCaptureFormat() {
+		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+	}
+
+	public TableLayout getUIElements(Activity mainActivity) {
+		final LayoutInflater inflater = (LayoutInflater) mainActivity
+				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
+
+		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
+	}
+	
+	@Deprecated
+	private Bitmap toGrayscale(Mat bitmapMat) {
+		if(bitmapMat == null) {
+			Log.e(TAG, "Bitmap Mat is null");
+		}
 		
-		Bitmap.Config config = bitmap.getConfig();
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
 		
 		Utils.matToBitmap(bitmapMat, bitmap);
+		
+		bitmapMat.release();
 		
 		return bitmap;
 	}
