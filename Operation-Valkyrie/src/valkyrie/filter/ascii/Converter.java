@@ -8,6 +8,13 @@ import java.io.OutputStream;
 import java.util.Vector;
 import java.lang.Math;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -124,9 +131,64 @@ public class Converter {
 		Log.d("valkyrie",  "finish");	
 
 	}
+
+	public Mat toGrayscale(Mat bitmapMat) {
+		
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
+		//Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		//Utils.matToBitmap(bitmapMat, bitmap);
+		
+		return bitmapMat;
+	}
+	
+	public Bitmap grayScale8BitToAsciiPrieview(Mat gray, int[] LUT){
+		String textLine;
+		int fontsize = 5;
+		//font options go here
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.FILL);
+		paint.setColor(Color.BLACK);
+		paint.setTextSize(fontsize);
+		paint.setAntiAlias(true);
+		paint.setTypeface(Typeface.MONOSPACE);
+		paint.setTextAlign(Align.CENTER);
+		
+
+		int width = gray.width() - (gray.width() % fontsize);
+		int height = gray.height() - (gray.height() % fontsize);
+		Bitmap mybitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+		Canvas c = new Canvas(mybitmap);
+		c.drawColor(Color.WHITE);
+		int hightPos = fontsize;
+		int widthPos = 0;
+		Mat sub = null;
+		Scalar sca = null;
+		int m,n= 0;
+		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
+			widthPos = 0;
+			for (int j = 0; j < (height - fontsize); j = j + fontsize) {
+				textLine = "";
+				m = i;
+				n = j;
+				if(gray.get(n, m) != null)
+				{
+					sub = gray.submat(j, j + fontsize, i, i + fontsize);
+					sca = Core.mean(sub);
+					textLine += (char)LUT[(int)sca.val[0]];	
+					c.drawText(textLine,hightPos,widthPos,paint);
+				}
+				widthPos += fontsize;
+			}
+			hightPos += fontsize;
+		}
+		gray.release();
+		return mybitmap;
+	}
 	
 	
-	public void grayScaleToAsciiPrieview(Bitmap gray, int[] LUT){
+	
+	public Bitmap grayScaleToAsciiPrieview(Bitmap gray, int[] LUT){
 		String textLine;
 		
 		Log.d("valkyrie",  "start");	
@@ -172,20 +234,21 @@ public class Converter {
 		
 		
 		// saving shouldnt be done here
-		String path = Environment.getExternalStorageDirectory().toString();
-		OutputStream fOut = null;
-		File file = new File(path, "lol2.jpg");
-		try {
-			fOut = new FileOutputStream(file);
-			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-			fOut.flush();
-			fOut.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Log.d("valkyrie",  "finish");		
+//		String path = Environment.getExternalStorageDirectory().toString();
+//		OutputStream fOut = null;
+//		File file = new File(path, "lol2.jpg");
+//		try {
+//			fOut = new FileOutputStream(file);
+//			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//			fOut.flush();
+//			fOut.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		Log.d("valkyrie",  "finish");	
+		return mybitmap;
 	}
 	
 	public void colorToAsciiPrieview(Bitmap gray, int[] LUT, Bitmap color){
