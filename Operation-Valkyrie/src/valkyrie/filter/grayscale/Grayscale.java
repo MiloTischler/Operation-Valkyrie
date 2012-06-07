@@ -18,9 +18,7 @@ import valkyrie.filter.IFilter;
  * 
  */
 
-
 public class Grayscale implements IFilter {
-
 	private static final String TAG = "Grayscale";
 	
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {

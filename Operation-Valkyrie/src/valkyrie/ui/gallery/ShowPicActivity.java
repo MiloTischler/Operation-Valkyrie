@@ -15,8 +15,8 @@ import android.os.Bundle;
  * 
  */
 
-public class ShowPicActivity extends Activity { private static final String TAG = "ShowPicActivity";
-
+public class ShowPicActivity extends Activity { 
+	private static final String TAG = "ShowPicActivity";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

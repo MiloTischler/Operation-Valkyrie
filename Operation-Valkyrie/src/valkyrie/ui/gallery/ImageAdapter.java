@@ -19,8 +19,9 @@ import android.widget.ImageView;
  * 
  */
 public class ImageAdapter extends BaseAdapter {
+	private static final String TAG = "ImageAdapter";
+	
 	private Context mContext;
-	private String TAG = "ImageAdapter";
 	private int pictures = 0;
 
 
