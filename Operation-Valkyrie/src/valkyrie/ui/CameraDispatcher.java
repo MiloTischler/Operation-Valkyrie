@@ -1,13 +1,11 @@
 package valkyrie.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,13 +14,12 @@ import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
-import android.os.Bundle;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
 
 public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraPreviewDispatcher";
@@ -116,7 +113,7 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		
 		this.parameters.setPreviewFormat(ImageFormat.NV21);
 
-		this.parameters.setPictureFormat(ImageFormat.JPEG);
+		this.parameters.setPictureFormat(ImageFormat.RGB_565);
 		this.parameters.setJpegQuality(50);
 
 		this.previewSize = this.parameters.getPreviewSize();
@@ -125,10 +122,6 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 		// for some tests - Laurenz
 		// setting the resolution of the picture taken
-        
-        
-
-
 		this.parameters.setPictureSize(sizes.get(0).width, sizes.get(0).height);
 
 		// set the camera's settings
@@ -172,11 +165,9 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 	}
 
 	public Bitmap takePicture() {
-
 		if(this.camera != null) {
 			this.cameraLock = true;
 			
-
 			this.camera.takePicture(shutterCallback, null, pictureCallback);
 			
 			return this.picture;
@@ -193,11 +184,30 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 		}
 
 	};
+	
+	// Just a test for further improvements Begin
+	class SavePhotoTask extends AsyncTask<byte[], String, String> {
+
+		@Override
+		protected String doInBackground(byte[]... data) {
+			
+			if(data[0] == null) {
+				Log.d("WTF", "WTF ... null");
+			} else {
+				Log.d("WTF", "WTF ... not null");
+			}
+			
+			return null;
+		}
+	  }
+	// Just a test for further improvements End
 
 	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
 
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.i(TAG, "Picture Callback");
+			
+			new SavePhotoTask().execute(data);
 
 			
 			//camera.stopPreview(); -> not necessary .. ?
@@ -214,13 +224,14 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 					picture = filter.manipulateImage(picture);
 				}
 				
-				//Some filemanager stuff i don't understand x)
+				// Some filemanager stuff i don't understand x)
 				// saving the captured image to the SD
 				FileManager filemanager = new FileManager();
 				filemanager.saveImageToGallery(picture);
 				DecodeBitmaps.done = false;
 				
 			} catch(Exception e) {
+				Log.d("OMG", "OMFG .. very bad ..");
 				Log.e(TAG, e.toString());
 			}
 			
