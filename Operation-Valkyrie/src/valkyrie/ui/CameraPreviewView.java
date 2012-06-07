@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -28,6 +29,9 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	private SurfaceHolder surfaceHolder = null;
 	
 	private IFilter filter = null;
+	
+	private long fpsTime = 0;
+	private int frameCounter = 0;
 
 	public CameraPreviewView(Context context) {
 		super(context);
@@ -41,8 +45,10 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		this.surfaceHolder = this.getHolder();
 	}
 	
-	public void setFilter(IFilter Filter) {
+
+	public void setFilter(IFilter filter) {
 		this.filter = filter;
+
 	}
 
 	public void setPreviewSize(Size previewSize) {
@@ -53,17 +59,29 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 
 	public void onPreviewFrame(byte[] data, Camera camera) {
 		
-		if (camera == null)
+		if (camera == null || this.getVisibility() == View.GONE) {
 			return;
-
+		}
+		
+		//Calculate FPS
+		this.frameCounter++;
+		
+		long delay = System.currentTimeMillis() - this.fpsTime;
+		if (delay > 1000) {            
+            Log.i(TAG, "Preview Frame FPS:" + (((double)frameCounter)/delay)*1000);
+            
+            this.frameCounter = 0;
+            this.fpsTime = System.currentTimeMillis(); 
+        }
+		
+		//Convert data[] to bitmap
 		int format = camera.getParameters().getPreviewFormat();
 
-		// transforms NV21 pixel data into RGB pixels
 		switch (format) {
 		case ImageFormat.NV21:
 		case ImageFormat.YUY2:
 			Log.i(TAG, "Camera preview using NV21 or YUY2");
-			this.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
+			CameraPreviewView.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
 			this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
 			break;
 		case ImageFormat.JPEG:
@@ -74,33 +92,24 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 			Log.e(TAG, "Camera preview format not supported!");
 		}
 
-		Log.d("Pixels", this.previewSize.width + " - " + this.previewSize.height);
-
+		//Draw bitmap on surface canvas
 		Canvas canvas = this.surfaceHolder.lockCanvas();
-
-		Log.i("Pixels",
-				"The top right pixel has the following RGB (hexadecimal) values:"
-						+ Integer.toHexString(this.actBmp.getPixel(10, 10)));
-
-//		Paint paint = new Paint();
-//		paint.setColor(Color.WHITE);
-//		paint.setTextSize(20);
-//
-//		canvas.drawText("Got it!", 100, 100, paint);
 		
-		if(this.filter != null) {
-			this.filter.manipulatePreviewImage(this.actBmp);
+		if(this.filter != null && this.actBmp != null) {
+			this.actBmp = this.filter.manipulatePreviewImage(this.actBmp);
 		}
 		
 		canvas.drawBitmap(this.actBmp, 0, 0, null);
-
+		
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
-		this.actBmp.recycle();
-
+		//Cleanup
+		if(this.actBmp != null) {
+			this.actBmp.recycle();
+		}
 	}
 
-	void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
+	private static void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
 
 		final int frameSize = width * height;
 

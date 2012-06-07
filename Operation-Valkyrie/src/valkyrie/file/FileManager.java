@@ -1,5 +1,10 @@
 package valkyrie.file;
-
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
+ *
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,15 +22,20 @@ public class FileManager {
 	final static String IMGNAME = "IMG";
 	final static String IMGCOUNT = "0000";
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
+	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
 
 	public FileManager() {
 		initFileManager();
+		
 	}
 	
 	private void initFileManager() {
 		File file = new File(SDPATH);
+		File thumb = new File(THUMBPATH);
 		if(!file.exists())
 			file.mkdirs();
+		if (!thumb.exists()) 
+			thumb.mkdirs();
 	}
 	
 	public void saveImageToGallery(Bitmap bitmap) {
@@ -46,24 +56,23 @@ public class FileManager {
 						highestnumber = newhighest + 1;
 					}
 					Log.d("DEBUG", String.valueOf(highestnumber));
-
 				}
 			}
 
 			String filenumber = IMGCOUNT + highestnumber;
 			filenumber = filenumber.substring(filenumber.length() - 4);
 
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		} else {
 			String filenumber = IMGCOUNT + 1;
 			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(SDPATH, IMGNAME + filenumber + ".png");
+			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
 		}
 
 		try {
 
 			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {
@@ -96,8 +105,11 @@ public class FileManager {
 
 	public void deleteImageFromGallery(String imageName) {
 		File fileToDelete = new File(SDPATH + imageName);
-		if (fileToDelete.exists())
+		File thumbToDelete = new File(THUMBPATH + imageName);
+		if (fileToDelete.exists()){
 			fileToDelete.delete();
+			thumbToDelete.delete();
+		}
 
 	}
 

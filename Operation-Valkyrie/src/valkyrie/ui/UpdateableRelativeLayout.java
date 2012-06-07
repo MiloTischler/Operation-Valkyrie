@@ -85,24 +85,24 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 		if (uiElement instanceof SeekBar) {
 			Log.d("FasuDebug", "UI-Element init: SeekBar");
-			
+
 			OnSeekBarChangeListener seekBarListener = new OnSeekBarChangeListener() {
-				
+
 				public void onStopTrackingTouch(SeekBar seekBar) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				public void onStartTrackingTouch(SeekBar seekBar) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-					Log.d("FasuDebug","SeekBar Value: " + progress);					
+					Log.d("FasuDebug", "SeekBar Value: " + progress);
 				}
 			};
-			
+
 			((SeekBar) uiElement).setOnSeekBarChangeListener(seekBarListener);
 		}/*
 		 * else if (uiElement instanceof Button)

@@ -1,32 +1,26 @@
 package valkyrie.ui;
 
-import java.util.logging.Logger;
+import java.io.File;
 
 import valkyrie.filter.FilterManager;
-import valkyrie.filter.ascii.Ascii;
-import valkyrie.filter.nofilter.NoFilter;
+import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;
-import android.content.Context;
+
+import android.content.Intent;
+
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.opengl.Visibility;
+
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 /**
@@ -47,9 +41,6 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		// Ritzys filter test
-		// Ascii asciiFilter = new Ascii();
-
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -62,14 +53,14 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
-		// initialize FilterManager
-		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters);
-		// start with no filter by default
-		this.filterManager.setActiveFilter(new NoFilter());
 
-		// initialize CameraDispatcher
+		// initialize CameraDispatcher and CameraPreviewView
 		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
 		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+
+		// initialize FilterManager
+		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
+		this.filterManager.setActiveFilter(new Grayscale());
 	}
 
 	public void takePicture(View view) {
@@ -93,6 +84,7 @@ public class MainActivity extends Activity {
 		// }
 		// }
 
+		// TODO ! this returns null!
 		Bitmap picture = this.cameraDispatcher.takePicture();
 	}
 
@@ -100,11 +92,17 @@ public class MainActivity extends Activity {
 		Log.d("Tag", "clicked: showGallery");
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Show Gallery Clicked", Toast.LENGTH_SHORT).show();
 
+		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
+		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
 
-		// TODO: Implementation of showGallery
+		try {
+			MainActivity.this.startActivity(myIntent);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		// TODO: Implementation of showGallery ... in progress
 	}
 
 	public void toggleFilterEffect(View view) {
@@ -114,6 +112,12 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
+
+		if (this.cameraDispatcher.isPreviewDisplayed()) {
+			this.cameraDispatcher.displayPreview(false);
+		} else {
+			this.cameraDispatcher.displayPreview(true);
+		}
 
 		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
@@ -141,5 +145,19 @@ public class MainActivity extends Activity {
 		}
 
 		return super.onKeyUp(keyCode, event);
+	}
+
+	@Override
+	protected void onPause() {
+		Log.i(TAG, "onPause called");
+
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		Log.i(TAG, "onResume called");
+
+		super.onResume();
 	}
 }

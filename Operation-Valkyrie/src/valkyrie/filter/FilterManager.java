@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
+import valkyrie.ui.CameraDispatcher;
 import valkyrie.ui.CameraPreviewView;
 import valkyrie.ui.LayoutManager;
 
@@ -23,13 +24,15 @@ public class FilterManager {
 	private static final String TAG = "FilterCamera";
 
 	private Context context = null;
+	private CameraDispatcher cameraDispatcher = null;
 	private IFilter activeFilter = new NoFilter();
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
 
-	public FilterManager(Context context, Integer filterArray) {
+	public FilterManager(Context context, Integer filterArray, CameraDispatcher cameraDispatcher) {
 		Log.i(TAG, "Initialized opencv camera");
 
 		this.context = context;
+		this.cameraDispatcher = cameraDispatcher;
 
 		this.filters.clear();
 
@@ -65,7 +68,8 @@ public class FilterManager {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 
 				this.activeFilter = storedFilter;
-
+				this.cameraDispatcher.setFilter(this.activeFilter);
+				
 				// notify UI about filter change
 				LayoutManager.getInstance().notifyUI(this.activeFilter);
 			}
