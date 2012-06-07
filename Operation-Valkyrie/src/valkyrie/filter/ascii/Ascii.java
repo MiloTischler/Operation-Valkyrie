@@ -57,15 +57,19 @@ public class Ascii implements IFilter {
 	
 	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
 		
-		return bitmap;
+		return this.converter.grayScale8BitToAsciiPrieview(this.converter.toGrayscale(bitmap), this.activeFont.getLUT());
+//		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
+//		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
+////		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
+//		return this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
 //		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
 //		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
 //		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
 	}
 
 	public Bitmap manipulateImage(Bitmap bitmap) {
-		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
-		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
+//		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
+//		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
 		
 		return bitmap;
 	}

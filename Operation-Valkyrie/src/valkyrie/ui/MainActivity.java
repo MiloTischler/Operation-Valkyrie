@@ -3,6 +3,7 @@ package valkyrie.ui;
 import java.io.File;
 
 import valkyrie.filter.FilterManager;
+import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
@@ -56,7 +57,7 @@ public class MainActivity extends Activity {
 
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
-		this.filterManager.setActiveFilter(new Grayscale());
+		this.filterManager.setActiveFilter(new Ascii());
 	}
 
 	public void takePicture(View view) {

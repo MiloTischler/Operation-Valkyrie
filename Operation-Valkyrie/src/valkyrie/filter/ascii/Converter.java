@@ -8,6 +8,10 @@ import java.io.OutputStream;
 import java.util.Vector;
 import java.lang.Math;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -124,9 +128,88 @@ public class Converter {
 		Log.d("valkyrie",  "finish");	
 
 	}
+
+	public Mat toGrayscale(Bitmap bitmap) {
+		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
+		
+		Bitmap.Config config = bitmap.getConfig();
+		
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
+		//Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		//Utils.matToBitmap(bitmapMat, bitmap);
+		
+		return bitmapMat;
+	}
+	
+	public Bitmap grayScale8BitToAsciiPrieview(Mat gray, int[] LUT){
+		String textLine;
+		
+		Log.d("valkyrie",  "start");	
+		int fontsize = 7;
+		//font options go here
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.FILL);
+		paint.setColor(Color.BLACK);
+		paint.setTextSize(fontsize);
+		paint.setAntiAlias(true);
+		paint.setTypeface(Typeface.MONOSPACE);
+		paint.setTextAlign(Align.CENTER);
+		
+
+		int width = gray.cols() - (gray.cols() % fontsize);
+		int hight = gray.rows() - (gray.rows() % fontsize);
+		Bitmap mybitmap = Bitmap.createBitmap(width, hight, Bitmap.Config.RGB_565);
+		Canvas c = new Canvas(mybitmap);
+		c.drawColor(Color.WHITE);
+		
+		int hightPos = fontsize;
+		int widthPos = 0;
+		int pixelSum = 0;
+		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
+			widthPos = 0;
+			for (int j = 0; j < (hight - fontsize); j = j + fontsize) {
+				pixelSum = 0;
+				textLine = "";
+				for(int x = i; x < (i + fontsize); x++)
+				{
+					for(int y = j; y < (j + fontsize); y++)
+					{
+						//Log.d("valkyrie",  "pixel: " + gray.get(x, y).length);
+						if(gray.get(x, y) != null)
+							pixelSum += (int)gray.get(x, y)[0];
+					}
+				}
+				
+				textLine += (char)LUT[Math.round((float)pixelSum / ((float)fontsize * (float)fontsize))];	
+				c.drawText(textLine,hightPos,widthPos,paint);
+				widthPos += fontsize;
+			}
+			hightPos += fontsize;
+		}
+		
+		
+		// saving shouldnt be done here
+//		String path = Environment.getExternalStorageDirectory().toString();
+//		OutputStream fOut = null;
+//		File file = new File(path, "lol2.jpg");
+//		try {
+//			fOut = new FileOutputStream(file);
+//			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//			fOut.flush();
+//			fOut.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		Log.d("valkyrie",  "finish");	
+		return mybitmap;
+	}
 	
 	
-	public void grayScaleToAsciiPrieview(Bitmap gray, int[] LUT){
+	
+	public Bitmap grayScaleToAsciiPrieview(Bitmap gray, int[] LUT){
 		String textLine;
 		
 		Log.d("valkyrie",  "start");	
@@ -172,20 +255,21 @@ public class Converter {
 		
 		
 		// saving shouldnt be done here
-		String path = Environment.getExternalStorageDirectory().toString();
-		OutputStream fOut = null;
-		File file = new File(path, "lol2.jpg");
-		try {
-			fOut = new FileOutputStream(file);
-			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-			fOut.flush();
-			fOut.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Log.d("valkyrie",  "finish");		
+//		String path = Environment.getExternalStorageDirectory().toString();
+//		OutputStream fOut = null;
+//		File file = new File(path, "lol2.jpg");
+//		try {
+//			fOut = new FileOutputStream(file);
+//			mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//			fOut.flush();
+//			fOut.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		Log.d("valkyrie",  "finish");	
+		return mybitmap;
 	}
 	
 	public void colorToAsciiPrieview(Bitmap gray, int[] LUT, Bitmap color){
