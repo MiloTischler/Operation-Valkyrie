@@ -72,7 +72,9 @@ public class FileManager {
 		try {
 
 			fOut = new FileOutputStream(file);
+
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+
 			fOut.flush();
 			fOut.close();
 		} catch (FileNotFoundException e) {
@@ -83,6 +85,7 @@ public class FileManager {
 		}
 		bitmap.recycle();
 	}
+
 
 	public void saveImageToInternal(Bitmap bitmap) {
 		// TODO laurenz

@@ -27,9 +27,9 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	private Size previewSize = null;
 
 	private SurfaceHolder surfaceHolder = null;
-	
+
 	private IFilter filter = null;
-	
+
 	private long fpsTime = 0;
 	private int frameCounter = 0;
 
@@ -44,7 +44,6 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 
 		this.surfaceHolder = this.getHolder();
 	}
-	
 
 	public void setFilter(IFilter filter) {
 		this.filter = filter;
@@ -58,23 +57,23 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 	}
 
 	public void onPreviewFrame(byte[] data, Camera camera) {
-		
+
 		if (camera == null || this.getVisibility() == View.GONE) {
 			return;
 		}
-		
-		//Calculate FPS
+
+		// Calculate FPS
 		this.frameCounter++;
-		
+
 		long delay = System.currentTimeMillis() - this.fpsTime;
-		if (delay > 1000) {            
-            Log.i(TAG, "Preview Frame FPS:" + (((double)frameCounter)/delay)*1000);
-            
-            this.frameCounter = 0;
-            this.fpsTime = System.currentTimeMillis(); 
-        }
-		
-		//Convert data[] to bitmap
+		if (delay > 1000) {
+			Log.i(TAG, "Preview Frame FPS:" + (((double) frameCounter) / delay) * 1000);
+
+			this.frameCounter = 0;
+			this.fpsTime = System.currentTimeMillis();
+		}
+
+		// Convert data[] to bitmap
 		int format = camera.getParameters().getPreviewFormat();
 
 		switch (format) {
@@ -82,7 +81,8 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		case ImageFormat.YUY2:
 			Log.i(TAG, "Camera preview using NV21 or YUY2");
 			CameraPreviewView.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
-			this.actBmp = Bitmap.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
+			this.actBmp = Bitmap
+					.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
 			break;
 		case ImageFormat.JPEG:
 		case ImageFormat.RGB_565:
@@ -92,19 +92,29 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 			Log.e(TAG, "Camera preview format not supported!");
 		}
 
-		//Draw bitmap on surface canvas
+		// Draw bitmap on surface canvas
 		Canvas canvas = this.surfaceHolder.lockCanvas();
-		
-		if(this.filter != null && this.actBmp != null) {
+
+		if (this.filter != null && this.actBmp != null) {
 			this.actBmp = this.filter.manipulatePreviewImage(this.actBmp);
 		}
+		if(this.filter == null)
+			Log.d("Grayscale", "filter is null");
+		
+		if(this.actBmp == null)
+			Log.d("Grayscale", "actBmp is null");
 		
 		canvas.drawBitmap(this.actBmp, 0, 0, null);
-		
+
+		Paint paint = new Paint();
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(16);
+		canvas.drawText("Some Text", 10, 25, paint);
+
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
-		//Cleanup
-		if(this.actBmp != null) {
+		// Cleanup
+		if (this.actBmp != null) {
 			this.actBmp.recycle();
 		}
 	}
