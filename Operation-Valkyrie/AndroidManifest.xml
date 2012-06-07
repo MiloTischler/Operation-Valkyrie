@@ -36,5 +36,6 @@
             android:label="showPic" 
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
+             
     </application>
 </manifest>

@@ -27,29 +27,24 @@ public class ShowPicActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG, "Drehdich+++ 1?");
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.showpic);
-
-		// Start
 
 		Intent intent = getIntent();
 		TouchImageView imageView = (TouchImageView) this
 				.findViewById(R.id.full_image_view);
 		int position = intent.getExtras().getInt("id");
 
-		Log.d(TAG, "Drehdich+++ 5?");
 		BitmapFactory.Options scaleBitmapOpt = new BitmapFactory.Options();
 		scaleBitmapOpt.inSampleSize = 2;
-		Log.d(TAG, "vor try");
+
 		try {
-			Log.d(TAG, "in try");
 			Log.d(TAG, "trying displaying image without compressing");
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
 
 		} catch (OutOfMemoryError e) {
-			Log.d(TAG, "in catch");
 			e.printStackTrace();
 			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt + "failed");
 			imageView
@@ -57,22 +52,5 @@ public class ShowPicActivity extends Activity {
 							DecodeBitmaps.fullImgPosition.get(position),
 							scaleBitmapOpt));
 		} 
-		Log.d(TAG, "nach try");
-		/*
-		 * finally {
-		 * 
-		 * try { imageView.setImageBitmap(BitmapFactory.decodeFile(
-		 * DecodeBitmaps.fullImgPosition.get(position), scaleBitmapOpt));
-		 * 
-		 * } catch (OutOfMemoryError e) { e.printStackTrace(); Log.d(TAG,
-		 * "inSampleSize :" + scaleBitmapOpt + "failed"); } finally { Log.d(TAG,
-		 * "inSampleSize :" + scaleBitmapOpt + "done");
-		 * scaleBitmapOpt.inSampleSize = 4;
-		 * imageView.setImageBitmap(BitmapFactory.decodeFile(
-		 * DecodeBitmaps.fullImgPosition.get(position), scaleBitmapOpt));
-		 * 
-		 * } }
-		 */
 	}
-
 }

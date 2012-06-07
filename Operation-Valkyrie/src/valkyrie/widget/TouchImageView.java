@@ -175,10 +175,10 @@ public class TouchImageView extends ImageView {
 			float x = e.getX();
 			float y = e.getY();
 
-			// @TODO: Implement double click zoomout
-
+			// 
+			setScaleType(ScaleType.CENTER_INSIDE);
 			Log.d("Double Tap", "Tapped at: (" + x + "," + y + ")");
-
+			setScaleType(ScaleType.MATRIX);
 			return true;
 		}
 	}
@@ -200,54 +200,14 @@ public class TouchImageView extends ImageView {
 			if (saveScale > maxScale) {
 				saveScale = maxScale;
 				mScaleFactor = maxScale / origScale;
-			
-//				Log.d(TAG, "mitte 1");
-//				myMid.x = width / 2;
-//				myMid.y = height / 2;
-//				bmMid.x = bmWidth / 2;
-//				bmMid.y = bmHeight / 2;
-//				Log.d(TAG, "mitte 2");
-//
-//				float x = myMid.x - bmMid.x;
-//				float y = myMid.y - bmMid.y;
-//				float dist = FloatMath.sqrt(x * x + y * y);
-//
-//				translateP.x = Math.abs(myMid.x - bmMid.x);
-//				translateP.y = Math.abs(myMid.y - bmMid.y);
-//				Log.d(TAG, "mitte 3");
-//				Log.d(TAG, "reached maxzoom i guess");
-//				Log.d(TAG, "bmWidth: " + bmWidth);
-//				Log.d(TAG, "bmHeight: " + bmHeight);
-//				Log.d(TAG, "reached maxzoom i guess");
-//				Log.d(TAG, "translate x: " + translateP.x);
-//				Log.d(TAG, "translate y: " + translateP.y);
-//				Log.d(TAG, "dist       : " + dist);
-//				Log.d(TAG, "mid.x       : " + myMid.x);
-//
-//				Log.d(TAG, "mid.y       : " + myMid.y);
-//				
-//				matrix.postTranslate(dx, dy)
-
+				
+				
 			} else if (saveScale < minScale) {
 				saveScale = minScale;
 				mScaleFactor = minScale / origScale;
-			
-//				myMid.x = width / 2;
-//				myMid.y = height / 2;
-//				bmMid.x = bmWidth / 2;
-//				bmMid.y = bmHeight / 2;
-//				translateP.x = myMid.x - bmMid.x;
-//				translateP.y = myMid.y - bmMid.y;
-//				matrix.postTranslate(translateP.x, translateP.y);
-//
-//				Log.d(TAG, "reached minzoom i guess");
-//				Log.d(TAG, "width: " + width);
-//				Log.d(TAG, "height: " + height);
-//				Log.d(TAG, "translate x: " + translateP.x);
-//				Log.d(TAG, "translate y: " + translateP.y);
-//				Log.d(TAG, "reached minzoom i guess");
-
-				// TODO: Here we reach max zoom out.. maybe we should re-center
+				setScaleType(ScaleType.CENTER_INSIDE);
+				setScaleType(ScaleType.MATRIX);
+				// TODO: Here we reach max zoom out.. maybe we should re-center DONE
 				// the image
 
 			}
