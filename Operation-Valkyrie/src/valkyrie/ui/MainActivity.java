@@ -9,8 +9,12 @@ import valkyrie.ui.gallery.GalleryActivity;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -31,8 +35,8 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
 	private FilterManager filterManager = null;
-//	private CameraDispatcher cameraDispatcher = null;
-	
+	// private CameraDispatcher cameraDispatcher = null;
+
 	private CameraPreviewViewCV cameraPreview = null;
 
 	/** Called when the activity is first created. */
@@ -66,6 +70,31 @@ public class MainActivity extends Activity {
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
+
+		// Play take photo sound effect
+		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+
+		if (volume != 0) {
+			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
+					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+
+			if (shootSpound != null) {
+				shootSpound.start();
+			} else {
+				view.playSoundEffect(SoundEffectConstants.CLICK);
+			}
+		}
+		
+		Bitmap bitmap = this.cameraPreview.takePicture();
+		
+		if(bitmap == null) {
+			Log.e(TAG, "takePicture got null bitmap");
+		}
+		
+		// TODO: do something with picture..
+		
+		bitmap.recycle();
 	}
 
 	public void showGallery(View view) {
@@ -120,12 +149,12 @@ public class MainActivity extends Activity {
 				.findViewById(R.id.filter_options_panel);
 
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			if(multiDirectionSlidingDrawer.isOpened()) {
+			if (multiDirectionSlidingDrawer.isOpened()) {
 				multiDirectionSlidingDrawer.animateClose();
 			} else {
 				multiDirectionSlidingDrawer.animateOpen();
 			}
-		} 
+		}
 
 		return super.onKeyUp(keyCode, event);
 	}

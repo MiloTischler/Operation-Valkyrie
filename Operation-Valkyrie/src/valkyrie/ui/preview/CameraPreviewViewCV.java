@@ -30,7 +30,7 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		super(context);
 		this.holder = getHolder();
 		this.holder.addCallback(this);
-		
+
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
@@ -38,7 +38,7 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		super(context, attr);
 		this.holder = getHolder();
 		this.holder.addCallback(this);
-		
+
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
@@ -62,12 +62,42 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 	}
 
+	public Bitmap takePicture() {
+		double rememberWidth = this.camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
+		double rememberHeight = this.camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
+
+		List<Size> sizes = this.camera.getSupportedPreviewSizes();
+		Size highestPreviewSize = this.getHighestPreviewSize(sizes);
+
+		this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, highestPreviewSize.width);
+		this.camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, highestPreviewSize.height);
+
+		Bitmap bitmap = null;
+		Mat pictureMat = new Mat();
+		
+		if (this.filter != null) {
+			this.camera.retrieve(pictureMat, this.filter.getFilterCaptureFormat());
+			bitmap = this.filter.manipulatePreviewImage(pictureMat);
+		} else {
+			this.camera.retrieve(pictureMat, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+			bitmap = Bitmap.createBitmap(pictureMat.cols(), pictureMat.rows(), Bitmap.Config.ARGB_8888);
+			Utils.matToBitmap(pictureMat, bitmap);
+		}
+
+		this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, rememberWidth);
+		this.camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, rememberHeight);
+
+		Log.d(TAG, "Called take picture, width: " + bitmap.getWidth() + " height: " + bitmap.getHeight());
+
+		return bitmap;
+	}
+
 	public void surfaceChanged(SurfaceHolder _holder, int format, int width, int height) {
 		Log.i(TAG, "surfaceCreated");
 		synchronized (this) {
 			if (this.camera != null && this.camera.isOpened()) {
 				List<Size> sizes = this.camera.getSupportedPreviewSizes();
-				
+
 				Size optimalPreviewSize = this.getOptimalPreviewSize(sizes, width, height);
 
 				this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, optimalPreviewSize.width);
@@ -99,26 +129,26 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 	}
 
 	protected Bitmap processFrame(VideoCapture capture) {
-		Mat rgba = new Mat();
+		Mat bitmapMat = new Mat();
 
-		capture.retrieve(rgba, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
-
-		Bitmap bmp = null;
+		Bitmap bitmap = null;
 
 		if (this.filter != null && this.isFilterDisplayed) {
-			bmp = this.filter.manipulatePreviewImage(rgba);
+			capture.retrieve(bitmapMat, this.filter.getFilterCaptureFormat());
+			bitmap = this.filter.manipulatePreviewImage(bitmapMat);
 		} else {
-			bmp = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888);
-			Utils.matToBitmap(rgba, bmp);
+			capture.retrieve(bitmapMat, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+			bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+			Utils.matToBitmap(bitmapMat, bitmap);
 		}
 
-		return bmp;
+		return bitmap;
 	}
 
 	public void run() {
 		Log.i(TAG, "Starting processing thread");
 		while (true) {
-			Bitmap bmp = null;
+			Bitmap bitmap = null;
 
 			synchronized (this) {
 				if (this.camera == null) {
@@ -131,28 +161,28 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 					break;
 				}
 
-				bmp = processFrame(this.camera);
+				bitmap = processFrame(this.camera);
 			}
 
-			if (bmp != null) {
+			if (bitmap != null) {
 				Canvas canvas = this.holder.lockCanvas();
 				if (canvas != null) {
-					canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2,
-							(canvas.getHeight() - bmp.getHeight()) / 2, null);
+					canvas.drawBitmap(bitmap, (canvas.getWidth() - bitmap.getWidth()) / 2,
+							(canvas.getHeight() - bitmap.getHeight()) / 2, null);
 					this.holder.unlockCanvasAndPost(canvas);
 				}
 
-				bmp.recycle();
+				bitmap.recycle();
 			}
 		}
 
 		Log.i(TAG, "Finishing processing thread");
 	}
-	
+
 	private Size getOptimalPreviewSize(List<Size> sizes, int surfaceWidth, int surfaceHeight) {
 		int frameWidth = surfaceWidth;
 		int frameHeight = surfaceHeight;
-		
+
 		double minDiff = Double.MAX_VALUE;
 		for (Size size : sizes) {
 			if (Math.abs(size.height - surfaceHeight) < minDiff) {
@@ -161,19 +191,22 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 				minDiff = Math.abs(size.height - surfaceHeight);
 			}
 		}
-		
+
+		Log.i(TAG, "Set optimal preview size, width: " + frameWidth + " height: " + frameHeight);
+
 		return new Size(frameWidth, frameHeight);
 	}
-	
+
 	private Size getHighestPreviewSize(List<Size> sizes) {
 		Size maxSize = new Size(Double.MIN_VALUE, Double.MIN_VALUE);
-		
-		for(Size size : sizes) {
-			if(maxSize.width < size.width) {
+
+		for (Size size : sizes) {
+			if (maxSize.width < size.width) {
 				maxSize = size;
 			}
 		}
-		
+
 		return maxSize;
 	}
+
 }

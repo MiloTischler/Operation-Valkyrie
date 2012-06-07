@@ -2,6 +2,7 @@ package valkyrie.filter.grayscale;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
@@ -37,15 +37,27 @@ public class Grayscale implements IFilter {
 	}
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		return this.toGrayscale(bitmapMat);
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
+		return bitmap;
 	}
 
-	public Bitmap manipulateImage(Mat bitmapMat) {		
-		return this.toGrayscale(bitmapMat);
+	public Bitmap manipulateImage(Mat bitmapMat) {
+		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
+		return bitmap;
 	}
 	
 	public int getFilterCaptureFormat() {
-		return FilterCaptureFormat.Grey;
+		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
 	}
 
 	public TableLayout getUIElements(Activity mainActivity) {
@@ -55,6 +67,7 @@ public class Grayscale implements IFilter {
 		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
 	
+	@Deprecated
 	private Bitmap toGrayscale(Mat bitmapMat) {
 		if(bitmapMat == null) {
 			Log.e(TAG, "Bitmap Mat is null");
