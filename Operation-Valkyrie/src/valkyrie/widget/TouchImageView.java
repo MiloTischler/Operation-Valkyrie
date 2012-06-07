@@ -175,7 +175,7 @@ public class TouchImageView extends ImageView {
 			float x = e.getX();
 			float y = e.getY();
 
-			// @TODO: Implement double click zoomout
+			// TODO: Implement double click zoomout
 
 			Log.d("Double Tap", "Tapped at: (" + x + "," + y + ")");
 
@@ -236,20 +236,36 @@ public class TouchImageView extends ImageView {
 //				myMid.y = height / 2;
 //				bmMid.x = bmWidth / 2;
 //				bmMid.y = bmHeight / 2;
-//				translateP.x = myMid.x - bmMid.x;
-//				translateP.y = myMid.y - bmMid.y;
+//				
+//				if(myMid.x < bmMid.x) {
+//					translateP.x = myMid.x - bmMid.x;
+//				} else {
+//					translateP.x = -(myMid.x - bmMid.x);
+//				}
+//				
+//				if(myMid.y < bmMid.y) {
+//					translateP.y = myMid.y - bmMid.y;
+//				} else {
+//					translateP.y = -(myMid.y - bmMid.y);
+//				}
+//				
 //				matrix.postTranslate(translateP.x, translateP.y);
-//
-//				Log.d(TAG, "reached minzoom i guess");
-//				Log.d(TAG, "width: " + width);
-//				Log.d(TAG, "height: " + height);
-//				Log.d(TAG, "translate x: " + translateP.x);
-//				Log.d(TAG, "translate y: " + translateP.y);
-//				Log.d(TAG, "reached minzoom i guess");
+				
+				//onMeasure((int) width, (int) height);
+
+				Log.d(TAG, "reached minzoom i guess");
+				Log.d(TAG, "width: " + width);
+				Log.d(TAG, "height: " + height);
+				Log.d(TAG, "myMid x: " + myMid.x);
+				Log.d(TAG, "myMid x: " + myMid.y);
+				Log.d(TAG, "bmMid x: " + bmMid.x);
+				Log.d(TAG, "bmMid x: " + bmMid.y);
+				Log.d(TAG, "translate x: " + translateP.x);
+				Log.d(TAG, "translate y: " + translateP.y);
+				Log.d(TAG, "reached minzoom i guess");
 
 				// TODO: Here we reach max zoom out.. maybe we should re-center
 				// the image
-
 			}
 			right = width * saveScale - width
 					- (2 * redundantXSpace * saveScale);
@@ -332,8 +348,7 @@ public class TouchImageView extends ImageView {
 		origWidth = width - 2 * redundantXSpace;
 		origHeight = height - 2 * redundantYSpace;
 		right = width * saveScale - width - (2 * redundantXSpace * saveScale);
-		bottom = height * saveScale - height
-				- (2 * redundantYSpace * saveScale);
+		bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
 	//	Log.d(TAG, "origWidth: " + origWidth);
 	//	Log.d(TAG, "origWidth: " + origHeight);
 		setImageMatrix(matrix);
