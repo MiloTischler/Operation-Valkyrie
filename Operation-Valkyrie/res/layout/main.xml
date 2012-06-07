@@ -11,13 +11,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" />
-    
-   <!-- <valkyrie.ui.preview.CameraDispatcher
-        xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-        android:id="@+id/camera_preview_dispatcher"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" /> -->
 
     <ImageView
         android:layout_width="fill_parent"

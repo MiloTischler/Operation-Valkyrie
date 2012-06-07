@@ -129,10 +129,7 @@ public class Converter {
 
 	}
 
-	public Mat toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
-		
-		Bitmap.Config config = bitmap.getConfig();
+	public Mat toGrayscale(Mat bitmapMat) {
 		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		//Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
@@ -146,7 +143,7 @@ public class Converter {
 		String textLine;
 		
 		Log.d("valkyrie",  "start");	
-		int fontsize = 7;
+		int fontsize = 10;
 		//font options go here
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
@@ -157,36 +154,42 @@ public class Converter {
 		paint.setTextAlign(Align.CENTER);
 		
 
-		int width = gray.cols() - (gray.cols() % fontsize);
-		int hight = gray.rows() - (gray.rows() % fontsize);
-		Bitmap mybitmap = Bitmap.createBitmap(width, hight, Bitmap.Config.RGB_565);
-		Canvas c = new Canvas(mybitmap);
-		c.drawColor(Color.WHITE);
-		
+		int width = gray.width() - (gray.width() % fontsize);
+		int height = gray.height() - (gray.height() % fontsize);
+		Bitmap mybitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+//		Canvas c = new Canvas(mybitmap);
+//		c.drawColor(Color.WHITE);
+		Log.d("valkyrie",  "start2 " + gray.width() +" " + gray.height());
+		Log.d("valkyrie",  "start " + width +" " + height);
 		int hightPos = fontsize;
 		int widthPos = 0;
 		int pixelSum = 0;
-		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
-			widthPos = 0;
-			for (int j = 0; j < (hight - fontsize); j = j + fontsize) {
-				pixelSum = 0;
-				textLine = "";
-				for(int x = i; x < (i + fontsize); x++)
-				{
-					for(int y = j; y < (j + fontsize); y++)
-					{
-						//Log.d("valkyrie",  "pixel: " + gray.get(x, y).length);
-						if(gray.get(x, y) != null)
-							pixelSum += (int)gray.get(x, y)[0];
-					}
-				}
-				
-				textLine += (char)LUT[Math.round((float)pixelSum / ((float)fontsize * (float)fontsize))];	
-				c.drawText(textLine,hightPos,widthPos,paint);
-				widthPos += fontsize;
-			}
-			hightPos += fontsize;
-		}
+//		for (int i = 0; i < (width - fontsize); i = i + fontsize) {
+//			widthPos = 0;
+//			for (int j = 0; j < (height - fontsize); j = j + fontsize) {
+//				pixelSum = 0;
+//				textLine = "";
+//				for(int x = i; x < (i + fontsize); x++)
+//				{
+//					for(int y = j; y < (j + fontsize); y++)
+//					{
+//						//Log.d("valkyrie",  "pixel: " + gray.get(x, y).length);
+//						if(gray.get(x, y) != null)
+//							mybitmap.setPixel(x, y, Color.rgb((int)gray.get(y, x)[0], (int)gray.get(y, x)[0], (int)gray.get(y, x)[0]));
+//							//pixelSum += (int)gray.get(x, y)[0];
+//					}
+//				}
+//				
+//				textLine += (char)LUT[Math.round((float)pixelSum / ((float)fontsize * (float)fontsize))];	
+//				//c.drawText(textLine,hightPos,widthPos,paint);
+//				widthPos += fontsize;
+//			}
+//			hightPos += fontsize;
+//		}
+		
+		Imgproc.cvtColor(gray, gray, Imgproc.COLOR_GRAY2RGBA, 4);
+		
+		Utils.matToBitmap(gray, mybitmap);
 		gray.release();
 		
 		// saving shouldnt be done here

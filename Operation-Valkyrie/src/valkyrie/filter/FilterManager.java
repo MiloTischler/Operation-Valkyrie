@@ -5,8 +5,6 @@ import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.ui.LayoutManager;
-import valkyrie.ui.preview.CameraDispatcher;
-import valkyrie.ui.preview.CameraPreviewView;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.content.Context;
@@ -68,7 +66,11 @@ public class FilterManager {
 			if (filter.getClass().getName().equals(storedFilter.getClass().getName()))  {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 				this.activeFilter = storedFilter;
+
 				this.cameraPreview.setFilter(this.activeFilter);
+				
+				// notify UI about filter change
+				LayoutManager.getInstance().notifyUI(this.activeFilter);
 			}
 		}
 	}
@@ -79,14 +81,6 @@ public class FilterManager {
 
 	public ArrayList<IFilter> getFilterList() {
 		return this.filters;
-	}
-
-	public void manipulatePreviewImage(Bitmap bitmap) {
-		this.activeFilter.manipulateImage(bitmap);
-	}
-
-	public void manipulateImage(Bitmap bitmap) {
-		this.activeFilter.manipulateImage(bitmap);
 	}
 
 	private Boolean isFirstRun() {
