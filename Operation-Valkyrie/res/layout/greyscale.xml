@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:stretchColumns="1" >
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+        <TextView
+            android:tag="name"
+            android:text="Open..." />
+
+        <SeekBar
+            android:id="@+id/greyscale_option0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:tag="option0" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+       <TextView
+            android:tag="name"
+            android:text="Open..." />
+
+        <SeekBar
+            android:id="@+id/greyscale_option1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:tag="option1" />
+    </TableRow>
+
+</TableLayout>

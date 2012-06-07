@@ -1,6 +1,9 @@
 package valkyrie.ui;
 
+import valkyrie.filter.FilterManager;
+import valkyrie.filter.IFilter;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -32,9 +35,9 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	 */
 	public void redrawUI(TableLayout uiElements) {
 
-		if(uiElements == null)
+		if (uiElements == null)
 			return;
-		
+
 		// remove all child elements from this layout
 		this.removeAllViews();
 
@@ -46,10 +49,10 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	}
 
 	private void buildUI(TableLayout uiElements) {
-		
-		if(uiElements == null)
+
+		if (uiElements == null)
 			return;
-		
+
 		int childCount = uiElements.getChildCount();
 		int subChildCount = 0;
 		int subSubChildCount = 0;
@@ -107,6 +110,16 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 				public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 					Log.d("FasuDebug", "SeekBar Value: " + progress);
+
+					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+					SharedPreferences.Editor editor = options.edit();
+					
+					String optionName = seekBar.getTag().toString();
+					
+					editor.putInt(optionName, progress);
+
+					// Commit the edits!
+					editor.commit();
 				}
 			};
 
