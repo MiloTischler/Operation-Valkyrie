@@ -20,23 +20,25 @@ import android.view.SurfaceView;
 public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 	private static final String TAG = "Sample::SurfaceView";
 
-	private SurfaceHolder mHolder;
-	private VideoCapture mCamera;
+	private SurfaceHolder holder;
+	private VideoCapture camera;
 
 	private IFilter filter;
 	private boolean isFilterDisplayed = false;
 
 	public CameraPreviewViewCV(Context context) {
 		super(context);
-		mHolder = getHolder();
-		mHolder.addCallback(this);
+		this.holder = getHolder();
+		this.holder.addCallback(this);
+		
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
 	public CameraPreviewViewCV(Context context, AttributeSet attr) {
 		super(context, attr);
-		mHolder = getHolder();
-		mHolder.addCallback(this);
+		this.holder = getHolder();
+		this.holder.addCallback(this);
+		
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
@@ -63,49 +65,35 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 	public void surfaceChanged(SurfaceHolder _holder, int format, int width, int height) {
 		Log.i(TAG, "surfaceCreated");
 		synchronized (this) {
-			if (mCamera != null && mCamera.isOpened()) {
-				Log.i(TAG, "before mCamera.getSupportedPreviewSizes()");
-				List<Size> sizes = mCamera.getSupportedPreviewSizes();
-				Log.i(TAG, "after mCamera.getSupportedPreviewSizes()");
-				int mFrameWidth = width;
-				int mFrameHeight = height;
+			if (this.camera != null && this.camera.isOpened()) {
+				List<Size> sizes = this.camera.getSupportedPreviewSizes();
+				
+				Size optimalPreviewSize = this.getOptimalPreviewSize(sizes, width, height);
 
-				// selecting optimal camera preview size
-				{
-					double minDiff = Double.MAX_VALUE;
-					for (Size size : sizes) {
-						if (Math.abs(size.height - height) < minDiff) {
-							mFrameWidth = (int) size.width;
-							mFrameHeight = (int) size.height;
-							minDiff = Math.abs(size.height - height);
-						}
-					}
-				}
-
-				mCamera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, mFrameWidth);
-				mCamera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, mFrameHeight);
+				this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, optimalPreviewSize.width);
+				this.camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, optimalPreviewSize.height);
 			}
 		}
 	}
 
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.i(TAG, "surfaceCreated");
-		mCamera = new VideoCapture(Highgui.CV_CAP_ANDROID);
-		if (mCamera.isOpened()) {
+		this.camera = new VideoCapture(Highgui.CV_CAP_ANDROID);
+		if (this.camera.isOpened()) {
 			(new Thread(this)).start();
 		} else {
-			mCamera.release();
-			mCamera = null;
+			this.camera.release();
+			this.camera = null;
 			Log.e(TAG, "Failed to open native camera");
 		}
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		Log.i(TAG, "surfaceDestroyed");
-		if (mCamera != null) {
+		if (this.camera != null) {
 			synchronized (this) {
-				mCamera.release();
-				mCamera = null;
+				this.camera.release();
+				this.camera = null;
 			}
 		}
 	}
@@ -133,25 +121,25 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 			Bitmap bmp = null;
 
 			synchronized (this) {
-				if (mCamera == null) {
+				if (this.camera == null) {
 					Log.e(TAG, "mCamera == null");
 					break;
 				}
 
-				if (!mCamera.grab()) {
+				if (!this.camera.grab()) {
 					Log.e(TAG, "mCamera.grab() failed");
 					break;
 				}
 
-				bmp = processFrame(mCamera);
+				bmp = processFrame(this.camera);
 			}
 
 			if (bmp != null) {
-				Canvas canvas = mHolder.lockCanvas();
+				Canvas canvas = this.holder.lockCanvas();
 				if (canvas != null) {
 					canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2,
 							(canvas.getHeight() - bmp.getHeight()) / 2, null);
-					mHolder.unlockCanvasAndPost(canvas);
+					this.holder.unlockCanvasAndPost(canvas);
 				}
 
 				bmp.recycle();
@@ -159,5 +147,33 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 
 		Log.i(TAG, "Finishing processing thread");
+	}
+	
+	private Size getOptimalPreviewSize(List<Size> sizes, int surfaceWidth, int surfaceHeight) {
+		int frameWidth = surfaceWidth;
+		int frameHeight = surfaceHeight;
+		
+		double minDiff = Double.MAX_VALUE;
+		for (Size size : sizes) {
+			if (Math.abs(size.height - surfaceHeight) < minDiff) {
+				frameWidth = (int) size.width;
+				frameHeight = (int) size.height;
+				minDiff = Math.abs(size.height - surfaceHeight);
+			}
+		}
+		
+		return new Size(frameWidth, frameHeight);
+	}
+	
+	private Size getHighestPreviewSize(List<Size> sizes) {
+		Size maxSize = new Size(Double.MIN_VALUE, Double.MIN_VALUE);
+		
+		for(Size size : sizes) {
+			if(maxSize.width < size.width) {
+				maxSize = size;
+			}
+		}
+		
+		return maxSize;
 	}
 }
