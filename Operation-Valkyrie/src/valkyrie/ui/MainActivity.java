@@ -1,17 +1,16 @@
 package valkyrie.ui;
 
+import java.io.File;
+
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
@@ -22,8 +21,8 @@ import android.widget.Toast;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler © Milo Tischler, Jakob
- * Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 public class MainActivity extends Activity {
@@ -38,7 +37,6 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -52,13 +50,12 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().setMainActivity(this);
 
 		// initialize CameraDispatcher and CameraPreviewView
-		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);				
+		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
 		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
-		
+
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
 		this.filterManager.setActiveFilter(new Grayscale());
-
 	}
 
 	public void takePicture(View view) {
@@ -84,26 +81,6 @@ public class MainActivity extends Activity {
 
 		// TODO ! this returns null!
 		Bitmap picture = this.cameraDispatcher.takePicture();
-
-		// Play take photo sound effect
-		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-
-		if (volume != 0) {
-			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
-					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-
-			if (shootSpound != null) {
-				shootSpound.start();
-			} else {
-				view.playSoundEffect(SoundEffectConstants.CLICK);
-			}
-
-		}
-
-		// TODO: Implementation of takePhoto
-		// byte[] picture = this.filterCamera.takePicture(); -> atm not possible because camera for preview in use..
-
 	}
 
 	public void showGallery(View view) {
@@ -114,6 +91,7 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
+
 		try {
 			MainActivity.this.startActivity(myIntent);
 		} catch (Exception e) {
@@ -129,13 +107,13 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-		
-		if(this.cameraDispatcher.isPreviewDisplayed()) {
+
+		if (this.cameraDispatcher.isPreviewDisplayed()) {
 			this.cameraDispatcher.displayPreview(false);
 		} else {
 			this.cameraDispatcher.displayPreview(true);
 		}
-		
+
 		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
@@ -167,14 +145,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onPause() {
 		Log.i(TAG, "onPause called");
-		
+
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "onResume called");
-		
+
 		super.onResume();
 	}
 }
