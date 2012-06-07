@@ -2,12 +2,16 @@ package valkyrie.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.CompoundButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
@@ -125,7 +129,25 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 			((SeekBar) uiElement).setOnSeekBarChangeListener(seekBarListener);
 		} else if (uiElement instanceof ToggleButton) {
-			Log.d("FasuDebug", "UI-Element init: ToggleButton");
+			
+			OnCheckedChangeListener occListener = new OnCheckedChangeListener() {
+				
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					Log.d("FasuDebug", "ToggleValue Value: " + isChecked);
+
+					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+					SharedPreferences.Editor editor = options.edit();
+
+					String optionName = buttonView.getTag().toString();
+
+					editor.putBoolean(optionName, isChecked);
+
+					// Commit the edits!
+					editor.commit();				
+				}
+			};
+			
+			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
 		}
 		
 		return false;
