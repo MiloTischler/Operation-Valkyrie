@@ -1,4 +1,4 @@
-package valkyrie.ui.gallery;
+package valkyrie.ui;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -44,9 +44,10 @@ import android.widget.ImageView;
  * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
- */
+ *//*
 public class GalleryActivity extends Activity {
-	private static final String TAG = "GalleryActivity";
+
+	private String TAG = "GalleryActivity";
 
 	private File files = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");
@@ -179,4 +180,4 @@ public class GalleryActivity extends Activity {
 
 	}
 
-}
+}*/

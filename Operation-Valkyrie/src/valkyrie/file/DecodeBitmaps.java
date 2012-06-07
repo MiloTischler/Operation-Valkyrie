@@ -35,6 +35,7 @@ public class DecodeBitmaps {
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
 	//public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
 	public static Vector<String> fullImgPosition= new Vector<String>();
+	public static Vector<String> fullImgNames= new Vector<String>();
 	private FileManager fileManager = new FileManager();
 
 
@@ -49,6 +50,7 @@ public class DecodeBitmaps {
 
 			fullImgPosition.clear();
 			thumbs.clear();
+			fullImgNames.clear();
 			decodeBitmap();
 	}
 
@@ -67,7 +69,7 @@ public class DecodeBitmaps {
 			Log.d(TAG, fileList[i].getName());
 			Log.d(TAG, "-----------------------------");
 			fullImgPosition.add(fileList[i].getAbsolutePath());
-			
+			fullImgNames.add(fileList[i].getName());
 		}
 
 		
@@ -118,6 +120,25 @@ public class DecodeBitmaps {
 			}
 		}
 		done = true;
+		int i = 0;
+		for(File f : fileList){
+			Log.d(TAG, i+" FileName: " + f.getName());
+			i++;
+		}i = 0;
+		for(File f : thumbList){
+			Log.d(TAG, i+" ThumbName: " + f.getName());
+			i++;
+		}i = 0;
+		for(Bitmap b : thumbs){
+			Log.d(TAG, i+" thumbName Vector: " + b.toString());
+			i++;
+			}i = 0;
+		for(String f: fullImgNames){
+			Log.d(TAG, i+" FileImgName: " + f);
+			i++;
+		}i = 0;
+		
+		
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {

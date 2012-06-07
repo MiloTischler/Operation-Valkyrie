@@ -32,7 +32,7 @@
             android:label="Gallery" >
         </activity>
         <activity
-            android:name="valkyrie.ui.gallery.ShowPicActivityActivity"
+            android:name="valkyrie.ui.gallery.ShowPicActivity"
             android:label="showPic" 
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>

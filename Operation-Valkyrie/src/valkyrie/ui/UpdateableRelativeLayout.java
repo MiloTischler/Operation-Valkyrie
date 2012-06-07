@@ -1,7 +1,5 @@
 package valkyrie.ui;
 
-import valkyrie.filter.FilterManager;
-import valkyrie.filter.IFilter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
@@ -46,7 +44,6 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 		// add possibly new elements to panel
 		this.addView(uiElements);
-
 	}
 
 	private void buildUI(TableLayout uiElements) {
