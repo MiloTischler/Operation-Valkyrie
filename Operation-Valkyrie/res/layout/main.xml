@@ -57,13 +57,15 @@
                 android:id="@+id/options_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options" />            
+                android:text="@string/options" />       
+             
         </valkyrie.ui.UpdateableRelativeLayout>
     </valkyrie.widget.MultiDirectionSlidingDrawer>
     <!-- Filter Options Panel end -->
     
 
     <!-- Action Bar begin -->
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/action_bar"
@@ -76,6 +78,8 @@
 
         <!-- Action Bar background image -->
 
+       
+
         <ImageView
             android:id="@+id/action_bar_background"
             android:layout_width="wrap_content"
@@ -83,7 +87,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/action_bar_background_description"
-            android:scaleType="fitXY" 
+            android:scaleType="fitXY"
             android:src="@drawable/actionbar_back_transparent" />
 
         <ImageButton
@@ -93,8 +97,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignRight="@id/action_bar_background"
             android:background="@android:color/transparent"
-            android:onClick="showGallery"
             android:contentDescription="@string/gallery"
+            android:onClick="showGallery"
             android:src="@+drawable/gallery"
             android:text="@string/gallery" />
 
@@ -106,8 +110,8 @@
             android:layout_below="@id/gallery"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:onClick="takePicture"
             android:contentDescription="@string/trigger"
+            android:onClick="takePicture"
             android:src="@+drawable/camera_lens"
             android:text="@string/trigger" />
 
@@ -118,8 +122,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@id/action_bar_background"
             android:background="@android:color/transparent"
-            android:onClick="toggleFilterEffect"
             android:contentDescription="@string/filter_effect_toggle"
+            android:onClick="toggleFilterEffect"
             android:src="@+drawable/filter"
             android:text="@string/filter_effect_toggle" />
     </RelativeLayout>

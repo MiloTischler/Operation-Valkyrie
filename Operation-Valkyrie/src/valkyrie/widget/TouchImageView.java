@@ -175,8 +175,9 @@ public class TouchImageView extends ImageView {
 			float x = e.getX();
 			float y = e.getY();
 
-			// 
+ 
 			setScaleType(ScaleType.CENTER_INSIDE);
+
 			Log.d("Double Tap", "Tapped at: (" + x + "," + y + ")");
 			setScaleType(ScaleType.MATRIX);
 			return true;
@@ -207,9 +208,8 @@ public class TouchImageView extends ImageView {
 				mScaleFactor = minScale / origScale;
 				setScaleType(ScaleType.CENTER_INSIDE);
 				setScaleType(ScaleType.MATRIX);
-				// TODO: Here we reach max zoom out.. maybe we should re-center DONE
-				// the image
 
+				// the image
 			}
 			right = width * saveScale - width
 					- (2 * redundantXSpace * saveScale);
@@ -292,8 +292,7 @@ public class TouchImageView extends ImageView {
 		origWidth = width - 2 * redundantXSpace;
 		origHeight = height - 2 * redundantYSpace;
 		right = width * saveScale - width - (2 * redundantXSpace * saveScale);
-		bottom = height * saveScale - height
-				- (2 * redundantYSpace * saveScale);
+		bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
 	//	Log.d(TAG, "origWidth: " + origWidth);
 	//	Log.d(TAG, "origWidth: " + origHeight);
 		setImageMatrix(matrix);

@@ -35,6 +35,12 @@ import valkyrie.filter.IFilter;
  */
 public class Ascii implements IFilter {
 
+	/**
+	 * OPtions: 
+	 * - Font Size : seekBar
+	 * - Foregr, background : colorpicker
+	 * - color : onOff
+	 */
 	private Bitmap bm;
 	private Font activeFont;
 	private Converter converter;
@@ -55,26 +61,19 @@ public class Ascii implements IFilter {
 		this.activeFont = this.fonts.get(0);
 		
 		this.converter = new Converter();
-
 	}
 	
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		
-		return null;
-//		Bitmap bm2 = this.converter.bitmapToGrayScale(bitmap);
-//		this.converter.grayScaleToAsciiPrieview(bm2, this.activeFont.getLUT());
-//		this.converter.colorToAsciiPrieview(bm2, this.activeFont.getLUT(), bitmap);
+		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
+
 	public Bitmap manipulateImage(Mat bitmapMat) {
-//		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
-//		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
-		
-		return null;
+		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 	
 	public int getFilterCaptureFormat() {
-		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
 	}
 
 	/**
