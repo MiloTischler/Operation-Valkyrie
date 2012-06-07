@@ -45,7 +45,8 @@
     
    <TableRow     
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
-       		xmlns:binding="http://www.gueei.com/android-binding/">
+       		xmlns:binding="http://www.gueei.com/android-binding/"
+       		android:tag="parent" >
        <valkyrie.colorpicker.ColorPicker
             android:layout_width="fill_parent"
             android:layout_height="30dip"

@@ -1,5 +1,6 @@
 package valkyrie.ui;
 
+import valkyrie.colorpicker.ColorPicker;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -148,6 +149,8 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			};
 			
 			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
+		} else if (uiElement instanceof ColorPicker) {
+			Log.d("FasuDebug","COLORPICKER!!!!!!!!!!!!!!!!!!!");
 		}
 		
 		return false;
