@@ -34,8 +34,9 @@ import android.widget.ImageView;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 public class GalleryActivity extends Activity {
@@ -45,7 +46,6 @@ public class GalleryActivity extends Activity {
 	private File files = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");
 	private File fileList[];
-    
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,12 +55,10 @@ public class GalleryActivity extends Activity {
 		// ------------------------------------------------------------------
 		Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
-		DecodeBitmaps decodeBitmaps = new DecodeBitmaps(d.getWidth(),d.getHeight());
+		DecodeBitmaps decodeBitmaps = new DecodeBitmaps(d.getWidth(),
+				d.getHeight());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
-
-
-
 
 		GridView gallery = (GridView) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
@@ -82,18 +80,18 @@ public class GalleryActivity extends Activity {
 	}
 
 	@Override
-	public void onPause() {	
+	public void onPause() {
 		super.onPause();
 	}
-	
+
 	@Override
-	public void onBackPressed (){
-	//	DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
-	//	decodeBitmaps.recycleBitmaps();
+	public void onBackPressed() {
+		// DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
+		// decodeBitmaps.recycleBitmaps();
+		DecodeBitmaps.done = false;
 		super.onBackPressed();
-		
+
 	}
-	
 
 	/*
 	 * some fixes with paths and "if" needed but perhaps not necessary if
@@ -133,22 +131,27 @@ public class GalleryActivity extends Activity {
 	private void createPictures() {
 		FileManager fileManager = new FileManager();
 		fileList = files.listFiles();
-		if (fileList.length == 0) {
-			Log.d(TAG, "no files in gallery produce some ...");
-			// -------------------create some files----------------------------
-			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			 R.drawable.jellyfish));
-			 fileManager.saveImageToGallery(BitmapFactory.decodeResource(this.getResources(),
-			 R.drawable.tulips));
+		if (fileList() != null) {
+			if (fileList.length == 0) {
+				Log.d(TAG, "no files in gallery produce some ...");
+				// -------------------create some
+				// files----------------------------
+				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+						this.getResources(), R.drawable.jellyfish));
+				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+						this.getResources(), R.drawable.tulips));
 
+			} else {
+				Log.d(TAG, fileList.length
+						+ " files in gallery. No need for more.");
+			}
 		} else {
-			Log.d(TAG, fileList.length + " files in gallery. No need for more.");
+			Toast.makeText(
+					this.getApplicationContext(),
+					"couldnt create some files, and there are no in the folders so you will have a problem xD",
+					Toast.LENGTH_SHORT).show();
 		}
 
-
 	}
-	
-
-
 
 }

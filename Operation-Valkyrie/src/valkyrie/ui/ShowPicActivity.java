@@ -64,9 +64,12 @@ public class ShowPicActivity extends Activity implements OnTouchListener {
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		fullOpt.inSampleSize = 2;
 		Log.d("setResolution", "Drehdich+++ 2.2?");
-		setResolutions(BitmapFactory.decodeFile(
-				DecodeBitmaps.fullImgPosition.get(position)),imageview);
-		 bitmapG = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
+		
+		Bitmap bitmapS = BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position));
+		setResolutions(bitmapS,imageview);
+
+		
+		bitmapG = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
 						DecodeBitmaps.fullImgPosition.get(position),fullOpt),
 				this.res[OPTIMUM_WIDTH].intValue(), this.res[OPTIMUM_HEIGHT].intValue(), false);
 		
