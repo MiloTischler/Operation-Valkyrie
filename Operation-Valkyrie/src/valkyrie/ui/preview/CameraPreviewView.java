@@ -88,7 +88,7 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 			Log.i(TAG, "Camera preview using NV21 or YUY2");
 			CameraPreviewView.decodeYUV420SP(pixels, data, this.previewSize.width, previewSize.height);
 			this.actBmp = Bitmap
-					.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.ARGB_8888);
+					.createBitmap(pixels, this.previewSize.width, this.previewSize.height, Config.RGB_565);
 			break;
 		case ImageFormat.JPEG:
 		case ImageFormat.RGB_565:
@@ -104,18 +104,8 @@ public class CameraPreviewView extends SurfaceView implements Camera.PreviewCall
 		if (this.filter != null && this.actBmp != null) {
 			this.actBmp = this.filter.manipulatePreviewImage(this.actBmp);
 		}
-		if(this.filter == null)
-			Log.d("Grayscale", "filter is null");
-		
-		if(this.actBmp == null)
-			Log.d("Grayscale", "actBmp is null");
 		
 		canvas.drawBitmap(this.actBmp, 0, 0, null);
-
-		Paint paint = new Paint();
-		paint.setColor(Color.WHITE);
-		paint.setTextSize(16);
-		canvas.drawText("Some Text", 10, 25, paint);
 
 		this.surfaceHolder.unlockCanvasAndPost(canvas);
 
