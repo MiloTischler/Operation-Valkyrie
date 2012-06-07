@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class TouchImageView extends ImageView {
+	private static final String TAG = "TouchImageView";
 
     Matrix matrix = new Matrix();
 

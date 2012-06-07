@@ -7,8 +7,8 @@ import valkyrie.filter.IFilter;
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.filter.FilterAssets;
 import valkyrie.main.R;
-import valkyrie.ui.CameraDispatcher;
 import valkyrie.ui.MainActivity;
+import valkyrie.ui.preview.CameraDispatcher;
 
 import org.opencv.*;
 
