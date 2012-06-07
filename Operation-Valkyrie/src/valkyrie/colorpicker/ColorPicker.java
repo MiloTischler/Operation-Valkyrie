@@ -1,6 +1,6 @@
 package valkyrie.colorpicker;
 
-import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
+import valkyrie.colorpicker.OnColorChangedListener;
 import gueei.binding.Binder;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,
 		OnColorChangedListener {
+	
+	ColorPickerDialog dialog = null;
+	OnColorChangedListener listener = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -41,14 +44,16 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	public void onClick(View v) {
 		// Bring up dialog
-		ColorPickerDialog dialog = new ColorPickerDialog(getContext(), this, mColorAttr.get());
-		dialog.show();
+		this.dialog = new ColorPickerDialog(getContext(), this, mColorAttr.get(), l);
+		this.dialog.show();
 	}
 
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
-		String colorString = "" + color;
-		this.setText(colorString);
+	}
+	
+	public void setOnColorChangedListener(OnColorChangedListener l) {
+		listener = l;
 	}
 
 	private ColorAttribute mColorAttr = new ColorAttribute(this);

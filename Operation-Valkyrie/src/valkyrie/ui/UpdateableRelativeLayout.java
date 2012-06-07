@@ -21,6 +21,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import valkyrie.colorpicker.*;
 
 /**
  * 
@@ -155,32 +156,15 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 		} else if (uiElement instanceof ColorPicker) {
 
 			Log.d("FasuDebug", "COLORPICKER!!!!!!!!!!!!!!!!!!!");
-			TextWatcher watchy = new TextWatcher() {
-
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
+			OnColorChangedListener listener = new OnColorChangedListener() {
+				
+				public void colorChanged(int color) {
 					// TODO Auto-generated method stub
-				}
-
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-					// TODO Auto-generated method stub
-
-				}
-
-				public void afterTextChanged(Editable s) {
-					Log.d("FasuDebug", "Color: " + s.toString());
-					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
-					SharedPreferences.Editor editor = options.edit();
-
-					//String optionName = ;
-
-					//editor.putBoolean(optionName, isChecked);
-
-					// Commit the edits!
-					//editor.commit();
+					Log.d("FasuDebug","You have proven yourself and defeatet the COLORPICKER!");
 				}
 			};
-
-			((TextView) uiElement).addTextChangedListener(watchy);
+			
+			((ColorPicker) uiElement).setOnColorChangedListener(listener);
 		}
 
 		return false;

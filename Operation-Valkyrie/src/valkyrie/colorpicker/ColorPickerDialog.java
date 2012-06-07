@@ -26,10 +26,6 @@ import android.view.View;
 
 public class ColorPickerDialog extends Dialog {
 
-    public interface OnColorChangedListener {
-        void colorChanged(int color);
-    }
-
     private OnColorChangedListener mListener;
     private int mInitialColor;
 
@@ -39,7 +35,7 @@ public class ColorPickerDialog extends Dialog {
         private final int[] mColors;
         private OnColorChangedListener mListener;
 
-        ColorPickerView(Context c, OnColorChangedListener l, int color) {
+        ColorPickerView(Context c, int color, OnColorChangedListener l) {
             super(c);
             mListener = l;
             mColors = new int[] {
@@ -228,14 +224,14 @@ public class ColorPickerDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OnColorChangedListener l = new OnColorChangedListener() {
+        /*OnColorChangedListener l = new OnColorChangedListener() {
             public void colorChanged(int color) {
                 mListener.colorChanged(color);
                 dismiss();
             }
-        };
+        };*/
 
-        setContentView(new ColorPickerView(getContext(), l, mInitialColor));
+        setContentView(new ColorPickerView(getContext(), mInitialColor, l));
         setTitle("Pick a Color");
     }
 }
