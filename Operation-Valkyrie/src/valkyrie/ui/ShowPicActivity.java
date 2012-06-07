@@ -42,20 +42,21 @@ public class ShowPicActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d("setResolution", "Drehdich+++ 1?");
+		Log.d(TAG, "Drehdich+++ 1?");
 		super.onCreate(savedInstanceState);
-		Log.d("setResolution", "Drehdich+++ 2?");
 		setContentView(R.layout.showpic);
 		
 		// Start
 		
 		Intent intent = getIntent();
-		
 		TouchImageView imageView = (TouchImageView) this.findViewById(R.id.full_image_view);
-		
 		int position = intent.getExtras().getInt("id");
+		Log.d(TAG, "Drehdich+++ 5?");
+		BitmapFactory.Options  scaleBitmapOpt = new BitmapFactory.Options();
+		scaleBitmapOpt.inSampleSize = 2;
 
-		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
-
+		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position),scaleBitmapOpt));
+		
+	
 	}
 }
