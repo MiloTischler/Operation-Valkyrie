@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler © Milo Tischler, Jakob
- * Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 public class MainActivity extends Activity {
@@ -41,7 +41,6 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-
 		// Disable window title bar, for full screen camera preview
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -55,9 +54,9 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().setMainActivity(this);
 
 		// initialize CameraDispatcher and CameraPreviewView
-		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);				
+		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
 		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
-		
+
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
 		this.filterManager.setActiveFilter(new Grayscale());
@@ -96,7 +95,7 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
-		
+
 		try {
 			MainActivity.this.startActivity(myIntent);
 		} catch (Exception e) {
@@ -112,13 +111,13 @@ public class MainActivity extends Activity {
 		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
-		
-		if(this.cameraDispatcher.isPreviewDisplayed()) {
+
+		if (this.cameraDispatcher.isPreviewDisplayed()) {
 			this.cameraDispatcher.displayPreview(false);
 		} else {
 			this.cameraDispatcher.displayPreview(true);
 		}
-		
+
 		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
@@ -150,14 +149,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onPause() {
 		Log.i(TAG, "onPause called");
-		
+
 		super.onPause();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "onResume called");
-		
+
 		super.onResume();
 	}
 }
