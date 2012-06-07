@@ -1,5 +1,7 @@
 package valkyrie.ui;
 
+import gueei.binding.Binder;
+import gueei.binding.listeners.OnClickListenerMulticast;
 import valkyrie.colorpicker.ColorPicker;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,14 +9,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.CompoundButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 /**
@@ -68,9 +73,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			if (child == null)
 				Log.d("FasuDebug", "Child: is null...");
 
-
 			String tag = (String) child.getTag();
-
 
 			if (tag != null && tag.equals("parent")) {
 
@@ -130,9 +133,9 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 			((SeekBar) uiElement).setOnSeekBarChangeListener(seekBarListener);
 		} else if (uiElement instanceof ToggleButton) {
-			
+
 			OnCheckedChangeListener occListener = new OnCheckedChangeListener() {
-				
+
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					Log.d("FasuDebug", "ToggleValue Value: " + isChecked);
 
@@ -144,15 +147,42 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 					editor.putBoolean(optionName, isChecked);
 
 					// Commit the edits!
-					editor.commit();				
+					editor.commit();
 				}
 			};
-			
+
 			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
 		} else if (uiElement instanceof ColorPicker) {
-			Log.d("FasuDebug","COLORPICKER!!!!!!!!!!!!!!!!!!!");
+
+			Log.d("FasuDebug", "COLORPICKER!!!!!!!!!!!!!!!!!!!");
+			TextWatcher watchy = new TextWatcher() {
+
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					// TODO Auto-generated method stub
+				}
+
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+					// TODO Auto-generated method stub
+
+				}
+
+				public void afterTextChanged(Editable s) {
+					Log.d("FasuDebug", "Color: " + s.toString());
+					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+					SharedPreferences.Editor editor = options.edit();
+
+					//String optionName = ;
+
+					//editor.putBoolean(optionName, isChecked);
+
+					// Commit the edits!
+					//editor.commit();
+				}
+			};
+
+			((TextView) uiElement).addTextChangedListener(watchy);
 		}
-		
+
 		return false;
 	}
 

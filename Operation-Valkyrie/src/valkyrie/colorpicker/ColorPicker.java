@@ -7,7 +7,7 @@ import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.AttributeSet;  
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,7 +23,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 		super(context, attrs);
 		init();
 	}
-	
+
 	public ColorPicker(Context context) {
 		super(context);
 		init();
@@ -47,6 +47,8 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
+		String colorString = "" + color;
+		this.setText(colorString);
 	}
 
 	private ColorAttribute mColorAttr = new ColorAttribute(this);
