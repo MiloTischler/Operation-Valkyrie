@@ -6,9 +6,6 @@ import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.ui.gallery.GalleryActivity;
-import valkyrie.ui.preview.CameraDispatcher;
-import valkyrie.ui.preview.CameraDispatcher.PictureProcessingCallback;
-import valkyrie.ui.preview.CameraPreviewView;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 import android.app.Activity;
@@ -56,9 +53,7 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
-		// initialize CameraDispatcher and CameraPreviewView
-//		this.cameraDispatcher = (CameraDispatcherCV) this.findViewById(R.id.camera_preview_dispatcher);
-//		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		// initialize CameraPreviewView with OpenCV
 		this.cameraPreview = (CameraPreviewViewCV) this.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
@@ -104,7 +99,6 @@ public class MainActivity extends Activity {
 			this.cameraPreview.toggleFilter(true);
 		}
 
-		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 

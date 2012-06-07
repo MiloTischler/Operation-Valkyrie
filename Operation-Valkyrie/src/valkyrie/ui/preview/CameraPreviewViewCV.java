@@ -121,14 +121,14 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
     protected Bitmap processFrame(VideoCapture capture) {
     	Mat rgba = new Mat();
-
+    	
 		capture.retrieve(rgba, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
 
 		Bitmap bmp = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888);
 
 		if (Utils.matToBitmap(rgba, bmp)) {
 			if(this.filter != null && this.isFilterDisplayed) {
-				bmp = this.filter.manipulatePreviewImage(bmp);
+				bmp = this.filter.manipulatePreviewImage(rgba);
 			}
 			
 			return bmp;
@@ -160,10 +160,11 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
             if (bmp != null) {
                 Canvas canvas = mHolder.lockCanvas();
-                if (canvas != null) {
+                if (canvas != null) {             	
                     canvas.drawBitmap(bmp, (canvas.getWidth() - bmp.getWidth()) / 2, (canvas.getHeight() - bmp.getHeight()) / 2, null);
                     mHolder.unlockCanvasAndPost(canvas);
                 }
+                
                 bmp.recycle();
             }
         }

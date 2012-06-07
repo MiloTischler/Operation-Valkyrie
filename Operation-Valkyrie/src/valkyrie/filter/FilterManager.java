@@ -5,8 +5,6 @@ import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.ui.LayoutManager;
-import valkyrie.ui.preview.CameraDispatcher;
-import valkyrie.ui.preview.CameraPreviewView;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.content.Context;
@@ -79,14 +77,6 @@ public class FilterManager {
 
 	public ArrayList<IFilter> getFilterList() {
 		return this.filters;
-	}
-
-	public void manipulatePreviewImage(Bitmap bitmap) {
-		this.activeFilter.manipulateImage(bitmap);
-	}
-
-	public void manipulateImage(Bitmap bitmap) {
-		this.activeFilter.manipulateImage(bitmap);
 	}
 
 	private Boolean isFirstRun() {

@@ -1,5 +1,8 @@
 package valkyrie.filter.nofilter;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+
 import valkyrie.main.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -7,6 +10,7 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
@@ -18,11 +22,19 @@ import valkyrie.filter.IFilter;
  */
 public class NoFilter implements IFilter {
 
-	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
 		return bitmap;
 	}
 
-	public Bitmap manipulateImage(Bitmap bitmap) {
+	public Bitmap manipulateImage(Mat bitmapMat) {
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
+		Utils.matToBitmap(bitmapMat, bitmap);
+		bitmapMat.release();
+		
 		return bitmap;
 	}
 
@@ -38,6 +50,10 @@ public class NoFilter implements IFilter {
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
 	
 		return (TableLayout) inflater.inflate(R.layout.nofilter, null);
+	}
+	
+	public int getFilterCaptureFormat() {
+		return FilterCaptureFormat.Color;
 	}
 
 	public String getName() {
