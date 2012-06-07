@@ -4,24 +4,11 @@ import valkyrie.file.DecodeBitmaps;
 import valkyrie.main.R;
 import valkyrie.widget.TouchImageView;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Camera;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.FloatMath;
 import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.View.OnTouchListener;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
+
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
@@ -40,6 +27,7 @@ public class ShowPicActivity extends Activity {
 	private static final String TAG = "ShowPicActivity";
 
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "Drehdich+++ 1?");
@@ -51,6 +39,7 @@ public class ShowPicActivity extends Activity {
 		Intent intent = getIntent();
 		TouchImageView imageView = (TouchImageView) this.findViewById(R.id.full_image_view);
 		int position = intent.getExtras().getInt("id");
+
 		Log.d(TAG, "Drehdich+++ 5?");
 		BitmapFactory.Options  scaleBitmapOpt = new BitmapFactory.Options();
 		scaleBitmapOpt.inSampleSize = 2;
@@ -58,5 +47,6 @@ public class ShowPicActivity extends Activity {
 		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position),scaleBitmapOpt));
 		
 	
+
 	}
 }

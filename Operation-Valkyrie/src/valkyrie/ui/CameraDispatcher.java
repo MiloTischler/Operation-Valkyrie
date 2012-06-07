@@ -2,11 +2,9 @@ package valkyrie.ui;
 
 import java.io.IOException;
 import java.util.List;
-
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.IFilter;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -115,11 +113,9 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 
 		this.parameters.setPictureFormat(ImageFormat.RGB_565);
 		this.parameters.setJpegQuality(50);
-
+		
 		this.previewSize = this.parameters.getPreviewSize();
 		
-		this.parameters.setPictureSize(sizes.get(1).width, sizes.get(1).height);
-
 		// for some tests - Laurenz
 		// setting the resolution of the picture taken
 		this.parameters.setPictureSize(sizes.get(0).width, sizes.get(0).height);
@@ -208,7 +204,6 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 			Log.i(TAG, "Picture Callback");
 			
 			new SavePhotoTask().execute(data);
-
 			
 			//camera.stopPreview(); -> not necessary .. ?
 			
@@ -223,9 +218,9 @@ public class CameraDispatcher extends SurfaceView implements SurfaceHolder.Callb
 				if(filter != null) {
 					picture = filter.manipulateImage(picture);
 				}
-				
-				// Some filemanager stuff i don't understand x)
-				// saving the captured image to the SD
+				/** saving the captured image to the SD
+				 *  will be in Mainactivity ... just temporary
+				 */
 				FileManager filemanager = new FileManager();
 				filemanager.saveImageToGallery(picture);
 				DecodeBitmaps.done = false;
