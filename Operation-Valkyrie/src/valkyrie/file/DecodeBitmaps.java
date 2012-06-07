@@ -15,6 +15,13 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
+
 public class DecodeBitmaps {
 
 	public static boolean done = false;
@@ -59,11 +66,6 @@ public class DecodeBitmaps {
 			Bitmap bitmapFull;
 			Log.d(TAG, fileList[i].getName());
 			Log.d(TAG, "-----------------------------");
-			// TODO: too slow if those were calculated on every startup from the app
-	//		bitmapFull = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(
-	//				fileList[i].getAbsolutePath(), fullOpt), 1184, 720, false);
-	//		bitmapFull = BitmapFactory.decodeFile(fileList[i].getAbsolutePath(),fullOpt);
-	//		fullImg.add(bitmapFull);
 			fullImgPosition.add(fileList[i].getAbsolutePath());
 			
 		}
@@ -107,8 +109,8 @@ public class DecodeBitmaps {
 				Bitmap newThumb;
 				newThumb = Bitmap
 						.createScaledBitmap(BitmapFactory.decodeFile(
-								fileList[i].getAbsolutePath(), thumbOpt), 85,
-								85, false);
+								fileList[i].getAbsolutePath(), thumbOpt), 120,
+								80, false);
 
 				saveAThumb(newThumb, fileList[i].getName());
 				
@@ -116,11 +118,6 @@ public class DecodeBitmaps {
 			}
 		}
 		done = true;
-		//only for dev testing
-	//	for (int i = fileList.length ; i < thumbList.length; i++){
-	//		thumbs.add(BitmapFactory.decodeFile(thumbList[i].getAbsolutePath()));
-	//		Log.d(TAG, i +"  adding more thumbs which will cause NullpointersEx on click :)");
-	//	}
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
@@ -128,7 +125,7 @@ public class DecodeBitmaps {
 		
 
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 40, bytes);
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
 
 		// you can create a new file name "test.jpg" in sdcard folder.
 		File f = new File(Environment.getExternalStorageDirectory()
