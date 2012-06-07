@@ -108,8 +108,8 @@ public class GalleryActivity extends Activity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("trololololloooo");
-		menu.add(0, v.getId(), 0, "Format Sdcard");
-		menu.add(0, v.getId(), 0, "Do nothing");
+		menu.add(0, v.getId(), 0, "Delete Picture");
+		menu.add(0, v.getId(), 0, "Initialize Device Selfdestruction");
 		Log.d(TAG, "Id" + v.getId());
 		Log.d(TAG, "menuInfo" + menuInfo.toString());
 		Log.d(TAG, "");
@@ -118,7 +118,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		FileManager fileManager = new FileManager();
-		if (item.getTitle() == "Format Sdcard") {
+		if (item.getTitle() == "Delete Picture") {
 			fileManager.deleteImageFromGallery(DecodeBitmaps.fullImgNames.get(index));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(1, 1);
@@ -126,14 +126,14 @@ public class GalleryActivity extends Activity {
 			
 			Toast.makeText(
 					this.getApplicationContext(),
-					"sdcard Formating....",
+					"Deleted Pic",
 					Toast.LENGTH_SHORT).show();
 			onCreate(savedInsta);
-		} else if (item.getTitle() == "Do nothing") {
+		} else if (item.getTitle() == "Initialize Device Selfdestruction") {
 			Toast.makeText(
 					this.getApplicationContext(),
-					"self destruction initialized",
-					Toast.LENGTH_SHORT).show();
+					" xD xD XD XDXDXDXD lololself destruction initialized...................",
+					Toast.LENGTH_LONG).show();
 		} else {
 			return false;
 		}
