@@ -32,6 +32,12 @@ import valkyrie.filter.IFilter;
  */
 public class Ascii implements IFilter {
 
+	/**
+	 * OPtions: 
+	 * - Font Size : seekBar
+	 * - Foregr, background : colorpicker
+	 * - color : onOff
+	 */
 	private Bitmap bm;
 	private Font activeFont;
 	private Converter converter;
@@ -52,7 +58,6 @@ public class Ascii implements IFilter {
 		this.activeFont = this.fonts.get(0);
 		
 		this.converter = new Converter();
-
 	}
 	
 	public Bitmap manipulatePreviewImage(Bitmap bitmap) {

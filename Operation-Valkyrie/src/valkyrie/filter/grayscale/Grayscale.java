@@ -20,13 +20,12 @@ import valkyrie.main.R;
  * 
  */
 
-
 public class Grayscale implements IFilter {
 
 	private static final String TAG = "Grayscale";
-	
+
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
-		
+
 	}
 
 	public String getName() {
@@ -42,12 +41,12 @@ public class Grayscale implements IFilter {
 	}
 
 	public Bitmap manipulateImage(Bitmap bitmap) {
-		if(bitmap == null) {
+		if (bitmap == null) {
 			Log.d("OMGOMG", "OMFG is null..");
 		} else {
 			Log.d("OMGOMG", "OMFG is NOT null..");
 		}
-		
+
 		return bitmap;
 	}
 
@@ -57,17 +56,18 @@ public class Grayscale implements IFilter {
 
 		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
-	
+
 	private Bitmap toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
-		
+		Mat bitmapMat = new Mat();
+		Utils.bitmapToMat(bitmap, bitmapMat); 
+
 		Bitmap.Config config = bitmap.getConfig();
-		
+
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
-		
+
 		Utils.matToBitmap(bitmapMat, bitmap);
-		
+
 		return bitmap;
 	}
 

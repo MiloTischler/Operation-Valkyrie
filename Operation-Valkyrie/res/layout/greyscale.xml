@@ -5,29 +5,35 @@
     android:orientation="vertical"
     android:stretchColumns="1" >
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:tag="parent" >
+    <TableRow android:layout_width="fill_parent" >
 
         <TextView
             android:tag="name"
-            android:text="Open..." />
-
-        <SeekBar
-            android:id="@+id/greyscale_option0"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:tag="option0" />
+            android:text="OptionsName" />
     </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
         android:tag="parent" >
 
-       <TextView
+        <SeekBar
+            android:id="@+id/greyscale_option0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:tag="option0" />
+    </TableRow>
+
+    <TableRow android:layout_width="fill_parent" >
+
+        <TextView
             android:tag="name"
-            android:text="Open..." />
+            android:text="Option2" />
+    </TableRow>
+    
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
 
         <SeekBar
             android:id="@+id/greyscale_option1"
@@ -35,6 +41,16 @@
             android:layout_height="wrap_content"
             android:max="100"
             android:tag="option1" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+        <ToggleButton
+            android:tag="color_mode"
+            android:textOff="GraubStufenBild aktiviert"
+            android:textOn="Farbbild aktiviert" />
     </TableRow>
 
 </TableLayout>

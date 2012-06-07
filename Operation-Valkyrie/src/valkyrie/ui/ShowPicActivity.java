@@ -29,10 +29,11 @@ public class ShowPicActivity extends Activity { private static final String TAG 
 		Intent intent = getIntent();
 		
 		TouchImageView imageView = (TouchImageView) this.findViewById(R.id.full_image_view);
-		
+		BitmapFactory.Options fullopt = new BitmapFactory.Options();
+		fullopt.inSampleSize = 2;
 		int position = intent.getExtras().getInt("id");
 
-		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.fullImgPosition.get(position),fullopt));
 
 	}
 }
