@@ -68,6 +68,9 @@ public class FilterManager {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 				this.activeFilter = storedFilter;
 				this.cameraDispatcher.setFilter(this.activeFilter);
+				
+				// notify UI about filter change
+				LayoutManager.getInstance().notifyUI(this.activeFilter);
 			}
 		}
 	}
