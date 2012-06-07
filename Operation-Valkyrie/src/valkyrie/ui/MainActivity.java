@@ -2,6 +2,8 @@ package valkyrie.ui;
 
 import java.io.File;
 
+import valkyrie.file.DecodeBitmaps;
+import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
@@ -17,7 +19,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
@@ -94,6 +95,9 @@ public class MainActivity extends Activity {
 		}
 		
 		// TODO: do something with picture..
+		FileManager fileManager = new FileManager();
+		fileManager.saveImageToGallery(bitmap);
+		DecodeBitmaps.done = false;
 		
 		bitmap.recycle();
 	}
@@ -131,6 +135,7 @@ public class MainActivity extends Activity {
 
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
+	
 
 	@Override
 	public void onBackPressed() {
@@ -173,4 +178,5 @@ public class MainActivity extends Activity {
 
 		super.onResume();
 	}
+	
 }
