@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical"
+    android:stretchColumns="1" >
 
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+        <TextView
+            android:tag="name"
+            android:text="Open..." />
+
+        <SeekBar
+            android:id="@+id/ascii_option0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:tag="seekbar" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+       <TextView
+            android:tag="name"
+            android:text="Open..." />
+
+        <SeekBar
+            android:id="@+id/ascii_option1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:tag="seekbar" />
+    </TableRow>
+
     <Button
-        android:id="@+id/ascii_test"
-        android:layout_width="wrap_content"
+        android:id="@+id/button1"
+        android:layout_width="100dip"
         android:layout_height="wrap_content"
-        android:text="You chose the ASCII-BAM-BAM-BAM-POWER-FILTER!!! YOU ROCK!!!!" />
+        android:text="Button" />
 
-</RelativeLayout>
+</TableLayout>
