@@ -34,6 +34,7 @@ public class ShowPicActivity extends Activity {
 		// Start
 
 		Intent intent = getIntent();
+
 		TouchImageView imageView = (TouchImageView) this
 				.findViewById(R.id.full_image_view);
 		int position = intent.getExtras().getInt("id");
@@ -47,6 +48,7 @@ public class ShowPicActivity extends Activity {
 			Log.d(TAG, "trying displaying image without compressing");
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+
 
 		} catch (OutOfMemoryError e) {
 			Log.d(TAG, "in catch");

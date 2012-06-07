@@ -1,7 +1,5 @@
 package valkyrie.ui;
 
-import valkyrie.filter.FilterManager;
-import valkyrie.filter.IFilter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
@@ -12,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.ToggleButton;
 
 /**
  * 
@@ -45,7 +44,6 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 		// add possibly new elements to panel
 		this.addView(uiElements);
-
 	}
 
 	private void buildUI(TableLayout uiElements) {
@@ -65,9 +63,11 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			if (child == null)
 				Log.d("FasuDebug", "Child: is null...");
 
-//			Log.d("FasuDebug", "Child: " + i + " Tag: " + child.getTag().toString());
 
-			if (child.getTag().toString().equals("parent")) {
+			String tag = (String) child.getTag();
+
+
+			if (tag != null && tag.equals("parent")) {
 
 				subChildCount = child.getChildCount();
 
@@ -113,9 +113,9 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 					SharedPreferences.Editor editor = options.edit();
-					
+
 					String optionName = seekBar.getTag().toString();
-					
+
 					editor.putInt(optionName, progress);
 
 					// Commit the edits!
@@ -124,11 +124,10 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			};
 
 			((SeekBar) uiElement).setOnSeekBarChangeListener(seekBarListener);
-		}/*
-		 * else if (uiElement instanceof Button)
-		 * Log.d("FasuDebug", "UI-Element init: SeekBar");
-		 */
-
+		} else if (uiElement instanceof ToggleButton) {
+			Log.d("FasuDebug", "UI-Element init: ToggleButton");
+		}
+		
 		return false;
 	}
 

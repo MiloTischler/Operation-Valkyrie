@@ -2,8 +2,6 @@ package valkyrie.ui;
 
 import java.io.File;
 
-import valkyrie.colorpicker.ColorPickerApplication;
-import valkyrie.colorpicker.ColorPickerDialog;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
@@ -132,24 +130,6 @@ public class MainActivity extends Activity {
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 	
-	public void colorPicker(View view) {
-		Log.d("Tag", "clicked: showGallery");
-
-		// Just a dummy text to appear.. 
-		 
-		Toast.makeText(this.getApplicationContext(), "You Launch the Color Picker now", Toast.LENGTH_SHORT).show();
-		view.playSoundEffect(SoundEffectConstants.CLICK);
-		
-		Intent myIntent = new Intent(MainActivity.this, ColorPickerExampleActivity.class);
- 
-		try {
-			MainActivity.this.startActivity(myIntent);
-		} catch (Exception e) {
-			Log.e(TAG, "failed to start the colorPicker Activity");
-			// TODO: handle exception
-		}
-		// TODO: Implementation of colorPicker ... in progress
-	}
 
 	@Override
 	public void onBackPressed() {
