@@ -76,7 +76,7 @@ public class Ascii implements IFilter {
 //		Bitmap bm2 = this.converter.bitmapToGrayScale(this.bm);
 //		this.converter.asciiTextToImage(this.converter.grayScaleToAsciiText(bm2, this.activeFont.getLUT()));
 		
-		return null;
+		return this.converter.grayScale8BitToAsciiPrieview(bitmapMat, this.activeFont.getLUT());
 	}
 	
 	public int getFilterCaptureFormat() {
