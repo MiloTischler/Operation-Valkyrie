@@ -51,7 +51,7 @@ public class Grayscale implements IFilter {
 	public TableLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-
+		
 		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
 

@@ -30,7 +30,7 @@
             android:tag="name"
             android:text="Option2" />
     </TableRow>
-    
+
     <TableRow
         android:layout_width="fill_parent"
         android:tag="parent" >
