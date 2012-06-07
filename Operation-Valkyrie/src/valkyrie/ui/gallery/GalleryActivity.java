@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.ui.gallery;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -39,8 +39,7 @@ import android.widget.ImageView;
  * 
  */
 public class GalleryActivity extends Activity {
-
-	private String TAG = "GalleryActivity";
+	private static final String TAG = "GalleryActivity";
 
 	private File files = new File(Environment.getExternalStorageDirectory()
 			+ "/Valkyrie/Gallery");

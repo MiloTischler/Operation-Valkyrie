@@ -5,6 +5,8 @@ import java.io.File;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
+import valkyrie.ui.gallery.GalleryActivity;
+import valkyrie.ui.preview.CameraPreviewViewCV;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +31,9 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
 	private FilterManager filterManager = null;
-	private CameraDispatcher cameraDispatcher = null;
+//	private CameraDispatcher cameraDispatcher = null;
+	
+	private CameraPreviewViewCV cameraPreview = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,39 +53,19 @@ public class MainActivity extends Activity {
 		// initialize LayoutManager
 		LayoutManager.getInstance().setMainActivity(this);
 
-
-		// initialize CameraDispatcher and CameraPreviewView
-		this.cameraDispatcher = (CameraDispatcher) this.findViewById(R.id.camera_preview_dispatcher);
-		this.cameraDispatcher.setPreview((CameraPreviewView) this.findViewById(R.id.camera_preview_view));
+		// initialize CameraPreviewView with OpenCV
+		this.cameraPreview = (CameraPreviewViewCV) this.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
-		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraDispatcher);
+		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Grayscale());
 	}
 
 	public void takePicture(View view) {
-		Log.d(TAG, "clicked: takePicture - S1");
+		Log.d(TAG, "clicked: takePicture");
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
-
-		// // Play take photo sound effect
-		// AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-		// int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-		//
-		// if (volume != 0) {
-		// MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
-		// Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-		//
-		// if (shootSpound != null) {
-		// shootSpound.start();
-		// } else {
-		// view.playSoundEffect(SoundEffectConstants.CLICK);
-		// }
-		// }
-
-		// TODO ! this returns null!
-		Bitmap picture = this.cameraDispatcher.takePicture();
 	}
 
 	public void showGallery(View view) {
@@ -109,13 +93,12 @@ public class MainActivity extends Activity {
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
-		if (this.cameraDispatcher.isPreviewDisplayed()) {
-			this.cameraDispatcher.displayPreview(false);
+		if (this.cameraPreview.isFilterDisplayed()) {
+			this.cameraPreview.toggleFilter(false);
 		} else {
-			this.cameraDispatcher.displayPreview(true);
+			this.cameraPreview.toggleFilter(true);
 		}
 
-		// TODO: Implementation of toggleFilterEffect
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 
