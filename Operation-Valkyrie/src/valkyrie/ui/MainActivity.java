@@ -2,7 +2,6 @@ package valkyrie.ui;
 
 import java.io.File;
 
-import valkyrie.colorpicker.ColorPicker;
 import valkyrie.colorpicker.ColorPickerApplication;
 import valkyrie.colorpicker.ColorPickerDialog;
 import valkyrie.filter.FilterManager;
@@ -124,16 +123,13 @@ public class MainActivity extends Activity {
 	public void colorPicker(View view) {
 		Log.d("Tag", "clicked: showGallery");
 
-		// Just a dummy text to appear..
-
-		valkyrie.colorpicker.ColorPickerDialog col = new valkyrie.colorpicker.ColorPickerDialog(getBaseContext(), null,android.graphics.Color.RED);
-		
-		
+		// Just a dummy text to appear.. 
+		 
 		Toast.makeText(this.getApplicationContext(), "You Launch the Color Picker now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 		
-		Intent myIntent = new Intent(MainActivity.this, ColorPickerDialog.class);
-
+		Intent myIntent = new Intent(MainActivity.this, ColorPickerExampleActivity.class);
+ 
 		try {
 			MainActivity.this.startActivity(myIntent);
 		} catch (Exception e) {

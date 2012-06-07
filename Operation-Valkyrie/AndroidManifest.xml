@@ -34,7 +34,11 @@
         <activity
             android:name="valkyrie.ui.ShowPicActivity"
             android:label="showPic" 
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
+            android:name="valkyrie.colorpicker.ColorPickerExampleActivity"
+            android:label="colorPicker">
         </activity>
     </application>
 </manifest>

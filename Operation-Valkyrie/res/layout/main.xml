@@ -41,9 +41,6 @@
         my:handle="@+id/filter_options_handle" >
 
         <!-- Handle to drag the Filter Options Panel -->
-        
-     
-         
 
         <ImageView
             android:id="@+id/filter_options_handle"
@@ -56,6 +53,7 @@
 
         <valkyrie.ui.UpdateableRelativeLayout
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
+       		xmlns:binding="http://www.gueei.com/android-binding/"
             android:id="@+id/filter_options_content"
             style="@android:style/Theme.Translucent"
             android:layout_width="fill_parent"
@@ -64,7 +62,6 @@
             android:orientation="horizontal" >
 
             <!-- Just a demo text -->
-            
 
             <TextView
                 android:id="@+id/options_test"
@@ -72,17 +69,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/options" />
             
-                <ImageButton
-            android:id="@+id/colorpicker"
-            android:layout_width="wrap_content"
+             <valkyrie.ui.ColorPicker
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/trigger"
-            android:onClick="colorPicker"
-            android:src="@+drawable/camera_lens"
-            android:text="@string/trigger" />
-          
+            android:padding="50dp"
+            android:textSize="20dp"
+            binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
+            binding:color="Color" />
+             
         </valkyrie.ui.UpdateableRelativeLayout>
     </valkyrie.widget.MultiDirectionSlidingDrawer>
     <!-- Filter Options Panel end -->
@@ -93,10 +87,22 @@
     Here should be a third Panel but I'm still trying to figure out how the action bar and the Options 
 	Panel can have a semi-transparent background while overlapping the Camera Preview, because that way we 
 
-	could maximize our preview which is nice imo.
-    -->
+	could maximize our preview which is nice imo.<LinearLayout
+                xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
+                xmlns:binding="http://www.gueei.com/android-binding/"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
 
-   
+                <valkyrie.colorpicker.ColorPicker
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textSize="18dp"
+                    binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
+                    binding:color="Color" />
+            </LinearLayout>
+    -->
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -109,6 +115,8 @@
         android:orientation="horizontal" >
 
         <!-- Action Bar background image -->
+
+       
 
         <ImageView
             android:id="@+id/action_bar_background"
@@ -156,10 +164,6 @@
             android:onClick="toggleFilterEffect"
             android:src="@+drawable/filter"
             android:text="@string/filter_effect_toggle" />
-       
-        
-         
-         
     </RelativeLayout>
 
     <!-- Action Bar end -->
