@@ -18,7 +18,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-	private static final String TAG = "Sample::SurfaceView";
+	private static final String TAG = "CameraPreviewViewCV";
 
 	private SurfaceHolder holder;
 	private VideoCapture camera;
@@ -152,12 +152,12 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
 			synchronized (this) {
 				if (this.camera == null) {
-					Log.e(TAG, "mCamera == null");
+					Log.e(TAG, "camera == null");
 					break;
 				}
 
 				if (!this.camera.grab()) {
-					Log.e(TAG, "mCamera.grab() failed");
+					Log.e(TAG, "camera.grab() failed");
 					break;
 				}
 
