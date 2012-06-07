@@ -11,4 +11,5 @@
 	<string name="filter_effect_toggle">Toggle</string>
 	<string name="action_bar_background_description">Action Bar Background</string>
 	<string name="fullscreen_img">Fullscreen Imagemode</string>
+	<string name="ColorDialog">SampleColorDialogPreference</string>
 </resources>

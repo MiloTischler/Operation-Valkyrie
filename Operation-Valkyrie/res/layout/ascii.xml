@@ -11,14 +11,14 @@
 
         <TextView
             android:tag="name"
-            android:text="Open..." />
+            android:text="Font Size" />
 
         <SeekBar
-            android:id="@+id/ascii_option0"
+            android:id="@+id/ascii_option_font_size"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:tag="seekbar" />
+            android:max="10"
+            android:tag="font_size" />
     </TableRow>
 
     <TableRow
@@ -29,12 +29,9 @@
             android:tag="name"
             android:text="Open..." />
 
-        <SeekBar
-            android:id="@+id/ascii_option1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:tag="seekbar" />
+        <ToggleButton 
+            android:textOn="I HATE YOU!"
+            android:textOff="HAAAAATE!" />
     </TableRow>
 
 </TableLayout>
