@@ -119,9 +119,13 @@ public class MainActivity extends Activity {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
 				.findViewById(R.id.filter_options_panel);
 
-		if (keyCode == KeyEvent.KEYCODE_MENU && !multiDirectionSlidingDrawer.isOpened()) {
-			multiDirectionSlidingDrawer.animateOpen();
-		}
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			if(multiDirectionSlidingDrawer.isOpened()) {
+				multiDirectionSlidingDrawer.animateClose();
+			} else {
+				multiDirectionSlidingDrawer.animateOpen();
+			}
+		} 
 
 		return super.onKeyUp(keyCode, event);
 	}
