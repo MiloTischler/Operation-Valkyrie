@@ -5,6 +5,7 @@ import java.io.File;
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
+import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.ui.gallery.GalleryActivity;
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
 
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
-		this.filterManager.setActiveFilter(new Grayscale());
+		this.filterManager.setActiveFilter(new Ascii());
 	}
 
 	public void takePicture(View view) {

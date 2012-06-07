@@ -6,7 +6,6 @@ import valkyrie.main.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import gueei.binding.app.BindingActivity;
 import gueei.binding.observables.IntegerObservable;
 
 public class ColorPickerActivity extends Activity {

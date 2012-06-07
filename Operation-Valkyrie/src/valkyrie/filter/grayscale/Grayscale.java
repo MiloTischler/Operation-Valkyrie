@@ -1,9 +1,13 @@
 package valkyrie.filter.grayscale;
 
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.ml.CvANN_MLP;
+import org.opencv.*;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -46,8 +50,7 @@ public class Grayscale implements IFilter {
 		return bitmap;
 	}
 
-	public Bitmap manipulateImage(Mat bitmapMat) {
-
+	public Bitmap manipulateImage(Mat bitmapMat) {		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
 
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
