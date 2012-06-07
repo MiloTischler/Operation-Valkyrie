@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
@@ -30,29 +31,33 @@ public class ShowPicActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.showpic);
-
 		Intent intent = getIntent();
-
 		TouchImageView imageView = (TouchImageView) this
 				.findViewById(R.id.full_image_view);
 		int position = intent.getExtras().getInt("id");
-
+		
 		BitmapFactory.Options scaleBitmapOpt = new BitmapFactory.Options();
-		scaleBitmapOpt.inSampleSize = 2;
+		scaleBitmapOpt.inSampleSize = 4;
 
 		try {
 			Log.d(TAG, "trying displaying image without compressing");
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+			Toast.makeText(this.getApplicationContext(),
+					"Congratulations your Ram is not that bad", Toast.LENGTH_LONG).show();
 
 
-		} catch (OutOfMemoryError e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt + "failed");
 			imageView
 					.setImageBitmap(BitmapFactory.decodeFile(
 							DecodeBitmaps.fullImgPosition.get(position),
 							scaleBitmapOpt));
-		} 
+			Toast.makeText(this.getApplicationContext(),
+					"Congratulations your Ram is rly rly bad xD", Toast.LENGTH_LONG).show();
+		} finally {
+		
+		}
 	}
 }

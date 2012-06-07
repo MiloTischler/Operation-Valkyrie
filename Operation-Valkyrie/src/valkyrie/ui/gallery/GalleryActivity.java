@@ -48,10 +48,6 @@ public class GalleryActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		// create some pictures from drawable to sdcard for gallery preview if
-		// no exists
-		createPictures();
-		// ------------------------------------------------------------------
 		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
@@ -64,7 +60,6 @@ public class GalleryActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				Log.d(TAG, "obwohl longclick hier drin");
 
 				Intent showPicIntent = new Intent(getApplicationContext(),
 						ShowPicActivity.class);
@@ -81,6 +76,7 @@ public class GalleryActivity extends Activity {
 				return false;
 			}
 		});
+
 	}
 
 	@Override
@@ -89,19 +85,19 @@ public class GalleryActivity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Picture Options");
 		menu.add(0, v.getId(), 0, "Delete selected Picture");
-		menu.add(0, v.getId(), 0, "Show Filters for Converting");
 
 		SubMenu subMenu = menu.addSubMenu(0, v.getId(), 0,
 				"Delete all Pictures");
-		SubMenu subMenuFilters = menu.addSubMenu(0,v.getId(),0,"Filters");
-		SubMenu subMenuCreate = menu.addSubMenu(0,v.getId(),0,"Gods of Valkyrie");
+		SubMenu subMenuFilters = menu.addSubMenu(0, v.getId(), 0, "Use Filter");
+		SubMenu subMenuCreate = menu.addSubMenu(0, v.getId(), 0,
+				"Gods of Valkyrie");
 		subMenu.add(0, YES, 0, "Yes");
 		subMenu.add(0, NO, 0, "No");
 		subMenuFilters.add(0, v.getId(), 0, "GrayScale");
 		subMenuFilters.add(0, v.getId(), 0, "Ascii");
 		subMenuFilters.add(0, v.getId(), 0, "Matrix");
-		subMenuFilters.add(0, v.getId(), 0, "y");
-		subMenuFilters.add(0, v.getId(), 0, "x");
+		subMenuFilters.add(0, v.getId(), 0, "Laplace");
+		subMenuFilters.add(0, v.getId(), 0, "Canny Edge");
 		subMenuCreate.add(0, v.getId(), 0, "Ritzy");
 
 		subMenuCreate.add(0, v.getId(), 0, "Paul");
@@ -130,9 +126,7 @@ public class GalleryActivity extends Activity {
 
 		} else if (item.getTitle() == "Delete all Pictures") {
 
-			Log.d(TAG, "YES OR NO");
-
-		}else if (item.getItemId() == YES) {
+		} else if (item.getItemId() == YES) {
 			Log.d(TAG, "FUCK YOU YES = 1");
 			for (String s : DecodeBitmaps.fullImgNames) {
 				fileManager.deleteImageFromGallery(s);
@@ -142,52 +136,48 @@ public class GalleryActivity extends Activity {
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-			
+
 		} else if (item.getItemId() == NO) {
 			Toast.makeText(this.getApplicationContext(),
 					"PUSSY, RLY SUCH A PUSSY", Toast.LENGTH_LONG).show();
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-		} else if (item.getTitle() == "Laurenz"){
+		} else if (item.getTitle() == "Laurenz") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.laurenz,opt));
+					this.getResources(), R.drawable.laurenz, opt));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-			
-		} else if (item.getTitle() == "Milo"){
+
+		} else if (item.getTitle() == "Milo") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.milo,opt));
+					this.getResources(), R.drawable.milo, opt));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-			
-		} else if (item.getTitle() == "Schweigi"){
+
+		} else if (item.getTitle() == "Schweigi") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.schweigi,opt));
+					this.getResources(), R.drawable.schweigi, opt));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-		} else if (item.getTitle() == "Paul"){
+		} else if (item.getTitle() == "Paul") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.paul,opt));
+					this.getResources(), R.drawable.paul, opt));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-		} else if (item.getTitle() == "Ritzy"){
+		} else if (item.getTitle() == "Ritzy") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.ritzy,opt));
+					this.getResources(), R.drawable.ritzy, opt));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps();
 			onCreate(savedInsta);
-			
+
 		}
-
-
-
-
-
+		// Could be used to start PictureViewers by clicking
 		// Uri uri = Uri.fromFile(DecodeBitmaps.fileVector.get(index));
 		// Intent intent = new Intent();
 		// intent.setDataAndType(uri, "image/*");
@@ -195,13 +185,6 @@ public class GalleryActivity extends Activity {
 		//
 		// startActivityForResult(
 		// Intent.createChooser(intent, "Select Picture"), index);
-		else if (item.getTitle() == "Show Filters for Converting") {
-			Toast.makeText(this.getApplicationContext(), "Doesnt do shit",
-					Toast.LENGTH_SHORT).show();
-
-		} else if (item.getTitle() == "test submenu") {
-			Log.d(TAG, "test submenu clicked");
-		}
 
 		else {
 			return false;
@@ -216,37 +199,18 @@ public class GalleryActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		DecodeBitmaps decodeBitmaps = new DecodeBitmaps();
-		decodeBitmaps.recycleBitmaps();
-		DecodeBitmaps.done = false;
 		super.onBackPressed();
+		DecodeBitmaps.done = false;
 
 	}
 
-	private void createPictures() {
-		FileManager fileManager = new FileManager();
-		fileList = files.listFiles();
-		if (fileList() != null) {
-			if (fileList.length == 0) {
-				Log.d(TAG, "no files in gallery produce some ...");
-				// -------------------create some
-				// files----------------------------
-				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-						this.getResources(), R.drawable.jellyfish));
-				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-						this.getResources(), R.drawable.tulips));
-
-			} else {
-				Log.d(TAG, fileList.length
-						+ " files in gallery. No need for more.");
-			}
-		} else {
-			Toast.makeText(
-					this.getApplicationContext(),
-					"couldnt create some files, and there are no in the folders so you will have a problem xD",
-					Toast.LENGTH_SHORT).show();
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		for (Bitmap b : DecodeBitmaps.thumbs) {
+			b.recycle();
+			Log.d(TAG, "recycling bitmaps");
 		}
-
 	}
 
 }

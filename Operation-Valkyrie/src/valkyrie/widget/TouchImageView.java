@@ -285,16 +285,12 @@ public class TouchImageView extends ImageView {
 		redundantYSpace /= (float) 2;
 		redundantXSpace /= (float) 2;
 
-	//	Log.d(TAG, "redundantXSpace: " + redundantXSpace);
-	//	Log.d(TAG, "redundantYSpace: " + redundantYSpace);
 		matrix.postTranslate(redundantXSpace, redundantYSpace);
 
 		origWidth = width - 2 * redundantXSpace;
 		origHeight = height - 2 * redundantYSpace;
 		right = width * saveScale - width - (2 * redundantXSpace * saveScale);
 		bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
-	//	Log.d(TAG, "origWidth: " + origWidth);
-	//	Log.d(TAG, "origWidth: " + origHeight);
 		setImageMatrix(matrix);
 	}
 }

@@ -28,9 +28,8 @@ public class ImageAdapter extends BaseAdapter {
 
 	public ImageAdapter(Context c) {
 		this.mContext = c;
-		Log.d(TAG, "Constructor");
 		this.pictures = DecodeBitmaps.thumbs.size();
-		Log.d(TAG, "Constructor over and out");
+		
 	}
 
 	public int getCount() {
