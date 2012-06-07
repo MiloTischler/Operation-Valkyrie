@@ -40,9 +40,7 @@ public class Grayscale implements IFilter {
 		return null;
 	}
 
-	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		Imgproc.Laplacian(bitmapMat, bitmapMat, 1);
-		
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
 
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
