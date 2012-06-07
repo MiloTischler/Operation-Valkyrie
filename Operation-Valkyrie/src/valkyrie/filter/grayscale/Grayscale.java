@@ -6,11 +6,13 @@ import org.opencv.imgproc.Imgproc;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 
 /**
  * 
@@ -47,7 +49,10 @@ public class Grayscale implements IFilter {
 	}
 
 	public TableLayout getUIElements(Activity mainActivity) {
-		return null;
+		final LayoutInflater inflater = (LayoutInflater) mainActivity
+				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
+
+		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
 	
 	private Bitmap toGrayscale(Mat bitmapMat) {

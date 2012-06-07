@@ -14,11 +14,11 @@
             android:text="Open..." />
 
         <SeekBar
-            android:id="@+id/nofilter_option0"
+            android:id="@+id/greyscale_option0"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:tag="seekbar" />
+            android:tag="option0" />
     </TableRow>
 
     <TableRow
@@ -30,11 +30,11 @@
             android:text="Open..." />
 
         <SeekBar
-            android:id="@+id/nofilter_option1"
+            android:id="@+id/greyscale_option1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:tag="seekbar" />
+            android:tag="option1" />
     </TableRow>
 
 </TableLayout>

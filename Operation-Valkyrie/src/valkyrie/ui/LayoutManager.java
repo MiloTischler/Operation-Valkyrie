@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 /**
@@ -21,6 +21,7 @@ import android.widget.TableLayout;
  */
 public class LayoutManager {
 	private static final String TAG = "LayoutManager";
+	private IFilter activeFilter = null;
 
 	/**
 	 * Instance Variable. Used for Singleton.
@@ -71,8 +72,9 @@ public class LayoutManager {
 	 *            A FilterObject which is passed by the FilterManager
 	 */
 	public void notifyUI(IFilter filterObject) {
+		this.activeFilter = filterObject;
 		TableLayout uiElements = filterObject.getUIElements(mainActivity);
-			
+
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}
@@ -96,6 +98,10 @@ public class LayoutManager {
 	 */
 	public void removeUpdateableComponent(UpdateableRelativeLayout component) {
 		this.registeredComponents.remove(component);
+	}
+
+	public SharedPreferences getSharedPreferencesOfCurrentFilter() {
+		return this.mainActivity.getSharedPreferences(this.activeFilter.getName(), 0);
 	}
 
 }
