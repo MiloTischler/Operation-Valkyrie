@@ -5,6 +5,9 @@ import java.io.File;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
+import valkyrie.ui.gallery.GalleryActivity;
+import valkyrie.ui.preview.CameraDispatcher;
+import valkyrie.ui.preview.CameraPreviewView;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 
 import android.app.Activity;

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
-import valkyrie.ui.CameraDispatcher;
-import valkyrie.ui.CameraPreviewView;
 import valkyrie.ui.LayoutManager;
+import valkyrie.ui.preview.CameraDispatcher;
+import valkyrie.ui.preview.CameraPreviewView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
