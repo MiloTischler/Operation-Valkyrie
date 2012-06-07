@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
@@ -20,9 +21,7 @@ import valkyrie.main.R;
  * 
  */
 
-
 public class Grayscale implements IFilter {
-
 	private static final String TAG = "Grayscale";
 	
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
@@ -37,18 +36,16 @@ public class Grayscale implements IFilter {
 		return null;
 	}
 
-	public Bitmap manipulatePreviewImage(Bitmap bitmap) {
-		return this.toGrayscale(bitmap);
+	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
+		return this.toGrayscale(bitmapMat);
 	}
 
-	public Bitmap manipulateImage(Bitmap bitmap) {
-		if(bitmap == null) {
-			Log.d("OMGOMG", "OMFG is null..");
-		} else {
-			Log.d("OMGOMG", "OMFG is NOT null..");
-		}
-		
-		return bitmap;
+	public Bitmap manipulateImage(Mat bitmapMat) {		
+		return this.toGrayscale(bitmapMat);
+	}
+	
+	public int getFilterCaptureFormat() {
+		return FilterCaptureFormat.Grey;
 	}
 
 	public TableLayout getUIElements(Activity mainActivity) {
@@ -58,15 +55,19 @@ public class Grayscale implements IFilter {
 		return (TableLayout) inflater.inflate(R.layout.greyscale, null);
 	}
 	
-	private Bitmap toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
+	private Bitmap toGrayscale(Mat bitmapMat) {
+		if(bitmapMat == null) {
+			Log.e(TAG, "Bitmap Mat is null");
+		}
 		
-		Bitmap.Config config = bitmap.getConfig();
+		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);
 		
 		Utils.matToBitmap(bitmapMat, bitmap);
+		
+		bitmapMat.release();
 		
 		return bitmap;
 	}

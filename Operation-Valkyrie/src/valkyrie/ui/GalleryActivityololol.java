@@ -44,7 +44,7 @@ import android.widget.ImageView;
  * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
- */
+ *//*
 public class GalleryActivity extends Activity {
 
 	private String TAG = "GalleryActivity";
@@ -180,4 +180,4 @@ public class GalleryActivity extends Activity {
 
 	}
 
-}
+}*/

@@ -88,31 +88,30 @@ containing a value of this type.
         public static final int valkyrie=0x7f02000b;
     }
     public static final class id {
-        public static final int action_bar=0x7f050012;
-        public static final int action_bar_background=0x7f050013;
+        public static final int action_bar=0x7f050011;
+        public static final int action_bar_background=0x7f050012;
         public static final int ascii_option0=0x7f050004;
         public static final int ascii_option1=0x7f050005;
         public static final int bottomToTop=0x7f050001;
         public static final int button1=0x7f050006;
         public static final int button2=0x7f050007;
         public static final int button3=0x7f050008;
-        public static final int camera_preview_dispatcher=0x7f05000d;
         public static final int camera_preview_view=0x7f05000c;
-        public static final int filter_effect_toggle=0x7f050015;
-        public static final int filter_options_content=0x7f05000f;
-        public static final int filter_options_handle=0x7f050010;
-        public static final int filter_options_panel=0x7f05000e;
-        public static final int full_image_view=0x7f050018;
+        public static final int filter_effect_toggle=0x7f050014;
+        public static final int filter_options_content=0x7f05000e;
+        public static final int filter_options_handle=0x7f05000f;
+        public static final int filter_options_panel=0x7f05000d;
+        public static final int full_image_view=0x7f050017;
         public static final int gallery=0x7f050009;
         public static final int greyscale_option0=0x7f05000a;
         public static final int greyscale_option1=0x7f05000b;
         public static final int leftToRight=0x7f050002;
-        public static final int nofilter_option0=0x7f050016;
-        public static final int nofilter_option1=0x7f050017;
-        public static final int options_test=0x7f050011;
+        public static final int nofilter_option0=0x7f050015;
+        public static final int nofilter_option1=0x7f050016;
+        public static final int options_test=0x7f050010;
         public static final int rightToLeft=0x7f050000;
         public static final int topToBottom=0x7f050003;
-        public static final int trigger=0x7f050014;
+        public static final int trigger=0x7f050013;
     }
     public static final class layout {
         public static final int ascii=0x7f030000;

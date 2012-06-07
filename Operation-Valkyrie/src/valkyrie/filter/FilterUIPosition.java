@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.filter;
 
 /**
  * 

@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class TouchImageView extends ImageView {
+
 	private String TAG = "TouchImageView";
 	Matrix matrix = new Matrix();
 
@@ -190,6 +191,7 @@ public class TouchImageView extends ImageView {
 			return true;
 		}
 
+
 		@Override
 		public boolean onScale(ScaleGestureDetector detector) {
 			float mScaleFactor = detector.getScaleFactor();
@@ -316,6 +318,7 @@ public class TouchImageView extends ImageView {
 		setImageMatrix(matrix);
 		saveScale = 1f;
 
+		
 		// Center the image
 		redundantYSpace = (float) height - (scale * (float) bmHeight);
 		redundantXSpace = (float) width - (scale * (float) bmWidth);

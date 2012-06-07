@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.ui.gallery;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.main.R;
@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
@@ -24,6 +22,7 @@ import android.util.Log;
  * 
  */
 public class ShowPicActivity extends Activity {
+
 	private static final String TAG = "ShowPicActivity";
 
 	@Override
