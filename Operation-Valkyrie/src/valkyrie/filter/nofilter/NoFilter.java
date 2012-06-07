@@ -2,6 +2,7 @@ package valkyrie.filter.nofilter;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 
 import valkyrie.main.R;
 import android.app.Activity;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterCaptureFormat;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 
@@ -53,7 +53,7 @@ public class NoFilter implements IFilter {
 	}
 	
 	public int getFilterCaptureFormat() {
-		return FilterCaptureFormat.Color;
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA;
 	}
 
 	public String getName() {
