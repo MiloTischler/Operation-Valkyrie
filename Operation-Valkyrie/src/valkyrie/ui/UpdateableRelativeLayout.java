@@ -65,7 +65,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			if (child == null)
 				Log.d("FasuDebug", "Child: is null...");
 
-			Log.d("FasuDebug", "Child: " + i + " Tag: " + child.getTag().toString());
+//			Log.d("FasuDebug", "Child: " + i + " Tag: " + child.getTag().toString());
 
 			if (child.getTag().toString().equals("parent")) {
 

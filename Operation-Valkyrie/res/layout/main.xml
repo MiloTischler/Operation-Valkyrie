@@ -4,7 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-
     <!-- Camera Preview Panel begin -->             
     <valkyrie.ui.preview.CameraPreviewViewCV
         xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
@@ -12,16 +11,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" />
-
-
-    <valkyrie.ui.CameraDispatcher
-        xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-        android:id="@+id/camera_preview_dispatcher"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" />
-=======
->>>>>>> 88e5cc3eeb269d5e8d899272e919f131de863d8c
 
     <ImageView
         android:layout_width="fill_parent"
@@ -55,7 +44,6 @@
 
         <valkyrie.ui.UpdateableRelativeLayout
             xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.ui"
-       		xmlns:binding="http://www.gueei.com/android-binding/"
             android:id="@+id/filter_options_content"
             style="@android:style/Theme.Translucent"
             android:layout_width="fill_parent"
@@ -69,15 +57,7 @@
                 android:id="@+id/options_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options" />
-            
-             <valkyrie.ui.ColorPicker
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="50dp"
-            android:textSize="20dp"
-            binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
-            binding:color="Color" />
+                android:text="@string/options" />       
              
         </valkyrie.ui.UpdateableRelativeLayout>
     </valkyrie.widget.MultiDirectionSlidingDrawer>

@@ -36,5 +36,17 @@
             android:max="100"
             android:tag="option1" />
     </TableRow>
+    
+   <TableRow     
+            xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
+       		xmlns:binding="http://www.gueei.com/android-binding/">
+       <valkyrie.colorpicker.ColorPicker
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="50dp"
+            android:textSize="20dp"
+            binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
+            binding:color="Color" />
+   </TableRow>
 
 </TableLayout>
