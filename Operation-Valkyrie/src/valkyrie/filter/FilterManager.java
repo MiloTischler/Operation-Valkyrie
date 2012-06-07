@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
-import valkyrie.ui.CameraDispatcher;
-import valkyrie.ui.CameraPreviewView;
 import valkyrie.ui.LayoutManager;
+import valkyrie.ui.preview.CameraDispatcher;
+import valkyrie.ui.preview.CameraPreviewView;
+import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,15 +25,15 @@ public class FilterManager {
 	private static final String TAG = "FilterManager";
 
 	private Context context = null;
-	private CameraDispatcher cameraDispatcher = null;
+	private CameraPreviewViewCV cameraPreview = null;
 	private IFilter activeFilter = new NoFilter();
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
 
-	public FilterManager(Context context, Integer filterArray, CameraDispatcher cameraDispatcher) {
+	public FilterManager(Context context, Integer filterArray, CameraPreviewViewCV cameraPreview) {
 		Log.i(TAG, "Initialized opencv camera");
 
 		this.context = context;
-		this.cameraDispatcher = cameraDispatcher;
+		this.cameraPreview = cameraPreview;
 
 		this.filters.clear();
 
@@ -67,10 +68,7 @@ public class FilterManager {
 			if (filter.getClass().getName().equals(storedFilter.getClass().getName()))  {
 				Log.i(TAG, "Successfully changed active filter to: " + storedFilter.getClass().getName());
 				this.activeFilter = storedFilter;
-				this.cameraDispatcher.setFilter(this.activeFilter);
-				
-				// notify UI about filter change
-				LayoutManager.getInstance().notifyUI(this.activeFilter);
+				this.cameraPreview.setFilter(this.activeFilter);
 			}
 		}
 	}

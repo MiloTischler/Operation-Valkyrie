@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.ui.preview;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -14,7 +14,12 @@ import android.opengl.GLU;
 import android.opengl.GLUtils;
 import android.util.Log;
 
-
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class CameraPreviewRendererGL implements Renderer {
 	private static final String TAG = "CameraPreviewRendererGL";
 

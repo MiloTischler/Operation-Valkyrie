@@ -187,7 +187,7 @@ public class Converter {
 			}
 			hightPos += fontsize;
 		}
-		
+		gray.release();
 		
 		// saving shouldnt be done here
 //		String path = Environment.getExternalStorageDirectory().toString();

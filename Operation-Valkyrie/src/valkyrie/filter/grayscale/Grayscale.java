@@ -20,9 +20,7 @@ import valkyrie.main.R;
  * 
  */
 
-
 public class Grayscale implements IFilter {
-
 	private static final String TAG = "Grayscale";
 	
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
@@ -41,14 +39,8 @@ public class Grayscale implements IFilter {
 		return this.toGrayscale(bitmap);
 	}
 
-	public Bitmap manipulateImage(Bitmap bitmap) {
-		if(bitmap == null) {
-			Log.d("OMGOMG", "OMFG is null..");
-		} else {
-			Log.d("OMGOMG", "OMFG is NOT null..");
-		}
-		
-		return bitmap;
+	public Bitmap manipulateImage(Bitmap bitmap) {		
+		return this.toGrayscale(bitmap);
 	}
 
 	public TableLayout getUIElements(Activity mainActivity) {
@@ -59,9 +51,11 @@ public class Grayscale implements IFilter {
 	}
 	
 	private Bitmap toGrayscale(Bitmap bitmap) {
-		Mat bitmapMat = Utils.bitmapToMat(bitmap);		
+		if(bitmap == null) {
+			Log.e(TAG, "Bitmap is null");
+		}
 		
-		Bitmap.Config config = bitmap.getConfig();
+		Mat bitmapMat = Utils.bitmapToMat(bitmap);	
 		
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_BGR2GRAY);
 		Imgproc.cvtColor(bitmapMat, bitmapMat, Imgproc.COLOR_GRAY2RGBA, 4);

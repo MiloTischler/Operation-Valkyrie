@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.ui.preview;
 
 import valkyrie.filter.IFilter;
 import android.content.Context;
@@ -12,6 +12,12 @@ import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.util.Log;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class CameraPreviewViewGL extends GLSurfaceView implements Camera.PreviewCallback {
 	private static final String TAG = "CameraPreviewViewGL";
 	
