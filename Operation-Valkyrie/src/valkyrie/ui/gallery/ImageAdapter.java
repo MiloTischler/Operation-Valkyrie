@@ -1,4 +1,4 @@
-package valkyrie.ui;
+package valkyrie.ui.gallery;
 
 
 
@@ -18,10 +18,10 @@ import android.widget.ImageView;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
-
 public class ImageAdapter extends BaseAdapter {
+	private static final String TAG = "ImageAdapter";
+	
 	private Context mContext;
-	private String TAG = "ImageAdapter";
 	private int pictures = 0;
 
 
