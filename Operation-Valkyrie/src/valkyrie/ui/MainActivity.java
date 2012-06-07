@@ -2,6 +2,8 @@ package valkyrie.ui;
 
 import java.io.File;
 
+import valkyrie.file.DecodeBitmaps;
+import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
@@ -93,6 +95,9 @@ public class MainActivity extends Activity {
 		}
 		
 		// TODO: do something with picture..
+		FileManager fileManager = new FileManager();
+		fileManager.saveImageToGallery(bitmap);
+		DecodeBitmaps.done = false;
 		
 		bitmap.recycle();
 	}
