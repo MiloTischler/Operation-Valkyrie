@@ -5,6 +5,7 @@ import java.io.File;
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
+import valkyrie.filter.ascii.Ascii;
 import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.ui.gallery.GalleryActivity;

@@ -51,11 +51,11 @@ public class ColorPickerDialog extends Dialog {
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaint.setShader(s);
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setStrokeWidth(32);
+            mPaint.setStrokeWidth(52);
 
             mCenterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mCenterPaint.setColor(color);
-            mCenterPaint.setStrokeWidth(5);
+            mCenterPaint.setStrokeWidth(10);
         }
 
         private boolean mTrackingCenter;
