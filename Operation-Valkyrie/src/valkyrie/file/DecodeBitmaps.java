@@ -119,11 +119,9 @@ public class DecodeBitmaps {
 				Bitmap bitmapThumb;
 				boolean match = false;
 
-				for (int k = 0; k < thumbList.length; k++) {
-					if (thumbList[k].getName().contentEquals(fileList[i].getName())) {
+				for (File f : thumbList) {
+					if (f.getName().contentEquals(fileList[i].getName())) {
 						match = true;
-						Log.d(TAG, "break at : " + k);
-						break;
 					}
 				
 					

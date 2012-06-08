@@ -153,6 +153,9 @@ public class MainActivity extends Activity {
 						this.getApplicationContext(),
 						"There are no Files taken yet, make some to open the Gallery",
 						Toast.LENGTH_SHORT).show();
+				DecodeBitmaps.done = false;
+				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				work = true;
 			}
 		} else {
 		}
