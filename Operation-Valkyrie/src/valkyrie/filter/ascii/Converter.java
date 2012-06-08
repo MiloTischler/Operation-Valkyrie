@@ -3,6 +3,7 @@ package valkyrie.filter.ascii;
 import java.util.Vector;
 
 import org.opencv.core.Mat;
+
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.Size;
 
@@ -15,12 +16,19 @@ import android.graphics.Typeface;
 
 /**
  * 
+<<<<<<< HEAD
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Ritz, Paul Neuhold, Laurenz Theuerkauf
+=======
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+>>>>>>> 3f2bf366ee02e6e3b794cc91ca23a413fcb8cde5
  * 
  */
 
 public class Converter {
+
 
 	private Paint paint;
 	private int fontsize = 8;
@@ -36,6 +44,7 @@ public class Converter {
 		paint.setTypeface(Typeface.MONOSPACE);
 		paint.setTextAlign(Align.CENTER);
 	}
+
 
 
 	@Deprecated
@@ -74,6 +83,7 @@ public class Converter {
 		int widthPos = 0;
 		int m, n = 0;
 		for (int i = 0; i < width; i++) {
+
 			widthPos = 0;
 			for (int j = 0; j < height; j++) {
 				textLine = "";
@@ -86,8 +96,10 @@ public class Converter {
 			}
 			hightPos += this.fontsize;
 		}
+
 		gray.release();
 		
 		return mybitmap;
 	}
+
 }
