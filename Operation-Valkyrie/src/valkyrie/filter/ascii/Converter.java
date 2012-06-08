@@ -94,60 +94,7 @@ public class Converter {
 		
 		return mybitmap;
 	}
-	
-	public Bitmap fastColorToASCII(Mat color, int[] LUT) {	
-		Mat colorOrgSize = new Mat(color.width(), color.height(), color.type());
-		color.copyTo(colorOrgSize);
-		
-		final int width = color.width() / this.fontsize; 
-		final int height = color.height() / this.fontsize;
-		
-		Bitmap mybitmap = Bitmap.createBitmap(color.width(), color.height(), Bitmap.Config.ARGB_8888);
-		Imgproc.resize(color, color, new Size(width, height));
-		
-		this.canvas.setBitmap(mybitmap);
-		
-		this.canvas.drawColor(Color.WHITE);
-		
-		float[] asciiPositions = new float[(width * height) * 2];
-		char[] asciiChars = new char[(width * height)];
-		
-		int pixel = 0;
-		int position = 0;
 
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {				
-				asciiChars[pixel] = (char) LUT[(int) color.get(y, x)[0]];
-				
-				asciiPositions[position] = (x * fontsize);
-				asciiPositions[position + 1] = (y * fontsize) + fontsize;
-				
-				pixel++;
-				position += 2;
-			}
-		}
-		
-		this.canvas.drawPosText(asciiChars, 0, asciiChars.length, asciiPositions, paint);
-		
-		Mat test = Utils.bitmapToMat(mybitmap);
-		
-		Imgproc.cvtColor(test, test, Imgproc.COLOR_RGBA2RGB, 4);
-		
-		Core.convertScaleAbs(test, test, 1/255f);
-
-		Log.d("TESTA", "ME TESTA: " + test.get(0,0)[0] + " " + test.get(10, 10)[0]);
-		
-		colorOrgSize.convertTo(colorOrgSize, test.type());
-		
-		Log.d("TESTA", "ME COMPERA: test[t:" + test.type() +" - w:" + test.width() + " - h:" + test.height() + "]");
-		Log.d("TESTA", "ME COMPERA: colorOrgSize[t:" + colorOrgSize.type() +" - w:" + colorOrgSize.width() + " - h:" + colorOrgSize.height() + "]");
-		
-		Core.multiply(colorOrgSize, test, colorOrgSize);
-		
-		color.release();
-		
-		return mybitmap;
-	}
 
 	public Bitmap grayscaleToASCII(Mat gray, int[] LUT) {
 		final int width = gray.width() / this.fontsize; 
