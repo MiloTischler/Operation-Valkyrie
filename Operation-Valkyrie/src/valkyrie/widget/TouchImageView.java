@@ -160,16 +160,6 @@ public class TouchImageView extends ImageView {
 		}
 	}
 	
-	@Override
-	public void setImageDrawable(Drawable d){
-		super.setImageDrawable(d);
-		if (d != null){
-			Log.d(TAG, " d.getIntrinsicWidth() :" + bmWidth);
-			Log.d(TAG, " d.getIntrinsicHeight() :" + bmHeight);
-			
-		}
-	}
-
 	public void setMaxZoom(float x) {
 		maxScale = x;
 	}

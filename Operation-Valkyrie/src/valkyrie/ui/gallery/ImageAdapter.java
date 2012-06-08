@@ -71,10 +71,10 @@ public class ImageAdapter extends BaseAdapter {
 		}
 		Log.i(TAG, "Image adapter setImage "+ position);
 		try{
-		Drawable d = Drawable.createFromPath(DecodeBitmaps.thumbPosition.get(position));
-		imageView.setImageDrawable(d);
+	//	Drawable d = Drawable.createFromPath(DecodeBitmaps.thumbPosition.get(position));
+	//	imageView.setImageDrawable(d);
 	//	imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
-	//	imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
+		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
 		}
 		catch (OutOfMemoryError e){
 			int thumbError = 1;
