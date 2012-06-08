@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -113,38 +114,67 @@ public class MainActivity extends Activity {
 	}
 
 	public void showGallery(View view) {
-		Log.d("TAG", "clicked: showGallery");
-		for (Bitmap b : DecodeBitmaps.thumbs) {
-			b.recycle();
-			Log.d(TAG, "recycling bitmaps");
-		}
 
+		boolean work = false;
 		File galleryFiles = new File(Environment.getExternalStorageDirectory()
 				+ "/Valkyrie/Gallery/");
+		File thumbFiles = new File(Environment.getExternalStorageDirectory()
+				+ "/Valkyrie/Thumbnls/");
 
-		if ((galleryFiles.listFiles() == null)
-				|| (galleryFiles.listFiles().length == 0)) {
-			Toast.makeText(
-					this.getApplicationContext(),
-					"There are no Files taken yet, make some to open the Gallery",
-					Toast.LENGTH_SHORT).show();
-			Log.d(TAG, "eigentlich leer");
-		} else {
-			// Just a dummy text to appear..
-			DecodeBitmaps.done = false;
-			Toast.makeText(this.getApplicationContext(),
-					"You Launch the Gallery now", Toast.LENGTH_SHORT).show();
-			view.playSoundEffect(SoundEffectConstants.CLICK);
-			Intent myIntent = new Intent(MainActivity.this,
-					GalleryActivity.class);
+		Log.d("TAG", "clicked: showGallery");
 
-			try {
-				MainActivity.this.startActivity(myIntent);
-			} catch (Exception e) {
+		if ((galleryFiles.listFiles() != null)
+				&& (thumbFiles.listFiles() != null)) {
+			if (galleryFiles.listFiles().length > thumbFiles.listFiles().length) {
+				Toast.makeText(
+						this.getApplicationContext(),
+						"Something deleteted Thumbs, wait till they are recreated and try again",
+						Toast.LENGTH_SHORT).show();
+				Log.d(TAG, "thumbs not many vanished");
 
+				DecodeBitmaps.done = false;
+				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				work = true;
+
+			} else if (thumbFiles.listFiles().length == 0) {
+				Log.d(TAG, "thumbs folder vanished");
+				Toast.makeText(
+						this.getApplicationContext(),
+						"Thumbare all gone. Thumbs will be recreated. Time taken will be higher for more Pictures in the Gallery",
+						Toast.LENGTH_SHORT).show();
+				DecodeBitmaps.done = false;
+				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				work = true;
 			}
 
+			else if ((thumbFiles.listFiles().length == 0)
+					|| (galleryFiles.listFiles().length == 0)) {
+				Toast.makeText(
+						this.getApplicationContext(),
+						"There are no Files taken yet, make some to open the Gallery",
+						Toast.LENGTH_SHORT).show();
+			}
+		} else {
 		}
+		if ((galleryFiles.listFiles() != null)
+				&& (thumbFiles.listFiles() != null)
+				&& (thumbFiles.listFiles().length != 0)
+				&& (galleryFiles.listFiles().length != 0))
+			// Just a dummy text to appear..
+			if (work != true){
+				Log.d(TAG, "work not true");
+				DecodeBitmaps.done = false;}
+		Toast.makeText(this.getApplicationContext(),
+				"You Launch the Gallery now", Toast.LENGTH_SHORT).show();
+		view.playSoundEffect(SoundEffectConstants.CLICK);
+		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
+
+		try {
+			MainActivity.this.startActivity(myIntent);
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	public void toggleFilterEffect(View view) {

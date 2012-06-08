@@ -6,6 +6,7 @@ import valkyrie.widget.TouchImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,29 +36,41 @@ public class ShowPicActivity extends Activity {
 		TouchImageView imageView = (TouchImageView) this
 				.findViewById(R.id.full_image_view);
 		int position = intent.getExtras().getInt("id");
-		
+
 		BitmapFactory.Options scaleBitmapOpt = new BitmapFactory.Options();
-		scaleBitmapOpt.inSampleSize = 4;
+		scaleBitmapOpt.inSampleSize = 2;
 
 		try {
 			Log.d(TAG, "trying displaying image without compressing");
+
+			Log.d(TAG,
+					"fullImgPosition is: "
+							+ DecodeBitmaps.fullImgPosition.get(position));
+
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
+
 			Toast.makeText(this.getApplicationContext(),
-					"Congratulations your Ram is not that bad", Toast.LENGTH_LONG).show();
+					"Congratulations your Ram is not that bad",
+					Toast.LENGTH_LONG).show();
 
-
-		} catch (Exception e) {
+		} catch (OutOfMemoryError e) {
 			e.printStackTrace();
-			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt + "failed");
+			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt.inSampleSize
+					+ "failed");
+			scaleBitmapOpt.inSampleSize = 4;
+			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt.inSampleSize + "done");
+
 			imageView
 					.setImageBitmap(BitmapFactory.decodeFile(
 							DecodeBitmaps.fullImgPosition.get(position),
 							scaleBitmapOpt));
-			Toast.makeText(this.getApplicationContext(),
-					"Congratulations your Ram is rly rly bad xD", Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					this.getApplicationContext(),
+					"Something went wrong while loading the Pic, please try again",
+					Toast.LENGTH_LONG).show();
 		} finally {
-		
+
 		}
 	}
 }
