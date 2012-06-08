@@ -43,19 +43,15 @@ public class Converter {
 	private final Paint paint;
 	private int fontsize = 8;
 	private final Canvas canvas;
-	private int bgColorInt = 0;
+	private SharedPreferences options;
 
 	public Converter(SharedPreferences options) {
-
-		int colorInt = options.getInt("foreground", 0);
-		this.bgColorInt = options.getInt("background", 0);
-		boolean colorMode = options.getBoolean("color_mode", false);
-		this.fontsize = options.getInt("fontsize", 0);
+		this.options = options;
+//		boolean colorMode = options.getBoolean("color_mode", false);
 		this.paint = new Paint();
 		this.canvas = new Canvas();
 
 		paint.setStyle(Paint.Style.FILL);
-		paint.setColor(colorInt);
 		paint.setTextSize(this.fontsize);
 		paint.setAntiAlias(true);
 		paint.setTypeface(Typeface.MONOSPACE);
@@ -115,16 +111,19 @@ public class Converter {
 
 
 	public Bitmap grayscaleToASCII(Mat gray, int[] LUT) {
+		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
+		this.fontsize = options.getInt("fontsize", 0) + 5;
 		final int width = gray.width() / this.fontsize; 
 		final int height = gray.height() / this.fontsize;
-		
+		Log.e("valkyrie", "lolo " + this.fontsize);
 		Bitmap mybitmap = Bitmap.createBitmap(gray.width(), gray.height(), Bitmap.Config.RGB_565);
 		Imgproc.resize(gray, gray, new Size(width, height));
 		
 		this.canvas.setBitmap(mybitmap);
-		
-		this.canvas.drawColor(this.bgColorInt);
-		
+		paint.setColor(this.options.getInt("foreground", 0));
+		this.canvas.drawColor(this.options.getInt("background", 0));
+		Log.e("valkyrie", "trolololo " + this.options.getInt("background", 0));
+		Log.e("valkyrie", "lalalala " + this.options.getInt("foreground", 0));
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
 		
