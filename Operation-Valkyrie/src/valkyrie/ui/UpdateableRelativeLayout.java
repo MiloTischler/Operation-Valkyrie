@@ -1,24 +1,29 @@
 package valkyrie.ui;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.CompoundButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler © Milo Tischler, Jakob
+ * Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
-public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
+public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI, OnColorChangedListener {
 	private static final String TAG = "UpdateableRelativeLayout";
 
 	public UpdateableRelativeLayout(Context context, AttributeSet attrs) {
@@ -63,9 +68,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			if (child == null)
 				Log.d("FasuDebug", "Child: is null...");
 
-
 			String tag = (String) child.getTag();
-
 
 			if (tag != null && tag.equals("parent")) {
 
@@ -85,8 +88,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 	}
 
 	/**
-	 * Checks the type of given Element and whether it is supported or not.
-	 * If it is supportet, initialize it.
+	 * Checks the type of given Element and whether it is supported or not. If it is supportet, initialize it.
 	 * 
 	 * @param uiElement
 	 *            View the component from xml File, eg. a SeekBar
@@ -125,10 +127,36 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 			((SeekBar) uiElement).setOnSeekBarChangeListener(seekBarListener);
 		} else if (uiElement instanceof ToggleButton) {
-			Log.d("FasuDebug", "UI-Element init: ToggleButton");
+
+			OnCheckedChangeListener occListener = new OnCheckedChangeListener() {
+
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					Log.d("FasuDebug", "ToggleValue Value: " + isChecked);
+
+					SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+					SharedPreferences.Editor editor = options.edit();
+
+					String optionName = buttonView.getTag().toString();
+
+					editor.putBoolean(optionName, isChecked);
+
+					// Commit the edits!
+					editor.commit();
+				}
+			};
+
+			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
+		} else if (uiElement instanceof ColorPicker) {
+
 		}
-		
+
 		return false;
+	}
+
+	public void colorChanged(int color) {
+
+		Log.d("Updater", "Current changed color is: " + Integer.toHexString(color));
+		Log.d("Updater", "view ID: " + Integer.toHexString(this.getId()));
 	}
 
 }
