@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- MultiDirectionSlidingDrawer Widget begin -->
     <attr name="direction">
         <enum name="rightToLeft" value="0" />
@@ -8,16 +8,23 @@
         <enum name="leftToRight" value="2" />
         <enum name="topToBottom" value="3" />
     </attr>
-    
+
     <declare-styleable name="MultiDirectionSlidingDrawer">
         <attr name="handle" format="reference" />
         <attr name="content" format="reference" />
         <attr name="direction" />
-        <attr name="bottomOffset" format="dimension"  />
-        <attr name="topOffset" format="dimension"  />
+        <attr name="bottomOffset" format="dimension" />
+        <attr name="topOffset" format="dimension" />
         <attr name="allowSingleTap" format="boolean" />
         <attr name="animateOnClick" format="boolean" />
     </declare-styleable>
     <!-- MultiDirectionSlidingDrawer Widget end -->
-    
+
+
+    <!-- UpdateableRelative Layout begin -->
+    <declare-styleable name="valkyrie.colorpicker.ColorPicker">
+        <attr name="android:tag" />
+    </declare-styleable>
+    <!-- UpdateableRelative Layout end -->
+
 </resources>

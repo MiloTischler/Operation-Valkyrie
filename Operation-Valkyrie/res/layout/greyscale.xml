@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:stretchColumns="2" >
+    android:stretchColumns="*" >
 
     <TableRow android:layout_width="fill_parent" >
 
@@ -20,7 +20,8 @@
             android:id="@+id/greyscale_option0"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:max="10"
+            android:layout_span="2"
+            android:max="100"
             android:tag="option0" />
     </TableRow>
 
@@ -39,41 +40,40 @@
             android:id="@+id/greyscale_option1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:max="100"
+            android:layout_span="2"
+            android:max="10"
             android:tag="option1" />
     </TableRow>
 
-    <TableRow
-        xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
-        xmlns:binding="http://www.gueei.com/android-binding/"
-        android:tag="parent" >
+    <TableRow android:tag="parent" 
+        xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale">
 
         <valkyrie.colorpicker.ColorPicker
-            android:id="@+id/chooser1"
+            android:id="@+id/Foregroundcolor"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
-            android:background="#000000"
-            android:padding="30dp"
             android:layout_margin="10dp"
-            android:tag="colorchooser1"
+            android:background="#000000"
+            android:text="Foreground"
             android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            binding:text="hello"
-            binding:color="Color" />
+            android:textSize="18dp" />
+        <!--
+        </TableRow>
+        <TableRow 
+            android:tag="parent">
+        -->
+
         <valkyrie.colorpicker.ColorPicker
-            android:id="@+id/chooser2"
+            
+            android:id="@+id/Backgroundcolor"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
+            android:layout_margin="10dp"
             android:background="#000000"
-            android:padding="30dp"
-            android:tag="colorchooser2"
+            android:text="Background"
             android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            android:text="Choose me"
-            binding:text="hello"
-            binding:color="Color" />
+            android:textSize="18dp" />
     </TableRow>
-    
 
     <TableRow
         android:layout_width="fill_parent"
@@ -84,7 +84,5 @@
             android:textOff="Graustufen aktiviert"
             android:textOn="Farbe aktiviert" />
     </TableRow>
-
-    
 
 </TableLayout>

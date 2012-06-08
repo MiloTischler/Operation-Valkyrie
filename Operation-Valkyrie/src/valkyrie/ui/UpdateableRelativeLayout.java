@@ -7,6 +7,7 @@ import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.location.GpsStatus.Listener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -144,7 +145,7 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 					String optionName = buttonView.getTag().toString();
 
-					editor.putBoolean(optionName, isChecked);
+					editor.putBoolean(optionName, isChecked); 
 
 					// Commit the edits!
 					editor.commit();
