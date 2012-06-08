@@ -18,7 +18,9 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
@@ -29,8 +31,9 @@ import android.widget.Toast;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 public class MainActivity extends Activity {
@@ -51,7 +54,8 @@ public class MainActivity extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		final Window window = this.getWindow();
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
@@ -60,26 +64,33 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().setMainActivity(this);
 
 		// initialize CameraPreviewView with OpenCV
-		this.cameraPreview = (CameraPreviewViewCV) this.findViewById(R.id.camera_preview_view);
+		this.cameraPreview = (CameraPreviewViewCV) this
+				.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
-		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
+
+		this.filterManager = new FilterManager(this.getApplicationContext(),
+				R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Grayscale());
+
 	}
 
 	public void takePicture(View view) {
 		Log.d(TAG, "clicked: takePicture");
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked",
+				Toast.LENGTH_SHORT).show();
 
 		// Play take photo sound effect
-		AudioManager meng = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		AudioManager meng = (AudioManager) this.getApplicationContext()
+				.getSystemService(Context.AUDIO_SERVICE);
 		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 
 		if (volume != 0) {
-			MediaPlayer shootSpound = MediaPlayer.create(this.getApplicationContext(),
-					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+			MediaPlayer shootSpound = MediaPlayer
+					.create(this.getApplicationContext(),
+							Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
 
 			if (shootSpound != null) {
 				shootSpound.start();
@@ -87,43 +98,91 @@ public class MainActivity extends Activity {
 				view.playSoundEffect(SoundEffectConstants.CLICK);
 			}
 		}
-		
+
 		Bitmap bitmap = this.cameraPreview.takePicture();
-		
-		if(bitmap == null) {
+
+		if (bitmap == null) {
 			Log.e(TAG, "takePicture got null bitmap");
 		}
-		
+
 		// TODO: do something with picture..
 		FileManager fileManager = new FileManager();
 		fileManager.saveImageToGallery(bitmap);
 		DecodeBitmaps.done = false;
-		
+
 		bitmap.recycle();
 	}
 
 	public void showGallery(View view) {
-		Log.d("Tag", "clicked: showGallery");
 
-		// Just a dummy text to appear..
+		boolean work = false;
+		File galleryFiles = new File(Environment.getExternalStorageDirectory()
+				+ "/Valkyrie/Gallery/");
+		File thumbFiles = new File(Environment.getExternalStorageDirectory()
+				+ "/Valkyrie/Thumbnls/");
 
-		Toast.makeText(this.getApplicationContext(), "You Launch the Gallery now", Toast.LENGTH_SHORT).show();
+		Log.d("TAG", "clicked: showGallery");
+
+		if ((galleryFiles.listFiles() != null)
+				&& (thumbFiles.listFiles() != null)) {
+			if (galleryFiles.listFiles().length > thumbFiles.listFiles().length) {
+				Toast.makeText(
+						this.getApplicationContext(),
+						"Something deleteted Thumbs, wait till they are recreated and try again",
+						Toast.LENGTH_SHORT).show();
+				Log.d(TAG, "thumbs not many vanished");
+
+				DecodeBitmaps.done = false;
+				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				work = true;
+
+			} else if (thumbFiles.listFiles().length == 0) {
+				Log.d(TAG, "thumbs folder vanished");
+				Toast.makeText(
+						this.getApplicationContext(),
+						"Thumbare all gone. Thumbs will be recreated. Time taken will be higher for more Pictures in the Gallery",
+						Toast.LENGTH_SHORT).show();
+				DecodeBitmaps.done = false;
+				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				work = true;
+			}
+
+			else if ((thumbFiles.listFiles().length == 0)
+					|| (galleryFiles.listFiles().length == 0)) {
+				Toast.makeText(
+						this.getApplicationContext(),
+						"There are no Files taken yet, make some to open the Gallery",
+						Toast.LENGTH_SHORT).show();
+			}
+		} else {
+		}
+		if ((galleryFiles.listFiles() != null)
+				&& (thumbFiles.listFiles() != null)
+				&& (thumbFiles.listFiles().length != 0)
+				&& (galleryFiles.listFiles().length != 0))
+			// Just a dummy text to appear..
+			if (work != true){
+				Log.d(TAG, "work not true");
+				DecodeBitmaps.done = false;}
+		Toast.makeText(this.getApplicationContext(),
+				"You Launch the Gallery now", Toast.LENGTH_SHORT).show();
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
 
 		try {
 			MainActivity.this.startActivity(myIntent);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
-		// TODO: Implementation of showGallery ... in progress
+
 	}
 
 	public void toggleFilterEffect(View view) {
 		Log.d("Tag", "clicked: toggleFilterEffect");
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked",
+				Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
@@ -135,7 +194,6 @@ public class MainActivity extends Activity {
 
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
-	
 
 	@Override
 	public void onBackPressed() {
@@ -177,6 +235,7 @@ public class MainActivity extends Activity {
 		Log.i(TAG, "onResume called");
 
 		super.onResume();
+
 	}
-	
+
 }
