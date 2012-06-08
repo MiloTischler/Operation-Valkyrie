@@ -45,8 +45,8 @@ public class Converter {
 	private final Canvas canvas;
 	private int bgColorInt = 0;
 
-	public Converter() {
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+	public Converter(SharedPreferences options) {
+
 		int colorInt = options.getInt("foreground", 0);
 		this.bgColorInt = options.getInt("background", 0);
 		boolean colorMode = options.getBoolean("color_mode", false);

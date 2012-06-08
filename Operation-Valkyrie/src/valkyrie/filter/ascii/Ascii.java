@@ -49,6 +49,8 @@ public class Ascii implements IFilter {
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
 
+	public static final String name = "ascii";
+
 	/**
 	 * TODO: Sry aber bei mir wirft des a nullpointer exception wenn ich alle
 	 * filter für den filtermanager instancier, lg milo
@@ -61,10 +63,8 @@ public class Ascii implements IFilter {
 
 		this.activeFont = this.fonts.get(0);
 
-		SharedPreferences options = LayoutManager.getInstance()
-				.getSharedPreferencesOfCurrentFilter();
+		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfFilter(name);
 		SharedPreferences.Editor editor = options.edit();
-
 
 		editor.putInt("foreground", Color.BLACK);
 		editor.putInt("background", Color.WHITE);
@@ -73,17 +73,15 @@ public class Ascii implements IFilter {
 		// Commit the edits!
 		editor.commit();
 
-		this.converter = new Converter();
+		this.converter = new Converter(options);
 	}
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat,
-				this.activeFont.getLUT());
+		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat,
-				this.activeFont.getLUT());
+		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public int getFilterCaptureFormat() {
@@ -113,8 +111,7 @@ public class Ascii implements IFilter {
 		return null;
 	}
 
-	public void setup(FilterInternalStorage filterInternalStorage,
-			FilterAssets filterAssets, Boolean firstRun) {
+	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 
 	}
 
@@ -125,9 +122,7 @@ public class Ascii implements IFilter {
 		try {
 			// in = new FileInputStream( path +
 			// "/oruxmaps/cursors/neodraig2.png");
-			in = new FileInputStream(
-					path
-							+ "/Valkyrie/Screenshots/Screenshot_2012-06-01-17-00-21.png");
+			in = new FileInputStream(path + "/Valkyrie/Screenshots/Screenshot_2012-06-01-17-00-21.png");
 			buf = new BufferedInputStream(in);
 			this.bm = BitmapFactory.decodeStream(buf);
 			if (in != null) {
@@ -141,5 +136,12 @@ public class Ascii implements IFilter {
 		}
 		// manipulatePreviewImage(this.bm);
 		// manipulateImage(this.bm);
+	}
+
+	/**
+	 * Initializes Options for the current Filter.
+	 */
+	public void initOptions() {
+
 	}
 }
