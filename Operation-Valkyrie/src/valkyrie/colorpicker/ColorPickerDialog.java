@@ -196,9 +196,9 @@ public class ColorPickerDialog extends Dialog {
 					if (unit < 0) {
 						unit += 1;
 					}
-					if (java.lang.Math.sqrt(x * x + y * y) > CENTER_X - mPaint.getStrokeWidth() * 0.5f  )
+					if (java.lang.Math.sqrt(x * x + y * y) > CENTER_X - mPaint.getStrokeWidth() * 0.5f)
 						mCenterPaint.setColor(interpColor(mColors, unit));
-					else 
+					else
 						mCenterPaint.setColor(interpColor(grayColors, unit));
 					invalidate();
 				}

@@ -46,7 +46,7 @@ public class Ascii implements IFilter {
 	private Converter converter;
 	
 	private Vector<Font> fonts;
-	private String fontsList[] = { "test1", "test2" };
+	private String fontsList[] = { "test1"};
 
 	/**
 	 * TODO: Sry aber bei mir wirft des a nullpointer exception wenn ich alle filter für den
@@ -73,7 +73,7 @@ public class Ascii implements IFilter {
 	}
 	
 	public int getFilterCaptureFormat() {
-		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
 	}
 
 	/**
