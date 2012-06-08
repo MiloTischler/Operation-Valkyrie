@@ -124,7 +124,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/filter_effect_toggle"
             android:onClick="toggleFilterEffect"
-            android:src="@+drawable/filter"
+            android:src="@+drawable/preview_on"
             android:text="@string/filter_effect_toggle" />
     </RelativeLayout>
     <!-- Action Bar end -->

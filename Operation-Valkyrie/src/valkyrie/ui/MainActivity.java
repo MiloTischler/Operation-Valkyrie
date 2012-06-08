@@ -27,6 +27,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -186,8 +187,16 @@ public class MainActivity extends Activity {
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		if (this.cameraPreview.isFilterDisplayed()) {
+			
+			ImageButton toggle = (ImageButton) this.findViewById(R.id.filter_effect_toggle);
+			toggle.setImageResource(R.drawable.preview_on);
+			
 			this.cameraPreview.toggleFilter(false);
 		} else {
+			
+			ImageButton toggle = (ImageButton) this.findViewById(R.id.filter_effect_toggle);
+			toggle.setImageResource(R.drawable.preview_off);
+			
 			this.cameraPreview.toggleFilter(true);
 		}
 
