@@ -89,4 +89,10 @@ public class Grayscale implements IFilter {
 		return bitmap;
 	}
 
+	/**
+	 * Initializes Options for this Filter.
+	 */
+	public void initOptions() {
+		
+	}
 }

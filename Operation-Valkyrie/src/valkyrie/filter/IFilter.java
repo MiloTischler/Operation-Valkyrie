@@ -24,7 +24,8 @@ public interface IFilter {
 	public Bitmap manipulateImage(Mat bitmap);
 	
 	public int getFilterCaptureFormat();
-
+	
+	public void initOptions();
 	/**
 	 * Retrieves the filter specific options panel.
 	 * 
