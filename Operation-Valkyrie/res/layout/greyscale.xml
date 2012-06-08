@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:stretchColumns="*" >
+    android:stretchColumns="2" >
 
     <TableRow android:layout_width="fill_parent" >
 
@@ -49,12 +49,12 @@
         android:tag="parent" >
 
         <valkyrie.colorpicker.ColorPicker
-            android:layout_span="2"
             android:id="@+id/chooser1"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
             android:background="#000000"
             android:padding="30dp"
+            android:layout_margin="10dp"
             android:tag="colorchooser1"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
