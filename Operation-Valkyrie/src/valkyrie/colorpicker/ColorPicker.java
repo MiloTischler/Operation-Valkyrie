@@ -10,14 +10,10 @@ import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.sax.RootElement;
 import android.util.AttributeSet;  
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,

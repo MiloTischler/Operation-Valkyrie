@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 
 		this.filterManager = new FilterManager(this.getApplicationContext(),
 				R.array.filters, this.cameraPreview);
-		this.filterManager.setActiveFilter(new Grayscale());
+		this.filterManager.setActiveFilter(new Ascii());
 
 	}
 
