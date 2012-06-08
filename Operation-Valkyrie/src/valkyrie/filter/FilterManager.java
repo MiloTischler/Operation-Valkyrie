@@ -70,7 +70,7 @@ public class FilterManager {
 				this.cameraPreview.setFilter(this.activeFilter);
 				
 				// notify UI about filter change
-				//LayoutManager.getInstance().notifyUI(this.activeFilter);
+				LayoutManager.getInstance().notifyUI(this.activeFilter);
 			}
 		}
 	}
