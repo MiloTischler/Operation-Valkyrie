@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:stretchColumns="1" >
+    android:stretchColumns="*" >
 
     <TableRow android:layout_width="fill_parent" >
 
@@ -42,20 +42,38 @@
             android:max="100"
             android:tag="option1" />
     </TableRow>
-    
-   <TableRow     
-            xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
-       		xmlns:binding="http://www.gueei.com/android-binding/"
-       		android:tag="parent" >
-       <valkyrie.colorpicker.ColorPicker
-            android:layout_width="fill_parent"
-            android:layout_height="30dip"
-            android:background="#FFFFFF"
-            android:padding="20dp"
+
+    <TableRow
+        xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
+        xmlns:binding="http://www.gueei.com/android-binding/"
+        android:tag="parent" >
+
+        <valkyrie.colorpicker.ColorPicker
+            android:layout_span="2"
+            android:id="@+id/chooser1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:background="#000000"
+            android:padding="30dp"
+            android:tag="colorchooser1"
+            android:textColor="#FFFFFF"
             android:textSize="20dp"
-            binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
+            binding:text="hello"
             binding:color="Color" />
-   </TableRow>
+        <valkyrie.colorpicker.ColorPicker
+            android:id="@+id/chooser2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:background="#000000"
+            android:padding="30dp"
+            android:tag="colorchooser2"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:text="Choose me"
+            binding:text="hello"
+            binding:color="Color" />
+    </TableRow>
+    
 
     <TableRow
         android:layout_width="fill_parent"
@@ -66,5 +84,7 @@
             android:textOff="GrauStufenBild aktiviert"
             android:textOn="Farbbild aktiviert" />
     </TableRow>
+
+    
 
 </TableLayout>

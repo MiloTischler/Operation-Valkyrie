@@ -1,3 +1,5 @@
+package valkyrie.colorpicker;
+
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -14,13 +16,11 @@
  * limitations under the License.
  */
 
-package valkyrie.colorpicker;
 
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.*;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -51,10 +51,11 @@ public class ColorPickerDialog extends Dialog {
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaint.setShader(s);
             mPaint.setStyle(Paint.Style.STROKE);
-            
+            mPaint.setStrokeWidth(32);
 
             mCenterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mCenterPaint.setColor(color);
+            mCenterPaint.setStrokeWidth(5);
         }
 
         private boolean mTrackingCenter;
@@ -62,12 +63,9 @@ public class ColorPickerDialog extends Dialog {
 
         @Override
         protected void onDraw(Canvas canvas) {
-        	mPaint.setStrokeWidth(CENTER_X * 0.4f);
-        	mCenterPaint.setStrokeWidth(5);
-        	
-            float r = CENTER_X - CENTER_X*0.4f*0.5f;
+            float r = CENTER_X - mPaint.getStrokeWidth()*0.5f;
 
-            canvas.translate(CENTER_X, CENTER_Y);
+            canvas.translate(CENTER_X, CENTER_X);
 
             canvas.drawOval(new RectF(-r, -r, r, r), mPaint);
             canvas.drawCircle(0, 0, CENTER_RADIUS, mCenterPaint);
@@ -92,17 +90,12 @@ public class ColorPickerDialog extends Dialog {
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        	int size = MeasureSpec.getSize(heightMeasureSpec);
-            setMeasuredDimension(size, size);
-        	CENTER_X = size /2;
-        	CENTER_Y = size /2;
-        	CENTER_RADIUS = Math.min(size * 0.15f, 42);
-            Log.d("EvaClock", "Measure: " + size);
+            setMeasuredDimension(CENTER_X*2, CENTER_Y*2);
         }
 
-        private float CENTER_X = 100;
-        private float CENTER_Y = 100;
-        private float CENTER_RADIUS = 30;
+        private static final int CENTER_X = 150;
+        private static final int CENTER_Y = 150;
+        private static final int CENTER_RADIUS = 42;
 
         private int floatToByte(float x) {
             int n = java.lang.Math.round(x);
