@@ -9,17 +9,19 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.CompoundButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView.OnEditorActionListener;
+import android.widget.TextView;
 import android.widget.ToggleButton;
+import valkyrie.colorpicker.*;
 
 /**
  * 
@@ -151,8 +153,17 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
 		} else if (uiElement instanceof ColorPicker) {
+
 			Log.d("FasuDebug", "COLORPICKER!!!!!!!!!!!!!!!!!!!");
-			 
+			OnColorChangedListener listener = new OnColorChangedListener() {
+				
+				
+				public void colorChanged(int color) {
+					// TODO Auto-generated method stub
+					Log.d("FasuDebug","You have proven yourself and defeatet the COLORPICKER!");
+				}
+			};
+			
 		}
 
 		return false;

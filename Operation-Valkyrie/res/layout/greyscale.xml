@@ -81,8 +81,8 @@
 
         <ToggleButton
             android:tag="color_mode"
-            android:textOff="GrauStufenBild aktiviert"
-            android:textOn="Farbbild aktiviert" />
+            android:textOff="Graustufen aktiviert"
+            android:textOn="Farbe aktiviert" />
     </TableRow>
 
     

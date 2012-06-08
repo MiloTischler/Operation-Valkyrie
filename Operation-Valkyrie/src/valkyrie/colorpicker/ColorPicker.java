@@ -1,24 +1,25 @@
 package valkyrie.colorpicker;
 
+
 import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import valkyrie.ui.LayoutManager;
+
 import gueei.binding.Binder;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PaintDrawable;
 import android.util.AttributeSet;  
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class ColorPicker extends Button implements IBindableView<ColorPicker>, View.OnClickListener,
 		OnColorChangedListener {
+	
+	ColorPickerDialog dialog = null;
+//	OnColorChangedListener listener = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -29,7 +30,7 @@ public class ColorPicker extends Button implements IBindableView<ColorPicker>, V
 		super(context, attrs);
 		init();
 	}
-	
+
 	public ColorPicker(Context context) {
 		super(context);
 		init();
@@ -51,6 +52,8 @@ public class ColorPicker extends Button implements IBindableView<ColorPicker>, V
 		ColorPickerDialog dialog = new ColorPickerDialog(getContext(), this, mColorAttr.get());
 //		Log.d("ColorPicker","Current changed color is: " + mColorAttr.get() );
 		dialog.show();
+//		this.dialog = new ColorPickerDialog(getContext(), this, mColorAttr.get(), l);
+//		this.dialog.show();
 	}
 
 	public void colorChanged(int color) {
@@ -58,6 +61,10 @@ public class ColorPicker extends Button implements IBindableView<ColorPicker>, V
 		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color));
 		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
 	}
+	
+//	public void setOnColorChangedListener(OnColorChangedListener l) {
+//		listener = l;
+//	}
 
 	private ColorAttribute mColorAttr = new ColorAttribute(this);
 	private String id ;
