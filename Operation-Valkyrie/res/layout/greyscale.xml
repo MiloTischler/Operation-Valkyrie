@@ -42,7 +42,8 @@
             android:max="100"
             android:tag="option1" />
     </TableRow>
-    <TableRow
+
+    <TableRow
         android:layout_width="fill_parent"
         android:tag="parent" >
 
@@ -60,6 +61,19 @@
             android:tag="color_mode"
             android:textOff="Graustufen aktiviert"
             android:textOn="Farbe aktiviert" />
+    </TableRow>
+
+    <TableRow android:tag="parent" >
+
+        <valkyrie.colorpicker.ColorPicker
+            android:id="@+id/Backgroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_margin="10dp"
+            android:background="#000000"
+            android:text="Background"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
     </TableRow>
 
 </TableLayout>

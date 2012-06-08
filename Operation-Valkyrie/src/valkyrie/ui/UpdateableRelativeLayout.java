@@ -2,6 +2,8 @@ package valkyrie.ui;
 
 import gueei.binding.Binder;
 import gueei.binding.listeners.OnClickListenerMulticast;
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.colorpicker.ColorPickerView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -152,6 +154,17 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			};
 
 			((ToggleButton) uiElement).setOnCheckedChangeListener(occListener);
+		} else if (uiElement instanceof ColorPicker) {
+			OnColorChangedListener listener = new OnColorChangedListener() {
+
+				public void colorChanged(int color, ColorPickerView view, ColorPickerDialog dialog) {
+					// TODO Auto-generated method stub
+					Log.d("FasuDebug", "Color: " + color);
+					//dialog.dismiss();
+				}
+			};
+			
+			((ColorPicker) uiElement).setOnColorChangedListener(listener);
 		}
 
 		return false;
