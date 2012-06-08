@@ -73,7 +73,7 @@ public class Ascii implements IFilter {
 	}
 	
 	public int getFilterCaptureFormat() {
-		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
 	}
 
 	/**
