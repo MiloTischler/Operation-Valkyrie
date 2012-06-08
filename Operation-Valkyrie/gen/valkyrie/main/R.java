@@ -84,6 +84,7 @@ containing a value of this type.
         public static final int laurenz=0x7f020007;
         public static final int milo=0x7f020008;
         public static final int paul=0x7f020009;
+        public static final int preview_on=0x7f02000f;
         public static final int real_valkyrie=0x7f02000a;
         public static final int ritzy=0x7f02000b;
         public static final int schweigi=0x7f02000c;
