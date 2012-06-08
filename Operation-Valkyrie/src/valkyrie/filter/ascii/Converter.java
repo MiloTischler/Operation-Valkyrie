@@ -9,6 +9,7 @@ import org.opencv.core.Size;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
@@ -24,10 +25,12 @@ public class Converter {
 
 	private Paint paint;
 	private int fontsize = 8;
+	private Canvas canvas;
 
 	public Converter() {
 		
 		this.paint = new Paint();
+		this.canvas = new Canvas();
 
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.BLACK);
@@ -52,6 +55,36 @@ public class Converter {
 		}
 		return textVec;
 
+	}
+	
+	public Bitmap colorToASCII(Mat color, int[] LUT) {
+		int width = color.width() / this.fontsize; //final ?
+		int height = color.height() / this.fontsize;
+		
+		Bitmap mybitmap = Bitmap.createBitmap(color.width(), color.height(), Bitmap.Config.RGB_565);
+		Imgproc.resize(color, color, new Size(width, height));
+		
+		this.canvas.setBitmap(mybitmap);
+		
+		this.canvas.drawColor(Color.WHITE);
+		
+		int hightPos = this.fontsize;
+		int widthPos = 0;
+
+		for (int i = 0; i < width; i++) {
+			widthPos = 0;
+			for (int j = 0; j < height; j++) {
+			this.paint.setColor(Color.rgb((int) color.get(j, i)[0], (int) color.get(j, i)[1], (int) color.get(j, i)[2]));
+				
+				this.canvas.drawText(String.valueOf((char) LUT[(int) color.get(j, i)[0]]), hightPos, widthPos, this.paint);
+
+				widthPos += this.fontsize;
+			}
+			hightPos += this.fontsize;
+		}
+		color.release();
+		
+		return mybitmap;
 	}
 
 	public Bitmap grayscaleToASCII(Mat gray, int[] LUT) {

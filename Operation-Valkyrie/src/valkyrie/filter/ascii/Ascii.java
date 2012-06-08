@@ -64,16 +64,16 @@ public class Ascii implements IFilter {
 	}
 	
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 	
 	public int getFilterCaptureFormat() {
-		return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
 	}
 
 	/**
