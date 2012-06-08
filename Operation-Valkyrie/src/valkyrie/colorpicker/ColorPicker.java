@@ -10,14 +10,10 @@ import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.sax.RootElement;
 import android.util.AttributeSet;  
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,
@@ -61,26 +57,21 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
 		
-	
-		
 		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color) );
 		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
-		if(this.getId() == R.id.Foregroundcolor) {
+		if(this.getId() == R.id.foregroundcolor) {
 		Log.d("ColorPicker","view Tag: Foregroundcolor " );
 		
-		
-		
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("Foreground", color);
+		editor.putInt("foreground", color);
 		}
-		else if(this.getId() == R.id.Backgroundcolor) {
+		else if(this.getId() == R.id.backgroundcolor) {
 			Log.d("ColorPicker","view Tag: Backgroundcolor " );
 		
-		
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("Background", color);
+		editor.putInt("background", color);
 		}
 	}
 	

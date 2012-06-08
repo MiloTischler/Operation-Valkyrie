@@ -10,6 +10,9 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.core.Size;
 import org.opencv.core.Scalar;
 
+import valkyrie.ui.LayoutManager;
+
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -37,17 +40,22 @@ public class Converter {
 	private static final String TAG = "Converter";
 
 
-	private Paint paint;
+	private final Paint paint;
 	private int fontsize = 8;
-	private Canvas canvas;
+	private final Canvas canvas;
+	private int bgColorInt = 0;
 
-	public Converter() {
-		
+	public Converter(SharedPreferences options) {
+
+		int colorInt = options.getInt("foreground", 0);
+		this.bgColorInt = options.getInt("background", 0);
+		boolean colorMode = options.getBoolean("color_mode", false);
+		this.fontsize = options.getInt("fontsize", 0);
 		this.paint = new Paint();
 		this.canvas = new Canvas();
 
 		paint.setStyle(Paint.Style.FILL);
-		paint.setColor(Color.BLACK);
+		paint.setColor(colorInt);
 		paint.setTextSize(this.fontsize);
 		paint.setAntiAlias(true);
 		paint.setTypeface(Typeface.MONOSPACE);
@@ -115,7 +123,7 @@ public class Converter {
 		
 		this.canvas.setBitmap(mybitmap);
 		
-		this.canvas.drawColor(Color.WHITE);
+		this.canvas.drawColor(this.bgColorInt);
 		
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
@@ -134,7 +142,6 @@ public class Converter {
 				position += 2;
 			}
 		}
-		
 		this.canvas.drawPosText(asciiChars, 0, asciiChars.length, asciiPositions, paint);
 
 		gray.release();

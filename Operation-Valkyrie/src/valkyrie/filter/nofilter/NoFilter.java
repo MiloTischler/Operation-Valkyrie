@@ -26,7 +26,7 @@ public class NoFilter implements IFilter {
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		Utils.matToBitmap(bitmapMat, bitmap);
 		bitmapMat.release();
-		
+
 		return bitmap;
 	}
 
@@ -34,7 +34,7 @@ public class NoFilter implements IFilter {
 		Bitmap bitmap = Bitmap.createBitmap(bitmapMat.cols(), bitmapMat.rows(), Bitmap.Config.ARGB_8888);
 		Utils.matToBitmap(bitmapMat, bitmap);
 		bitmapMat.release();
-		
+
 		return bitmap;
 	}
 
@@ -48,10 +48,10 @@ public class NoFilter implements IFilter {
 
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-	
+
 		return (TableLayout) inflater.inflate(R.layout.nofilter, null);
 	}
-	
+
 	public int getFilterCaptureFormat() {
 		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA;
 	}
@@ -65,6 +65,13 @@ public class NoFilter implements IFilter {
 	}
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
+
+	}
+
+	/**
+	 * initializes options for this Filter.
+	 */
+	public void initOptions() {
 
 	}
 }
