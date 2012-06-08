@@ -5,13 +5,16 @@
     android:orientation="vertical"
     android:stretchColumns="1" >
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:tag="parent" >
+    <TableRow android:layout_width="fill_parent" >
 
         <TextView
             android:tag="name"
             android:text="Font Size" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
 
         <SeekBar
             android:id="@+id/ascii_option_font_size"
@@ -19,19 +22,6 @@
             android:layout_height="wrap_content"
             android:max="10"
             android:tag="font_size" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:tag="parent" >
-
-       <TextView
-            android:tag="name"
-            android:text="Open..." />
-
-        <ToggleButton 
-            android:textOn="I HATE YOU!"
-            android:textOff="HAAAAATE!" />
     </TableRow>
 
 </TableLayout>

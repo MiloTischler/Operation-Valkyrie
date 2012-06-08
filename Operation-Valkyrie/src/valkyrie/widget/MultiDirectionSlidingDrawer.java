@@ -19,6 +19,7 @@
 package valkyrie.widget;
 
 import valkyrie.main.R;
+import valkyrie.ui.UpdateableRelativeLayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -109,6 +110,8 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
 		 * Invoked when the drawer becomes fully open.
 		 */
 		public void onDrawerOpened();
+		
+		
 	}
 	
 	/**
@@ -166,6 +169,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
 	public MultiDirectionSlidingDrawer( Context context, AttributeSet attrs, int defStyle )
 	{
 		super( context, attrs, defStyle );
+
 		TypedArray a = context.obtainStyledAttributes( attrs, R.styleable.MultiDirectionSlidingDrawer, defStyle, 0 );
 		
 		int orientation = a.getInt( R.styleable.MultiDirectionSlidingDrawer_direction, ORIENTATION_BTT );
@@ -401,7 +405,6 @@ public class MultiDirectionSlidingDrawer extends ViewGroup {
 						if ( xVelocity < 0 ) {
 							xVelocity = -xVelocity;
 						}
-						// fix by Maciej Ciemięga.
 						if ( (!mInvert && xVelocity > mMaximumMinorVelocity) || (mInvert && xVelocity < mMaximumMinorVelocity) ) {
 							xVelocity = mMaximumMinorVelocity;
 						}

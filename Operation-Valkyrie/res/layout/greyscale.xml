@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:stretchColumns="1" >
+    android:stretchColumns="*" >
 
     <TableRow android:layout_width="fill_parent" >
 
@@ -20,7 +19,8 @@
             android:id="@+id/greyscale_option0"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:max="10"
+            android:layout_span="2"
+            android:max="100"
             android:tag="option0" />
     </TableRow>
 
@@ -39,22 +39,42 @@
             android:id="@+id/greyscale_option1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:max="100"
+            android:layout_span="2"
+            android:max="10"
             android:tag="option1" />
     </TableRow>
-    
-   <TableRow     
-            xmlns:valkyrie="http://schemas.android.com/apk/res/valkyrie.colorpicker"
-       		xmlns:binding="http://www.gueei.com/android-binding/">
-       <valkyrie.colorpicker.ColorPicker
-            android:layout_width="fill_parent"
-            android:layout_height="30dip"
-            android:background="#FFFFFF"
-            android:padding="20dp"
-            android:textSize="20dp"
-            binding:text="FORMAT(&apos;Color Selected (integer): %s&apos;, Color)"
-            binding:color="Color" />
-   </TableRow>
+
+    <TableRow android:tag="parent" 
+        xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale">
+
+        <valkyrie.colorpicker.ColorPicker
+            android:id="@+id/Foregroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_margin="10dp"
+            android:background="#000000"
+            android:text="Foreground"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+        <!--
+        </TableRow>
+        <TableRow 
+            android:tag="parent">
+
+
+        -->
+
+        <valkyrie.colorpicker.ColorPicker
+            
+            android:id="@+id/Backgroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_margin="10dp"
+            android:background="#000000"
+            android:text="Background"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
@@ -62,8 +82,8 @@
 
         <ToggleButton
             android:tag="color_mode"
-            android:textOff="GrauStufenBild aktiviert"
-            android:textOn="Farbbild aktiviert" />
+            android:textOff="Graustufen aktiviert"
+            android:textOn="Farbe aktiviert" />
     </TableRow>
 
 </TableLayout>
