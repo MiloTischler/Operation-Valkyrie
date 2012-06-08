@@ -124,19 +124,39 @@ public class Font {
         int i = 255;
         int test = 0;
         for (Map.Entry entry : sortedMap.entrySet()) {
-        	if(i >= 58)
+        	if(i >= 210)
         	{
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
+        		for (int j = 0; j < 9 ; j++)
+        		{
+        			this.LUT[i] = (Integer) entry.getKey(); 
+        			i--;
+        		}
+        	}else if((i < 210) && (i >= 40))
+        	{
+    			this.LUT[i] = (Integer) entry.getKey(); 
+    			i--;
+    			this.LUT[i] = (Integer) entry.getKey(); 
+    			i--;
+        	}
+        	else if((i < 40) && (i >=38))
+        	{
+    			this.LUT[i] = (Integer) entry.getKey(); 
+    			i--;
+        	}
+        	else if((i < 38) && (i >= 0))
+        	{
+        		for (int j = 0; j < 7 ; j++)
+        		{
+        			if(i >= 0)
+        			{
+        				this.LUT[i] = (Integer) entry.getKey(); 
+        				i--;
+        				Log.e("valkyrie","lol2 " + i);
+        			}
+        		}
         	}
         	else{
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
+        		Log.e("valkyrie","lol " + i);
         		i--;
         	}
         }
