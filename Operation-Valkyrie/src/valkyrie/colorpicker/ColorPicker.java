@@ -1,21 +1,30 @@
 package valkyrie.colorpicker;
 
-import valkyrie.colorpicker.OnColorChangedListener;
+
+import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
+import valkyrie.main.R;
+import valkyrie.ui.LayoutManager;
 import gueei.binding.Binder;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.util.AttributeSet;
+import android.sax.RootElement;
+import android.util.AttributeSet;  
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,
 		OnColorChangedListener {
 	
 	ColorPickerDialog dialog = null;
-	OnColorChangedListener listener = null;
+//	OnColorChangedListener listener = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -34,6 +43,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	private void init() {
 		Binder.getMulticastListenerForView(this, OnClickListenerMulticast.class).register(this);
+		
 	}
 
 	public ViewAttribute<? extends View, ?> createViewAttribute(String arg0) {
@@ -44,17 +54,39 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	public void onClick(View v) {
 		// Bring up dialog
-		this.dialog = new ColorPickerDialog(getContext(), this.listener, mColorAttr.get());
-		this.dialog.show();
+		ColorPickerDialog dialog = new ColorPickerDialog(getContext(), this, mColorAttr.get());
+		dialog.show();
 	}
 
-	public void colorChanged(int color, ColorPickerView view, ColorPickerDialog dialog) {
+	public void colorChanged(int color) {
 		mColorAttr.set(color);
+		
+	
+		
+		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color) );
+		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
+		if(this.getId() == R.id.Foregroundcolor) {
+		Log.d("ColorPicker","view Tag: Foregroundcolor " );
+		
+		
+		
+		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+		SharedPreferences.Editor editor = options.edit();
+		editor.putInt("Foreground", color);
+		}
+		else if(this.getId() == R.id.Backgroundcolor) {
+			Log.d("ColorPicker","view Tag: Backgroundcolor " );
+		
+		
+		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+		SharedPreferences.Editor editor = options.edit();
+		editor.putInt("Background", color);
+		}
 	}
 	
-	public void setOnColorChangedListener(OnColorChangedListener l) {
-		listener = l;
-	}
+//	public void setOnColorChangedListener(OnColorChangedListener l) {
+//		listener = l;
+//	}
 
 	private ColorAttribute mColorAttr = new ColorAttribute(this);
 
@@ -73,7 +105,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 				return;
 			}
 			mValue = 0;
-			getView().setBackgroundColor(Color.BLACK);
+			getView().setBackgroundColor(Color.RED);
 		}
 
 		@Override
@@ -81,5 +113,9 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 			return mValue;
 		}
 	}
+
+	
+
+	
 
 }

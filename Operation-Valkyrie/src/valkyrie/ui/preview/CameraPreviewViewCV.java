@@ -18,7 +18,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-	private static final String TAG = "Sample::SurfaceView";
+	private static final String TAG = "CameraPreviewViewCV";
 
 	private SurfaceHolder holder;
 	private VideoCapture camera;
@@ -63,15 +63,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 	}
 
 	public Bitmap takePicture() {
-		double rememberWidth = this.camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
-		double rememberHeight = this.camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
-
-		List<Size> sizes = this.camera.getSupportedPreviewSizes();
-		Size highestPreviewSize = this.getHighestPreviewSize(sizes);
-
-		this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, highestPreviewSize.width);
-		this.camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, highestPreviewSize.height);
-
 		Bitmap bitmap = null;
 		Mat pictureMat = new Mat();
 		
@@ -83,9 +74,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 			bitmap = Bitmap.createBitmap(pictureMat.cols(), pictureMat.rows(), Bitmap.Config.ARGB_8888);
 			Utils.matToBitmap(pictureMat, bitmap);
 		}
-
-		this.camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, rememberWidth);
-		this.camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, rememberHeight);
 
 		Log.d(TAG, "Called take picture, width: " + bitmap.getWidth() + " height: " + bitmap.getHeight());
 
@@ -152,12 +140,12 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
 			synchronized (this) {
 				if (this.camera == null) {
-					Log.e(TAG, "mCamera == null");
+					Log.e(TAG, "camera == null");
 					break;
 				}
 
 				if (!this.camera.grab()) {
-					Log.e(TAG, "mCamera.grab() failed");
+					Log.e(TAG, "camera.grab() failed");
 					break;
 				}
 
