@@ -37,9 +37,9 @@ public class Converter {
 	private static final String TAG = "Converter";
 
 
-	private Paint paint;
+	private final Paint paint;
 	private int fontsize = 8;
-	private Canvas canvas;
+	private final Canvas canvas;
 
 	public Converter() {
 		
@@ -134,7 +134,6 @@ public class Converter {
 				position += 2;
 			}
 		}
-		
 		this.canvas.drawPosText(asciiChars, 0, asciiChars.length, asciiPositions, paint);
 
 		gray.release();
