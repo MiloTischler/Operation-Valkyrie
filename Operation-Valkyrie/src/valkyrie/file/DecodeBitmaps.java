@@ -6,19 +6,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
+import valkyrie.ui.gallery.GalleryActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
+ * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
 
@@ -33,27 +37,60 @@ public class DecodeBitmaps {
 	private File fileList[];
 	private File thumbList[];
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
-	//public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
-	public static Vector<String> fullImgPosition= new Vector<String>();
-	public static Vector<String> fullImgNames= new Vector<String>();
+	// public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
+	public static Vector<String> fullImgPosition = new Vector<String>();
+	public static Vector<File> fileVector = new Vector<File>();
+	public static Vector<String> fullImgNames = new Vector<String>();
+	public static Vector<String> thumbPosition = new Vector<String>();
 	private FileManager fileManager = new FileManager();
-
-
+	private int opt = 6;
 	
-	public DecodeBitmaps(int width, int heigth) {
-
+	public DecodeBitmaps(int error) {
+		if (error == 1){
+		this.opt = 8;
+		Log.d(TAG, "new opt ? : " + this.opt);
+		thumbs.clear();
+		decodeBitmap();
+		}
+		
 		if (done == true) {
 			// TODO: its too static ;)
 			Log.d(TAG, "all work here was done hours ago ;)");
+		} else if (files.listFiles() != null) {
+			if (files.listFiles().length == 0 ) {
+				Log.d(TAG, "weeeeeeehaaaaaaaa list 0");
+				for (Bitmap b : DecodeBitmaps.thumbs) {
+					b.recycle();
+					Log.d(TAG,  " Bitmaps recycled");
+				}
+				thumbs.clear();
+		
+			}
+			if (thumbList != null) {
+				fileVector.clear();
+				fullImgPosition.clear();
+				thumbs.clear();
+				fullImgNames.clear();
+				Log.d(TAG, "do the decode");
+				decodeBitmap();
+			} else {
+				fileVector.clear();
+				fullImgPosition.clear();
+				thumbs.clear();
+				fullImgNames.clear();
+				Log.d(TAG, "do the decode");
+				decodeBitmap();
+			}
 
-		} else {
-			
+
+		} else if (files.listFiles() == null) {
+
+			Log.d(TAG, "weeeeeeehaaaaaaaa");
+
+			// super.onDestroy();
+
 		}
-
-			fullImgPosition.clear();
-			thumbs.clear();
-			fullImgNames.clear();
-			decodeBitmap();
+		Log.d(TAG, "done");
 	}
 
 	private void decodeBitmap() {
@@ -62,122 +99,93 @@ public class DecodeBitmaps {
 		thumbList = thumbFiles.listFiles();
 		BitmapFactory.Options thumbOpt = new BitmapFactory.Options();
 		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
-		thumbOpt.inSampleSize = 6;
+		thumbOpt.inSampleSize = opt;
 		fullOpt.inSampleSize = 4;
-		
 
-		for (Integer i = 0; i < fileList.length; i++) {
-			Bitmap bitmapFull;
-			Log.d(TAG, fileList[i].getName());
-			Log.d(TAG, "-----------------------------");
-			fullImgPosition.add(fileList[i].getAbsolutePath());
-			fullImgNames.add(fileList[i].getName());
-		}
+		if (fileList != null && thumbList != null) {
 
-		
-		int th = 0;
-		for (int i = 0; i < fileList.length; i++) {
-
-			Bitmap bitmapThumb;
-			Log.d(TAG,
-					fileList[i].getName() + " - mit pfad - "
-							+ fileList[i].getAbsolutePath());
-			boolean match = false;
-
-			for (File f : thumbList) {
-				if (f.getName().contentEquals(fileList[i].getName())) {
-					match = true;
-					// Log.d(TAG, "match: " + match + " " + f.getName() + " = "
-					// + fileList[i].getName());
-				}
-				// else Log.d(TAG, "match: " + match + " " + f.getName() + " = "
-				// + fileList[i].getName());
+			for (Integer i = 0; i < fileList.length; i++) {
+				 Log.d(TAG, fileList[i].getName());
+				 Log.d(TAG, "-----------------------------");
+				fullImgPosition.add(fileList[i].getAbsolutePath());
+				fullImgNames.add(fileList[i].getName());
+				fileVector.add(fileList[i]);
+				Log.d(TAG, "file length: " + fileList.length +"but i still : " + i);
 			}
+		
+			int thumbCounter = 0;
+		
+			for (int i = 0; i < fileList.length; i++) {
 
-			
-			if (match) {
+				Bitmap bitmapThumb;
+				boolean match = false;
 
-				Log.d(TAG, "th :" + th + "  i :" + i + "but thumblist.length: "
-						+ thumbList.length);
-				Log.d(TAG,
-						i + " " + thumbList[th].getName()
-								+ " already Exists in "
-								+ thumbList[th].getAbsolutePath());
-
-				bitmapThumb = BitmapFactory.decodeFile(thumbList[th]
-						.getAbsolutePath());
-				thumbs.add(bitmapThumb);
-				th++;
-			} else {
-				Log.d(TAG, i + " creating a new Thumbs");
-				Bitmap newThumb;
-				newThumb = Bitmap
-						.createScaledBitmap(BitmapFactory.decodeFile(
-								fileList[i].getAbsolutePath(), thumbOpt), 120,
-								80, false);
-
-				saveAThumb(newThumb, fileList[i].getName());
+				for (int k = 0; k < thumbList.length; k++) {
+					if (thumbList[k].getName().contentEquals(fileList[i].getName())) {
+						match = true;
+						Log.d(TAG, "break at : " + k);
+						break;
+					}
 				
-				thumbs.add(newThumb);
+					
+				}
+			//	match = true;
+				if (match) {
+//					bitmapThumb  = BitmapFactory
+//							.decodeFile(thumbList[thumbCounter]
+//									.getAbsolutePath());
+					thumbPosition.add(thumbList[thumbCounter].getAbsolutePath());
+					
+					//thumbs.add(bitmapThumb);
+					thumbCounter++;
+					Log.d(TAG, "so much thumbs : " + i);
+				} else {
+					Log.d(TAG, "new thumb crashes ? : " +i);
+					Bitmap newThumb;
+					newThumb = Bitmap.createScaledBitmap(
+							BitmapFactory.decodeFile(
+									fileList[i].getAbsolutePath(), thumbOpt),120,80,false);
+							
+
+					saveAThumb(newThumb, fileList[i].getName());
+					thumbs.add(newThumb);
+				
+				}
 			}
+			done = true;
+		} else {
+
 		}
-		done = true;
-		int i = 0;
-		for(File f : fileList){
-			Log.d(TAG, i+" FileName: " + f.getName());
-			i++;
-		}i = 0;
-		for(File f : thumbList){
-			Log.d(TAG, i+" ThumbName: " + f.getName());
-			i++;
-		}i = 0;
-		for(Bitmap b : thumbs){
-			Log.d(TAG, i+" thumbName Vector: " + b.toString());
-			i++;
-			}i = 0;
-		for(String f: fullImgNames){
-			Log.d(TAG, i+" FileImgName: " + f);
-			i++;
-		}i = 0;
-		
-		
 	}
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
-		
-		
 
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
 
-		// you can create a new file name "test.jpg" in sdcard folder.
 		File f = new File(Environment.getExternalStorageDirectory()
 				+ "/Valkyrie/Thumbnls/" + imgName);
-
 		try {
 			f.createNewFile();
 			FileOutputStream fo = new FileOutputStream(f);
 			fo.write(bytes.toByteArray());
-			Log.d(TAG, "saveaThumb");
+			Log.d(TAG, "saved a Thumb");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			Log.d(TAG, "io crash ? ");
 			e.printStackTrace();
 		}
-
+		bitmap.recycle();
 	}
 
-	public void recycleBitmaps(){
+	public void recycleBitmaps() {
 		int i = 0;
 		for (Bitmap b : DecodeBitmaps.thumbs) {
 			i++;
 			b.recycle();
 			Log.d(TAG, i + " Bitmaps recycled");
 		}
-//		for (Bitmap b : DecodeBitmaps.fullImg) {
-//			b.recycle();
-//			i++;
-//			Log.d(TAG, i + " Bitmaps recycled");
-//		}
 	}
+
+
 }

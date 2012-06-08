@@ -75,7 +75,7 @@ public class FilterManager {
 		}
 	}
 
-	public IFilter getActiveFilter() {
+	public IFilter getActiveFilter() {	
 		return this.activeFilter;
 	}
 
