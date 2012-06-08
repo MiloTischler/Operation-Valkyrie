@@ -46,13 +46,8 @@ public class ShowPicActivity extends Activity {
 			Log.d(TAG,
 					"fullImgPosition is: "
 							+ DecodeBitmaps.fullImgPosition.get(position));
-
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
-
-			Toast.makeText(this.getApplicationContext(),
-					"Congratulations your Ram is not that bad",
-					Toast.LENGTH_LONG).show();
 
 		} catch (OutOfMemoryError e) {
 			e.printStackTrace();
