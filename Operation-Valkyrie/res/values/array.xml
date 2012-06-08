@@ -6,6 +6,7 @@
         <item>valkyrie.filter.nofilter.NoFilter</item>
         <item>valkyrie.filter.ascii.Ascii</item>
         <item>valkyrie.filter.grayscale.Grayscale</item>
+        <item>valkyrie.filter.grayscale.Canny</item>
     </string-array>
     <!-- List of available filters end -->
     
