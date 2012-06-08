@@ -30,27 +30,25 @@ import android.util.Log;
  * 
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf 
- *
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
  */
 
 public class Font {
 
 	private int[] LUT; // Look up Table index = color intensity; value = letter
 	private String name; // font name
-	
-	
+
 	public Font(String name, boolean install) {
-		
+
 		this.name = name;
 		this.LUT = new int[256];
-		if(install)
+		if (install)
 			initializeFont();
 		else
 			load();
 	}
 
-	
 	/**
 	 * Initializes Font for the first time with a simple algorithm
 	 * Just takes the percentage of a letter and saves it in the LUT
@@ -68,7 +66,7 @@ public class Font {
 			letter = "";
 			letter += (char) i;
 			int fontsize = 20;
-			
+
 			// font options go here
 			Paint paint = new Paint();
 			paint.setStyle(Paint.Style.FILL);
@@ -79,73 +77,102 @@ public class Font {
 
 			Rect rect = new Rect();
 			paint.getTextBounds(letter, 0, 1, rect);
-				Bitmap mybitmap = Bitmap.createBitmap(25, 25,
-						Bitmap.Config.RGB_565);
-				Canvas c = new Canvas(mybitmap);
-				c.drawColor(Color.WHITE);
-				c.drawText(letter, 0, 20, paint);
-//				String path = Environment.getExternalStorageDirectory()
-//						.toString();
-//				OutputStream fOut = null;
-//				File file = new File(path + "/lol/", "lol" + i + ".jpg");
-//				try {
-//					fOut = new FileOutputStream(file);
-//					mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-//					fOut.flush();
-//					fOut.close();
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-				int blackPixelCounter = 0;
-				int imgPixels = mybitmap.getHeight() * mybitmap.getWidth();
-				for (int y = 0; y < mybitmap.getHeight(); y++) {
-					for (int x = 0; x < mybitmap.getWidth(); x++) {
-						if (mybitmap.getPixel(x, y) != Color.WHITE) {
-							blackPixelCounter++;
-						}
+			Bitmap mybitmap = Bitmap.createBitmap(25, 25, Bitmap.Config.RGB_565);
+			Canvas c = new Canvas(mybitmap);
+			c.drawColor(Color.WHITE);
+			c.drawText(letter, 0, 20, paint);
+			// String path = Environment.getExternalStorageDirectory()
+			// .toString();
+			// OutputStream fOut = null;
+			// File file = new File(path + "/lol/", "lol" + i + ".jpg");
+			// try {
+			// fOut = new FileOutputStream(file);
+			// mybitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			// fOut.flush();
+			// fOut.close();
+			// } catch (FileNotFoundException e) {
+			// e.printStackTrace();
+			// } catch (IOException e) {
+			// e.printStackTrace();
+			// }
+			int blackPixelCounter = 0;
+			int imgPixels = mybitmap.getHeight() * mybitmap.getWidth();
+			for (int y = 0; y < mybitmap.getHeight(); y++) {
+				for (int x = 0; x < mybitmap.getWidth(); x++) {
+					if (mybitmap.getPixel(x, y) != Color.WHITE) {
+						blackPixelCounter++;
 					}
 				}
-				double intensity = (double) blackPixelCounter
-						/ (double) imgPixels;
-					intensityList.put(i, intensity);
-					if (intensity > max) {
-						max = intensity;
-					} else if (intensity < min) {
-						min = intensity;
-					}
+			}
+			double intensity = (double) blackPixelCounter / (double) imgPixels;
+			intensityList.put(i, intensity);
+			if (intensity > max) {
+				max = intensity;
+			} else if (intensity < min) {
+				min = intensity;
+			}
 
 		}
-		Iterator iterator=intensityList.entrySet().iterator();
-		Map<Integer,Double> sortedMap =  sortByComparator(intensityList);
-        
-        //finally our lut
-        int i = 255;
-        int test = 0;
-        for (Map.Entry entry : sortedMap.entrySet()) {
-        	if(i >= 58)
-        	{
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        	}
-        	else{
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        		this.LUT[i] = (Integer) entry.getKey(); 
-        		i--;
-        	}
-        }
+		Iterator iterator = intensityList.entrySet().iterator();
+		Map<Integer, Double> sortedMap = sortByComparator(intensityList);
+
+		// finally our lut
+		int i = 255;
+		int test = 0;
+
+		for (Map.Entry entry : sortedMap.entrySet()) {
+			if (i >= 210) {
+				for (int j = 0; j < 9; j++) {
+					this.LUT[i] = (Integer) entry.getKey();
+					i--;
+				}
+			} else if ((i < 210) && (i >= 40)) {
+				this.LUT[i] = (Integer) entry.getKey();
+				i--;
+				this.LUT[i] = (Integer) entry.getKey();
+				i--;
+			} else if ((i < 40) && (i >= 38)) {
+				this.LUT[i] = (Integer) entry.getKey();
+				i--;
+			} else if ((i < 38) && (i >= 0)) {
+				for (int j = 0; j < 7; j++) {
+					if (i >= 0) {
+						this.LUT[i] = (Integer) entry.getKey();
+						i--;
+						Log.e("valkyrie", "lol2 " + i);
+					}
+				}
+			} else {
+				Log.e("valkyrie", "lol " + i);
+				i--;
+			}
+		}
+
+		// start
+		// for (Map.Entry entry : sortedMap.entrySet()) {
+		// if(i >= 58)
+		// {
+		// this.LUT[i] = (Integer) entry.getKey();
+		// i--;
+		// this.LUT[i] = (Integer) entry.getKey();
+		// i--;
+		// this.LUT[i] = (Integer) entry.getKey();
+		// i--;
+		// }
+		// else{
+		// this.LUT[i] = (Integer) entry.getKey();
+		// i--;
+		// this.LUT[i] = (Integer) entry.getKey();
+		// i--;
+		// }
+		// }
+		// end
 	}
 
 	/**
 	 * Sorts a map by value increasing
 	 * 
-	 * @param unsortMap 
+	 * @param unsortMap
 	 * @return sorted Map :-)
 	 */
 	private static Map<Integer, Double> sortByComparator(Map<Integer, Double> unsortMap) {
@@ -154,8 +181,7 @@ public class Font {
 		// sort list based on comparator
 		Collections.sort(list, new Comparator() {
 			public int compare(Object o1, Object o2) {
-				return ((Comparable) ((Map.Entry) (o1)).getValue())
-						.compareTo(((Map.Entry) (o2)).getValue());
+				return ((Comparable) ((Map.Entry) (o1)).getValue()).compareTo(((Map.Entry) (o2)).getValue());
 			}
 		});
 
@@ -191,7 +217,7 @@ public class Font {
 	public void setLUT(int[] lUT) {
 		LUT = lUT;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
