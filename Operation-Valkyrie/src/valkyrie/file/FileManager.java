@@ -25,8 +25,7 @@ public class FileManager {
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
 
 	public FileManager() {
-		initFileManager();
-		
+		initFileManager();		
 	}
 	
 	private void initFileManager() {
@@ -41,8 +40,6 @@ public class FileManager {
 	public void saveImageToGallery(Bitmap bitmap) {
 		OutputStream fOut = null;
 		File directory = new File(SDPATH);
-//		if (!directory.exists())
-//			directory.mkdirs();
 		File files[] = directory.listFiles();
 		File file;
 		if (files.length > 0) {

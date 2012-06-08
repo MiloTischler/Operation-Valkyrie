@@ -1,37 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:stretchColumns="1" >
+    android:stretchColumns="*" >
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:tag="parent" >
+    <TableRow android:layout_width="fill_parent" >
 
         <TextView
             android:tag="name"
             android:text="Font Size" />
-
-        <SeekBar
-            android:id="@+id/ascii_option_font_size"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:max="10"
-            android:tag="font_size" />
     </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
         android:tag="parent" >
 
-       <TextView
-            android:tag="name"
-            android:text="Open..." />
+        <SeekBar
+            android:id="@+id/ascii_option_fontsize"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:max="10"
+            android:tag="fontsize" />
+    </TableRow>
 
-        <ToggleButton 
-            android:textOn="I HATE YOU!"
-            android:textOff="HAAAAATE!" />
+    <TableRow
+        xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale"
+        android:tag="parent" >
+
+        <valkyrie.colorpicker.ColorPicker
+            android:id="@+id/foregroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_margin="10dp"
+            android:background="#000000"
+            android:text="Foreground"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+        <valkyrie.colorpicker.ColorPicker
+            android:id="@+id/backgroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_margin="10dp"
+            android:background="#000000"
+            android:text="Background"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:tag="parent" >
+
+        <ToggleButton
+            android:tag="color_mode"
+            android:textOff="Graustufen aktiviert"
+            android:textOn="Farbe aktiviert" />
     </TableRow>
 
 </TableLayout>
