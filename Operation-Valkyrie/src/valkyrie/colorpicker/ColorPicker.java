@@ -61,26 +61,21 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
 		
-	
-		
 		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color) );
 		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
-		if(this.getId() == R.id.Foregroundcolor) {
+		if(this.getId() == R.id.foregroundcolor) {
 		Log.d("ColorPicker","view Tag: Foregroundcolor " );
 		
-		
-		
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("Foreground", color);
+		editor.putInt("foreground", color);
 		}
-		else if(this.getId() == R.id.Backgroundcolor) {
+		else if(this.getId() == R.id.backgroundcolor) {
 			Log.d("ColorPicker","view Tag: Backgroundcolor " );
 		
-		
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("Background", color);
+		editor.putInt("background", color);
 		}
 	}
 	
