@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.Log;
@@ -154,6 +155,18 @@ public class TouchImageView extends ImageView {
 		if (bm != null) {
 			bmWidth = bm.getWidth();
 			bmHeight = bm.getHeight();
+			Log.d(TAG, " bmWIdth  :" + bmWidth);
+			Log.d(TAG, " bmHeight :" + bmHeight);
+		}
+	}
+	
+	@Override
+	public void setImageDrawable(Drawable d){
+		super.setImageDrawable(d);
+		if (d != null){
+			Log.d(TAG, " d.getIntrinsicWidth() :" + bmWidth);
+			Log.d(TAG, " d.getIntrinsicHeight() :" + bmHeight);
+			
 		}
 	}
 
@@ -175,10 +188,11 @@ public class TouchImageView extends ImageView {
 			float x = e.getX();
 			float y = e.getY();
 
-			// TODO: Implement double click zoomout
+ 
+			setScaleType(ScaleType.CENTER_INSIDE);
 
 			Log.d("Double Tap", "Tapped at: (" + x + "," + y + ")");
-
+			setScaleType(ScaleType.MATRIX);
 			return true;
 		}
 	}
@@ -200,71 +214,14 @@ public class TouchImageView extends ImageView {
 			if (saveScale > maxScale) {
 				saveScale = maxScale;
 				mScaleFactor = maxScale / origScale;
-			
-//				Log.d(TAG, "mitte 1");
-//				myMid.x = width / 2;
-//				myMid.y = height / 2;
-//				bmMid.x = bmWidth / 2;
-//				bmMid.y = bmHeight / 2;
-//				Log.d(TAG, "mitte 2");
-//
-//				float x = myMid.x - bmMid.x;
-//				float y = myMid.y - bmMid.y;
-//				float dist = FloatMath.sqrt(x * x + y * y);
-//
-//				translateP.x = Math.abs(myMid.x - bmMid.x);
-//				translateP.y = Math.abs(myMid.y - bmMid.y);
-//				Log.d(TAG, "mitte 3");
-//				Log.d(TAG, "reached maxzoom i guess");
-//				Log.d(TAG, "bmWidth: " + bmWidth);
-//				Log.d(TAG, "bmHeight: " + bmHeight);
-//				Log.d(TAG, "reached maxzoom i guess");
-//				Log.d(TAG, "translate x: " + translateP.x);
-//				Log.d(TAG, "translate y: " + translateP.y);
-//				Log.d(TAG, "dist       : " + dist);
-//				Log.d(TAG, "mid.x       : " + myMid.x);
-//
-//				Log.d(TAG, "mid.y       : " + myMid.y);
-//				
-//				matrix.postTranslate(dx, dy)
-
+				
+				
 			} else if (saveScale < minScale) {
 				saveScale = minScale;
 				mScaleFactor = minScale / origScale;
-			
-//				myMid.x = width / 2;
-//				myMid.y = height / 2;
-//				bmMid.x = bmWidth / 2;
-//				bmMid.y = bmHeight / 2;
-//				
-//				if(myMid.x < bmMid.x) {
-//					translateP.x = myMid.x - bmMid.x;
-//				} else {
-//					translateP.x = -(myMid.x - bmMid.x);
-//				}
-//				
-//				if(myMid.y < bmMid.y) {
-//					translateP.y = myMid.y - bmMid.y;
-//				} else {
-//					translateP.y = -(myMid.y - bmMid.y);
-//				}
-//				
-//				matrix.postTranslate(translateP.x, translateP.y);
-				
-				//onMeasure((int) width, (int) height);
+				setScaleType(ScaleType.CENTER_INSIDE);
+				setScaleType(ScaleType.MATRIX);
 
-				Log.d(TAG, "reached minzoom i guess");
-				Log.d(TAG, "width: " + width);
-				Log.d(TAG, "height: " + height);
-				Log.d(TAG, "myMid x: " + myMid.x);
-				Log.d(TAG, "myMid x: " + myMid.y);
-				Log.d(TAG, "bmMid x: " + bmMid.x);
-				Log.d(TAG, "bmMid x: " + bmMid.y);
-				Log.d(TAG, "translate x: " + translateP.x);
-				Log.d(TAG, "translate y: " + translateP.y);
-				Log.d(TAG, "reached minzoom i guess");
-
-				// TODO: Here we reach max zoom out.. maybe we should re-center
 				// the image
 			}
 			right = width * saveScale - width
@@ -341,16 +298,12 @@ public class TouchImageView extends ImageView {
 		redundantYSpace /= (float) 2;
 		redundantXSpace /= (float) 2;
 
-	//	Log.d(TAG, "redundantXSpace: " + redundantXSpace);
-	//	Log.d(TAG, "redundantYSpace: " + redundantYSpace);
 		matrix.postTranslate(redundantXSpace, redundantYSpace);
 
 		origWidth = width - 2 * redundantXSpace;
 		origHeight = height - 2 * redundantYSpace;
 		right = width * saveScale - width - (2 * redundantXSpace * saveScale);
 		bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
-	//	Log.d(TAG, "origWidth: " + origWidth);
-	//	Log.d(TAG, "origWidth: " + origHeight);
 		setImageMatrix(matrix);
 	}
 }

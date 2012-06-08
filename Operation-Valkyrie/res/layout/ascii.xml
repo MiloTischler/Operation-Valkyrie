@@ -37,6 +37,7 @@
             android:text="Foreground"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
+
         <valkyrie.colorpicker.ColorPicker
             android:id="@+id/backgroundcolor"
             android:layout_width="wrap_content"

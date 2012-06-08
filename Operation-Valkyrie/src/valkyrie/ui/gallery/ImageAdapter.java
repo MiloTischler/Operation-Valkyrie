@@ -4,6 +4,9 @@ package valkyrie.ui.gallery;
 
 import valkyrie.file.DecodeBitmaps;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 
 import android.util.Log;
 import android.view.View;
@@ -23,14 +26,14 @@ public class ImageAdapter extends BaseAdapter {
 	
 	private Context mContext;
 	private int pictures = 0;
+	private BitmapFactory.Options opt = new BitmapFactory.Options();
 
 
 
 	public ImageAdapter(Context c) {
 		this.mContext = c;
-		Log.d(TAG, "Constructor");
-		this.pictures = DecodeBitmaps.thumbs.size();
-		Log.d(TAG, "Constructor over and out");
+		this.pictures = DecodeBitmaps.thumbPosition.size();
+		
 	}
 
 	public int getCount() {
@@ -51,7 +54,7 @@ public class ImageAdapter extends BaseAdapter {
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-
+		opt.inSampleSize = 2;
 		ImageView imageView;
 
 		if (convertView == null) { // if it's not recycled, initialize some
@@ -61,12 +64,27 @@ public class ImageAdapter extends BaseAdapter {
 			imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			imageView.setPadding(1, 1, 1, 1);
-
+		
+			
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		Log.i(TAG, "Image adapter setImage ");
-		imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
+		Log.i(TAG, "Image adapter setImage "+ position);
+		try{
+		Drawable d = Drawable.createFromPath(DecodeBitmaps.thumbPosition.get(position));
+		imageView.setImageDrawable(d);
+	//	imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
+	//	imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
+		}
+		catch (OutOfMemoryError e){
+			int thumbError = 1;
+			for (Bitmap b : DecodeBitmaps.thumbs)
+				{b.recycle();
+				Log.d(TAG, "recycle catch");
+				}
+			DecodeBitmaps decodeBitmaps = new DecodeBitmaps(thumbError);
+			imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
+		}
 		return imageView;
 	}
 }
