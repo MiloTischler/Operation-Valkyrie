@@ -23,6 +23,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TableLayout;
 
 import valkyrie.colorpicker.ColorPicker;
@@ -49,6 +50,8 @@ public class Ascii implements IFilter {
 	private Font activeFont;
 	private Converter converter;
 	private TableLayout layout;
+	private SharedPreferences options;
+
 
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
@@ -67,25 +70,25 @@ public class Ascii implements IFilter {
 
 		this.activeFont = this.fonts.get(0);
 
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfFilter(name);
-		SharedPreferences.Editor editor = options.edit();
-
-		editor.putInt("foreground", Color.BLACK);
-		editor.putInt("background", Color.WHITE);
-		editor.putBoolean("color_mode", false);
-		editor.putInt("fontsize", 3);
-		// Commit the edits!
-		editor.commit();
-
-		this.converter = new Converter(options);
+		this.converter = new Converter();
 	}
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
+		boolean colorMode = options.getBoolean("color_mode", false);
+		if(colorMode)
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+		else
+			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
+		boolean colorMode = options.getBoolean("color_mode", false);
+		if(colorMode)
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+		else
+			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public int getFilterCaptureFormat() {
@@ -94,7 +97,9 @@ public class Ascii implements IFilter {
 
 	/**
 	 * Returns the defined UI-Elements for the Options Panel as whole
-	 * RelativeLayout.
+	 * RelativeLayout. TODO: vl hamma hier falsch herum gedacht, es wäre wsh eine methode setUIElements besser,
+	 * bei dieser bekommt der filter sein inflatetes layout und kann nachher die listener drauf setzen und braucht somit
+	 * kein context objekt mehr!
 	 * 
 	 * @param mainActivity
 	 *            Activity, the main activity of the Program. Gives us access to
@@ -106,12 +111,35 @@ public class Ascii implements IFilter {
 		
 		this.layout = (TableLayout) inflater.inflate(R.layout.ascii, null);
 		
-		ColorPicker colorPocker = (ColorPicker) this.layout.findViewById(R.id.backgroundcolor);
-		colorPocker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
+		ColorPicker backgroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.backgroundcolor);
+		backgroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
 			
 			public void colorChanged(int color) {
-				Log.d(TAG, "GOTA NEW COLOR BITCH! " + Integer.toHexString(color));
+				converter.setBackgroundcolor(color);
+			}
+		});
+		
+		ColorPicker foregroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.foregroundcolor);
+		foregroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
+			
+			public void colorChanged(int color) {
+				converter.setForegroundColor(color);
+			}
+		});
+		
+		SeekBar fontsizeSeekBar = (SeekBar) this.layout.findViewById(R.id.ascii_option_fontsize);
+		fontsizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+			
+			public void onStartTrackingTouch(SeekBar seekBar) {
 				
+			}
+			
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				converter.setFontSize(progress);
 			}
 		});
 		

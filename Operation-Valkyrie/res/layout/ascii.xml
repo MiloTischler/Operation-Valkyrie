@@ -38,7 +38,6 @@
             android:background="#000000"
             android:text="Foreground"
             android:textColor="#FFFFFF"
-            my:test="LOLATESTAG"
             android:tag="LOLMEINTAG"
             android:textSize="18dp" />
 
@@ -51,7 +50,6 @@
             android:background="#000000"
             android:text="Background"
             android:textColor="#FFFFFF"
-            my:test="LOLATESTAG"
             android:tag="LOLMEINTAG"
             android:textSize="18dp" />
     </TableRow>

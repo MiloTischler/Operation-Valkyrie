@@ -1,6 +1,5 @@
 package valkyrie.colorpicker;
 
-
 import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
@@ -12,15 +11,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.util.AttributeSet;  
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,
 		OnColorChangedListener {
-	
+
 	ColorPickerDialog dialog = null;
+
 	private ColorChangeListener listener = null;
 	private String tag = null;
 
@@ -53,7 +53,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	private void init() {
 		Binder.getMulticastListenerForView(this, OnClickListenerMulticast.class).register(this);
-		
+
 	}
 
 	public ViewAttribute<? extends View, ?> createViewAttribute(String arg0) {
@@ -70,27 +70,28 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
-		
+
 		if(this.listener != null) {
 			this.listener.colorChanged(color);
 		}
 		
-		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color) );
-		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
-		if(this.getId() == R.id.foregroundcolor) {
-		Log.d("ColorPicker","view Tag: Foregroundcolor " );
-		
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
-		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("foreground", color);
-		}
-		else if(this.getId() == R.id.backgroundcolor) {
-			Log.d("ColorPicker","view Tag: Backgroundcolor " );
-		
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
-		SharedPreferences.Editor editor = options.edit();
-		editor.putInt("background", color);
-		}
+//		Log.d("ColorPicker", "Current changed color is: " + Integer.toHexString(color));
+//		Log.d("ColorPicker", "view ID: " + Integer.toHexString(this.getId()));
+//		if (this.getId() == R.id.foregroundcolor) {
+//			Log.d("ColorPicker", "view Tag: Foregroundcolor ");
+//		
+//			SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+//			SharedPreferences.Editor editor = options.edit();
+//			editor.putInt("foreground", color);
+//			editor.commit();
+//		} else if (this.getId() == R.id.backgroundcolor) {
+//			Log.d("ColorPicker", "view Tag: Backgroundcolor ");
+//		
+//			SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
+//			SharedPreferences.Editor editor = options.edit();
+//			editor.putInt("background", color);
+//			editor.commit();
+//		}
 	}
 	
 	public void setColorChangeListener(ColorChangeListener l) {
@@ -126,5 +127,4 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 			return mValue;
 		}
 	}
-	
 }
