@@ -77,6 +77,7 @@ public class Converter {
 	}
 	
 	public Bitmap colorToASCII(Mat color, int[] LUT) {		
+		this.fontsize = options.getInt("fontsize", 0) + 5;
 		final int width = color.width() / this.fontsize; 
 		final int height = color.height() / this.fontsize;
 		
@@ -115,15 +116,12 @@ public class Converter {
 		this.fontsize = options.getInt("fontsize", 0) + 5;
 		final int width = gray.width() / this.fontsize; 
 		final int height = gray.height() / this.fontsize;
-		Log.e("valkyrie", "lolo " + this.fontsize);
 		Bitmap mybitmap = Bitmap.createBitmap(gray.width(), gray.height(), Bitmap.Config.RGB_565);
 		Imgproc.resize(gray, gray, new Size(width, height));
 		
 		this.canvas.setBitmap(mybitmap);
 		paint.setColor(this.options.getInt("foreground", 0));
 		this.canvas.drawColor(this.options.getInt("background", 0));
-		Log.e("valkyrie", "trolololo " + this.options.getInt("background", 0));
-		Log.e("valkyrie", "lalalala " + this.options.getInt("foreground", 0));
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
 		

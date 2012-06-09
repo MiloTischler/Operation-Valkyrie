@@ -45,6 +45,7 @@ public class Ascii implements IFilter {
 	private Bitmap bm;
 	private Font activeFont;
 	private Converter converter;
+	private SharedPreferences options;
 
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
@@ -63,7 +64,7 @@ public class Ascii implements IFilter {
 
 		this.activeFont = this.fonts.get(0);
 
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfFilter(name);
+		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
 		SharedPreferences.Editor editor = options.edit();
 
 		editor.putInt("foreground", Color.BLACK);
@@ -77,11 +78,21 @@ public class Ascii implements IFilter {
 	}
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
+		boolean colorMode = options.getBoolean("color_mode", false);
+		if(colorMode)
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+		else
+			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
+		boolean colorMode = options.getBoolean("color_mode", false);
+		if(colorMode)
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+		else
+			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
 	public int getFilterCaptureFormat() {
