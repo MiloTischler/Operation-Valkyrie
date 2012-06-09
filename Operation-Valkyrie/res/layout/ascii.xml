@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -6,9 +7,9 @@
 
     <TableRow android:layout_width="fill_parent" >
 
-        <TextView
-            android:tag="name"
-            android:text="Font Size" />
+    <TextView
+    	android:tag="name"
+        android:text="Font Size" />
     </TableRow>
 
     <TableRow
@@ -29,6 +30,7 @@
         android:tag="parent" >
 
         <valkyrie.colorpicker.ColorPicker
+            xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/foregroundcolor"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
@@ -36,9 +38,12 @@
             android:background="#000000"
             android:text="Foreground"
             android:textColor="#FFFFFF"
+            my:test="LOLATESTAG"
+            android:tag="LOLMEINTAG"
             android:textSize="18dp" />
 
         <valkyrie.colorpicker.ColorPicker
+            xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/backgroundcolor"
             android:layout_width="wrap_content"
             android:layout_height="40dip"
@@ -46,6 +51,8 @@
             android:background="#000000"
             android:text="Background"
             android:textColor="#FFFFFF"
+            my:test="LOLATESTAG"
+            android:tag="LOLMEINTAG"
             android:textSize="18dp" />
     </TableRow>
 

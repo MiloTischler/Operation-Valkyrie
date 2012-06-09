@@ -8,8 +8,8 @@ import java.util.Vector;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
-import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
+import valkyrie.ui.MainActivity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -25,9 +25,12 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 
 /**
  * 
@@ -37,14 +40,15 @@ import valkyrie.filter.IFilter;
  * 
  */
 public class Ascii implements IFilter {
-
+	public static final String TAG = "Ascii";
+	
 	/**
 	 * OPtions: - Font Size : seekBar - Foregr, background : colorpicker - color
 	 * : onOff
 	 */
-	private Bitmap bm;
 	private Font activeFont;
 	private Converter converter;
+	private TableLayout layout;
 
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
@@ -98,9 +102,20 @@ public class Ascii implements IFilter {
 	 */
 	public TableLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
-				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
-
-		return (TableLayout) inflater.inflate(R.layout.ascii, null);
+				.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+		
+		this.layout = (TableLayout) inflater.inflate(R.layout.ascii, null);
+		
+		ColorPicker colorPocker = (ColorPicker) this.layout.findViewById(R.id.backgroundcolor);
+		colorPocker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
+			
+			public void colorChanged(int color) {
+				Log.d(TAG, "GOTA NEW COLOR BITCH! " + Integer.toHexString(color));
+				
+			}
+		});
+		
+		return this.layout;
 	}
 
 	public String getName() {
@@ -113,29 +128,6 @@ public class Ascii implements IFilter {
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 
-	}
-
-	public void test() {
-		FileInputStream in;
-		BufferedInputStream buf;
-		String path = Environment.getExternalStorageDirectory().toString();
-		try {
-			// in = new FileInputStream( path +
-			// "/oruxmaps/cursors/neodraig2.png");
-			in = new FileInputStream(path + "/Valkyrie/Screenshots/Screenshot_2012-06-01-17-00-21.png");
-			buf = new BufferedInputStream(in);
-			this.bm = BitmapFactory.decodeStream(buf);
-			if (in != null) {
-				in.close();
-			}
-			if (buf != null) {
-				buf.close();
-			}
-		} catch (Exception e) {
-			Log.e("Error reading file", e.toString());
-		}
-		// manipulatePreviewImage(this.bm);
-		// manipulateImage(this.bm);
 	}
 
 	/**

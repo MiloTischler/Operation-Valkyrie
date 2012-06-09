@@ -10,6 +10,7 @@ import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;  
 import android.util.Log;
@@ -20,15 +21,28 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 		OnColorChangedListener {
 	
 	ColorPickerDialog dialog = null;
-//	OnColorChangedListener listener = null;
+	private ColorChangeListener listener = null;
+	private String tag = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0 );
+		
+		this.tag = a.getString(R.styleable.ColorPicker_test);
+		
+		Log.d("OMFG","DAS IST MEIN TAG: " + this.tag);
+		
 		init();
 	}
 
 	public ColorPicker(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		
+		Log.d("OMFG","DAS IST MEIN TAG: " + this.findViewById(this.getId()).getTag());
+		
+		Log.d("OMFG","FALSCHE CONSTRUKTOR");
+
 		init();
 	}
 
@@ -57,6 +71,10 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
 		
+		if(this.listener != null) {
+			this.listener.colorChanged(color);
+		}
+		
 		Log.d("ColorPicker","Current changed color is: " + Integer.toHexString(color) );
 		Log.d("ColorPicker","view ID: " + Integer.toHexString(this.getId()));
 		if(this.getId() == R.id.foregroundcolor) {
@@ -75,12 +93,16 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 		}
 	}
 	
-//	public void setOnColorChangedListener(OnColorChangedListener l) {
-//		listener = l;
-//	}
+	public void setColorChangeListener(ColorChangeListener l) {
+		this.listener = l;
+	}
 
 	private ColorAttribute mColorAttr = new ColorAttribute(this);
 
+	public interface ColorChangeListener {
+		public void colorChanged(int color);
+	}
+	
 	public class ColorAttribute extends ViewAttribute<ColorPicker, Integer> {
 		public ColorAttribute(ColorPicker view) {
 			super(Integer.class, view, "color");
@@ -104,9 +126,5 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 			return mValue;
 		}
 	}
-
 	
-
-	
-
 }
