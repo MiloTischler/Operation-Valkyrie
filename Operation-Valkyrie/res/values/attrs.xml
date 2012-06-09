@@ -22,8 +22,8 @@
 
 
     <!-- UpdateableRelative Layout begin -->
-    <declare-styleable name="valkyrie.colorpicker.ColorPicker">
-        <attr name="android:tag" />
+    <declare-styleable name="ColorPicker">
+        <attr name="test" format="string" />
     </declare-styleable>
     <!-- UpdateableRelative Layout end -->
 

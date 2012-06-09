@@ -69,10 +69,8 @@ public class MainActivity extends Activity {
 				.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
-
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
-
 	}
 
 	public void takePicture(View view) {
