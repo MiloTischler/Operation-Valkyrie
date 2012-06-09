@@ -8,8 +8,8 @@ import java.util.Vector;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
-import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
+import valkyrie.ui.MainActivity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -23,11 +23,15 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TableLayout;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 
 /**
  * 
@@ -37,15 +41,17 @@ import valkyrie.filter.IFilter;
  * 
  */
 public class Ascii implements IFilter {
-
+	public static final String TAG = "Ascii";
+	
 	/**
 	 * OPtions: - Font Size : seekBar - Foregr, background : colorpicker - color
 	 * : onOff
 	 */
-	private Bitmap bm;
 	private Font activeFont;
 	private Converter converter;
+	private TableLayout layout;
 	private SharedPreferences options;
+
 
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
@@ -64,17 +70,7 @@ public class Ascii implements IFilter {
 
 		this.activeFont = this.fonts.get(0);
 
-		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
-		SharedPreferences.Editor editor = options.edit();
-
-		editor.putInt("foreground", Color.BLACK);
-		editor.putInt("background", Color.WHITE);
-		editor.putBoolean("color_mode", false);
-		editor.putInt("fontsize", 3);
-		// Commit the edits!
-		editor.commit();
-
-		this.converter = new Converter(options);
+		this.converter = new Converter();
 	}
 
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
@@ -101,7 +97,9 @@ public class Ascii implements IFilter {
 
 	/**
 	 * Returns the defined UI-Elements for the Options Panel as whole
-	 * RelativeLayout.
+	 * RelativeLayout. TODO: vl hamma hier falsch herum gedacht, es wäre wsh eine methode setUIElements besser,
+	 * bei dieser bekommt der filter sein inflatetes layout und kann nachher die listener drauf setzen und braucht somit
+	 * kein context objekt mehr!
 	 * 
 	 * @param mainActivity
 	 *            Activity, the main activity of the Program. Gives us access to
@@ -109,9 +107,43 @@ public class Ascii implements IFilter {
 	 */
 	public TableLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
-				.getSystemService(mainActivity.LAYOUT_INFLATER_SERVICE);
+				.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+		
+		this.layout = (TableLayout) inflater.inflate(R.layout.ascii, null);
+		
+		ColorPicker backgroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.backgroundcolor);
+		backgroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
+			
+			public void colorChanged(int color) {
+				converter.setBackgroundcolor(color);
+			}
+		});
+		
+		ColorPicker foregroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.foregroundcolor);
+		foregroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
+			
+			public void colorChanged(int color) {
+				converter.setForegroundColor(color);
+			}
+		});
+		
+		SeekBar fontsizeSeekBar = (SeekBar) this.layout.findViewById(R.id.ascii_option_fontsize);
+		fontsizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			public void onStopTrackingTouch(SeekBar seekBar) {
 
-		return (TableLayout) inflater.inflate(R.layout.ascii, null);
+			}
+			
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				
+			}
+			
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				converter.setFontSize(progress);
+			}
+		});
+		
+		return this.layout;
 	}
 
 	public String getName() {
@@ -124,29 +156,6 @@ public class Ascii implements IFilter {
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 
-	}
-
-	public void test() {
-		FileInputStream in;
-		BufferedInputStream buf;
-		String path = Environment.getExternalStorageDirectory().toString();
-		try {
-			// in = new FileInputStream( path +
-			// "/oruxmaps/cursors/neodraig2.png");
-			in = new FileInputStream(path + "/Valkyrie/Screenshots/Screenshot_2012-06-01-17-00-21.png");
-			buf = new BufferedInputStream(in);
-			this.bm = BitmapFactory.decodeStream(buf);
-			if (in != null) {
-				in.close();
-			}
-			if (buf != null) {
-				buf.close();
-			}
-		} catch (Exception e) {
-			Log.e("Error reading file", e.toString());
-		}
-		// manipulatePreviewImage(this.bm);
-		// manipulateImage(this.bm);
 	}
 
 	/**
