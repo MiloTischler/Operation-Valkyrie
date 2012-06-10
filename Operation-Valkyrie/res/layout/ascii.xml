@@ -10,7 +10,8 @@
         android:layout_marginTop="10dp" >
 
         <TextView
-            android:layout_span="4"
+            android:layout_span="2"
+            android:padding="5dp"
             android:tag="name"
             android:text="Font Size" />
     </TableRow>
@@ -23,7 +24,7 @@
             android:id="@+id/ascii_option_fontsize"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_span="4"
+            android:layout_span="3"
             android:max="10"
             android:progress="3"
             android:tag="fontsize" />
@@ -34,36 +35,29 @@
         android:layout_marginTop="10dp"
         android:tag="parent" >
 
-        <TextView android:layout_width="wrap_content" />
-
         <valkyrie.colorpicker.ColorPicker
             xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/foregroundcolor"
-            android:layout_width="101dp"
-            android:layout_height="122dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#FFFFFF"
             android:src="@+drawable/foreground_color"
             android:tag="LOLMEINTAG"
-            android:textColor="#FFFFFF"
-            android:textSize="18dp" />
+            android:textColor="#FFFFFF" />
 
         <valkyrie.colorpicker.ColorPicker
             xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/backgroundcolor"
-            android:layout_width="101dp"
-            android:layout_height="122dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#000000"
             android:src="@+drawable/background_color"
             android:tag="LOLMEINTAG"
-            android:textColor="#FFFFFF"
-            android:textSize="18dp" />
+            android:textColor="#FFFFFF" />
 
-        <TextView android:layout_width="wrap_content" />
-
-        <TextView android:layout_width="wrap_content" />
-
+        <TextView android:layout_width="match_parent" />
     </TableRow>
 
     <TableRow
@@ -72,7 +66,7 @@
         android:tag="parent" >
 
         <ToggleButton
-            android:layout_span="4"
+            android:layout_span="3"
             android:checked="true"
             android:tag="color_mode"
             android:textOff="Graustufen aktiviert"
