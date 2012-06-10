@@ -25,6 +25,7 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
 	private IFilter filter;
 	private boolean isFilterDisplayed = false;
+	private boolean isLocked = false;
 
 	public CameraPreviewViewCV(Context context) {
 		super(context);
@@ -63,21 +64,41 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 	}
 
 	public Bitmap takePicture() {
+		if(this.camera == null) {
+			return null;
+		}
+		
 		Bitmap bitmap = null;
 		Mat pictureMat = new Mat();
 		
-		if (this.filter != null) {
-			this.camera.retrieve(pictureMat, this.filter.getFilterCaptureFormat());
-			bitmap = this.filter.manipulatePreviewImage(pictureMat);
-		} else {
-			this.camera.retrieve(pictureMat, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
-			bitmap = Bitmap.createBitmap(pictureMat.cols(), pictureMat.rows(), Bitmap.Config.ARGB_8888);
-			Utils.matToBitmap(pictureMat, bitmap);
+		synchronized (this) {
+			if (this.filter != null) {
+				this.camera.retrieve(pictureMat, this.filter.getFilterCaptureFormat());
+				bitmap = this.filter.manipulatePreviewImage(pictureMat);
+			} else {
+				this.camera.retrieve(pictureMat, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+				bitmap = Bitmap.createBitmap(pictureMat.cols(), pictureMat.rows(), Bitmap.Config.ARGB_8888);
+				Utils.matToBitmap(pictureMat, bitmap);
+			}
+	
+			Log.d(TAG, "Called take picture, width: " + bitmap.getWidth() + " height: " + bitmap.getHeight());
+			
+			this.isLocked = true;
 		}
 
-		Log.d(TAG, "Called take picture, width: " + bitmap.getWidth() + " height: " + bitmap.getHeight());
-
 		return bitmap;
+	}
+	
+	public void resume() {
+		this.isLocked = false;
+	}
+	
+	public void lock() {
+		this.isLocked = true;
+	}
+	
+	public boolean isLocked() {
+		return this.isLocked;
 	}
 
 	public void surfaceChanged(SurfaceHolder _holder, int format, int width, int height) {

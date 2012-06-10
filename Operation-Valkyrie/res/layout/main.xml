@@ -114,6 +114,17 @@
             android:onClick="takePicture"
             android:src="@+drawable/camera_lens"
             android:text="@string/trigger" />
+        
+        <ImageButton
+            android:id="@+id/trigger_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/action_bar_background"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/trigger"
+            android:onClick="takePicture"
+            android:text="@string/trigger" />
 
         <ImageButton
             android:id="@+id/filter_effect_toggle"

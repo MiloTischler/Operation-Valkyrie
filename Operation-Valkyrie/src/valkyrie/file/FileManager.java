@@ -75,7 +75,7 @@ public class FileManager {
 	}
 
 	/**
-	 * save an Image as PNG an SD Card at: .../Valkyrie/Gallery/
+	 * save an Image as PNG on SD Card at: .../Valkyrie/Gallery/
 	 * 
 	 * @param bitmap
 	 */
@@ -96,6 +96,7 @@ public class FileManager {
 							highestnumber = newhighest + 1;
 						}
 						Log.d("DEBUG", String.valueOf(highestnumber));
+
 					}
 				}
 				String filenumber = IMGCOUNT + highestnumber;
@@ -182,13 +183,11 @@ public class FileManager {
 		int highestnumber = 0;
 		for (File f : files) {
 			if (f.exists()) {
-				Log.d("DEBUGName", f.getName());
 				int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
 				if (newhighest >= highestnumber) {
 					highestnumber = newhighest + 1;
 					imageName = f.getName();
 				}
-				Log.d("DEBUG", String.valueOf(highestnumber));
 			}
 		}
 		if (imageName != null)
@@ -196,5 +195,4 @@ public class FileManager {
 		else
 			return "Error";
 	}
-
 }
