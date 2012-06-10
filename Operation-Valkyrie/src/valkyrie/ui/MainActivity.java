@@ -71,6 +71,12 @@ public class MainActivity extends Activity {
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
+		
+		// check if SD Card is mounted
+		String state = Environment.getExternalStorageState();  
+		  if (!Environment.MEDIA_MOUNTED.equals(state)) {  
+		    	Toast.makeText(this.getApplicationContext(), "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
+		  }
 	}
 
 	public void takePicture(View view) {
@@ -104,7 +110,7 @@ public class MainActivity extends Activity {
 		}
 
 		// TODO: do something with picture..
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		fileManager.saveImageToGallery(bitmap);
 		DecodeBitmaps.done = false;
 

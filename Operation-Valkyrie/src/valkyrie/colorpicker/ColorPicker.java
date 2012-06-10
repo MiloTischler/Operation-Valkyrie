@@ -8,15 +8,14 @@ import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
-public class ColorPicker extends TextView implements IBindableView<ColorPicker>, View.OnClickListener,
+public class ColorPicker extends ImageButton implements IBindableView<ColorPicker>, View.OnClickListener,
 		OnColorChangedListener {
 
 	ColorPickerDialog dialog = null;
@@ -73,8 +72,8 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 
 		if(this.listener != null) {
 			this.listener.colorChanged(color);
+
 		}
-		
 //		Log.d("ColorPicker", "Current changed color is: " + Integer.toHexString(color));
 //		Log.d("ColorPicker", "view ID: " + Integer.toHexString(this.getId()));
 //		if (this.getId() == R.id.foregroundcolor) {
