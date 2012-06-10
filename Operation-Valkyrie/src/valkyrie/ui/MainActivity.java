@@ -1,6 +1,9 @@
 package valkyrie.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
@@ -97,12 +100,14 @@ public class MainActivity extends Activity {
 			}
 		}
 
+		
 		Bitmap bitmap = this.cameraPreview.takePicture();
 
 		if (bitmap == null) {
 			Log.e(TAG, "takePicture got null bitmap");
 		}
 
+		
 		// TODO: do something with picture..
 		FileManager fileManager = new FileManager();
 		fileManager.saveImageToGallery(bitmap);
