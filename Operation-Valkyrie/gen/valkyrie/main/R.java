@@ -83,22 +83,21 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int actionbar_back_transparent=0x7f020000;
-        public static final int actionbar_backgorund=0x7f020001;
+        public static final int background_color=0x7f020001;
         public static final int camera_lens=0x7f020002;
-        public static final int filter=0x7f020003;
+        public static final int foreground_color=0x7f020003;
         public static final int gallery=0x7f020004;
-        public static final int gallery_temp=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int laurenz=0x7f020007;
-        public static final int milo=0x7f020008;
-        public static final int paul=0x7f020009;
-        public static final int preview_off=0x7f02000a;
-        public static final int preview_on=0x7f02000b;
-        public static final int real_valkyrie=0x7f02000c;
-        public static final int ritzy=0x7f02000d;
-        public static final int schweigi=0x7f02000e;
-        public static final int sliding_drawer_handle_left=0x7f02000f;
-        public static final int valkyrie=0x7f020010;
+        public static final int ic_launcher=0x7f020005;
+        public static final int laurenz=0x7f020006;
+        public static final int milo=0x7f020007;
+        public static final int paul=0x7f020008;
+        public static final int preview_off=0x7f020009;
+        public static final int preview_on=0x7f02000a;
+        public static final int real_valkyrie=0x7f02000b;
+        public static final int ritzy=0x7f02000c;
+        public static final int schweigi=0x7f02000d;
+        public static final int sliding_drawer_handle_left=0x7f02000e;
+        public static final int valkyrie=0x7f02000f;
     }
     public static final class id {
         public static final int Backgroundcolor=0x7f05001b;
