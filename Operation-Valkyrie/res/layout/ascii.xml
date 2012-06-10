@@ -66,7 +66,8 @@
         android:tag="parent" >
 
         <ToggleButton
-            android:layout_span="3"
+            android:id="@+id/color_mode"
+            android:layout_span="4"
             android:checked="true"
             android:tag="color_mode"
             android:textOff="Graustufen aktiviert"
