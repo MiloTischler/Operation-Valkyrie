@@ -54,8 +54,6 @@ public class Font {
 	 * Just takes the percentage of a letter and saves it in the LUT
 	 * 
 	 * 
-	 * TODO cleanup file output and other stuff
-	 * TODO later, implement better algorithms
 	 */
 	private void initializeFont() {
 		String letter = "";

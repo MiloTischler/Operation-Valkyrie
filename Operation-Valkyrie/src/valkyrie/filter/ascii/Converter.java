@@ -16,17 +16,19 @@ import android.graphics.Typeface;
 
 /**
  * 
-<<<<<<< HEAD
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
- * Schweighofer, Milo Tischler © Milo Tischler, Jakob Schweighofer, Alexander
- * Ritz, Paul Neuhold, Laurenz Theuerkauf
-=======
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
->>>>>>> 3f2bf366ee02e6e3b794cc91ca23a413fcb8cde5
  * 
  */
 
+
+/**
+ * 
+ * Converts an Image to Ascii in color or grayscale mode
+ * 
+ * @author Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ *
+ */
 public class Converter {
 	private static final String TAG = "Converter";
 	
@@ -45,13 +47,19 @@ public class Converter {
 
 		paint.setStyle(Paint.Style.FILL);
 		paint.setTextSize(this.fontsize);
-		paint.setAntiAlias(true);
+		paint.setAntiAlias(false);
 		paint.setTypeface(Typeface.MONOSPACE);
 		paint.setTextAlign(Align.CENTER);
 	}
 
 
 
+	/**
+	 * Converts grayscale image into text pixel by pixel 
+	 * @param Bitmap
+	 * @param int[] LUT look up table needs 256 entries for each color in an 8bit grayscale image 
+	 * @return Vector<String> each entry represents a pixel line from the image
+	 */
 	@Deprecated
 	public Vector<String> grayScaleToAsciiText(Bitmap gray, int[] LUT) {
 		Vector<String> textVec = new Vector<String>();
@@ -68,6 +76,12 @@ public class Converter {
 
 	}
 	
+	/**
+	 * converts color matrix into bitmap with ascii where fontszie defines the pixel matrix used for one letter
+	 * @param Mat color
+	 * @param int[] LUT
+	 * @return bitmap
+	 */
 	public Bitmap colorToASCII(Mat color, int[] LUT) {		
 		final int width = color.width() / this.fontsize; 
 		final int height = color.height() / this.fontsize;
@@ -101,7 +115,12 @@ public class Converter {
 		return mybitmap;
 	}
 
-
+	/**
+	 * converts grayscale matrix into bitmap with ascii where fontszie defines the pixel matrix used for one letter
+	 * @param Mat gray
+	 * @param int[] LUT
+	 * @return bitmap
+	 */
 	public Bitmap grayscaleToASCII(Mat gray, int[] LUT) {
 		final int width = gray.width() / this.fontsize; 
 		final int height = gray.height() / this.fontsize;
@@ -135,14 +154,26 @@ public class Converter {
 		return mybitmap;
 	}
 	
+	/**
+	 * sets foreground color
+	 * @param int foregroundcolor
+	 */
 	public void setForegroundColor(int foregroundcolor) {
 		this.forgroundcolor = foregroundcolor;
 	}
 	
+	/**
+	 * sets background color
+	 * @param int backgroundcolor
+	 */
 	public void setBackgroundcolor(int backgroundcolor) {
 		this.backgroundcolor = backgroundcolor;
 	}
 	
+	/**
+	 * sets fontsize plus 5
+	 * @param int fontsize
+	 */
 	public void setFontSize(int fontsize) {
 		this.fontsize = fontsize + FONT_SCALE;
 	}
