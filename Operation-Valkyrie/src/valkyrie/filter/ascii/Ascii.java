@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ import valkyrie.main.R;
  */
 public class Ascii implements IFilter {
 	public static final String TAG = "Ascii";
-	
+
 	/**
 	 * OPtions: - Font Size : seekBar - Foregr, background : colorpicker - color
 	 * : onOff
@@ -51,7 +52,6 @@ public class Ascii implements IFilter {
 	private Converter converter;
 	private TableLayout layout;
 	private SharedPreferences options;
-
 
 	private Vector<Font> fonts;
 	private String fontsList[] = { "test1" };
@@ -76,7 +76,7 @@ public class Ascii implements IFilter {
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
 		boolean colorMode = options.getBoolean("color_mode", false);
-		if(colorMode)
+		if (colorMode)
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 		else
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
@@ -85,7 +85,7 @@ public class Ascii implements IFilter {
 	public Bitmap manipulateImage(Mat bitmapMat) {
 		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
 		boolean colorMode = options.getBoolean("color_mode", false);
-		if(colorMode)
+		if (colorMode)
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 		else
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
@@ -108,41 +108,43 @@ public class Ascii implements IFilter {
 	public TableLayout getUIElements(Activity mainActivity) {
 		final LayoutInflater inflater = (LayoutInflater) mainActivity
 				.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
-		
+
 		this.layout = (TableLayout) inflater.inflate(R.layout.ascii, null);
-		
+
 		ColorPicker backgroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.backgroundcolor);
+
 		backgroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
-			
+
 			public void colorChanged(int color) {
 				converter.setBackgroundcolor(color);
 			}
 		});
-		
+
 		ColorPicker foregroundcolorPicker = (ColorPicker) this.layout.findViewById(R.id.foregroundcolor);
+
 		foregroundcolorPicker.setColorChangeListener(new ColorPicker.ColorChangeListener() {
-			
+
 			public void colorChanged(int color) {
 				converter.setForegroundColor(color);
 			}
 		});
-		
+
 		SeekBar fontsizeSeekBar = (SeekBar) this.layout.findViewById(R.id.ascii_option_fontsize);
 		fontsizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
+
 			public void onStopTrackingTouch(SeekBar seekBar) {
 
 			}
-			
+
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				
+
 			}
-			
+
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				converter.setFontSize(progress);
 			}
 		});
-		
+
 		return this.layout;
 	}
 
