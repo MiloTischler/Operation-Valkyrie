@@ -86,7 +86,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/supervisior"
         android:layout_marginLeft="5dp"
-        android:text="Wolfgang Slany" />
+        android:text="Univ.-Prof. Dipl.-Ing. Dr.techn. Slany Wolfgang" />
 
     <TextView
         android:id="@+id/Graphics:"
