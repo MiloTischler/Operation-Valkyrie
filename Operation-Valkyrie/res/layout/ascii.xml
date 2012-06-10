@@ -5,11 +5,13 @@
     android:orientation="vertical"
     android:stretchColumns="*" >
 
-    <TableRow android:layout_width="fill_parent" >
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp" >
 
-    <TextView
-    	android:tag="name"
-        android:text="Font Size" />
+        <TextView
+            android:tag="name"
+            android:text="Font Size" />
     </TableRow>
 
     <TableRow
@@ -22,11 +24,13 @@
             android:layout_height="wrap_content"
             android:layout_span="2"
             android:max="10"
+            android:progress="3"
             android:tag="fontsize" />
     </TableRow>
 
     <TableRow
         xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale"
+        android:layout_marginTop="10dp"
         android:tag="parent" >
 
         <valkyrie.colorpicker.ColorPicker
@@ -36,9 +40,9 @@
             android:layout_height="40dip"
             android:layout_margin="10dp"
             android:background="#000000"
+            android:tag="LOLMEINTAG"
             android:text="Foreground"
             android:textColor="#FFFFFF"
-            android:tag="LOLMEINTAG"
             android:textSize="18dp" />
 
         <valkyrie.colorpicker.ColorPicker
@@ -48,20 +52,22 @@
             android:layout_height="40dip"
             android:layout_margin="10dp"
             android:background="#000000"
+            android:tag="LOLMEINTAG"
             android:text="Background"
             android:textColor="#FFFFFF"
-            android:tag="LOLMEINTAG"
             android:textSize="18dp" />
     </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
+        android:layout_marginTop="10dp"
         android:tag="parent" >
 
         <ToggleButton
             android:tag="color_mode"
             android:textOff="Graustufen aktiviert"
-            android:textOn="Farbe aktiviert" />
+            android:textOn="Farbe aktiviert"
+            android:checked="true" />
     </TableRow>
 
 </TableLayout>
