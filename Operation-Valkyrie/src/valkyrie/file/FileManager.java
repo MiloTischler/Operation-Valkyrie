@@ -28,6 +28,7 @@ public class FileManager {
 	private Context context;
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
+	
 
 	// public FileManager() {
 	// initFileManager();
@@ -66,6 +67,7 @@ public class FileManager {
 	}
 
 	public void saveImageToGallery(Bitmap bitmap) {
+
 		if (SDMOUNTED) {
 			OutputStream fOut = null;
 			File directory = new File(SDPATH);
@@ -82,6 +84,7 @@ public class FileManager {
 							highestnumber = newhighest + 1;
 						}
 						Log.d("DEBUG", String.valueOf(highestnumber));
+
 					}
 				}
 				String filenumber = IMGCOUNT + highestnumber;
@@ -93,6 +96,7 @@ public class FileManager {
 				filenumber = filenumber.substring(filenumber.length() - 4);
 				file = new File(SDPATH, IMGNAME + filenumber + ".png");
 			}
+
 
 			try {
 				fOut = new FileOutputStream(file);
@@ -108,6 +112,7 @@ public class FileManager {
 			bitmap.recycle();
 		} else
 			Toast.makeText(context, "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
+
 	}
 
 	public void saveImageToInternal(Bitmap bitmap) {

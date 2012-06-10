@@ -113,7 +113,7 @@ public class DecodeBitmaps {
 
 		if (fileList != null && thumbList != null) {
 
-			for (Integer i = 0; i < fileList.length; i++) {
+			for (int i = 0; i < fileList.length; i++) {
 				 Log.d(TAG, fileList[i].getName());
 				 Log.d(TAG, "-----------------------------");
 				fullImgPosition.add(fileList[i].getAbsolutePath());
@@ -126,9 +126,7 @@ public class DecodeBitmaps {
 		
 			for (int i = 0; i < fileList.length; i++) {
 
-				Bitmap bitmapThumb;
 				boolean match = false;
-
 				for (File f : thumbList) {
 					if (f.getName().contentEquals(fileList[i].getName())) {
 						match = true;
@@ -137,7 +135,6 @@ public class DecodeBitmaps {
 				
 					
 				}
-			//	match = true;
 				if (match) {
 //					bitmapThumb  = BitmapFactory
 //							.decodeFile(thumbList[thumbCounter]
@@ -146,9 +143,9 @@ public class DecodeBitmaps {
 					
 					//thumbs.add(bitmapThumb);
 					thumbCounter++;
-					Log.d(TAG, "so much thumbs : " + i);
+					Log.d(TAG, "thumb already exists : " + i);
 				} else {
-					Log.d(TAG, "new thumb crashes ? : " +i);
+					Log.d(TAG, "new thumb crashes ? created : " +i);
 					Bitmap newThumb;
 					newThumb = Bitmap.createScaledBitmap(
 							BitmapFactory.decodeFile(
@@ -168,6 +165,9 @@ public class DecodeBitmaps {
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
 
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)){
+		
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
 
@@ -184,7 +184,13 @@ public class DecodeBitmaps {
 			e.printStackTrace();
 		}
 		bitmap.recycle();
+	
+	}else {
+		Log.d(TAG, "couldnt save the thumb");
+		bitmap.recycle();
 	}
+}
+
 
 	public void recycleBitmaps() {
 		int i = 0;
