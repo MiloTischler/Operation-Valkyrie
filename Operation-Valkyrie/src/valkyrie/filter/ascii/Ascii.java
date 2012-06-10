@@ -11,8 +11,10 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
+import android.widget.ToggleButton;
 
 import valkyrie.colorpicker.ColorPicker;
 import valkyrie.filter.FilterAssets;
@@ -47,6 +49,7 @@ public class Ascii implements IFilter {
 	private String fontsList[] = { "test1" };
 
 	public static final String name = "ascii";
+	private boolean colorMode;
 
 	public Ascii() {
 		this.fonts = new Vector<Font>();
@@ -66,9 +69,7 @@ public class Ascii implements IFilter {
 	 * @return Bitmap
 	 */
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
-		boolean colorMode = options.getBoolean("color_mode", false);
-		if (colorMode)
+		if (this.colorMode)
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 		else
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
@@ -79,9 +80,7 @@ public class Ascii implements IFilter {
 	 * fast version not implemented yet
 	 */
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
-		boolean colorMode = options.getBoolean("color_mode", false);
-		if (colorMode)
+		if (this.colorMode)
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
 		else
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
@@ -138,6 +137,16 @@ public class Ascii implements IFilter {
 
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				converter.setFontSize(progress);
+			}
+		});
+		
+		ToggleButton colorModeButton = (ToggleButton) this.layout.findViewById(R.id.color_mode);
+
+		colorModeButton.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
+			
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				colorMode = isChecked;
+				
 			}
 		});
 
