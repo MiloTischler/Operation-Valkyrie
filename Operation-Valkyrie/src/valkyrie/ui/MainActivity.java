@@ -1,9 +1,6 @@
 package valkyrie.ui;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;

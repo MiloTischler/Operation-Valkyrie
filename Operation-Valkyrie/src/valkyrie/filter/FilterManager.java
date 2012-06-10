@@ -1,17 +1,13 @@
 package valkyrie.filter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.View;
-import android.hardware.Camera;
 
 /**
  * 
