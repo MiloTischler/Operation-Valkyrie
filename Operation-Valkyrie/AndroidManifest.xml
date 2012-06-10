@@ -41,6 +41,11 @@
             android:name="valkyrie.colorpicker.ColorPickerExampleActivity"
             android:label="colorPicker">
         </activity>
+                <activity
+            android:name="valkyrie.ui.gallery.AboutActivity"
+            android:label="about"
+             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
              
     </application>
 </manifest>

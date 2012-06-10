@@ -1,12 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:stretchColumns="*" >
 
-    <TableRow android:layout_width="fill_parent" >
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp" >
 
         <TextView
+            android:layout_span="4"
             android:tag="name"
             android:text="Font Size" />
     </TableRow>
@@ -19,41 +23,57 @@
             android:id="@+id/ascii_option_fontsize"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_span="2"
+            android:layout_span="4"
             android:max="10"
+            android:progress="3"
             android:tag="fontsize" />
     </TableRow>
 
     <TableRow
         xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale"
+        android:layout_marginTop="10dp"
         android:tag="parent" >
 
+        <TextView android:layout_width="wrap_content" />
+
         <valkyrie.colorpicker.ColorPicker
+            xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/foregroundcolor"
-            android:layout_width="wrap_content"
-            android:layout_height="40dip"
+            android:layout_width="101dp"
+            android:layout_height="122dp"
             android:layout_margin="10dp"
-            android:background="#000000"
-            android:text="Foreground"
+            android:background="#FFFFFF"
+            android:src="@+drawable/foreground_color"
+            android:tag="LOLMEINTAG"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
 
         <valkyrie.colorpicker.ColorPicker
+            xmlns:my="http://schemas.android.com/apk/res/valkyrie.main"
             android:id="@+id/backgroundcolor"
-            android:layout_width="wrap_content"
-            android:layout_height="40dip"
+            android:layout_width="101dp"
+            android:layout_height="122dp"
             android:layout_margin="10dp"
             android:background="#000000"
-            android:text="Background"
+            android:src="@+drawable/background_color"
+            android:tag="LOLMEINTAG"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
+
+        <TextView android:layout_width="wrap_content" />
+
+        <TextView android:layout_width="wrap_content" />
+
     </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
+        android:layout_marginTop="10dp"
         android:tag="parent" >
 
         <ToggleButton
+            android:layout_span="4"
+            android:checked="true"
             android:tag="color_mode"
             android:textOff="Graustufen aktiviert"
             android:textOn="Farbe aktiviert" />

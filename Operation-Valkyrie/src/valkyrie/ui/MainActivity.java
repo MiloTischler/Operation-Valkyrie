@@ -1,6 +1,9 @@
 package valkyrie.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
@@ -69,10 +72,14 @@ public class MainActivity extends Activity {
 				.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
-
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
-
+		
+		// check if SD Card is mounted
+		String state = Environment.getExternalStorageState();  
+		  if (!Environment.MEDIA_MOUNTED.equals(state)) {  
+		    	Toast.makeText(this.getApplicationContext(), "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
+		  }
 	}
 
 	public void takePicture(View view) {
@@ -99,14 +106,16 @@ public class MainActivity extends Activity {
 			}
 		}
 
+		
 		Bitmap bitmap = this.cameraPreview.takePicture();
 
 		if (bitmap == null) {
 			Log.e(TAG, "takePicture got null bitmap");
 		}
 
+		
 		// TODO: do something with picture..
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		fileManager.saveImageToGallery(bitmap);
 		DecodeBitmaps.done = false;
 
@@ -130,7 +139,7 @@ public class MainActivity extends Activity {
 			if ((galleryFiles.listFiles().length == 0)) {
 				Toast.makeText(
 						this.getApplicationContext(),
-						"There are no Files taken yet, make some to open the Gallery",
+						"There are no Pictures to display",
 						Toast.LENGTH_SHORT).show();
 				DecodeBitmaps.done = false;
 				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
@@ -138,7 +147,7 @@ public class MainActivity extends Activity {
 		} else if ((galleryFiles.listFiles() == null)) {
 			Toast.makeText(
 					this.getApplicationContext(),
-					"There are no Pictures taken yet, make some to open the Gallery",
+					"There are no Pictures to display",
 					Toast.LENGTH_SHORT).show();
 		}
 
