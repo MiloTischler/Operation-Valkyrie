@@ -139,11 +139,9 @@ public class Font {
 					if (i >= 0) {
 						this.LUT[i] = (Integer) entry.getKey();
 						i--;
-						Log.e("valkyrie", "lol2 " + i);
 					}
 				}
 			} else {
-				Log.e("valkyrie", "lol " + i);
 				i--;
 			}
 		}

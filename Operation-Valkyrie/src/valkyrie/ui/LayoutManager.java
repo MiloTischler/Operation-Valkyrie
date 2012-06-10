@@ -103,5 +103,9 @@ public class LayoutManager {
 	public SharedPreferences getSharedPreferencesOfCurrentFilter() {
 		return this.mainActivity.getSharedPreferences(this.activeFilter.getName(), 0);
 	}
+	
+	public SharedPreferences getSharedPreferencesOfFilter(String filterName) {
+		return this.mainActivity.getSharedPreferences(filterName, 0);
+	}
 
 }

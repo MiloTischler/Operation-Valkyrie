@@ -48,14 +48,14 @@ public class GalleryActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+		this.savedInsta = savedInstanceState;
 		DecodeBitmaps decodeBitmaps = new DecodeBitmaps(NO);
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gallery);
 
 		GridView gallery = (GridView) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 		registerForContextMenu(gallery);
-
+		super.onCreate(savedInstanceState);
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -94,7 +94,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public void onOptionsMenuClosed(Menu menu) {
 		Toast.makeText(this.getApplicationContext(),
-				"Nah ? Afraid to see them, go and DIE !!! xD PUSSY :)",
+				"Dont be afraid",
 				Toast.LENGTH_LONG).show();
 		super.onOptionsMenuClosed(menu);
 	}
@@ -102,46 +102,41 @@ public class GalleryActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 
 		if (item.getTitle() == "Laurenz") {
-			try {
-				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-						this.getResources(), R.drawable.laurenz));
-				Log.d(TAG, "without compression");
-			} catch (OutOfMemoryError e) {
-				fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-						this.getResources(), R.drawable.laurenz, opt));
-				Log.d(TAG, "with compression");
-			}
+
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.laurenz ));
+
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 
 		} else if (item.getTitle() == "Milo") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.milo, opt));
+					this.getResources(), R.drawable.milo ));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 
 		} else if (item.getTitle() == "Schweigi") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.schweigi, opt));
+					this.getResources(), R.drawable.schweigi));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 		} else if (item.getTitle() == "Paul") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.paul, opt));
+					this.getResources(), R.drawable.paul));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 		} else if (item.getTitle() == "Ritzy") {
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.ritzy, opt));
+					this.getResources(), R.drawable.ritzy));
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
@@ -161,8 +156,6 @@ public class GalleryActivity extends Activity {
 		SubMenu subMenu = menu.addSubMenu(0, v.getId(), 0,
 				"Delete all Pictures");
 		SubMenu subMenuFilters = menu.addSubMenu(0, v.getId(), 0, "Use Filter");
-		SubMenu subMenuCreate = menu.addSubMenu(0, v.getId(), 0,
-				"Gods of Valkyrie");
 		subMenu.add(0, YES, 0, "Yes");
 		subMenu.add(0, NO, 0, "No");
 		subMenuFilters.add(0, v.getId(), 0, "GrayScale");
@@ -170,19 +163,13 @@ public class GalleryActivity extends Activity {
 		subMenuFilters.add(0, v.getId(), 0, "Matrix");
 		subMenuFilters.add(0, v.getId(), 0, "Laplace");
 		subMenuFilters.add(0, v.getId(), 0, "Canny Edge");
-		subMenuCreate.add(0, v.getId(), 0, "Ritzy");
-
-		subMenuCreate.add(0, v.getId(), 0, "Paul");
-		subMenuCreate.add(0, v.getId(), 0, "Milo");
-		subMenuCreate.add(0, v.getId(), 0, "Laurenz");
-		subMenuCreate.add(0, v.getId(), 0, "Schweigi");
 
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 		if (item.getTitle() == "Delete selected Picture") {
@@ -210,55 +197,12 @@ public class GalleryActivity extends Activity {
 			onCreate(savedInsta);
 
 		} else if (item.getItemId() == NO) {
-			Toast.makeText(this.getApplicationContext(),
-					"PUSSY, RLY SUCH A PUSSY", Toast.LENGTH_LONG).show();
+			Toast.makeText(this.getApplicationContext(), "Whatever you like",
+					Toast.LENGTH_LONG).show();
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
-		} else if (item.getTitle() == "Laurenz") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.laurenz, opt));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-
-		} else if (item.getTitle() == "Milo") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.milo, opt));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-
-		} else if (item.getTitle() == "Schweigi") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.schweigi, opt));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-		} else if (item.getTitle() == "Paul") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.paul, opt));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-		} else if (item.getTitle() == "Ritzy") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.ritzy, opt));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-
-		}
-		// Could be used to start PictureViewers by clicking
-		// Uri uri = Uri.fromFile(DecodeBitmaps.fileVector.get(index));
-		// Intent intent = new Intent();
-		// intent.setDataAndType(uri, "image/*");
-		// intent.setAction(Intent.ACTION_GET_CONTENT);
-		//
-		// startActivityForResult(
-		// Intent.createChooser(intent, "Select Picture"), index);
-
-		else {
+		} else {
 			return false;
 		}
 		return true;

@@ -62,6 +62,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int handle=0x7f010001;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int test=0x7f010007;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -76,21 +84,22 @@ containing a value of this type.
     public static final class drawable {
         public static final int actionbar_back_transparent=0x7f020000;
         public static final int actionbar_backgorund=0x7f020001;
-        public static final int camera_lens=0x7f020002;
-        public static final int filter=0x7f020003;
-        public static final int gallery=0x7f020004;
-        public static final int gallery_temp=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int jellyfish=0x7f020007;
+        public static final int background_color=0x7f020002;
+        public static final int camera_lens=0x7f020003;
+        public static final int filter=0x7f020004;
+        public static final int foreground_color=0x7f020005;
+        public static final int gallery=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
         public static final int laurenz=0x7f020008;
         public static final int milo=0x7f020009;
         public static final int paul=0x7f02000a;
-        public static final int real_valkyrie=0x7f02000b;
-        public static final int ritzy=0x7f02000c;
-        public static final int schweigi=0x7f02000d;
-        public static final int sliding_drawer_handle_left=0x7f02000e;
-        public static final int tulips=0x7f02000f;
-        public static final int valkyrie=0x7f020010;
+        public static final int preview_off=0x7f02000b;
+        public static final int preview_on=0x7f02000c;
+        public static final int real_valkyrie=0x7f02000d;
+        public static final int ritzy=0x7f02000e;
+        public static final int schweigi=0x7f02000f;
+        public static final int sliding_drawer_handle_left=0x7f020010;
+        public static final int valkyrie=0x7f020011;
     }
     public static final class id {
         public static final int Backgroundcolor=0x7f05000d;
@@ -142,6 +151,34 @@ containing a value of this type.
         public static final int trigger=0x7f060005;
     }
     public static final class styleable {
+        /**  MultiDirectionSlidingDrawer Widget end 
+ UpdateableRelative Layout begin 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ColorPicker_test valkyrie.main:test}</code></td><td></td></tr>
+           </table>
+           @see #ColorPicker_test
+         */
+        public static final int[] ColorPicker = {
+            0x7f010007
+        };
+        /**
+          <p>This symbol is the offset where the {@link valkyrie.main.R.attr#test}
+          attribute's value can be found in the {@link #ColorPicker} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:test
+        */
+        public static final int ColorPicker_test = 0;
         /** Attributes that can be used with a MultiDirectionSlidingDrawer.
            <p>Includes the following attributes:</p>
            <table>
@@ -269,25 +306,5 @@ containing a value of this type.
           @attr name android:topOffset
         */
         public static final int MultiDirectionSlidingDrawer_topOffset = 4;
-        /**  MultiDirectionSlidingDrawer Widget end 
- UpdateableRelative Layout begin 
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #valkyrie_colorpicker_ColorPicker_android_tag valkyrie.main:android_tag}</code></td><td></td></tr>
-           </table>
-           @see #valkyrie_colorpicker_ColorPicker_android_tag
-         */
-        public static final int[] valkyrie_colorpicker_ColorPicker = {
-            0x010100d1
-        };
-        /**
-          <p>This symbol is the offset where the {@link valkyrie.main.R.attr#android_tag}
-          attribute's value can be found in the {@link #valkyrie_colorpicker_ColorPicker} array.
-          @attr name android:android_tag
-        */
-        public static final int valkyrie_colorpicker_ColorPicker_android_tag = 0;
     };
 }
