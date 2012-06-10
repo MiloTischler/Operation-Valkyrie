@@ -1,13 +1,11 @@
 package valkyrie.colorpicker;
 
 import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
-import valkyrie.main.R;
 import gueei.binding.Binder;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
