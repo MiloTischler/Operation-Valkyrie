@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="About Operation Valkyrie"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/authors"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/header"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Authors:"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/schweighofer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/authors"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Schweighofer Jakob" />
+
+    <TextView
+        android:id="@+id/tischler"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/schweighofer"
+        android:layout_marginLeft="5dp"
+        android:text="Tischler Milo" />
+
+    <TextView
+        android:id="@+id/neuhold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tischler"
+        android:layout_marginLeft="5dp"
+        android:text="Neuhold Paul" />
+
+    <TextView
+        android:id="@+id/theuerkauf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/neuhold"
+        android:layout_marginLeft="5dp"
+        android:text="Theuerkauf Laurenz" />
+
+    <TextView
+        android:id="@+id/ritz"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/theuerkauf"
+        android:layout_marginLeft="5dp"
+        android:text="Ritz Alexander" />
+
+    <TextView
+        android:id="@+id/supervisior"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ritz"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Supervisor:"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/slany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/supervisior"
+        android:layout_marginLeft="5dp"
+        android:text="Wolfgang Slany" />
+
+    <TextView
+        android:id="@+id/Graphics:"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/slany"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Graphics:"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/Wwalczyszyn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Graphics:"
+        android:layout_marginLeft="5dp"
+        android:text="Camera Shutter by Wwalczyszyn" />
+
+    <TextView
+        android:id="@+id/ChameraShutterLink"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Wwalczyszyn"
+        android:layout_marginLeft="20dp"
+        android:text="http://www.iconfinder.com/icondetails/67495/128/_icon" />
+    
+        <TextView
+        android:id="@+id/galleryIconAuthor"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ChameraShutterLink"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="gallery icon creator ... " />
+
+    <TextView
+        android:id="@+id/galleryIcon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/galleryIconAuthor"
+        android:layout_marginLeft="20dp"
+        android:text="Link to gallery icon" />
+
+</RelativeLayout>
