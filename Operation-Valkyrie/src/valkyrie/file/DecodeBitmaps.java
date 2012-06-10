@@ -165,6 +165,9 @@ public class DecodeBitmaps {
 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
 
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)){
+		
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
 
@@ -181,7 +184,12 @@ public class DecodeBitmaps {
 			e.printStackTrace();
 		}
 		bitmap.recycle();
+	
+	}else {
+		Log.d(TAG, "couldnt save the thumb");
+		bitmap.recycle();
 	}
+}
 
 
 	public void recycleBitmaps() {
