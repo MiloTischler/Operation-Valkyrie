@@ -159,11 +159,4 @@ public class Ascii implements IFilter {
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 
 	}
-
-	/**
-	 * Initializes Options for the current Filter.
-	 */
-	public void initOptions() {
-
-	}
 }
