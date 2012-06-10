@@ -18,6 +18,13 @@ import android.util.Log;
  * 
  */
 
+/**
+ * 
+ * This class handles all the file paths and thumb paths so that 
+ * a correct viewing in the gridview and then viewing the correct item in FUllscreen mode
+ * is possible. Also responsible for creating new thumbs in case of new pictures in the gallery.
+ * 
+ */
 public class DecodeBitmaps {
 
 	public static boolean done = false;
@@ -35,8 +42,13 @@ public class DecodeBitmaps {
 	public static Vector<String> thumbPosition = new Vector<String>();
 	private int opt = 6;
 
+	/**
+	 * called if new pictures are taken or some are deleted
+	 * 
+	 * @param int error out of memory for displaying the thumbs in the gridview
+	 */
 	public DecodeBitmaps(int error) {
-	//in case of outofmemory for creating thumbs
+		// in case of outofmemory for creating thumbs
 		if (error == 1) {
 			this.opt = 8;
 			Log.d(TAG, "new opt ? : " + this.opt);
@@ -46,7 +58,7 @@ public class DecodeBitmaps {
 			fullImgPosition.clear();
 			decodeBitmap();
 		} else {
-			//if thumbs are already saved skip this class
+			// if thumbs are already saved skip this class
 			if (done == true) {
 				// TODO: its too static ;)
 				Log.d(TAG, "all work here was done hours ago ;)");
@@ -60,7 +72,11 @@ public class DecodeBitmaps {
 		}
 		Log.d(TAG, "done");
 	}
-
+	/**
+	 * this function is called everytime we have a new picture in the galleryfolder
+	 * then it checks if all the other thumbs are still exists, if not new ones will be 
+	 * created.
+	 */
 	private void decodeBitmap() {
 
 		fileList = files.listFiles();
@@ -68,10 +84,9 @@ public class DecodeBitmaps {
 		BitmapFactory.Options thumbOpt = new BitmapFactory.Options();
 		thumbOpt.inSampleSize = opt;
 
-		
 		if (fileList != null && thumbList != null) {
-			//save positions and names for all files
-			//to display and check all thumbs and full images
+			// save positions and names for all files
+			// to display and check all thumbs and full images
 			for (int i = 0; i < fileList.length; i++) {
 				fullImgPosition.add(fileList[i].getAbsolutePath());
 				fullImgNames.add(fileList[i].getName());
@@ -83,7 +98,7 @@ public class DecodeBitmaps {
 			for (int i = 0; i < fileList.length; i++) {
 
 				boolean match = false;
-				//check if a thumb of a given file already exists
+				// check if a thumb of a given file already exists
 				for (File f : thumbList) {
 					if (f.getName().contentEquals(fileList[i].getName())) {
 						match = true;
@@ -96,8 +111,9 @@ public class DecodeBitmaps {
 							.add(thumbList[thumbCounter].getAbsolutePath());
 					thumbCounter++;
 					Log.d(TAG, "thumb already exists : " + i);
-				//if a new picture is taken we didnt have a thumb so match == false 
-				//so we need a new thumb
+					// if a new picture is taken we didnt have a thumb so match
+					// == false
+					// so we need a new thumb
 				} else {
 					Log.d(TAG, "new thumb crashes ? created : " + i);
 					Bitmap newThumb;
@@ -116,14 +132,22 @@ public class DecodeBitmaps {
 		}
 	}
 
-	//save a thumb of the given bitmap / img and its name 
+	/**
+	 * A compressed png is produced in a thumbfolder for a quicker performance
+	 * in the gridview. Only if the sdcard is not mounted.
+	 * 
+	 * @param Bitmap bitmap
+	 *            The bitmap to save in form of a thumb
+	 * @param String imgName
+	 *            The given Name for the thumb
+	 */
 	public void saveAThumb(Bitmap bitmap, String imgName) {
 
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 
 			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 60, bytes);
 
 			File f = new File(Environment.getExternalStorageDirectory()
 					+ "/Valkyrie/Thumbnls/" + imgName);
@@ -145,7 +169,9 @@ public class DecodeBitmaps {
 		}
 	}
 
-	//function for recycling the bitmaps
+	/**
+	 * Recycles all the bitmaps 
+	 */
 	public void recycleBitmaps() {
 		int i = 0;
 		for (Bitmap b : DecodeBitmaps.thumbs) {

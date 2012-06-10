@@ -6,15 +6,9 @@ import valkyrie.widget.TouchImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-/**
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
- * 
- */
 
 /**
  * 
@@ -23,8 +17,11 @@ import android.widget.Toast;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
-/*
- * Activity for showing a selected picture from the gridview in fullscreen mode
+/**
+ * ShowPicActivity is started when we click on a Item on the Gridview in the
+ * GalleryActivity Creates then a imageview casted from TouchImageView which
+ * handles the displaying in the new Activity
+ * 
  */
 public class ShowPicActivity extends Activity {
 

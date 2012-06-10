@@ -3,11 +3,20 @@ package valkyrie.ui.gallery;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-//just a new activity with a xml layout files for displaying the about informations
+
+/**
+ * Just a new Activity which sets the about layout and display it.
+ * 
+ *
+ */
 public class AboutActivity extends Activity {
 
+	/**
+	 * Just start the Actitvity with the specific layout
+	 * 
+	 * @param Bundle savedInstanceState
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 

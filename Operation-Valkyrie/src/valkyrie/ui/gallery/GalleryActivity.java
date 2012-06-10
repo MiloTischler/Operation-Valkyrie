@@ -1,13 +1,12 @@
 package valkyrie.ui.gallery;
 
-import java.io.File;
+
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.GridView;
 import android.widget.Toast;
 import android.graphics.BitmapFactory;
@@ -28,8 +27,16 @@ import android.view.ContextMenu.ContextMenuInfo;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
-/*
- * Activtiy to display the gridview
+
+/**
+ * GalleryActivty if responsible for displaying the Gridview. Also has some
+ * Listeners implemented for opening the Picture in fullscreen Mode and open a
+ * context Menu for longClick.
+ * 
+ * Also responsible for creating and managing an OptionsMenu.
+ * 
+ * For displaying a picture in Fullscreen mode a new Activity is created, same
+ * is true for the Aboutscreen.
  */
 public class GalleryActivity extends Activity {
 	private static final String TAG = "GalleryActivity";
@@ -38,21 +45,31 @@ public class GalleryActivity extends Activity {
 	private int YES = 1;
 	private int NO = 0;
 
+	/**
+	 * Sets the ContentView to the GalleryLayout Registers ContextMenu and
+	 * therefore implements a ClickListener and a onLongClickListener
+	 * 
+	 * 
+	 * @param Bundle
+	 *            savedInstanceState
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		this.savedInsta = savedInstanceState;
-		DecodeBitmaps decodeBitmaps = new DecodeBitmaps(NO);
+		new DecodeBitmaps(NO);
 		setContentView(R.layout.gallery);
 
 		GridView gallery = (GridView) findViewById(R.id.gallery);
 		gallery.setAdapter(new ImageAdapter(this));
 		registerForContextMenu(gallery);
 		super.onCreate(savedInstanceState);
-		
-		//itemlistener for the gridview items
+
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 
+			/**
+			 * Starts a new Activity when a thumb in the Gridview is selected.
+			 */
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
@@ -62,8 +79,12 @@ public class GalleryActivity extends Activity {
 				GalleryActivity.this.startActivity(showPicIntent);
 			}
 		});
-		//added an onitemlongclickListener for longclick options
+		// added an onitemlongclickListener for longclick options
 		gallery.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			/**
+			 * sets the position on long click for further uses.
+			 */
 			public boolean onItemLongClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
@@ -73,97 +94,63 @@ public class GalleryActivity extends Activity {
 		});
 
 	}
-	
+
+	/**
+	 * Adds a menu Point for the About Informations
+	 * 
+	 * @param Menu menu
+	 *            
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		SubMenu gods = menu.addSubMenu("Show me the Gods");
 		menu.add("About");
-		gods.add("Paul");
-		gods.add("Laurenz");
-		gods.add("Milo");
-		gods.add("Ritzy");
-		gods.add("Schweigi");
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
-	public void onOptionsMenuClosed(Menu menu) {
-		super.onOptionsMenuClosed(menu);
-	}
-
+	/**
+	 * Handles the click on about in the optionsMenu
+	 * 
+	 * @param MenuItem item
+	 *   
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager(this.getApplicationContext());
-		BitmapFactory.Options opt = new BitmapFactory.Options();
-		opt.inSampleSize = 4;
-
-		if (item.getTitle() == "Laurenz") {
-
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.laurenz ));
-
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-
-		} else if (item.getTitle() == "Milo") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.milo ));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-
-		} else if (item.getTitle() == "Schweigi") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.schweigi));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-		} else if (item.getTitle() == "Paul") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.paul));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-		} else if (item.getTitle() == "Ritzy") {
-			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-					this.getResources(), R.drawable.ritzy));
-			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-			onCreate(savedInsta);
-		}else if (item.getTitle() == "About"){
-			
-			Intent aboutIntent = new Intent(GalleryActivity.this, AboutActivity.class);
+		if (item.getTitle() == "About") {
+			Intent aboutIntent = new Intent(GalleryActivity.this,
+					AboutActivity.class);
 			GalleryActivity.this.startActivity(aboutIntent);
-			
-			
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * 
+	 * Creates some menu entries and a submenu for the ContextMenu
+	 * 
+	 * @param ContextMenu menu
+	 * @param View v 
+	 * @param ContextMenuInfo menuInfo
+	 * 
+	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
+		
 		menu.setHeaderTitle("Picture Options");
 		menu.add(0, v.getId(), 0, "Delete selected Picture");
-
 		SubMenu subMenu = menu.addSubMenu(0, v.getId(), 0,
 				"Delete all Pictures");
-		SubMenu subMenuFilters = menu.addSubMenu(0, v.getId(), 0, "Use Filter");
 		subMenu.add(0, YES, 0, "Yes");
 		subMenu.add(0, NO, 0, "No");
-		subMenuFilters.add(0, v.getId(), 0, "GrayScale");
-		subMenuFilters.add(0, v.getId(), 0, "Ascii");
-		subMenuFilters.add(0, v.getId(), 0, "Matrix");
-		subMenuFilters.add(0, v.getId(), 0, "Laplace");
-		subMenuFilters.add(0, v.getId(), 0, "Canny Edge");
-
 	}
 
+	/**
+	 * Handles the Events from the clicks on the items from the contextMenu
+	 * 
+	 * @param MenuItem item
+	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 
@@ -175,7 +162,7 @@ public class GalleryActivity extends Activity {
 			fileManager.deleteImageFromGallery(DecodeBitmaps.fullImgNames
 					.get(index));
 			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			new DecodeBitmaps(NO);
 
 			Toast.makeText(this.getApplicationContext(), "Picture Deleted",
 					Toast.LENGTH_SHORT).show();
@@ -190,12 +177,12 @@ public class GalleryActivity extends Activity {
 			Toast.makeText(this.getApplicationContext(),
 					"All Pictures were deleted", Toast.LENGTH_SHORT).show();
 			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 
 		} else if (item.getItemId() == NO) {
 			DecodeBitmaps.done = false;
-			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			new DecodeBitmaps(NO);
 			onCreate(savedInsta);
 		} else {
 			return false;
@@ -212,13 +199,10 @@ public class GalleryActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		DecodeBitmaps.done = false;
-
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-
 	}
-
 }
