@@ -5,6 +5,11 @@ import java.util.Vector;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
+import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
 import android.app.Activity;
@@ -15,12 +20,6 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.ToggleButton;
-
-import valkyrie.colorpicker.ColorPicker;
-import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterInternalStorage;
-import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 
 /**
  * 
@@ -162,13 +161,6 @@ public class Ascii implements IFilter {
 	}
 
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
-
-	}
-
-	/**
-	 * Initializes Options for the current Filter.
-	 */
-	public void initOptions() {
 
 	}
 }

@@ -164,6 +164,7 @@ containing a value of this type.
         public static final int camera_preview_view_description=0x7f060004;
         public static final int filter_effect_toggle=0x7f060007;
         public static final int filter_options_handle_description=0x7f060003;
+        public static final int fontSize=0x7f06000b;
         public static final int fullscreen_img=0x7f060009;
         public static final int gallery=0x7f060006;
         public static final int hello=0x7f060000;
