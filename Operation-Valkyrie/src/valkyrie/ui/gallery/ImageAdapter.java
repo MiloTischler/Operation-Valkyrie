@@ -21,6 +21,9 @@ import android.widget.ImageView;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+/*
+ * extended class from baseadapter to display thumbs in gridview
+ */
 public class ImageAdapter extends BaseAdapter {
 	private static final String TAG = "ImageAdapter";
 	
@@ -69,13 +72,11 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		Log.i(TAG, "Image adapter setImage "+ position);
+		//decode Bitmaps for viewing in gridView
 		try{
-	//	Drawable d = Drawable.createFromPath(DecodeBitmaps.thumbPosition.get(position));
-	//	imageView.setImageDrawable(d);
-	//	imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
 		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
 		}
+		//if we have to less memory to display all the thumbs, create new thumbs with downscaled pixels and resolutions
 		catch (OutOfMemoryError e){
 			int thumbError = 1;
 			for (Bitmap b : DecodeBitmaps.thumbs)

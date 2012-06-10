@@ -23,6 +23,9 @@ import android.widget.Toast;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+/*
+ * Activity for showing a selected picture from the gridview in fullscreen mode
+ */
 public class ShowPicActivity extends Activity {
 
 	private static final String TAG = "ShowPicActivity";
@@ -42,20 +45,12 @@ public class ShowPicActivity extends Activity {
 
 		try {
 			Log.d(TAG, "trying displaying image without compressing");
-
-			Log.d(TAG,
-					"fullImgPosition is: "
-							+ DecodeBitmaps.fullImgPosition.get(position));
 			imageView.setImageBitmap(BitmapFactory
 					.decodeFile(DecodeBitmaps.fullImgPosition.get(position)));
 
 		} catch (OutOfMemoryError e) {
 			e.printStackTrace();
-			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt.inSampleSize
-					+ "failed");
 			scaleBitmapOpt.inSampleSize = 4;
-			Log.d(TAG, "inSampleSize :" + scaleBitmapOpt.inSampleSize + "done");
-
 			imageView
 					.setImageBitmap(BitmapFactory.decodeFile(
 							DecodeBitmaps.fullImgPosition.get(position),
@@ -64,8 +59,6 @@ public class ShowPicActivity extends Activity {
 					this.getApplicationContext(),
 					"Something went wrong while loading the Pic, please try again",
 					Toast.LENGTH_LONG).show();
-		} finally {
-
 		}
 	}
 }

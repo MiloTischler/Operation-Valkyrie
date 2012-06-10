@@ -29,76 +29,35 @@ public class DecodeBitmaps {
 	private File fileList[];
 	private File thumbList[];
 	public static Vector<Bitmap> thumbs = new Vector<Bitmap>();
-	// public static Vector<Bitmap> fullImg = new Vector<Bitmap>();
 	public static Vector<String> fullImgPosition = new Vector<String>();
 	public static Vector<File> fileVector = new Vector<File>();
 	public static Vector<String> fullImgNames = new Vector<String>();
 	public static Vector<String> thumbPosition = new Vector<String>();
 	private int opt = 6;
-	
+
 	public DecodeBitmaps(int error) {
-//		if (error == 1){
-//		this.opt = 8;
-//		Log.d(TAG, "new opt ? : " + this.opt);
-//		thumbs.clear();
-//		thumbPosition.clear();
-//		fullImgNames.clear();
-//		fileVector.clear();
-//		fullImgPosition.clear();
-//		decodeBitmap();
-//		}
-		
-		if (done == true) {
-			// TODO: its too static ;)
-			Log.d(TAG, "all work here was done hours ago ;)");
-		}
-		else {
+	//in case of outofmemory for creating thumbs
+		if (error == 1) {
+			this.opt = 8;
+			Log.d(TAG, "new opt ? : " + this.opt);
 			thumbs.clear();
 			thumbPosition.clear();
 			fullImgNames.clear();
-			fileVector.clear();
 			fullImgPosition.clear();
 			decodeBitmap();
+		} else {
+			//if thumbs are already saved skip this class
+			if (done == true) {
+				// TODO: its too static ;)
+				Log.d(TAG, "all work here was done hours ago ;)");
+			} else {
+				thumbs.clear();
+				thumbPosition.clear();
+				fullImgNames.clear();
+				fullImgPosition.clear();
+				decodeBitmap();
+			}
 		}
-//		} else if ((files.listFiles() != null) &&( thumbFiles.listFiles() != null)) {
-//			if (files.listFiles().length == 0 ) {
-//				Log.d(TAG, "weeeeeeehaaaaaaaa list 0");
-//				for (Bitmap b : DecodeBitmaps.thumbs) {
-//					b.recycle();
-//					Log.d(TAG,  " Bitmaps recycled");
-//				}
-//				thumbs.clear();
-//				thumbPosition.clear();
-//				fullImgNames.clear();
-//				fileVector.clear();
-//				fullImgPosition.clear();
-//				decodeBitmap();
-//			}
-//			if (thumbList != null) {
-//				thumbPosition.clear();
-//				fileVector.clear();
-//				fullImgPosition.clear();
-//				thumbs.clear();
-//				fullImgNames.clear();
-//				Log.d(TAG, "do the decode");
-//				decodeBitmap();
-//			} else {
-//				thumbPosition.clear();
-//				fileVector.clear();
-//				fullImgPosition.clear();
-//				thumbs.clear();
-//				fullImgNames.clear();
-//				Log.d(TAG, "do the decode");
-//				decodeBitmap();
-//			}
-//
-//		} else if (files.listFiles() == null) {
-//
-//			Log.d(TAG, "weeeeeeehaaaaaaaa");
-//
-//			// super.onDestroy();
-
-		
 		Log.d(TAG, "done");
 	}
 
@@ -107,54 +66,48 @@ public class DecodeBitmaps {
 		fileList = files.listFiles();
 		thumbList = thumbFiles.listFiles();
 		BitmapFactory.Options thumbOpt = new BitmapFactory.Options();
-		BitmapFactory.Options fullOpt = new BitmapFactory.Options();
 		thumbOpt.inSampleSize = opt;
-		fullOpt.inSampleSize = 4;
 
+		
 		if (fileList != null && thumbList != null) {
-
+			//save positions and names for all files
+			//to display and check all thumbs and full images
 			for (int i = 0; i < fileList.length; i++) {
-				 Log.d(TAG, fileList[i].getName());
-				 Log.d(TAG, "-----------------------------");
 				fullImgPosition.add(fileList[i].getAbsolutePath());
 				fullImgNames.add(fileList[i].getName());
-				fileVector.add(fileList[i]);
-				Log.d(TAG, "file length: " + fileList.length +"but i still : " + i);
+				Log.d(TAG, "file length: " + fileList.length + "but i still : "
+						+ i);
 			}
-		
+
 			int thumbCounter = 0;
-		
 			for (int i = 0; i < fileList.length; i++) {
 
 				boolean match = false;
+				//check if a thumb of a given file already exists
 				for (File f : thumbList) {
 					if (f.getName().contentEquals(fileList[i].getName())) {
 						match = true;
-						Log.d(TAG,"thumb name here with :" + f.getName());
+						Log.d(TAG, "thumb name here with :" + f.getName());
 					}
-				
-					
+
 				}
 				if (match) {
-//					bitmapThumb  = BitmapFactory
-//							.decodeFile(thumbList[thumbCounter]
-//									.getAbsolutePath());
-					thumbPosition.add(thumbList[thumbCounter].getAbsolutePath());
-					
-					//thumbs.add(bitmapThumb);
+					thumbPosition
+							.add(thumbList[thumbCounter].getAbsolutePath());
 					thumbCounter++;
 					Log.d(TAG, "thumb already exists : " + i);
+				//if a new picture is taken we didnt have a thumb so match == false 
+				//so we need a new thumb
 				} else {
-					Log.d(TAG, "new thumb crashes ? created : " +i);
+					Log.d(TAG, "new thumb crashes ? created : " + i);
 					Bitmap newThumb;
 					newThumb = Bitmap.createScaledBitmap(
 							BitmapFactory.decodeFile(
-									fileList[i].getAbsolutePath(), thumbOpt),120,80,false);
-							
-
+									fileList[i].getAbsolutePath(), thumbOpt),
+							120, 80, false);
 					saveAThumb(newThumb, fileList[i].getName());
 					thumbPosition.add(fileList[i].getAbsolutePath());
-				
+
 				}
 			}
 			done = true;
@@ -163,35 +116,36 @@ public class DecodeBitmaps {
 		}
 	}
 
+	//save a thumb of the given bitmap / img and its name 
 	public void saveAThumb(Bitmap bitmap, String imgName) {
 
 		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(state)){
-		
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
 
-		File f = new File(Environment.getExternalStorageDirectory()
-				+ "/Valkyrie/Thumbnls/" + imgName);
-		try {
-			f.createNewFile();
-			FileOutputStream fo = new FileOutputStream(f);
-			fo.write(bytes.toByteArray());
-			Log.d(TAG, "saved a Thumb");
+			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
 
-		} catch (IOException e) {
-			Log.d(TAG, "io crash ? ");
-			e.printStackTrace();
+			File f = new File(Environment.getExternalStorageDirectory()
+					+ "/Valkyrie/Thumbnls/" + imgName);
+			try {
+				f.createNewFile();
+				FileOutputStream fo = new FileOutputStream(f);
+				fo.write(bytes.toByteArray());
+				Log.d(TAG, "saved a Thumb");
+
+			} catch (IOException e) {
+				Log.d(TAG, "io crash ? ");
+				e.printStackTrace();
+			}
+			bitmap.recycle();
+
+		} else {
+			Log.d(TAG, "couldnt save the thumb");
+			bitmap.recycle();
 		}
-		bitmap.recycle();
-	
-	}else {
-		Log.d(TAG, "couldnt save the thumb");
-		bitmap.recycle();
 	}
-}
 
-
+	//function for recycling the bitmaps
 	public void recycleBitmaps() {
 		int i = 0;
 		for (Bitmap b : DecodeBitmaps.thumbs) {
@@ -200,6 +154,5 @@ public class DecodeBitmaps {
 			Log.d(TAG, i + " Bitmaps recycled");
 		}
 	}
-
 
 }

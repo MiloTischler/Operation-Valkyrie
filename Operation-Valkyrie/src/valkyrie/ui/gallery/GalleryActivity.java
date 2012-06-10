@@ -1,22 +1,15 @@
 package valkyrie.ui.gallery;
 
 import java.io.File;
-import java.util.ArrayList;
-
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
-import valkyrie.filter.FilterManager;
-import valkyrie.filter.IFilter;
 import valkyrie.main.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.GridView;
 import android.widget.Toast;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,11 +28,11 @@ import android.view.ContextMenu.ContextMenuInfo;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+/*
+ * Activtiy to display the gridview
+ */
 public class GalleryActivity extends Activity {
 	private static final String TAG = "GalleryActivity";
-	private File files = new File(Environment.getExternalStorageDirectory()
-			+ "/Valkyrie/Gallery");
-	private File fileList[];
 	private int index = 0;
 	private Bundle savedInsta;
 	private int YES = 1;
@@ -56,6 +49,8 @@ public class GalleryActivity extends Activity {
 		gallery.setAdapter(new ImageAdapter(this));
 		registerForContextMenu(gallery);
 		super.onCreate(savedInstanceState);
+		
+		//itemlistener for the gridview items
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -67,7 +62,7 @@ public class GalleryActivity extends Activity {
 				GalleryActivity.this.startActivity(showPicIntent);
 			}
 		});
-
+		//added an onitemlongclickListener for longclick options
 		gallery.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v,
 					int position, long id) {
@@ -78,13 +73,12 @@ public class GalleryActivity extends Activity {
 		});
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		SubMenu gods = menu.addSubMenu("Show me the Gods");
 		menu.add("About");
-				
 		gods.add("Paul");
 		gods.add("Laurenz");
 		gods.add("Milo");
