@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import android.graphics.Color;
 import android.view.View;
 
+
+/**
+ * not in use
+ * @author Ritzy
+ *
+ */
 public class Options {
 
 	private int[] pixelMatrix;

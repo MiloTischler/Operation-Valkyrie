@@ -23,6 +23,12 @@ import android.graphics.*;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * a Color Wheel to choose a color as the background and foreground color 
+ * @author madhatter
+ *
+ */
+
 public class ColorPickerDialog extends Dialog {
 
 	public interface OnColorChangedListener {

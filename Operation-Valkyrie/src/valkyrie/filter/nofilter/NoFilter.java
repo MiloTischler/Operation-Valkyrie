@@ -67,11 +67,4 @@ public class NoFilter implements IFilter {
 	public void setup(FilterInternalStorage filterInternalStorage, FilterAssets filterAssets, Boolean firstRun) {
 
 	}
-
-	/**
-	 * initializes options for this Filter.
-	 */
-	public void initOptions() {
-
-	}
 }
