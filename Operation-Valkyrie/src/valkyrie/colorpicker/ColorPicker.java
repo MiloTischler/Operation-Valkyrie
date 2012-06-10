@@ -65,6 +65,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
 		editor.putInt("foreground", color);
+		editor.commit();
 		}
 		else if(this.getId() == R.id.backgroundcolor) {
 			Log.d("ColorPicker","view Tag: Backgroundcolor " );
@@ -72,6 +73,7 @@ public class ColorPicker extends TextView implements IBindableView<ColorPicker>,
 		SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
 		SharedPreferences.Editor editor = options.edit();
 		editor.putInt("background", color);
+		editor.commit();
 		}
 	}
 	
