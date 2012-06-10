@@ -61,29 +61,12 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 	public void colorChanged(int color) {
 		mColorAttr.set(color);
 
-		if(this.listener != null) {
+		if (this.listener != null) {
 			this.listener.colorChanged(color);
 
 		}
-//		Log.d("ColorPicker", "Current changed color is: " + Integer.toHexString(color));
-//		Log.d("ColorPicker", "view ID: " + Integer.toHexString(this.getId()));
-//		if (this.getId() == R.id.foregroundcolor) {
-//			Log.d("ColorPicker", "view Tag: Foregroundcolor ");
-//		
-//			SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
-//			SharedPreferences.Editor editor = options.edit();
-//			editor.putInt("foreground", color);
-//			editor.commit();
-//		} else if (this.getId() == R.id.backgroundcolor) {
-//			Log.d("ColorPicker", "view Tag: Backgroundcolor ");
-//		
-//			SharedPreferences options = LayoutManager.getInstance().getSharedPreferencesOfCurrentFilter();
-//			SharedPreferences.Editor editor = options.edit();
-//			editor.putInt("background", color);
-//			editor.commit();
-//		}
 	}
-	
+
 	public void setColorChangeListener(ColorChangeListener l) {
 		this.listener = l;
 	}
@@ -93,7 +76,7 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 	public interface ColorChangeListener {
 		public void colorChanged(int color);
 	}
-	
+
 	public class ColorAttribute extends ViewAttribute<ColorPicker, Integer> {
 		public ColorAttribute(ColorPicker view) {
 			super(Integer.class, view, "color");
@@ -109,7 +92,7 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 				return;
 			}
 			mValue = 0;
-			getView().setBackgroundColor(Color.RED);
+			getView().setBackgroundColor(Color.BLACK);
 		}
 
 		@Override
