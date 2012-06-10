@@ -1,23 +1,23 @@
 package valkyrie.filter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import valkyrie.filter.nofilter.NoFilter;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.View;
-import android.hardware.Camera;
 
 /**
  * 
  * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
+ */
+
+/**
+ * Manages the various filters and initializes the filters
  */
 public class FilterManager {
 	private static final String TAG = "FilterManager";
@@ -27,6 +27,13 @@ public class FilterManager {
 	private IFilter activeFilter = new NoFilter();
 	private ArrayList<IFilter> filters = new ArrayList<IFilter>();
 
+	/**
+	 * Setup the filters by their names from the filterArray
+	 * 
+	 * @param Context context
+	 * @param Integer filterArray
+	 * @param CameraPreviewViewCV cameraPreview
+	 */
 	public FilterManager(Context context, Integer filterArray, CameraPreviewViewCV cameraPreview) {
 		Log.i(TAG, "Initialized opencv camera");
 
@@ -61,6 +68,11 @@ public class FilterManager {
 		}
 	}
 
+	/**
+	 * Sets the active filter to the given one. Also informs the cameraPreview and the LayoutManager
+	 * 
+	 * @param IFilter filter
+	 */
 	public void setActiveFilter(IFilter filter) {
 		for (IFilter storedFilter : this.filters) {
 			if (filter.getClass().getName().equals(storedFilter.getClass().getName()))  {
@@ -75,16 +87,26 @@ public class FilterManager {
 		}
 	}
 
+	/**
+	 * Returns the active filter
+	 * 
+	 * @return IFilter
+	 */
 	public IFilter getActiveFilter() {	
 		return this.activeFilter;
 	}
 
+	/**
+	 * Returns the list of all filters
+	 * 
+	 * @return ArrayList<IFilter>
+	 */
 	public ArrayList<IFilter> getFilterList() {
 		return this.filters;
 	}
 
 	private Boolean isFirstRun() {
-		// TODO: implement via shared preferences
+		// TODO: implement via shared preferences for filter setup methode
 		return true;
 	}
 }
