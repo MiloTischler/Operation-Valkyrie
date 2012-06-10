@@ -1,40 +1,23 @@
 package valkyrie.filter.ascii;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.util.HashMap;
 import java.util.Vector;
 
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
+import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.graphics.drawable.PaintDrawable;
-import android.os.Environment;
-import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
-import android.widget.ToggleButton;
-
-import valkyrie.colorpicker.ColorPicker;
-import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
-import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterInternalStorage;
-import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 
 /**
  * 
@@ -43,13 +26,17 @@ import valkyrie.main.R;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+
+/**
+ * The Ascii class handles the Ascii filter classes like fonts and converter
+ * 
+ * @author Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob
+ * Schweighofer, Milo Tischler 
+ *
+ */
 public class Ascii implements IFilter {
 	public static final String TAG = "Ascii";
 
-	/**
-	 * OPtions: - Font Size : seekBar - Foregr, background : colorpicker - color
-	 * : onOff
-	 */
 	private Font activeFont;
 	private Converter converter;
 	private TableLayout layout;
@@ -60,10 +47,6 @@ public class Ascii implements IFilter {
 
 	public static final String name = "ascii";
 
-	/**
-	 * TODO: Sry aber bei mir wirft des a nullpointer exception wenn ich alle
-	 * filter für den filtermanager instancier, lg milo
-	 */
 	public Ascii() {
 		this.fonts = new Vector<Font>();
 		for (String name : this.fontsList) {
@@ -75,6 +58,12 @@ public class Ascii implements IFilter {
 		this.converter = new Converter();
 	}
 
+	/**
+	 * creates ascii image out of source for realtime preview very fast :)
+	 * color and graysale can be switched
+	 * @param Mat
+	 * @return Bitmap
+	 */
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
 		boolean colorMode = options.getBoolean("color_mode", false);
@@ -84,6 +73,10 @@ public class Ascii implements IFilter {
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 	}
 
+	/**
+	 * creates ascii image out of source matrix for shot image
+	 * fast version not implemented yet
+	 */
 	public Bitmap manipulateImage(Mat bitmapMat) {
 		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
 		boolean colorMode = options.getBoolean("color_mode", false);
