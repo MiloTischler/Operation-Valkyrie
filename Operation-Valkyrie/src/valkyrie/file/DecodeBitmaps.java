@@ -5,18 +5,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
-
-import valkyrie.ui.gallery.GalleryActivity;
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * 
@@ -42,7 +34,6 @@ public class DecodeBitmaps {
 	public static Vector<File> fileVector = new Vector<File>();
 	public static Vector<String> fullImgNames = new Vector<String>();
 	public static Vector<String> thumbPosition = new Vector<String>();
-	private FileManager fileManager = new FileManager();
 	private int opt = 6;
 	
 	public DecodeBitmaps(int error) {
