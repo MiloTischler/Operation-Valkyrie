@@ -217,5 +217,4 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
 		return maxSize;
 	}
-
 }

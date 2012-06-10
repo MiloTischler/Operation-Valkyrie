@@ -2,7 +2,7 @@
  * TouchImageView.java
  * By: Michael Ortiz
  * Updated By: Patrick Lackemacher
- * Edited By: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * Updated By: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
  * -------------------
  * Extends Android ImageView to include pinch zooming and panning.
  */

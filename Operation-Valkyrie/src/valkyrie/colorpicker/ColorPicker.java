@@ -1,16 +1,13 @@
 package valkyrie.colorpicker;
 
 import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;
-import valkyrie.main.R;
 import gueei.binding.Binder;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import gueei.binding.listeners.OnClickListenerMulticast;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -20,14 +17,13 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 	ColorPickerDialog dialog = null;
 
 	private ColorChangeListener listener = null;
-	private String tag = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0);
-		this.tag = a.getString(R.styleable.ColorPicker_test);
-
+		//TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0 );
+		
+		//this.tag = a.getString(R.styleable.ColorPicker_test);
+		
 		init();
 	}
 
