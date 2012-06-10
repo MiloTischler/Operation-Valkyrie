@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -20,26 +19,19 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 	ColorPickerDialog dialog = null;
 
 	private ColorChangeListener listener = null;
-	private String tag = null;
 
 	public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0);
-
-		this.tag = a.getString(R.styleable.ColorPicker_test);
-
-		Log.d("OMFG", "DAS IST MEIN TAG: " + this.tag);
-
+		
+		//TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0 );
+		
+		//this.tag = a.getString(R.styleable.ColorPicker_test);
+		
 		init();
 	}
 
 	public ColorPicker(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
-		Log.d("OMFG", "DAS IST MEIN TAG: " + this.findViewById(this.getId()).getTag());
-
-		Log.d("OMFG", "FALSCHE CONSTRUKTOR");
 
 		init();
 	}

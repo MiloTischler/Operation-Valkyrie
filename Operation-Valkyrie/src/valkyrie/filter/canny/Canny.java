@@ -74,12 +74,4 @@ public class Canny implements IFilter {
 
 		return (TableLayout) inflater.inflate(R.layout.canny, null);
 	}
-	
-	/**
-	 * Initializes Options.
-	 */
-	public void initOptions() {
-		
-	}
-
 }
