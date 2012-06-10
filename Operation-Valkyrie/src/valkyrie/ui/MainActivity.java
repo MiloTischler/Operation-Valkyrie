@@ -41,7 +41,10 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
 	private FilterManager filterManager = null;
-	// private CameraDispatcher cameraDispatcher = null;
+	private MediaPlayer shootSound = null;
+	private AudioManager audioManager = null;
+	private int volume = 0;
+	private FileManager fileManager = null;
 
 	private CameraPreviewViewCV cameraPreview = null;
 
@@ -55,8 +58,7 @@ public class MainActivity extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		final Window window = this.getWindow();
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		// Set activity layout
 		this.setContentView(R.layout.main);
@@ -65,8 +67,7 @@ public class MainActivity extends Activity {
 		LayoutManager.getInstance().setMainActivity(this);
 
 		// initialize CameraPreviewView with OpenCV
-		this.cameraPreview = (CameraPreviewViewCV) this
-				.findViewById(R.id.camera_preview_view);
+		this.cameraPreview = (CameraPreviewViewCV) this.findViewById(R.id.camera_preview_view);
 
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
@@ -76,25 +77,29 @@ public class MainActivity extends Activity {
 	public void takePicture(View view) {
 		Log.d(TAG, "clicked: takePicture");
 
+		if (this.cameraPreview.isLocked()) {
+			Log.e(TAG, "cam locked");
+			return;
+		}
+
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
 		// Play take photo sound effect
-		AudioManager meng = (AudioManager) this.getApplicationContext()
-				.getSystemService(Context.AUDIO_SERVICE);
-		int volume = meng.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+		if (this.audioManager == null || this.volume == 0) {
+			this.audioManager = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+			this.volume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+		}
+
+		if (this.shootSound == null) {
+			this.shootSound = MediaPlayer.create(this.getApplicationContext(),
+					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+		}
 
 		if (volume != 0) {
-			MediaPlayer shootSpound = MediaPlayer
-					.create(this.getApplicationContext(),
-							Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-
-			if (shootSpound != null) {
-				shootSpound.start();
-			} else {
-				view.playSoundEffect(SoundEffectConstants.CLICK);
-			}
+			this.shootSound.start();
+		} else {
+			view.playSoundEffect(SoundEffectConstants.CLICK);
 		}
 
 		Bitmap bitmap = this.cameraPreview.takePicture();
@@ -104,40 +109,45 @@ public class MainActivity extends Activity {
 		}
 
 		// TODO: do something with picture..
-		FileManager fileManager = new FileManager();
-		fileManager.saveImageToGallery(bitmap);
+		if(this.fileManager == null) {
+			this.fileManager = new FileManager();
+		}
+
+		this.fileManager.saveImageToGallery(bitmap);
+
+
 		DecodeBitmaps.done = false;
 
-		bitmap.recycle();
+		if(bitmap != null) {
+			bitmap.recycle();
+		}
+
+		this.cameraPreview.resume();
 	}
 
 	public void showGallery(View view) {
+		
+		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
 
 		boolean work = false;
-		File galleryFiles = new File(Environment.getExternalStorageDirectory()
-				+ "/Valkyrie/Gallery/");
-		File thumbFiles = new File(Environment.getExternalStorageDirectory()
-				+ "/Valkyrie/Thumbnls/");
+		File galleryFiles = new File(Environment.getExternalStorageDirectory() + "/Valkyrie/Gallery/");
+		File thumbFiles = new File(Environment.getExternalStorageDirectory() + "/Valkyrie/Thumbnls/");
 
 		Log.d("TAG", "clicked: showGallery");
 
 		if (galleryFiles.listFiles() != null) {
 
 			if ((galleryFiles.listFiles().length == 0)) {
-				Toast.makeText(
-						this.getApplicationContext(),
-						"There are no Files taken yet, make some to open the Gallery",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this.getApplicationContext(),
+						"There are no Files taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
 				DecodeBitmaps.done = false;
 				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
 			}
 		} else if ((galleryFiles.listFiles() == null)) {
-			Toast.makeText(
-					this.getApplicationContext(),
-					"There are no Pictures taken yet, make some to open the Gallery",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.getApplicationContext(),
+					"There are no Pictures taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
 		}
 
 		if ((galleryFiles.listFiles() != null)) {
@@ -146,9 +156,7 @@ public class MainActivity extends Activity {
 				DecodeBitmaps.done = false;
 				DecodeBitmaps makeThumbs = new DecodeBitmaps(0);
 				Log.d(TAG, "filelist length :" + galleryFiles.listFiles().length);
-				Toast.makeText(this.getApplicationContext(),
-						"Welcome to the Gallery", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this.getApplicationContext(), "Welcome to the Gallery", Toast.LENGTH_SHORT).show();
 				view.playSoundEffect(SoundEffectConstants.CLICK);
 
 				try {
@@ -159,29 +167,29 @@ public class MainActivity extends Activity {
 			}
 		}
 
-
 	}
 
 	public void toggleFilterEffect(View view) {
 		Log.d("Tag", "clicked: toggleFilterEffect");
+		
+		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		if (this.cameraPreview.isFilterDisplayed()) {
-			
+
 			ImageButton toggle = (ImageButton) this.findViewById(R.id.filter_effect_toggle);
 			toggle.setImageResource(R.drawable.preview_on);
-			
+
 			this.cameraPreview.toggleFilter(false);
 		} else {
-			
+
 			ImageButton toggle = (ImageButton) this.findViewById(R.id.filter_effect_toggle);
 			toggle.setImageResource(R.drawable.preview_off);
-			
+
 			this.cameraPreview.toggleFilter(true);
 		}
 
