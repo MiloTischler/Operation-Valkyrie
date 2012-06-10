@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
 		triggerAnimation.start();
 
 		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
 		// Play take picture sound effect
 		if (volume != 0) {
