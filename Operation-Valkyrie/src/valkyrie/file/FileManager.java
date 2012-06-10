@@ -67,7 +67,6 @@ public class FileManager {
 	}
 
 	public void saveImageToGallery(Bitmap bitmap) {
-
 		if (SDMOUNTED) {
 			OutputStream fOut = null;
 			File directory = new File(SDPATH);
@@ -112,7 +111,6 @@ public class FileManager {
 			bitmap.recycle();
 		} else
 			Toast.makeText(context, "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
-
 	}
 
 	public void saveImageToInternal(Bitmap bitmap) {
@@ -159,13 +157,11 @@ public class FileManager {
 		int highestnumber = 0;
 		for (File f : files) {
 			if (f.exists()) {
-				Log.d("DEBUGName", f.getName());
 				int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
 				if (newhighest >= highestnumber) {
 					highestnumber = newhighest + 1;
 					imageName = f.getName();
 				}
-				Log.d("DEBUG", String.valueOf(highestnumber));
 			}
 		}
 		if (imageName != null)
@@ -173,5 +169,4 @@ public class FileManager {
 		else
 			return "Error";
 	}
-
 }

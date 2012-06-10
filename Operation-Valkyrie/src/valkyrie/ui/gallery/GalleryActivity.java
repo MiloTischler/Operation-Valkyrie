@@ -146,7 +146,6 @@ public class GalleryActivity extends Activity {
 			
 			
 		}
-		
 
 		return super.onOptionsItemSelected(item);
 	}
