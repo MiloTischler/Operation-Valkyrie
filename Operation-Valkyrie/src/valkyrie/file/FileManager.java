@@ -19,26 +19,30 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+/**
+ * 
+ * @author madhatter
+ * Filemanager to save, load and delete Files from SD Card
+ */
 
 public class FileManager {
 	final static String TAG = "FileManager";
 	final static String IMGNAME = "IMG";
 	final static String IMGCOUNT = "0000";
-	private boolean SDMOUNTED = false;
+	private boolean SDMOUNTED = false;		//check if SD Card is mounted 
 	private Context context;
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
 
-	// public FileManager() {
-	// initFileManager();
-	// }
+	 public FileManager() {
+	 initFileManager();
+	 }
 
 	public FileManager(Context context) {
 		this.context = context;
 		try {
 			initFileManager();
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log.e(TAG, "ERROR, couldnt initialize Filemanager");
 		}
 
@@ -50,7 +54,6 @@ public class FileManager {
 		File thumb = new File(THUMBPATH);
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			SDMOUNTED = true;
-			Toast.makeText(context, "Hello: SD Card mounted!", Toast.LENGTH_SHORT).show();
 			if (!file.exists())
 				file.mkdirs();
 			if (!thumb.exists())
@@ -113,6 +116,10 @@ public class FileManager {
 	public void saveImageToInternal(Bitmap bitmap) {
 		// TODO laurenz
 	}
+	
+	/**
+	 * Get an Image from SD Card
+	 */
 
 	public Bitmap loadImageFromGallery(String imageName) {
 		if (SDMOUNTED) {
@@ -135,6 +142,10 @@ public class FileManager {
 			return null;
 	}
 
+	/**
+	 * Delete an Image and its Thumbnail from the SD Card 
+	 * @param imageName
+	 */
 	public void deleteImageFromGallery(String imageName) {
 		if (SDMOUNTED) {
 			File fileToDelete = new File(SDPATH + imageName);
@@ -147,7 +158,11 @@ public class FileManager {
 			Toast.makeText(context, "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
 	}
 
-	private String getLatestImage() {
+	/**
+	 * get the name of the latest Image on the SD Card  
+	 * @return
+	 */
+	public String getLatestImage() {
 		File directory = new File(SDPATH);
 		String imageName = null;
 		File files[] = directory.listFiles();
