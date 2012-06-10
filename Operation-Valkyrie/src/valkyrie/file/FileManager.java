@@ -19,24 +19,24 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
 /**
  * 
- * @author madhatter
- * Filemanager to save, load and delete Files from SD Card
+ * @author madhatter Filemanager to save, load and delete Files from SD Card
  */
 
 public class FileManager {
 	final static String TAG = "FileManager";
 	final static String IMGNAME = "IMG";
 	final static String IMGCOUNT = "0000";
-	private boolean SDMOUNTED = false;		//check if SD Card is mounted 
+	private boolean SDMOUNTED = false; // check if SD Card is mounted
 	private Context context;
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
 
-	 public FileManager() {
-	 initFileManager();
-	 }
+	public FileManager() {
+		initFileManager();
+	}
 
 	public FileManager(Context context) {
 		this.context = context;
@@ -48,6 +48,12 @@ public class FileManager {
 
 	}
 
+	/**
+	 * init method checks if the File /Valkyrie/Gallery/ and /Valkyrie/Thumbnls/ is already created. if not it will be
+	 * created
+	 * 
+	 * @return
+	 */
 	private boolean initFileManager() {
 		String state = Environment.getExternalStorageState();
 		File file = new File(SDPATH);
@@ -68,6 +74,11 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * save an Image as PNG an SD Card at: .../Valkyrie/Gallery/
+	 * 
+	 * @param bitmap
+	 */
 	public void saveImageToGallery(Bitmap bitmap) {
 		if (SDMOUNTED) {
 			OutputStream fOut = null;
@@ -116,7 +127,7 @@ public class FileManager {
 	public void saveImageToInternal(Bitmap bitmap) {
 		// TODO laurenz
 	}
-	
+
 	/**
 	 * Get an Image from SD Card
 	 */
@@ -143,7 +154,8 @@ public class FileManager {
 	}
 
 	/**
-	 * Delete an Image and its Thumbnail from the SD Card 
+	 * Delete an Image and its Thumbnail from the SD Card
+	 * 
 	 * @param imageName
 	 */
 	public void deleteImageFromGallery(String imageName) {
@@ -159,7 +171,8 @@ public class FileManager {
 	}
 
 	/**
-	 * get the name of the latest Image on the SD Card  
+	 * get the name of the latest Image on the SD Card
+	 * 
 	 * @return
 	 */
 	public String getLatestImage() {
