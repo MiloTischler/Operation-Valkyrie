@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
 			if ((galleryFiles.listFiles().length == 0)) {
 				Toast.makeText(
 						this.getApplicationContext(),
-						"There are no Files taken yet, make some to open the Gallery",
+						"There are no Pictures to display",
 						Toast.LENGTH_SHORT).show();
 				DecodeBitmaps.done = false;
 				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
 		} else if ((galleryFiles.listFiles() == null)) {
 			Toast.makeText(
 					this.getApplicationContext(),
-					"There are no Pictures taken yet, make some to open the Gallery",
+					"There are no Pictures to display",
 					Toast.LENGTH_SHORT).show();
 		}
 
