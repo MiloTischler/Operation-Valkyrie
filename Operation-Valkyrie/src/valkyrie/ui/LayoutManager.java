@@ -3,10 +3,8 @@ package valkyrie.ui;
 import java.util.ArrayList;
 
 import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.TableLayout;
 
 /**
@@ -33,18 +31,22 @@ public class LayoutManager {
 	 */
 	private Activity mainActivity = null;
 
+	/**
+	 * Cotntains all Components that can be updated whe Filter is changed.
+	 */
 	private ArrayList<IUpdateableUI> registeredComponents = null;
 
 	/**
-	 * Default-Konstruktor, der nicht außerhalb dieser Klasse aufgerufen werden
-	 * kann.
+	 * Default Singleton Constructor.
 	 */
 	private LayoutManager() {
 		this.registeredComponents = new ArrayList<IUpdateableUI>();
 	}
 
 	/**
-	 * Statische Methode, liefert die einzige Instanz dieser Klasse zurück
+	 * Returns the only instance of the LayoutManager
+	 * 
+	 * @return LayoutManager the only instance of the LayoutManager
 	 */
 	public static LayoutManager getInstance() {
 
@@ -74,7 +76,7 @@ public class LayoutManager {
 	public void notifyUI(IFilter filterObject) {
 		this.activeFilter = filterObject;
 		TableLayout uiElements = filterObject.getUIElements(mainActivity);
-		
+
 		for (IUpdateableUI registeredComponent : this.registeredComponents) {
 			registeredComponent.redrawUI(uiElements);
 		}
@@ -100,10 +102,18 @@ public class LayoutManager {
 		this.registeredComponents.remove(component);
 	}
 
+	/**
+	 * @deprecated Was used to return the SharedPreferences Object of the active Filter.
+	 * @return SharedPreferences the SharedPreferences Object of the current Filter.
+	 */
 	public SharedPreferences getSharedPreferencesOfCurrentFilter() {
 		return this.mainActivity.getSharedPreferences(this.activeFilter.getName(), 0);
 	}
-	
+
+	/**
+	 * @deprecated Was used to return the SharedPreferences Object of the Filter with the given name.
+	 * @return SharedPreferences the SharedPreferences Object of the Filter with the given name.
+	 */
 	public SharedPreferences getSharedPreferencesOfFilter(String filterName) {
 		return this.mainActivity.getSharedPreferences(filterName, 0);
 	}

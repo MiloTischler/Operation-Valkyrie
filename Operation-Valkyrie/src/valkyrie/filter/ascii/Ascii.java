@@ -21,11 +21,13 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Environment;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
+import android.widget.ToggleButton;
 
 import valkyrie.colorpicker.ColorPicker;
 import valkyrie.colorpicker.ColorPickerDialog.OnColorChangedListener;

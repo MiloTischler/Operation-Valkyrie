@@ -5,12 +5,16 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
-
 /**
  * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler © Milo Tischler, Jakob
- * Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler 
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
+ */
+
+/**
+ * Implementation of the UpdateableUI Interface.
+ * Every Component that should be updated when a Filter is switched is of this type.
  */
 public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
 	private static final String TAG = "UpdateableRelativeLayout";
