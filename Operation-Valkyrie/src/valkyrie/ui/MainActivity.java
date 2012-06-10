@@ -39,6 +39,10 @@ import android.widget.Toast;
  * Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+
+/**
+ * The application main activity, holds the camera preview, the camera trigger and filter options
+ */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
@@ -50,7 +54,12 @@ public class MainActivity extends Activity {
 
 	private CameraPreviewViewCV cameraPreview = null;
 
-	/** Called when the activity is first created. */
+	/**
+	 * Initializes the layout, the camera preview, the filter manager, sounds and the layout manager.
+	 * Sets the activity to fullscreen and warns if the sd card is mounted.
+	 * 
+	 * @param Bundle savedInstanceState
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -92,11 +101,16 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Takes a picture with the camera and plays the trigger sound / animation. Saves the bitmap to the gallery.
+	 * 
+	 * @param View view
+	 */
 	public void takePicture(View view) {
-		Log.d(TAG, "clicked: takePicture");
+		Log.i(TAG, "clicked: takePicture");
 
 		if (this.cameraPreview.isLocked()) {
-			Log.e(TAG, "cam locked");
+			Log.e(TAG, "camera is locked");
 			return;
 		}
 
@@ -137,17 +151,20 @@ public class MainActivity extends Activity {
 		this.cameraPreview.resume();
 	}
 
+	/**
+	 * Intent the gallery activity for displaying the already shot pictures if the folder is not empty. 
+	 * Checks if the picture folder exists and displays the message if the folder is empty. 
+	 * 
+	 * @param View view
+	 */
 	public void showGallery(View view) {
+		Log.i("TAG", "clicked: showGallery");
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
 
-		boolean work = false;
 		File galleryFiles = new File(Environment.getExternalStorageDirectory() + "/Valkyrie/Gallery/");
-		File thumbFiles = new File(Environment.getExternalStorageDirectory() + "/Valkyrie/Thumbnls/");
-
-		Log.d("TAG", "clicked: showGallery");
 
 		if (galleryFiles.listFiles() != null) {
 
@@ -155,7 +172,7 @@ public class MainActivity extends Activity {
 				Toast.makeText(this.getApplicationContext(), "There are no Pictures to display", Toast.LENGTH_SHORT)
 						.show();
 				DecodeBitmaps.done = false;
-				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
+				new DecodeBitmaps(0);
 			}
 		} else if ((galleryFiles.listFiles() == null)) {
 			Toast.makeText(this.getApplicationContext(), "There are no Pictures to display", Toast.LENGTH_SHORT).show();
@@ -165,7 +182,7 @@ public class MainActivity extends Activity {
 			if ((galleryFiles.listFiles().length != 0)) {
 				// Just a dummy text to appear..
 				DecodeBitmaps.done = false;
-				DecodeBitmaps makeThumbs = new DecodeBitmaps(0);
+				new DecodeBitmaps(0);
 				Log.d(TAG, "filelist length :" + galleryFiles.listFiles().length);
 				Toast.makeText(this.getApplicationContext(), "Welcome to the Gallery", Toast.LENGTH_SHORT).show();
 				view.playSoundEffect(SoundEffectConstants.CLICK);
@@ -180,13 +197,13 @@ public class MainActivity extends Activity {
 
 	}
 
+	/**
+	 * Toggles the live preview of the filter effect
+	 * 
+	 * @param View view
+	 */
 	public void toggleFilterEffect(View view) {
-		Log.d("Tag", "clicked: toggleFilterEffect");
-
-		view.playSoundEffect(SoundEffectConstants.CLICK);
-
-		// Just a dummy text to appear..
-		Toast.makeText(this.getApplicationContext(), "Toggle Filter Clicked", Toast.LENGTH_SHORT).show();
+		Log.i("Tag", "clicked: toggleFilterEffect");
 
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
@@ -207,6 +224,9 @@ public class MainActivity extends Activity {
 		// TODO: Reset or delete or reorganize Shared Prefs (options)
 	}
 
+	/**
+	 * If open, closes the filter options
+	 */
 	@Override
 	public void onBackPressed() {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
@@ -219,6 +239,12 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * If open, closes the filter options, else opens the filter options
+	 * 
+	 * @param int keyCode
+	 * @param KeyEvent event
+	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		MultiDirectionSlidingDrawer multiDirectionSlidingDrawer = (MultiDirectionSlidingDrawer) this
@@ -235,6 +261,9 @@ public class MainActivity extends Activity {
 		return super.onKeyUp(keyCode, event);
 	}
 
+	/**
+	 * Not implemented
+	 */
 	@Override
 	protected void onPause() {
 		Log.i(TAG, "onPause called");
@@ -242,6 +271,9 @@ public class MainActivity extends Activity {
 		super.onPause();
 	}
 
+	/**
+	 * Not implemented
+	 */
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "onResume called");
