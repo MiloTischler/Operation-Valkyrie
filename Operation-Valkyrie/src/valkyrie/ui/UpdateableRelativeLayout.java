@@ -36,9 +36,11 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 			return;
 
 		// remove all child elements from this layout
-		this.removeAllViews();
-
-		// add possibly new elements to panel
-		this.addView(uiElements);
+		this.removeView(uiElements);
+		
+		if(uiElements.getParent() == null) {
+			// add possibly new elements to panel
+			this.addView(uiElements);
+		}
 	}
 }

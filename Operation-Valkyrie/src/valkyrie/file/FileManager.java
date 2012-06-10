@@ -28,6 +28,7 @@ public class FileManager {
 	private Context context;
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
+	
 
 	// public FileManager() {
 	// initFileManager();
@@ -82,6 +83,7 @@ public class FileManager {
 							highestnumber = newhighest + 1;
 						}
 						Log.d("DEBUG", String.valueOf(highestnumber));
+
 					}
 				}
 				String filenumber = IMGCOUNT + highestnumber;
@@ -93,6 +95,7 @@ public class FileManager {
 				filenumber = filenumber.substring(filenumber.length() - 4);
 				file = new File(SDPATH, IMGNAME + filenumber + ".png");
 			}
+
 
 			try {
 				fOut = new FileOutputStream(file);
@@ -154,13 +157,11 @@ public class FileManager {
 		int highestnumber = 0;
 		for (File f : files) {
 			if (f.exists()) {
-				Log.d("DEBUGName", f.getName());
 				int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
 				if (newhighest >= highestnumber) {
 					highestnumber = newhighest + 1;
 					imageName = f.getName();
 				}
-				Log.d("DEBUG", String.valueOf(highestnumber));
 			}
 		}
 		if (imageName != null)
@@ -168,5 +169,4 @@ public class FileManager {
 		else
 			return "Error";
 	}
-
 }
