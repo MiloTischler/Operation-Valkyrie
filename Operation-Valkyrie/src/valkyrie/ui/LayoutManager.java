@@ -1,3 +1,10 @@
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
+
 package valkyrie.ui;
 
 import java.util.ArrayList;
@@ -8,17 +15,13 @@ import android.content.SharedPreferences;
 import android.widget.TableLayout;
 
 /**
- * 
- * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
- * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
- * 
- */
-
-/**
  * Singleton Class. Used to manage interactions with UI elements.
  */
 public class LayoutManager {
-	private static final String TAG = "LayoutManager";
+
+	/**
+	 * Stores the currently active Filter.
+	 */
 	private IFilter activeFilter = null;
 
 	/**

@@ -12,7 +12,7 @@
         <TextView
             android:layout_span="4"
             android:tag="name"
-            android:text="Font Size" />
+            android:text="@string/fontSize" />
     </TableRow>
 
     <TableRow
