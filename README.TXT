@@ -2,7 +2,7 @@ Setup / Building
 
 	- Third Party Requirements:
 	
-	Eclipse with Android SDK
+	Eclipse with Android SDK (Min SDK Level 8)
 	OpenCV 2.3.1 (for Android, also listed as OpenCV4Android)
 	android-binding-0.49-update.jar
 	Robotium Solo 3.2.1 (robotium-solo-3.2.1.jar)

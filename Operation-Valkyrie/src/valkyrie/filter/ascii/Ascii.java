@@ -5,6 +5,11 @@ import java.util.Vector;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 
+import valkyrie.colorpicker.ColorPicker;
+import valkyrie.filter.FilterAssets;
+import valkyrie.filter.FilterInternalStorage;
+import valkyrie.filter.IFilter;
+import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
 import android.app.Activity;
@@ -13,12 +18,6 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
-
-import valkyrie.colorpicker.ColorPicker;
-import valkyrie.filter.FilterAssets;
-import valkyrie.filter.FilterInternalStorage;
-import valkyrie.filter.IFilter;
-import valkyrie.main.R;
 
 /**
  * 

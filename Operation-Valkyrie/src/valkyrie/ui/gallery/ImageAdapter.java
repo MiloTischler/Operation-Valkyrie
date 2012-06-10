@@ -6,7 +6,7 @@ import valkyrie.file.DecodeBitmaps;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+
 
 import android.util.Log;
 import android.view.View;
@@ -21,6 +21,10 @@ import android.widget.ImageView;
  * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
  * 
  */
+/**
+ * Extended class from BaseAdapter, which manages the gridview and the displaying
+ * of its pictures.
+ */
 public class ImageAdapter extends BaseAdapter {
 	private static final String TAG = "ImageAdapter";
 	
@@ -29,13 +33,19 @@ public class ImageAdapter extends BaseAdapter {
 	private BitmapFactory.Options opt = new BitmapFactory.Options();
 
 
-
+	/**
+	 * Sets the Context for the ImageView
+	 * and the number of thumbs to display
+	 * 
+	 * @param c
+	 */
 	public ImageAdapter(Context c) {
 		this.mContext = c;
 		this.pictures = DecodeBitmaps.thumbPosition.size();
 		
 	}
-
+	
+	
 	public int getCount() {
 
 		return this.pictures;
@@ -51,7 +61,10 @@ public class ImageAdapter extends BaseAdapter {
 		return 0;
 	}
 
-	// create a new ImageView for each item referenced by the Adapter
+	/**
+	 * Sets the pictures of the GridView with the thumbs which lies in the Thumb folder.
+	 * 
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		opt.inSampleSize = 2;
@@ -69,20 +82,18 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		Log.i(TAG, "Image adapter setImage "+ position);
+		//decode Bitmaps for viewing in gridView
 		try{
-	//	Drawable d = Drawable.createFromPath(DecodeBitmaps.thumbPosition.get(position));
-	//	imageView.setImageDrawable(d);
-	//	imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
 		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
 		}
+		//if we have to less memory to display all the thumbs, create new thumbs with downscaled pixels and resolutions
 		catch (OutOfMemoryError e){
 			int thumbError = 1;
 			for (Bitmap b : DecodeBitmaps.thumbs)
 				{b.recycle();
 				Log.d(TAG, "recycle catch");
 				}
-			DecodeBitmaps decodeBitmaps = new DecodeBitmaps(thumbError);
+			new DecodeBitmaps(thumbError);
 			imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
 		}
 		return imageView;
