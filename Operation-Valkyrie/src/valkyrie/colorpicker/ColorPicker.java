@@ -26,21 +26,13 @@ public class ColorPicker extends ImageButton implements IBindableView<ColorPicke
 		super(context, attrs, defStyle);
 
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0);
-
 		this.tag = a.getString(R.styleable.ColorPicker_test);
-
-		Log.d("OMFG", "DAS IST MEIN TAG: " + this.tag);
 
 		init();
 	}
 
 	public ColorPicker(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
-		Log.d("OMFG", "DAS IST MEIN TAG: " + this.findViewById(this.getId()).getTag());
-
-		Log.d("OMFG", "FALSCHE CONSTRUKTOR");
-
 		init();
 	}
 

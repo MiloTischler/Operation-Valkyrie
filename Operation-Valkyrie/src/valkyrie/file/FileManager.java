@@ -90,13 +90,10 @@ public class FileManager {
 				int highestnumber = 0;
 				for (File f : files) {
 					if (f.exists()) {
-						Log.d("DEBUGName", f.getName());
 						int newhighest = Integer.parseInt(getLatestImage().substring(3, getLatestImage().length() - 4));
 						if (newhighest >= highestnumber) {
 							highestnumber = newhighest + 1;
 						}
-						Log.d("DEBUG", String.valueOf(highestnumber));
-
 					}
 				}
 				String filenumber = IMGCOUNT + highestnumber;
