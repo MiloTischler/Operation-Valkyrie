@@ -2,8 +2,12 @@ package valkyrie.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 
 /**
  * 
@@ -17,6 +21,7 @@ import android.widget.TableLayout;
  * Every Component that should be updated when a Filter is switched is of this type.
  */
 public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
+	private final static String TAG = "UpdateableRelativeLayout";
 
 	/**
 	 * When a component of this type is created it adds itself to the LayoutManagers list of updateable components.
@@ -41,13 +46,13 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 		if (uiElements == null)
 			return;
-
+		
 		// remove all child elements from this layout
-		this.removeView(uiElements);
-
-		if (uiElements.getParent() == null) {
-			// add possibly new elements to panel
-			this.addView(uiElements);
+		if(uiElements.getParent() != null) {
+			((RelativeLayout) uiElements.getParent()).removeView(uiElements);
 		}
+		
+		// add possibly new elements to panel
+		this.addView(uiElements);
 	}
 }

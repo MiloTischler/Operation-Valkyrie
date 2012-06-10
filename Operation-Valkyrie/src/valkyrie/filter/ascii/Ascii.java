@@ -10,11 +10,11 @@ import valkyrie.filter.FilterAssets;
 import valkyrie.filter.FilterInternalStorage;
 import valkyrie.filter.IFilter;
 import valkyrie.main.R;
-import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -68,10 +68,11 @@ public class Ascii implements IFilter {
 	 * @return Bitmap
 	 */
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
-		if (this.colorMode)
+		if (this.colorMode) {
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
-		else
+		} else {
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		}
 	}
 
 	/**
@@ -79,14 +80,19 @@ public class Ascii implements IFilter {
 	 * fast version not implemented yet
 	 */
 	public Bitmap manipulateImage(Mat bitmapMat) {
-		if (this.colorMode)
+		if (this.colorMode) {
 			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
-		else
+		} else {
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
+		}
 	}
 
 	public int getFilterCaptureFormat() {
-		return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
+		if (this.colorMode) {
+			return Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB;
+		} else {
+			return Highgui.CV_CAP_ANDROID_GREY_FRAME;
+		}
 	}
 
 	/**
@@ -140,12 +146,10 @@ public class Ascii implements IFilter {
 		});
 		
 		ToggleButton colorModeButton = (ToggleButton) this.layout.findViewById(R.id.color_mode);
-
 		colorModeButton.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
 			
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				colorMode = isChecked;
-				
 			}
 		});
 
