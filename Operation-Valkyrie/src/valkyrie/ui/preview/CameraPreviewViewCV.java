@@ -17,9 +17,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/**
- * Camera preview SurfaceView, uses the OpenCV camera object and is inflated by android in the main layout xml
- */
 public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 	private static final String TAG = "CameraPreviewViewCV";
 
@@ -30,11 +27,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 	private boolean isFilterDisplayed = false;
 	private boolean isLocked = false;
 
-	/**
-	 * Sets SurfaceHolder.Callback to this
-	 * 
-	 * @param Context context
-	 */
 	public CameraPreviewViewCV(Context context) {
 		super(context);
 		this.holder = getHolder();
@@ -43,12 +35,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
-	/**
-	 * Sets SurfaceHolder.Callback to this
-	 * 
-	 * @param Context context
-	 * @param AttributeSet attr
-	 */
 	public CameraPreviewViewCV(Context context, AttributeSet attr) {
 		super(context, attr);
 		this.holder = getHolder();
@@ -57,21 +43,10 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		Log.i(TAG, "Instantiated new " + this.getClass());
 	}
 
-	/**
-	 * Sets the filter for the preview. If no filter is set, the original
-	 * image is displayed
-	 * 
-	 * @param IFilter filter
-	 */
 	public void setFilter(IFilter filter) {
 		this.filter = filter;
 	}
 
-	/**
-	 * Checks if the filtered preview is displayed
-	 * 
-	 * @return the state of the filtered preview
-	 */
 	public boolean isFilterDisplayed() {
 		if (this.isFilterDisplayed == true) {
 			return true;
@@ -80,11 +55,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		return false;
 	}
 
-	/**
-	 * Toggles the filter usage of the surface.
-	 * 
-	 * @param display
-	 */
 	public void toggleFilter(boolean display) {
 		if (this.isFilterDisplayed) {
 			this.isFilterDisplayed = false;
@@ -93,12 +63,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 	}
 
-	/**
-	 * Grabs a frame from the preview und manipulates it with the current filter if set. Sets the camera lock
-	 * to true, for another picture resume() has to be called.
-	 * 
-	 * @return Bitmap picture
-	 */
 	public Bitmap takePicture() {
 		if(this.camera == null) {
 			return null;
@@ -125,37 +89,18 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		return bitmap;
 	}
 	
-	/**
-	 * Releases the camera lock after taking a picture
-	 */
 	public void resume() {
 		this.isLocked = false;
 	}
 	
-	/**
-	 * Locks the camera (if the lock is set, no pictures can be taken)
-	 */
 	public void lock() {
 		this.isLocked = true;
 	}
 	
-	/**
-	 * Returns the state of the camera lock
-	 * 
-	 * @return boolean, the state
-	 */
 	public boolean isLocked() {
 		return this.isLocked;
 	}
 
-	/**
-	 * Calculates the optimal preview size for the divice
-	 * 
-	 * @param SurfaceHolder _holder
-	 * @param int format
-	 * @param int width
-	 * @param int height
-	 */
 	public void surfaceChanged(SurfaceHolder _holder, int format, int width, int height) {
 		Log.i(TAG, "surfaceCreated");
 		synchronized (this) {
@@ -170,12 +115,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 	}
 
-	/**
-	 * Initializes and opens the OpenCV VideoCaputre camera for preview and pictures,
-	 * if the camera is already open, it will be released
-	 * 
-	 * @param SurfaceHolder holder
-	 */
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.i(TAG, "surfaceCreated");
 		this.camera = new VideoCapture(Highgui.CV_CAP_ANDROID);
@@ -188,9 +127,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 	}
 
-	/**
-	 * Releases the camera
-	 */
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		Log.i(TAG, "surfaceDestroyed");
 		if (this.camera != null) {
@@ -201,12 +137,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		}
 	}
 
-	/**
-	 * Process a frame from the preview with the actual filter
-	 * 
-	 * @param capture
-	 * @return
-	 */
 	protected Bitmap processFrame(VideoCapture capture) {
 		Mat bitmapMat = new Mat();
 
@@ -224,10 +154,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		return bitmap;
 	}
 
-	/**
-	 * Thread that listens to the OpenCV VideoCaputre, grabs the preview frames and draws them on the
-	 * CameraPreviewViewCV SurfaceView  
-	 */
 	public void run() {
 		Log.i(TAG, "Starting processing thread");
 		while (true) {
@@ -262,14 +188,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		Log.i(TAG, "Finishing processing thread");
 	}
 
-	/**
-	 * Calculates the optimal preview size for a display with the supported camera sizes
-	 * 
-	 * @param List<Size> sizes, the supported camera sizes
-	 * @param int surfaceWidth
-	 * @param int surfaceHeight
-	 * @return Size, the optimal preview size for the device display
-	 */
 	private Size getOptimalPreviewSize(List<Size> sizes, int surfaceWidth, int surfaceHeight) {
 		int frameWidth = surfaceWidth;
 		int frameHeight = surfaceHeight;
@@ -288,7 +206,6 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 		return new Size(frameWidth, frameHeight);
 	}
 
-	@Deprecated
 	private Size getHighestPreviewSize(List<Size> sizes) {
 		Size maxSize = new Size(Double.MIN_VALUE, Double.MIN_VALUE);
 
@@ -300,5 +217,4 @@ public class CameraPreviewViewCV extends SurfaceView implements SurfaceHolder.Ca
 
 		return maxSize;
 	}
-
 }
