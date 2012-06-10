@@ -38,8 +38,8 @@ public class Converter {
 	private final Paint paint;
 	
 	private int fontsize = 8;
-	private int forgroundcolor = Color.BLACK;
-	private int backgroundcolor = Color.WHITE;
+	private int forgroundcolor = Color.WHITE;
+	private int backgroundcolor = Color.BLACK;
 
 	public Converter() {
 		this.paint = new Paint();
@@ -128,6 +128,7 @@ public class Converter {
 		
 		this.canvas.setBitmap(mybitmap);
 		this.canvas.drawColor(this.backgroundcolor);
+		this.paint.setColor(this.forgroundcolor);
 		
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
@@ -178,5 +179,4 @@ public class Converter {
 	public void setFontSize(int fontsize) {
 		this.fontsize = fontsize + FONT_SCALE;
 	}
-
 }
