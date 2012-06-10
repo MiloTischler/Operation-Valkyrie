@@ -6,7 +6,6 @@ import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
 import valkyrie.filter.FilterManager;
 import valkyrie.filter.ascii.Ascii;
-import valkyrie.filter.grayscale.Grayscale;
 import valkyrie.main.R;
 import valkyrie.ui.gallery.GalleryActivity;
 import valkyrie.ui.preview.CameraPreviewViewCV;
@@ -15,10 +14,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -72,6 +71,16 @@ public class MainActivity extends Activity {
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
+		
+		// initialize FileManager
+		this.fileManager = new FileManager();
+		
+		// initialize sound management
+		this.shootSound = MediaPlayer.create(this.getApplicationContext(),
+				Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+		
+		this.audioManager = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		this.volume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 	}
 
 	public void takePicture(View view) {
@@ -80,42 +89,36 @@ public class MainActivity extends Activity {
 		if (this.cameraPreview.isLocked()) {
 			Log.e(TAG, "cam locked");
 			return;
-		}
+		} 
+		
+		// Play animation
+		ImageButton triggerAnimationSpace = (ImageButton) this.findViewById(R.id.trigger_animation);
+		triggerAnimationSpace.setBackgroundResource(R.drawable.trigger_animation);
+		AnimationDrawable triggerAnimation = (AnimationDrawable) triggerAnimationSpace.getBackground();
+		triggerAnimation.setVisible(false, true);
+		triggerAnimation.start();
 
 		// Just a dummy text to appear..
 		Toast.makeText(this.getApplicationContext(), "Take Picture Clicked", Toast.LENGTH_SHORT).show();
 
-		// Play take photo sound effect
-		if (this.audioManager == null || this.volume == 0) {
-			this.audioManager = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-			this.volume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-		}
-
-		if (this.shootSound == null) {
-			this.shootSound = MediaPlayer.create(this.getApplicationContext(),
-					Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-		}
-
+		// Play take picture sound effect
 		if (volume != 0) {
 			this.shootSound.start();
 		} else {
 			view.playSoundEffect(SoundEffectConstants.CLICK);
 		}
 
+		// Actually take picture
 		Bitmap bitmap = this.cameraPreview.takePicture();
 
 		if (bitmap == null) {
-			Log.e(TAG, "takePicture got null bitmap");
+			Log.e(TAG, "takePicture returned null bitmap");
+			this.cameraPreview.resume();
+			return;
 		}
 
-		// TODO: do something with picture..
-		if(this.fileManager == null) {
-			this.fileManager = new FileManager();
-		}
-
+		// Save image to gallery
 		this.fileManager.saveImageToGallery(bitmap);
-
-
 		DecodeBitmaps.done = false;
 
 		if(bitmap != null) {
