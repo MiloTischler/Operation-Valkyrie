@@ -89,17 +89,12 @@ containing a value of this type.
         public static final int foreground_color=0x7f020004;
         public static final int gallery=0x7f020005;
         public static final int ic_launcher=0x7f020006;
-        public static final int laurenz=0x7f020007;
-        public static final int milo=0x7f020008;
-        public static final int paul=0x7f020009;
-        public static final int preview_off=0x7f02000a;
-        public static final int preview_on=0x7f02000b;
-        public static final int real_valkyrie=0x7f02000c;
-        public static final int ritzy=0x7f02000d;
-        public static final int schweigi=0x7f02000e;
-        public static final int sliding_drawer_handle_left=0x7f02000f;
-        public static final int trigger_animation=0x7f020010;
-        public static final int valkyrie=0x7f020011;
+        public static final int preview_off=0x7f020007;
+        public static final int preview_on=0x7f020008;
+        public static final int real_valkyrie=0x7f020009;
+        public static final int sliding_drawer_handle_left=0x7f02000a;
+        public static final int trigger_animation=0x7f02000b;
+        public static final int valkyrie=0x7f02000c;
     }
     public static final class id {
         public static final int Backgroundcolor=0x7f05001f;
@@ -134,7 +129,7 @@ containing a value of this type.
         public static final int neuhold=0x7f050009;
         public static final int nofilter_option0=0x7f050019;
         public static final int nofilter_option1=0x7f05001a;
-        public static final int options_test=0x7f050024;
+        public static final int options_headline=0x7f050024;
         public static final int rightToLeft=0x7f050000;
         public static final int ritz=0x7f05000b;
         public static final int schweighofer=0x7f050007;
@@ -158,18 +153,18 @@ containing a value of this type.
         public static final int showpic=0x7f030008;
     }
     public static final class string {
-        public static final int ColorDialog=0x7f06000a;
-        public static final int action_bar_background_description=0x7f060008;
-        public static final int app_name=0x7f060001;
-        public static final int camera_preview_view_description=0x7f060004;
-        public static final int filter_effect_toggle=0x7f060007;
-        public static final int filter_options_handle_description=0x7f060003;
-        public static final int fontSize=0x7f06000b;
-        public static final int fullscreen_img=0x7f060009;
-        public static final int gallery=0x7f060006;
-        public static final int hello=0x7f060000;
-        public static final int options=0x7f060002;
-        public static final int trigger=0x7f060005;
+        public static final int action_bar_background_description=0x7f060007;
+        public static final int app_name=0x7f060000;
+        public static final int camera_preview_view_description=0x7f060003;
+        public static final int color=0x7f06000a;
+        public static final int colormode=0x7f06000b;
+        public static final int filter_effect_toggle=0x7f060006;
+        public static final int filter_options_handle_description=0x7f060002;
+        public static final int font_size=0x7f060009;
+        public static final int fullscreen_img=0x7f060008;
+        public static final int gallery=0x7f060005;
+        public static final int options=0x7f060001;
+        public static final int trigger=0x7f060004;
     }
     public static final class styleable {
         /**  MultiDirectionSlidingDrawer Widget end 

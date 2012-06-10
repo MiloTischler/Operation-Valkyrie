@@ -7,13 +7,13 @@
 
     <TableRow
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="30dp" >
 
         <TextView
             android:layout_span="2"
             android:padding="5dp"
             android:tag="name"
-            android:text="@string/fontSize" />
+            android:text="@string/font_size" />
     </TableRow>
 
     <TableRow
@@ -31,8 +31,18 @@
     </TableRow>
 
     <TableRow
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_span="2"
+            android:padding="5dp"
+            android:tag="name"
+            android:text="@string/color" />
+    </TableRow>
+    
+    <TableRow
         xmlns:color="http://schemas.android.com/apk/res/valkyrie.grayscale"
-        android:layout_marginTop="10dp"
         android:tag="parent" >
 
         <valkyrie.colorpicker.ColorPicker
@@ -43,7 +53,6 @@
             android:layout_margin="10dp"
             android:background="#FFFFFF"
             android:src="@+drawable/foreground_color"
-            android:tag="LOLMEINTAG"
             android:textColor="#FFFFFF" />
 
         <valkyrie.colorpicker.ColorPicker
@@ -54,24 +63,33 @@
             android:layout_margin="10dp"
             android:background="#000000"
             android:src="@+drawable/background_color"
-            android:tag="LOLMEINTAG"
             android:textColor="#FFFFFF" />
 
         <TextView android:layout_width="match_parent" />
     </TableRow>
+    
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_span="2"
+            android:padding="5dp"
+            android:tag="name"
+            android:text="@string/colormode" />
+    </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"
-        android:layout_marginTop="10dp"
         android:tag="parent" >
 
         <ToggleButton
             android:id="@+id/color_mode"
             android:layout_span="4"
-            android:checked="true"
+            android:checked="false"
             android:tag="color_mode"
-            android:textOff="Graustufen aktiviert"
-            android:textOn="Farbe aktiviert" />
+            android:textOff="Deactivated"
+            android:textOn="Activated" />
     </TableRow>
 
 </TableLayout>

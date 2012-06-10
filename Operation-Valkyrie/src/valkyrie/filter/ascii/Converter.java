@@ -90,8 +90,7 @@ public class Converter {
 		Imgproc.resize(color, color, new Size(width, height));
 		
 		this.canvas.setBitmap(mybitmap);
-		
-		this.canvas.drawColor(Color.WHITE);
+		this.canvas.drawColor(this.backgroundcolor);
 		
 		int widthPos = 0;
 		int heightPos = this.fontsize;
@@ -128,8 +127,8 @@ public class Converter {
 		Imgproc.resize(gray, gray, new Size(width, height));
 		
 		this.canvas.setBitmap(mybitmap);
-		paint.setColor(this.forgroundcolor);
 		this.canvas.drawColor(this.backgroundcolor);
+		
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
 		
@@ -160,6 +159,8 @@ public class Converter {
 	 */
 	public void setForegroundColor(int foregroundcolor) {
 		this.forgroundcolor = foregroundcolor;
+		
+		paint.setColor(this.forgroundcolor);
 	}
 	
 	/**
