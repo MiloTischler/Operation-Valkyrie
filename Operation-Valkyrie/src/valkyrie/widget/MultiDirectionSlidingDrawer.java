@@ -19,7 +19,6 @@
 package valkyrie.widget;
 
 import valkyrie.main.R;
-import valkyrie.ui.UpdateableRelativeLayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
