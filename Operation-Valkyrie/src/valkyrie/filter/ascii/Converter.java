@@ -2,26 +2,17 @@ package valkyrie.filter.ascii;
 
 import java.util.Vector;
 
-import org.opencv.android.Utils;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
-
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.Size;
-import org.opencv.core.Scalar;
 
-import valkyrie.ui.LayoutManager;
-
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Region;
 import android.graphics.Typeface;
-import android.util.Log;
+
 
 /**
  * 
@@ -38,16 +29,17 @@ import android.util.Log;
 
 public class Converter {
 	private static final String TAG = "Converter";
+	
+	private static final int FONT_SCALE = 5;
 
-
-	private final Paint paint;
-	private int fontsize = 8;
 	private final Canvas canvas;
-	private SharedPreferences options;
+	private final Paint paint;
+	
+	private int fontsize = 8;
+	private int forgroundcolor = Color.BLACK;
+	private int backgroundcolor = Color.WHITE;
 
-	public Converter(SharedPreferences options) {
-		this.options = options;
-//		boolean colorMode = options.getBoolean("color_mode", false);
+	public Converter() {
 		this.paint = new Paint();
 		this.canvas = new Canvas();
 
@@ -77,7 +69,6 @@ public class Converter {
 	}
 	
 	public Bitmap colorToASCII(Mat color, int[] LUT) {		
-		this.fontsize = options.getInt("fontsize", 0) + 5;
 		final int width = color.width() / this.fontsize; 
 		final int height = color.height() / this.fontsize;
 		
@@ -112,16 +103,14 @@ public class Converter {
 
 
 	public Bitmap grayscaleToASCII(Mat gray, int[] LUT) {
-		this.options = LayoutManager.getInstance().getSharedPreferencesOfFilter(Ascii.class.getSimpleName());
-		this.fontsize = options.getInt("fontsize", 0) + 5;
 		final int width = gray.width() / this.fontsize; 
 		final int height = gray.height() / this.fontsize;
 		Bitmap mybitmap = Bitmap.createBitmap(gray.width(), gray.height(), Bitmap.Config.RGB_565);
 		Imgproc.resize(gray, gray, new Size(width, height));
 		
 		this.canvas.setBitmap(mybitmap);
-		paint.setColor(this.options.getInt("foreground", 0));
-		this.canvas.drawColor(this.options.getInt("background", 0));
+		paint.setColor(this.forgroundcolor);
+		this.canvas.drawColor(this.backgroundcolor);
 		float[] asciiPositions = new float[(width * height) * 2];
 		char[] asciiChars = new char[(width * height)];
 		
@@ -144,6 +133,18 @@ public class Converter {
 		gray.release();
 		
 		return mybitmap;
+	}
+	
+	public void setForegroundColor(int foregroundcolor) {
+		this.forgroundcolor = foregroundcolor;
+	}
+	
+	public void setBackgroundcolor(int backgroundcolor) {
+		this.backgroundcolor = backgroundcolor;
+	}
+	
+	public void setFontSize(int fontsize) {
+		this.fontsize = fontsize + FONT_SCALE;
 	}
 
 }

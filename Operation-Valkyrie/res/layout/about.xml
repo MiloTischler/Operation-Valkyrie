@@ -118,22 +118,22 @@
         android:text="http://www.iconfinder.com/icondetails/67495/128/_icon" />
     
         <TextView
-        android:id="@+id/galleryIconAuthor"
+        android:id="@+id/EugenBuzuk"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ChameraShutterLink"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:text="gallery icon creator ... " />
+        android:text="Gallery Icon by Eugen Buzuk" />
 
     <TextView
-        android:id="@+id/galleryIcon"
+        android:id="@+id/galleryIconLink"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/galleryIconAuthor"
+        android:layout_below="@+id/EugenBuzuk"
         android:layout_marginLeft="20dp"
-        android:text="Link to gallery icon" />
+        android:text="http://www.iconfinder.com/icondetails/37594/128/image_iphoto_nikon_photo_picture_icon" />
 
 </RelativeLayout>
