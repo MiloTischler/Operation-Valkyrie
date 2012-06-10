@@ -13,10 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 public class FileManager {
 	final static String TAG = "FileManager";
@@ -65,56 +67,6 @@ public class FileManager {
 	}
 
 	public void saveImageToGallery(Bitmap bitmap) {
-<<<<<<< HEAD
-		OutputStream fOut = null;
-		File directory = new File(SDPATH);
-
-		File files[] = directory.listFiles();
-		
-		if(files == null) {
-			Log.e(TAG, "files null");
-			return;
-		}
-		
-		File file;
-		
-		if (files.length > 0) {
-			int highestnumber = 0;
-			for (File f : files) {
-				if (f.exists()) {
-					int newhighest = Integer.parseInt(getLatestImage().substring(3, getLatestImage().length() - 4));
-					if (newhighest >= highestnumber) {
-						highestnumber = newhighest + 1;
-					}
-				}
-			}	
-
-			String filenumber = IMGCOUNT + highestnumber;
-			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
-		} else {
-			String filenumber = IMGCOUNT + 1;
-			filenumber = filenumber.substring(filenumber.length() - 4);
-			file = new File(SDPATH, IMGNAME + filenumber + ".jpg");
-		}
-
-		try {
-			fOut = new FileOutputStream(file);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-			fOut.flush();
-			fOut.close();
-			
-		} catch (FileNotFoundException e) {
-			Log.e("FileManager", e.toString());
-		} catch (IOException e) {
-			Log.e(TAG, e.toString());
-			e.printStackTrace();
-		} finally {
-			bitmap.recycle();
-		}
-		
-=======
-
 		if (SDMOUNTED) {
 			OutputStream fOut = null;
 			File directory = new File(SDPATH);
@@ -159,8 +111,6 @@ public class FileManager {
 			bitmap.recycle();
 		} else
 			Toast.makeText(context, "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
-
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 	}
 
 	public void saveImageToInternal(Bitmap bitmap) {
@@ -207,11 +157,6 @@ public class FileManager {
 		int highestnumber = 0;
 		for (File f : files) {
 			if (f.exists()) {
-<<<<<<< HEAD
-
-=======
-				Log.d("DEBUGName", f.getName());
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 				int newhighest = Integer.parseInt(f.getName().substring(3, f.getName().length() - 4));
 				if (newhighest >= highestnumber) {
 					highestnumber = newhighest + 1;

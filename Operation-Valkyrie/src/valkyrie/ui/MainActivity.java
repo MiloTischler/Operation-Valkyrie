@@ -74,24 +74,22 @@ public class MainActivity extends Activity {
 		// initialize FilterManager
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
-		
-<<<<<<< HEAD
+
 		// initialize FileManager
-		this.fileManager = new FileManager();
-		
+		this.fileManager = new FileManager(this.getApplicationContext());
+
 		// initialize sound management
 		this.shootSound = MediaPlayer.create(this.getApplicationContext(),
 				Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
-		
+
 		this.audioManager = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 		this.volume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-=======
+
 		// check if SD Card is mounted
-		String state = Environment.getExternalStorageState();  
-		  if (!Environment.MEDIA_MOUNTED.equals(state)) {  
-		    	Toast.makeText(this.getApplicationContext(), "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
-		  }
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
+		String state = Environment.getExternalStorageState();
+		if (!Environment.MEDIA_MOUNTED.equals(state)) {
+			Toast.makeText(this.getApplicationContext(), "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void takePicture(View view) {
@@ -100,8 +98,8 @@ public class MainActivity extends Activity {
 		if (this.cameraPreview.isLocked()) {
 			Log.e(TAG, "cam locked");
 			return;
-		} 
-		
+		}
+
 		// Play animation
 		ImageButton triggerAnimationSpace = (ImageButton) this.findViewById(R.id.trigger_animation);
 		triggerAnimationSpace.setBackgroundResource(R.drawable.trigger_animation);
@@ -119,11 +117,7 @@ public class MainActivity extends Activity {
 			view.playSoundEffect(SoundEffectConstants.CLICK);
 		}
 
-<<<<<<< HEAD
 		// Actually take picture
-=======
-		
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 		Bitmap bitmap = this.cameraPreview.takePicture();
 
 		if (bitmap == null) {
@@ -132,18 +126,11 @@ public class MainActivity extends Activity {
 			return;
 		}
 
-<<<<<<< HEAD
 		// Save image to gallery
 		this.fileManager.saveImageToGallery(bitmap);
-=======
-		
-		// TODO: do something with picture..
-		FileManager fileManager = new FileManager(this.getApplicationContext());
-		fileManager.saveImageToGallery(bitmap);
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 		DecodeBitmaps.done = false;
 
-		if(bitmap != null) {
+		if (bitmap != null) {
 			bitmap.recycle();
 		}
 
@@ -151,7 +138,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void showGallery(View view) {
-		
+
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		Intent myIntent = new Intent(MainActivity.this, GalleryActivity.class);
@@ -165,28 +152,13 @@ public class MainActivity extends Activity {
 		if (galleryFiles.listFiles() != null) {
 
 			if ((galleryFiles.listFiles().length == 0)) {
-<<<<<<< HEAD
-				Toast.makeText(this.getApplicationContext(),
-						"There are no Files taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
-=======
-				Toast.makeText(
-						this.getApplicationContext(),
-						"There are no Pictures to display",
-						Toast.LENGTH_SHORT).show();
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
+				Toast.makeText(this.getApplicationContext(), "There are no Pictures to display", Toast.LENGTH_SHORT)
+						.show();
 				DecodeBitmaps.done = false;
 				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
 			}
 		} else if ((galleryFiles.listFiles() == null)) {
-<<<<<<< HEAD
-			Toast.makeText(this.getApplicationContext(),
-					"There are no Pictures taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
-=======
-			Toast.makeText(
-					this.getApplicationContext(),
-					"There are no Pictures to display",
-					Toast.LENGTH_SHORT).show();
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
+			Toast.makeText(this.getApplicationContext(), "There are no Pictures to display", Toast.LENGTH_SHORT).show();
 		}
 
 		if ((galleryFiles.listFiles() != null)) {
@@ -210,7 +182,7 @@ public class MainActivity extends Activity {
 
 	public void toggleFilterEffect(View view) {
 		Log.d("Tag", "clicked: toggleFilterEffect");
-		
+
 		view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// Just a dummy text to appear..

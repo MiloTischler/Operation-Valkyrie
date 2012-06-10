@@ -105,44 +105,6 @@ public class GalleryActivity extends Activity {
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 
-<<<<<<< HEAD
-//		if (item.getTitle() == "Laurenz") {
-//
-//			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-//					this.getResources(), R.drawable.laurenz ));
-//
-//			DecodeBitmaps.done = false;
-//			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-//			onCreate(savedInsta);
-//
-//		} else if (item.getTitle() == "Milo") {
-//			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-//					this.getResources(), R.drawable.milo ));
-//			DecodeBitmaps.done = false;
-//			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-//			onCreate(savedInsta);
-//
-//		} else if (item.getTitle() == "Schweigi") {
-//			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-//					this.getResources(), R.drawable.schweigi));
-//			DecodeBitmaps.done = false;
-//			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-//			onCreate(savedInsta);
-//		} else if (item.getTitle() == "Paul") {
-//			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-//					this.getResources(), R.drawable.paul));
-//			DecodeBitmaps.done = false;
-//			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-//			onCreate(savedInsta);
-//		} else if (item.getTitle() == "Ritzy") {
-//			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
-//					this.getResources(), R.drawable.ritzy));
-//			DecodeBitmaps.done = false;
-//			DecodeBitmaps callConst = new DecodeBitmaps(NO);
-//			onCreate(savedInsta);
-//
-//		}
-=======
 		if (item.getTitle() == "Laurenz") {
 
 			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
@@ -184,8 +146,6 @@ public class GalleryActivity extends Activity {
 			
 			
 		}
-		
->>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 
 		return super.onOptionsItemSelected(item);
 	}
