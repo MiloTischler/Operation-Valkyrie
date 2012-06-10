@@ -101,7 +101,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 
@@ -174,7 +174,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 		if (item.getTitle() == "Delete selected Picture") {
