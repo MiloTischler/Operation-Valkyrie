@@ -13,7 +13,7 @@
             android:layout_span="2"
             android:padding="5dp"
             android:tag="name"
-            android:text="Font Size" />
+            android:text="@string/fontSize" />
     </TableRow>
 
     <TableRow
