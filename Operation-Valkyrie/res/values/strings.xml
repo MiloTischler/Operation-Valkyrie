@@ -12,4 +12,5 @@
 	<string name="action_bar_background_description">Action Bar Background</string>
 	<string name="fullscreen_img">Fullscreen Imagemode</string>
 	<string name="ColorDialog">SampleColorDialogPreference</string>
+	<string name="fontSize">Font Size</string>
 </resources>
