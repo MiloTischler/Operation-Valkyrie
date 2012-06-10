@@ -83,6 +83,8 @@ public class GalleryActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		SubMenu gods = menu.addSubMenu("Show me the Gods");
+		menu.add("About");
+				
 		gods.add("Paul");
 		gods.add("Laurenz");
 		gods.add("Milo");
@@ -93,9 +95,6 @@ public class GalleryActivity extends Activity {
 
 	@Override
 	public void onOptionsMenuClosed(Menu menu) {
-		Toast.makeText(this.getApplicationContext(),
-				"Dont be afraid",
-				Toast.LENGTH_LONG).show();
 		super.onOptionsMenuClosed(menu);
 	}
 
@@ -140,8 +139,14 @@ public class GalleryActivity extends Activity {
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
-
+		}else if (item.getTitle() == "About"){
+			
+			Intent aboutIntent = new Intent(GalleryActivity.this, AboutActivity.class);
+			GalleryActivity.this.startActivity(aboutIntent);
+			
+			
 		}
+		
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -186,7 +191,6 @@ public class GalleryActivity extends Activity {
 		} else if (item.getTitle() == "Delete all Pictures") {
 
 		} else if (item.getItemId() == YES) {
-			Log.d(TAG, "FUCK YOU YES = 1");
 			for (String s : DecodeBitmaps.fullImgNames) {
 				fileManager.deleteImageFromGallery(s);
 			}
@@ -197,8 +201,6 @@ public class GalleryActivity extends Activity {
 			onCreate(savedInsta);
 
 		} else if (item.getItemId() == NO) {
-			Toast.makeText(this.getApplicationContext(), "Whatever you like",
-					Toast.LENGTH_LONG).show();
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);
