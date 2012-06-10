@@ -83,6 +83,8 @@ public class GalleryActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		SubMenu gods = menu.addSubMenu("Show me the Gods");
+		menu.add("About");
+				
 		gods.add("Paul");
 		gods.add("Laurenz");
 		gods.add("Milo");
@@ -93,19 +95,17 @@ public class GalleryActivity extends Activity {
 
 	@Override
 	public void onOptionsMenuClosed(Menu menu) {
-		Toast.makeText(this.getApplicationContext(),
-				"Dont be afraid",
-				Toast.LENGTH_LONG).show();
 		super.onOptionsMenuClosed(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 
+<<<<<<< HEAD
 //		if (item.getTitle() == "Laurenz") {
 //
 //			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
@@ -142,6 +142,50 @@ public class GalleryActivity extends Activity {
 //			onCreate(savedInsta);
 //
 //		}
+=======
+		if (item.getTitle() == "Laurenz") {
+
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.laurenz ));
+
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			onCreate(savedInsta);
+
+		} else if (item.getTitle() == "Milo") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.milo ));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			onCreate(savedInsta);
+
+		} else if (item.getTitle() == "Schweigi") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.schweigi));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			onCreate(savedInsta);
+		} else if (item.getTitle() == "Paul") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.paul));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			onCreate(savedInsta);
+		} else if (item.getTitle() == "Ritzy") {
+			fileManager.saveImageToGallery(BitmapFactory.decodeResource(
+					this.getResources(), R.drawable.ritzy));
+			DecodeBitmaps.done = false;
+			DecodeBitmaps callConst = new DecodeBitmaps(NO);
+			onCreate(savedInsta);
+		}else if (item.getTitle() == "About"){
+			
+			Intent aboutIntent = new Intent(GalleryActivity.this, AboutActivity.class);
+			GalleryActivity.this.startActivity(aboutIntent);
+			
+			
+		}
+		
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -169,7 +213,7 @@ public class GalleryActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 
-		FileManager fileManager = new FileManager();
+		FileManager fileManager = new FileManager(this.getApplicationContext());
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inSampleSize = 4;
 		if (item.getTitle() == "Delete selected Picture") {
@@ -186,7 +230,6 @@ public class GalleryActivity extends Activity {
 		} else if (item.getTitle() == "Delete all Pictures") {
 
 		} else if (item.getItemId() == YES) {
-			Log.d(TAG, "FUCK YOU YES = 1");
 			for (String s : DecodeBitmaps.fullImgNames) {
 				fileManager.deleteImageFromGallery(s);
 			}
@@ -197,8 +240,6 @@ public class GalleryActivity extends Activity {
 			onCreate(savedInsta);
 
 		} else if (item.getItemId() == NO) {
-			Toast.makeText(this.getApplicationContext(), "Whatever you like",
-					Toast.LENGTH_LONG).show();
 			DecodeBitmaps.done = false;
 			DecodeBitmaps callConst = new DecodeBitmaps(NO);
 			onCreate(savedInsta);

@@ -1,6 +1,9 @@
 package valkyrie.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import valkyrie.file.DecodeBitmaps;
 import valkyrie.file.FileManager;
@@ -72,6 +75,7 @@ public class MainActivity extends Activity {
 		this.filterManager = new FilterManager(this.getApplicationContext(), R.array.filters, this.cameraPreview);
 		this.filterManager.setActiveFilter(new Ascii());
 		
+<<<<<<< HEAD
 		// initialize FileManager
 		this.fileManager = new FileManager();
 		
@@ -81,6 +85,13 @@ public class MainActivity extends Activity {
 		
 		this.audioManager = (AudioManager) this.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 		this.volume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+=======
+		// check if SD Card is mounted
+		String state = Environment.getExternalStorageState();  
+		  if (!Environment.MEDIA_MOUNTED.equals(state)) {  
+		    	Toast.makeText(this.getApplicationContext(), "WARNING: SD Card not mounted!", Toast.LENGTH_SHORT).show();
+		  }
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 	}
 
 	public void takePicture(View view) {
@@ -108,7 +119,11 @@ public class MainActivity extends Activity {
 			view.playSoundEffect(SoundEffectConstants.CLICK);
 		}
 
+<<<<<<< HEAD
 		// Actually take picture
+=======
+		
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 		Bitmap bitmap = this.cameraPreview.takePicture();
 
 		if (bitmap == null) {
@@ -117,8 +132,15 @@ public class MainActivity extends Activity {
 			return;
 		}
 
+<<<<<<< HEAD
 		// Save image to gallery
 		this.fileManager.saveImageToGallery(bitmap);
+=======
+		
+		// TODO: do something with picture..
+		FileManager fileManager = new FileManager(this.getApplicationContext());
+		fileManager.saveImageToGallery(bitmap);
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 		DecodeBitmaps.done = false;
 
 		if(bitmap != null) {
@@ -143,14 +165,28 @@ public class MainActivity extends Activity {
 		if (galleryFiles.listFiles() != null) {
 
 			if ((galleryFiles.listFiles().length == 0)) {
+<<<<<<< HEAD
 				Toast.makeText(this.getApplicationContext(),
 						"There are no Files taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
+=======
+				Toast.makeText(
+						this.getApplicationContext(),
+						"There are no Pictures to display",
+						Toast.LENGTH_SHORT).show();
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 				DecodeBitmaps.done = false;
 				DecodeBitmaps decodeBitmaps = new DecodeBitmaps(0);
 			}
 		} else if ((galleryFiles.listFiles() == null)) {
+<<<<<<< HEAD
 			Toast.makeText(this.getApplicationContext(),
 					"There are no Pictures taken yet, make some to open the Gallery", Toast.LENGTH_SHORT).show();
+=======
+			Toast.makeText(
+					this.getApplicationContext(),
+					"There are no Pictures to display",
+					Toast.LENGTH_SHORT).show();
+>>>>>>> 592b3914812b36d3801a23504f4e6ed38e222509
 		}
 
 		if ((galleryFiles.listFiles() != null)) {
