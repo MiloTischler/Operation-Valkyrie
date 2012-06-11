@@ -10,6 +10,7 @@ import valkyrie.ui.MainActivity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.SeekBar;
+import android.widget.ToggleButton;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -90,10 +91,6 @@ public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActiv
 
 			Converter converter = (Converter) converterField.get(this.ascii);
 
-			for (Field field : converter.getClass().getDeclaredFields()) {
-				Log.d("DEBUG", "OMFG " + field.getName());
-			}
-
 			Field fontsizeFiled = converter.getClass().getDeclaredField("fontsize");
 			Field fontscale = converter.getClass().getDeclaredField("FONT_SCALE");
 
@@ -114,7 +111,6 @@ public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActiv
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void testChangeBackgroundColor() {
@@ -199,6 +195,43 @@ public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActiv
 	}
 
 	public void testChangeColorMode() {
-		fail("Not yet implemented");
+		
+		try {			
+			Field converterField = this.ascii.getClass().getDeclaredField("converter");
+			
+			converterField.setAccessible(true);
+			
+			Converter converter = (Converter) converterField.get(this.ascii);
+			
+			Field colorModeFiled = converter.getClass().getDeclaredField("colorMode");
+			
+			colorModeFiled.setAccessible(true);
+
+			Boolean beforeColor = colorModeFiled.getBoolean(converter);
+			
+			
+			this.solo.sendKey(Solo.MENU);
+			
+			assertNotNull(this.solo.getView(R.id.color_mode));
+			
+			ToggleButton colorMode = (ToggleButton) this.solo.getView(R.id.color_mode);
+			
+			this.solo.clickOnView(colorMode);
+			
+			
+			Boolean afterColor = colorModeFiled.getBoolean(converter);
+			
+			
+			assertTrue(beforeColor != afterColor);
+			
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 }

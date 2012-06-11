@@ -9,7 +9,8 @@ Setup / Building
     	
 	- Setup
 	 1) Import the Operation-Valkyrie Project, the Operation-Valkyrie-Test Project into eclipse, it is saved as an eclipse project so you should have no troubles with that.
-	
+      Note: import the Operation-Valkyrie and the Operation-Valkyrie-Test Project separately as standalone projects.
+      	
 	 2) Setup OpenCV (http://opencv.itseez.com/doc/tutorials/introduction/android_binary_package/android_binary_package.html)
   	  We also added a fully functional OpenCV distribution to the zip. You can just import this.
       2.1) Import OpenCV folder as exisiting project (under its project properties -> Android -> is Library -> check if not already checked)
@@ -22,3 +23,6 @@ Setup / Building
       - Project Properties (Test Project) -> Java Build Path -> Librarys -> select jar location
     
 Your project should now be ready to Go. Build and Run and enjoy the Operation-Valkyrie Ascii Camera.
+
+
+  - Setup Test Project:
