@@ -9,13 +9,11 @@ import valkyrie.ui.gallery.GalleryActivity;
 import valkyrie.ui.gallery.ShowPicActivity;
 import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-import android.view.View;
 import android.widget.GridView;
 
 import com.jayway.android.robotium.solo.Solo;
 
-import junit.framework.TestCase;
+
 
 public class GalleryActivityTest extends
 		ActivityInstrumentationTestCase2<GalleryActivity> {
@@ -66,6 +64,7 @@ public class GalleryActivityTest extends
 		views= this.solo.getCurrentGridViews();
 		views.get(0).getCount();
 		int pictures = views.get(0).getCount();
+		
 
 		
 		if (file.listFiles().length  >= 2){

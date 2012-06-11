@@ -34,9 +34,9 @@ public class FileManager {
 	final static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Gallery/";
 	final static String THUMBPATH = Environment.getExternalStorageDirectory().toString() + "/Valkyrie/Thumbnls/";
 
-	public FileManager() {
-		initFileManager();
-	}
+//	public FileManager() {
+//		initFileManager();
+//	}
 
 	public FileManager(Context context) {
 		this.context = context;
