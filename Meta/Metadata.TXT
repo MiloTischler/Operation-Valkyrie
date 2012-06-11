@@ -1,10 +1,10 @@
-Name:
-Author:
+Name: Operation Valkyrie
+Author: JPalm (Alexander Ritz, Laurenz Theuerkauf, Paul Neuhold, Jakob Schweighofer, Milo Tischler)
 Description:
-Keywords:
-Catrgories:
-Age range:
-Language:
-Contact email:
-Contact phone:
-Contact website:
+Keywords: Photo, Picture, Camera, ASCII, Color ASCII, OpenCV, Computer Vision, Image to text
+Catrgories: Photography
+Age range: 0-99
+Language: English
+Contact email: milo.tischler@gmail.com 
+Contact phone: -
+Contact website:  -
