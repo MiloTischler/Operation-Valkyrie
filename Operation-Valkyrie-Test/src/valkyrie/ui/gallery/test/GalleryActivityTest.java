@@ -3,10 +3,15 @@ package valkyrie.ui.gallery.test;
 import java.io.File;
 import java.util.ArrayList;
 
+import valkyrie.file.FileManager;
+import valkyrie.main.R;
 import valkyrie.ui.MainActivity;
 import valkyrie.ui.gallery.AboutActivity;
 import valkyrie.ui.gallery.GalleryActivity;
 import valkyrie.ui.gallery.ShowPicActivity;
+import valkyrie.ui.preview.CameraPreviewViewCV;
+import valkyrie.ui.test.MainActivityTest;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.GridView;
@@ -26,7 +31,9 @@ public class GalleryActivityTest extends
 	File filelist[] = file.listFiles();
 
 	public GalleryActivityTest() {
+		
 		super("valkyrie.ui.gallery", GalleryActivity.class);
+		
 	}
 
 	protected void setUp() throws Exception {
@@ -60,12 +67,12 @@ public class GalleryActivityTest extends
 	
 	public void testLongClickImage (){
 		
+		
 		ArrayList<GridView> views = new ArrayList<GridView>();
 		views= this.solo.getCurrentGridViews();
 		views.get(0).getCount();
 		int pictures = views.get(0).getCount();
-		
-
+			
 		
 		if (file.listFiles().length  >= 2){
 		this.solo.clickLongOnView(views.get(0).getChildAt(0));
@@ -93,6 +100,7 @@ public class GalleryActivityTest extends
 		this.solo.assertCurrentActivity("GalleryActivity", GalleryActivity.class);
 		
 	}
+
 
 	
 }
