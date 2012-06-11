@@ -272,7 +272,7 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	protected void onResume() {
-		Log.i(TAG, "onResume called");
+		Log.i(TAG, "onResume called");		
 		super.onResume();
 	}
 
