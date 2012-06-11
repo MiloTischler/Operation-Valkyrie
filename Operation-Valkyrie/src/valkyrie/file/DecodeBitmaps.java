@@ -20,9 +20,10 @@ import android.util.Log;
 
 /**
  * 
- * This class handles all the file paths and thumb paths so that 
- * a correct viewing in the gridview and then viewing the correct item in FUllscreen mode
- * is possible. Also responsible for creating new thumbs in case of new pictures in the gallery.
+ * This class handles all the file paths and thumb paths so that a correct
+ * viewing in the gridview and then viewing the correct item in FUllscreen mode
+ * is possible. Also responsible for creating new thumbs in case of new pictures
+ * in the gallery.
  * 
  */
 public class DecodeBitmaps {
@@ -72,10 +73,11 @@ public class DecodeBitmaps {
 		}
 
 	}
+
 	/**
-	 * this function is called everytime we have a new picture in the galleryfolder
-	 * then it checks if all the other thumbs are still exists, if not new ones will be 
-	 * created.
+	 * this function is called everytime we have a new picture in the
+	 * galleryfolder then it checks if all the other thumbs are still exists, if
+	 * not new ones will be created.
 	 */
 	private void decodeBitmap() {
 
@@ -88,47 +90,57 @@ public class DecodeBitmaps {
 			// save positions and names for all files
 			// to display and check all thumbs and full images
 			for (int i = 0; i < fileList.length; i++) {
-				fullImgPosition.add(fileList[i].getAbsolutePath());
-				fullImgNames.add(fileList[i].getName());
-				Log.d(TAG, "file length: " + fileList.length + "but i still : "
-						+ i);
+				if (fileList[i] != null) {
+					fullImgPosition.add(fileList[i].getAbsolutePath());
+					fullImgNames.add(fileList[i].getName());
+					Log.d(TAG, "file length: " + fileList.length
+							+ "but i still : " + i);
+				} else {
+					i++;
+				}
+
 			}
 
 			int thumbCounter = 0;
 			for (int i = 0; i < fileList.length; i++) {
+				if (fileList[i] != null) {
+					boolean match = false;
+					// check if a thumb of a given file already exists
+					for (File f : thumbList) {
+						// Log.d(TAG,
+						// "Checking if thumb already exists for all thumbs " +
+						// i + ": " + f.getName());
+						if (f.getName().contentEquals(fileList[i].getName())) {
+							match = true;
+							Log.d(TAG, "thumb name here with : " + f.getName());
+						}
 
-				boolean match = false;
-				// check if a thumb of a given file already exists
-				for (File f : thumbList) {
-				//	Log.d(TAG, "Checking if thumb already exists for all thumbs " + i + ": " + f.getName());
-					if (f.getName().contentEquals(fileList[i].getName())) {
-						match = true;
-						Log.d(TAG, "thumb name here with : " + f.getName());
 					}
+					if (match) {
+						thumbPosition.add(thumbList[thumbCounter]
+								.getAbsolutePath());
 
-				}
-				if (match) {
-					thumbPosition
-							.add(thumbList[thumbCounter].getAbsolutePath());
-				
-					thumbCounter++;
-					Log.d(TAG, "thumb already exists : " + i);
-					// if a new picture is taken we didnt have a thumb so match
-					// == false
-					// so we need a new thumb
+						thumbCounter++;
+						Log.d(TAG, "thumb already exists : " + i);
+						// if a new picture is taken we didnt have a thumb so
+						// match
+						// == false
+						// so we need a new thumb
+					} else {
+						Log.d(TAG,
+								"saving thumb with name: "
+										+ fileList[i].getName());
+						Bitmap newThumb;
+						newThumb = BitmapFactory.decodeFile(
+								fileList[i].getAbsolutePath(), thumbOpt);
+						saveAThumb(newThumb, fileList[i].getName(), i);
+
+					}
 				} else {
-					Log.d(TAG, "saving thumb with name: " + fileList[i].getName());
-					Bitmap newThumb;
-					newThumb = 
-							BitmapFactory.decodeFile(
-									fileList[i].getAbsolutePath(), thumbOpt);
-					saveAThumb(newThumb, fileList[i].getName(), i);
-				
-				
-
+					i++;
 				}
+				done = true;
 			}
-			done = true;
 		} else {
 
 		}
@@ -139,10 +151,10 @@ public class DecodeBitmaps {
 	 * A compressed png is produced in a thumbfolder for a quicker performance
 	 * in the gridview. Only if the sdcard is not mounted.
 	 * 
-	 * @param Bitmap bitmap
-	 *            The bitmap to save in form of a thumb
-	 * @param String imgName
-	 *            The given Name for the thumb
+	 * @param Bitmap
+	 *            bitmap The bitmap to save in form of a thumb
+	 * @param String
+	 *            imgName The given Name for the thumb
 	 */
 	public void saveAThumb(Bitmap bitmap, String imgName, int vecPos) {
 
@@ -166,6 +178,7 @@ public class DecodeBitmaps {
 			
 			thumbList = thumbFiles.listFiles();
 			thumbPosition.add(thumbList[vecPos].getAbsolutePath());
+			
 			bitmap.recycle();
 
 		} else {
@@ -175,7 +188,7 @@ public class DecodeBitmaps {
 	}
 
 	/**
-	 * Recycles all the bitmaps 
+	 * Recycles all the bitmaps
 	 */
 	public void recycleBitmaps() {
 		int i = 0;
