@@ -32,9 +32,9 @@ public class AsciiTest extends ActivityInstrumentationTestCase2<MainActivity> {
 		opts.inPreferredConfig = Bitmap.Config.RGB_565;
 		this.input = BitmapFactory.decodeResource(this.getActivity()
 				.getResources(),
-				valkyrie.main.test.R.drawable.camera_test_pictrue);
+				valkyrie.main.test.R.drawable.camera_test_pictrue_sw);
 		this.mat = new Mat();
-		this.mat = Utils.bitmapToMat(this.input);
+		Utils.bitmapToMat(this.input, this.mat);
 	}
 	
 	public void testReturnValues(){
