@@ -1,10 +1,28 @@
 Name: Operation Valkyrie
+
 Author: JPalm (Alexander Ritz, Laurenz Theuerkauf, Paul Neuhold, Jakob Schweighofer, Milo Tischler)
-Description:
+
+Description: 
+
+  Operation Valkyrie is a camera application with an integrated ASCII filter. You
+  can use a live preview and some filter settings like: 
+    # color-mode
+    # background color
+    # fontsize
+    # ..
+    
+  Your can access the pictures with our build-in gallery and with any file browser.
+  
 Keywords: Photo, Picture, Camera, ASCII, Color ASCII, OpenCV, Computer Vision, Image to text
+
 Catrgories: Photography
+
 Age range: 0-99
+
 Language: English
+
 Contact email: milo.tischler@gmail.com 
+
 Contact phone: -
+
 Contact website:  -
