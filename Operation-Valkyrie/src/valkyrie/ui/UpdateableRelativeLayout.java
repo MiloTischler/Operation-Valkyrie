@@ -17,7 +17,6 @@ import android.widget.TableLayout;
  * Every Component that should be updated when a Filter is switched is of this type.
  */
 public class UpdateableRelativeLayout extends RelativeLayout implements IUpdateableUI {
-
 	/**
 	 * When a component of this type is created it adds itself to the LayoutManagers list of updateable components.
 	 * 
@@ -41,13 +40,13 @@ public class UpdateableRelativeLayout extends RelativeLayout implements IUpdatea
 
 		if (uiElements == null)
 			return;
-
+		
 		// remove all child elements from this layout
-		this.removeView(uiElements);
-
-		if (uiElements.getParent() == null) {
-			// add possibly new elements to panel
-			this.addView(uiElements);
+		if(uiElements.getParent() != null) {
+			((RelativeLayout) uiElements.getParent()).removeView(uiElements);
 		}
+		
+		// add possibly new elements to panel
+		this.addView(uiElements);
 	}
 }

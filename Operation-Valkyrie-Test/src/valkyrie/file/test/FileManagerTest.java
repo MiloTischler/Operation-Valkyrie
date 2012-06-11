@@ -31,17 +31,14 @@ public class FileManagerTest extends AndroidTestCase{
     	String comparedImage;
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
     	FileManager fm = new FileManager(this.getContext());
-    	
-    	comparedImage = fm.getLatestImage();
-    	
+    	comparedImage = fm.getLatestImage();    	
     	fm.saveImageToGallery(bitmap);
     	
     	assertFalse("Error: Image wasn't saved",comparedImage.equals(fm.getLatestImage()));
     }
     
     public void testLoadImage() {
-    	FileManager fm = new FileManager(this.getContext());
-    	
+    	FileManager fm = new FileManager(this.getContext());    	
     	fm.loadImageFromGallery(fm.getLatestImage());
     	assertTrue("Error: Couldn't load Image", fm.getLatestImage() != "Error");
 
@@ -51,11 +48,8 @@ public class FileManagerTest extends AndroidTestCase{
 
     	FileManager fm = new FileManager(this.getContext());
     	String imageName = fm.getLatestImage();
-
     	fm.deleteImageFromGallery(imageName);  
-    	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));
-
-    	
+    	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));    	
     }
     public void testFolderEmpty() {
     	File file = new File(SDPATH);
