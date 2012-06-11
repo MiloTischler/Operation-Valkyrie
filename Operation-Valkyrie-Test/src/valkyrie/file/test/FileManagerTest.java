@@ -30,7 +30,7 @@ public class FileManagerTest extends AndroidTestCase{
     public void testSaveImage() {
     	String comparedImage;
     	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
-    	FileManager fm = new FileManager();
+    	FileManager fm = new FileManager(this.getContext());
     	
     	comparedImage = fm.getLatestImage();
     	
@@ -40,7 +40,7 @@ public class FileManagerTest extends AndroidTestCase{
     }
     
     public void testLoadImage() {
-    	FileManager fm = new FileManager();
+    	FileManager fm = new FileManager(this.getContext());
     	
     	fm.loadImageFromGallery(fm.getLatestImage());
     	assertTrue("Error: Couldn't load Image", fm.getLatestImage() != "Error");
@@ -49,7 +49,7 @@ public class FileManagerTest extends AndroidTestCase{
     
     public void testDeleteImage() {
 
-    	FileManager fm = new FileManager();
+    	FileManager fm = new FileManager(this.getContext());
     	String imageName = fm.getLatestImage();
 
     	fm.deleteImageFromGallery(imageName);  
