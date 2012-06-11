@@ -4,6 +4,7 @@ import java.io.FileReader;
 
 import com.jayway.android.robotium.solo.Solo;
 
+import valkyrie.file.FileManager;
 import valkyrie.main.R;
 import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
@@ -81,8 +82,21 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	}
 	
 
-	public void testTakePhoto() {
-		fail("Not yet implemented");
+	public void testTakePicture() {
+		assertNotNull(this.solo.getView(R.id.trigger));
+		
+		FileManager fileManager = new FileManager(this.getActivity());
+		
+		String latestImage = fileManager.getLatestImage();
+		
+		this.solo.clickOnView(this.solo.getView(R.id.trigger));
+		
+		assertTrue(latestImage != fileManager.getLatestImage());
+		
+		CameraPreviewViewCV cameraPreview = (CameraPreviewViewCV) getActivity().findViewById(
+				R.id.camera_preview_view);
+		
+		assertTrue(cameraPreview.isLocked() == false);
 	}
 
 	public void testShowGallery() {

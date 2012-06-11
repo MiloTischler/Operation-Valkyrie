@@ -98,7 +98,7 @@ public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActi
 
 	}
 
-	public void testIsFirstRun() {
-		fail("Not yet implemented"); // Method isn't implemented and used..
-	}
+//	public void testIsFirstRun() {
+//		fail("Not yet implemented"); // Method isn't implemented and used..
+//	}
 }
