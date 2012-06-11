@@ -80,21 +80,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		assertTrue(filterOptionsHandle.getRight() == filterOptionsHandle.getWidth());
 	}
 	
-	public void testChangeFontSize() {
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeBackgroundColor() {
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeForegroundColor() {
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeColorMode() {
-		fail("Not yet implemented");
-	}
 
 	public void testTakePhoto() {
 		fail("Not yet implemented");
