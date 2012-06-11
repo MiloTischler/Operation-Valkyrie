@@ -43,7 +43,7 @@ Setup / Building
      it is saved as an eclipse project so you should have no troubles with that.
 	
 	2) Setup OpenCV (http://opencv.itseez.com/doc/tutorials/introduction/android_binary_package/android_binary_package.html)
-	  - We also added a fully functional OpenCV distribution to the zip. You can just import this.
+	  - We also added a fully functional OpenCV distribution to the zip. You can just import this (libs folder).
     - 2.1) Import OpenCV folder as exisiting project 
            (under its project properties -> Android -> is Library -> check if not already checked)
 		- 2.2) Link the Operation-Valkyrie Project with OpenCV: 
