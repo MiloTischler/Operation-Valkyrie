@@ -29,6 +29,7 @@ Third Party Credits
   MultiDirectionSlidingDrawer.java: Alessandro Crugnola 
   
 Testdevices
+
   HTC Desire HD
   HTC Desire
   Galaxy Nexus
