@@ -20,10 +20,9 @@ import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.*;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 
 /**
  * a Color Wheel to choose a color as the background and foreground color
@@ -71,6 +70,7 @@ public class ColorPickerDialog extends Dialog {
 			mCenterPaint.setColor(color);
 			mCenterPaint.setStrokeWidth(10);
 
+
 		}
 
 		private boolean mTrackingCenter;
@@ -108,8 +108,8 @@ public class ColorPickerDialog extends Dialog {
 			setMeasuredDimension(CENTER_X * 2, CENTER_Y * 2);
 		}
 
-		private static final int CENTER_X = 170;
-		private static final int CENTER_Y = 170;
+		private static final int CENTER_X = 160;
+		private static final int CENTER_Y = 160;
 		private static final int CENTER_RADIUS = 45;
 
 		private int floatToByte(float x) {
@@ -245,6 +245,6 @@ public class ColorPickerDialog extends Dialog {
 		};
 
 		setContentView(new ColorPickerView(getContext(), l, mInitialColor));
-		setTitle("Pick a Color");
+		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	}
 }

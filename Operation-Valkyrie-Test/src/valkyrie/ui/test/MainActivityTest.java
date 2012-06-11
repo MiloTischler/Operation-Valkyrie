@@ -80,35 +80,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		assertTrue(filterOptionsHandle.getRight() == filterOptionsHandle.getWidth());
 	}
 	
-	public void testChangeFontSize() {
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeBackgroundColor() {
-		this.solo.sleep(2000);
-		solo.sendKey(Solo.MENU);
-		this.solo.sleep(2000);
-		solo.clickOnView(solo.getView(R.id.backgroundcolor));
-		this.solo.sleep(1000);
-		this.solo.sendKey(Solo.MENU);
-		this.solo.sleep(2000);
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeForegroundColor() {
-		this.solo.sleep(2000);
-		solo.sendKey(Solo.MENU);
-		this.solo.sleep(2000);
-		solo.clickOnView(solo.getView(R.id.foregroundcolor));
-		this.solo.sleep(1000);
-		this.solo.sendKey(Solo.MENU);
-		this.solo.sleep(2000);
-		fail("Not yet implemented");
-	}
-	
-	public void testChangeColorMode() {
-		fail("Not yet implemented");
-	}
+
 
 	public void testTakePhoto() {
 		fail("Not yet implemented");
