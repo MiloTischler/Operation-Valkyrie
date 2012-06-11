@@ -14,6 +14,12 @@ import android.widget.ToggleButton;
 
 import com.jayway.android.robotium.solo.Solo;
 
+/**
+ * 
+ * COPYRIGHT: Paul Neuhold, Laurenz Theuerkauf, Alexander Ritz, Jakob Schweighofer, Milo Tischler
+ * © Milo Tischler, Jakob Schweighofer, Alexander Ritz, Paul Neuhold, Laurenz Theuerkauf
+ * 
+ */
 public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private static final String TAG = "AsciiOptionsTest";
 
