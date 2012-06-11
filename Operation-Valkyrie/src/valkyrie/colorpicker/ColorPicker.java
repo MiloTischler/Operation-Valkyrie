@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 
 public class ColorPicker extends ImageButton implements IBindableView<ColorPicker>, View.OnClickListener,
