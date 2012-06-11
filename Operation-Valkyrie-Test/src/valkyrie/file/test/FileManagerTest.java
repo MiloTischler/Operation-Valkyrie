@@ -25,11 +25,15 @@ public class FileManagerTest extends AndroidTestCase{
     protected void setUp() throws Exception {
     	super.setUp();
     }
-    
+
     
     public void testSaveImage() {
     	String comparedImage;
-    	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
+    	int arr[] = new int[100];
+    	for(int i = 0; i < 100; i++) {
+        	arr[i] = 1;
+    	}
+    	Bitmap bitmap = Bitmap.createBitmap(arr,10, 10, Bitmap.Config.RGB_565);
     	FileManager fm = new FileManager(this.getContext());
     	comparedImage = fm.getLatestImage();    	
     	fm.saveImageToGallery(bitmap);
@@ -43,7 +47,6 @@ public class FileManagerTest extends AndroidTestCase{
     	assertTrue("Error: Couldn't load Image", fm.getLatestImage() != "Error");
 
     }
-    
     public void testDeleteImage() {
 
     	FileManager fm = new FileManager(this.getContext());
@@ -51,6 +54,7 @@ public class FileManagerTest extends AndroidTestCase{
     	fm.deleteImageFromGallery(imageName);  
     	assertFalse("Error. Image not deleted", imageName.equals(fm.getLatestImage()));    	
     }
+    
     public void testFolderEmpty() {
     	File file = new File(SDPATH);
     	assertTrue("Folder not yet created", file.exists());

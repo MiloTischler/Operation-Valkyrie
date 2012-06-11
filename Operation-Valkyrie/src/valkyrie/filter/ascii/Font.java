@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,15 +39,22 @@ public class Font {
 
 	private int[] LUT; // Look up Table index = color intensity; value = letter
 	private String name; // font name
+	private int[] invertLUT;
+
+	public int[] getInvertLUT() {
+		return invertLUT;
+	}
 
 	public Font(String name, boolean install) {
 
 		this.name = name;
 		this.LUT = new int[256];
+		this.invertLUT = new int[256];
 		if (install)
 			initializeFont();
 		else
 			load();
+		this.invertLUT = reverseLUT(this.LUT);
 	}
 
 	/**
@@ -190,6 +198,17 @@ public class Font {
 		return sortedMap;
 	}
 
+    public int[] reverseLUT(int[] arr) {
+    	int[] rev = new int[arr.length];
+    	int j = arr.length - 1;
+    	for(int i = 0; i < arr.length; i++)
+    	{
+    		rev[j] = arr[i];
+    		j--;
+    	}
+    	return rev;
+    }
+	
 	/**
 	 * Loads LUT from JSON encoded file for Performance reasons
 	 * 
