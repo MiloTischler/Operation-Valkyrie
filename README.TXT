@@ -6,8 +6,14 @@ Operation-Valkyrie Ascii Camera
 
 Description
 
-  A camera app for Android with an ASCII effect, an ASCII live preview and a
-  Gallery.
+  Operation Valkyrie is a camera application with an integrated ASCII filter. You
+  can use a live preview and some filter settings like: 
+    # color-mode
+    # background color
+    # fontsize
+    # ..
+    
+  Your can access the pictures with our build-in gallery and with any file browser.
 
 Credits
 
