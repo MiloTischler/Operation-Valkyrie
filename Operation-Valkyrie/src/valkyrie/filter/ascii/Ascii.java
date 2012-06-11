@@ -69,7 +69,7 @@ public class Ascii implements IFilter {
 	 */
 	public Bitmap manipulatePreviewImage(Mat bitmapMat) {
 		if (this.colorMode) {
-			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getInvertLUT());
 		} else {
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 		}
@@ -81,7 +81,7 @@ public class Ascii implements IFilter {
 	 */
 	public Bitmap manipulateImage(Mat bitmapMat) {
 		if (this.colorMode) {
-			return this.converter.colorToASCII(bitmapMat, this.activeFont.getLUT());
+			return this.converter.colorToASCII(bitmapMat, this.activeFont.getInvertLUT());
 		} else {
 			return this.converter.grayscaleToASCII(bitmapMat, this.activeFont.getLUT());
 		}
