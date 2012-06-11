@@ -88,8 +88,8 @@
             android:layout_span="4"
             android:checked="false"
             android:tag="color_mode"
-            android:textOff="Deactivated"
-            android:textOn="Activated" />
+            android:textOff=""
+            android:textOn="" />
     </TableRow>
 
 </TableLayout>
