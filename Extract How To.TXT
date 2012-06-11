@@ -7,8 +7,7 @@ Setup / Building
 	android-binding-0.49-update.jar
 	Robotium Solo 3.2.1 (robotium-solo-3.2.1.jar)
 	
-	- Setup
-	
+	- Setup	
 	1) Import the Operation-Valkyrie Project, the Operation-Valkyrie-Test Project into eclipse, 
      it is saved as an eclipse project so you should have no troubles with that.
 	
@@ -30,3 +29,6 @@ Setup / Building
     - Further informations: http://code.google.com/p/robotium/wiki/Getting_Started 
     
 Your project should now be ready to Go. Build and Run and enjoy the Operation-Valkyrie Ascii Camera.
+
+
+  - Setup Test Project:
