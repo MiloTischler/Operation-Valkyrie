@@ -81,7 +81,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		assertTrue(filterOptionsHandle.getRight() == filterOptionsHandle.getWidth());
 	}
 	
-
 	public void testTakePicture() {
 		assertNotNull(this.solo.getView(R.id.trigger));
 		
