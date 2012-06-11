@@ -34,7 +34,7 @@ public class AsciiTest extends ActivityInstrumentationTestCase2<MainActivity> {
 				.getResources(),
 				valkyrie.main.test.R.drawable.camera_test_pictrue);
 		this.mat = new Mat();
-		Utils.bitmapToMat(this.input, mat);
+		this.mat = Utils.bitmapToMat(this.input);
 	}
 	
 	public void testReturnValues(){
