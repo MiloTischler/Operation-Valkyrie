@@ -59,8 +59,8 @@ public class CameraPreviewViewCVTest extends ActivityInstrumentationTestCase2<Ma
     	assertTrue(this.cameraPreview.isFilterDisplayed() == false);
     }
     
-    public void testFilter() {
-    	// We need to create a OpenCV Camera Mockup from VideoCapture ..
-    	fail("Not yet implemented");
-    }
+//    public void testFilter() {
+//    	// We need to create a OpenCV Camera Mockup from VideoCapture ..
+//    	fail("Not yet implemented");
+//    }
 }
