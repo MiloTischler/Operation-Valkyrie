@@ -40,13 +40,13 @@ public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActi
 	public void testGetFilterList() {
 		CameraPreviewViewCV cameraPreviewView = (CameraPreviewViewCV) this.getActivity().findViewById(
 				valkyrie.main.R.id.camera_preview_view);
-		FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters,
+		FilterManager filterManager = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters,
 				cameraPreviewView);
 
-		assertNotNull(filterCamera.getFilterList());
-		assertTrue(filterCamera.getFilterList() instanceof ArrayList<?>);
+		assertNotNull(filterManager.getFilterList());
+		assertTrue(filterManager.getFilterList() instanceof ArrayList<?>);
 
-		ArrayList<IFilter> filters = filterCamera.getFilterList();
+		ArrayList<IFilter> filters = filterManager.getFilterList();
 
 		// there has to be at least one filter in the list, the NoFilter
 		assertTrue(filters.isEmpty() == false);
@@ -98,7 +98,7 @@ public class FilterManagerTest extends ActivityInstrumentationTestCase2<MainActi
 
 	}
 
-	public void testIsFirstRun() {
-		fail("Not yet implemented"); // Method isn't implemented and used..
-	}
+//	public void testIsFirstRun() {
+//		fail("Not yet implemented"); // Method isn't implemented and used..
+//	}
 }

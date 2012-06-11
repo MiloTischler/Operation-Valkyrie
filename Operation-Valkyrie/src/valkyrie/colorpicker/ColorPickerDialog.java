@@ -22,11 +22,13 @@ import android.content.Context;
 import android.graphics.*;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 
 /**
- * a Color Wheel to choose a color as the background and foreground color 
+ * a Color Wheel to choose a color as the background and foreground color
+ * 
  * @author madhatter
- *
+ * 
  */
 
 public class ColorPickerDialog extends Dialog {
@@ -67,6 +69,8 @@ public class ColorPickerDialog extends Dialog {
 			mCenterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			mCenterPaint.setColor(color);
 			mCenterPaint.setStrokeWidth(10);
+
+
 		}
 
 		private boolean mTrackingCenter;
@@ -233,6 +237,7 @@ public class ColorPickerDialog extends Dialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		OnColorChangedListener l = new OnColorChangedListener() {
 			public void colorChanged(int color) {
 				mListener.colorChanged(color);
@@ -241,6 +246,6 @@ public class ColorPickerDialog extends Dialog {
 		};
 
 		setContentView(new ColorPickerView(getContext(), l, mInitialColor));
-		setTitle("Pick a Color");
+
 	}
 }
