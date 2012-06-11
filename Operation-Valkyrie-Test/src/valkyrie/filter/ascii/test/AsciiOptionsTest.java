@@ -8,6 +8,7 @@ import valkyrie.ui.MainActivity;
 import valkyrie.ui.preview.CameraPreviewViewCV;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -30,14 +31,25 @@ public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActiv
 		LayoutManager.getInstance().setMainActivity(this.getActivity());
 
 		solo = new Solo(this.getInstrumentation(), this.mainActivity);
-		
-		CameraPreviewViewCV cameraPreviewView = (CameraPreviewViewCV) this.getActivity().findViewById(
-				valkyrie.main.R.id.camera_preview_view);
-		
-		FilterManager filterCamera = new FilterManager(this.getActivity(), valkyrie.main.R.array.filters,
-				cameraPreviewView);
-		
-		filterCamera.setActiveFilter(new Ascii());
+
+		try {
+			this.runTestOnUiThread(new Runnable() {
+				public void run() {
+
+					CameraPreviewViewCV cameraPreviewView = (CameraPreviewViewCV) getActivity().findViewById(
+							valkyrie.main.R.id.camera_preview_view);
+
+					FilterManager filterCamera = new FilterManager(getActivity(), valkyrie.main.R.array.filters,
+							cameraPreviewView);
+
+					filterCamera.setActiveFilter(new Ascii());
+
+				}
+			});
+		} catch (Throwable e) {
+			Log.e(TAG, e.toString());
+			assertTrue(false);
+		}
 	}
 
 	public void testPreconditions() {
@@ -45,23 +57,23 @@ public class AsciiOptionsTest extends ActivityInstrumentationTestCase2<MainActiv
 		assertNotNull(this.getInstrumentation());
 		assertNotNull(this.solo);
 	}
-	
+
 	public void testChangeFontSize() {
 		fail("Not yet implemented");
-		
+
 		this.solo.sendKey(Solo.MENU);
-		
+
 		assertNotNull(this.solo.getView(R.id.ascii_option_fontsize));
 	}
-	
+
 	public void testChangeBackgroundColor() {
 		fail("Not yet implemented");
 	}
-	
+
 	public void testChangeForegroundColor() {
 		fail("Not yet implemented");
 	}
-	
+
 	public void testChangeColorMode() {
 		fail("Not yet implemented");
 	}
