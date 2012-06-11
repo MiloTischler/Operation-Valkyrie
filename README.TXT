@@ -27,6 +27,12 @@ Third Party Credits
 
   TouchImageView.java: Michael Ortiz, Patrick Lackemacher
   MultiDirectionSlidingDrawer.java: Alessandro Crugnola 
+  
+Testdevices
+  HTC Desire HD
+  HTC Desire
+  Galaxy Nexus
+  Samsung Nexus S
 
 Setup / Building
 
