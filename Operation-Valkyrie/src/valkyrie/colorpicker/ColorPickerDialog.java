@@ -108,8 +108,8 @@ public class ColorPickerDialog extends Dialog {
 			setMeasuredDimension(CENTER_X * 2, CENTER_Y * 2);
 		}
 
-		private static final int CENTER_X = 160;
-		private static final int CENTER_Y = 160;
+		private static final int CENTER_X = 180;
+		private static final int CENTER_Y = 180;
 		private static final int CENTER_RADIUS = 45;
 
 		private int floatToByte(float x) {
@@ -237,6 +237,7 @@ public class ColorPickerDialog extends Dialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		OnColorChangedListener l = new OnColorChangedListener() {
 			public void colorChanged(int color) {
 				mListener.colorChanged(color);
@@ -245,6 +246,6 @@ public class ColorPickerDialog extends Dialog {
 		};
 
 		setContentView(new ColorPickerView(getContext(), l, mInitialColor));
-		requestWindowFeature(Window.FEATURE_NO_TITLE); 
+
 	}
 }
