@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="valkyrie.main"
+    android:installLocation="auto"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,8 +15,9 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" android:debuggable="true">
+        android:label="@string/app_name" >
         <activity
             android:name="valkyrie.ui.MainActivity"
             android:configChanges="keyboardHidden"
@@ -34,18 +36,18 @@
         </activity>
         <activity
             android:name="valkyrie.ui.gallery.ShowPicActivity"
-            android:label="showPic" 
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="showPic"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name="valkyrie.colorpicker.ColorPickerExampleActivity"
-            android:label="colorPicker">
+            android:label="colorPicker" >
         </activity>
-                <activity
+        <activity
             android:name="valkyrie.ui.gallery.AboutActivity"
             android:label="about"
-             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-             
     </application>
+
 </manifest>
