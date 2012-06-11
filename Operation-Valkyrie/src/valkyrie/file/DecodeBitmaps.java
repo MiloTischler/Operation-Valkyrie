@@ -40,7 +40,7 @@ public class DecodeBitmaps {
 	public static Vector<File> fileVector = new Vector<File>();
 	public static Vector<String> fullImgNames = new Vector<String>();
 	public static Vector<String> thumbPosition = new Vector<String>();
-	private int opt = 6;
+	private int opt = 4;
 
 	/**
 	 * called if new pictures are taken or some are deleted
@@ -50,7 +50,7 @@ public class DecodeBitmaps {
 	public DecodeBitmaps(int error) {
 		// in case of outofmemory for creating thumbs
 		if (error == 1) {
-			this.opt = 8;
+			this.opt = 6;
 			Log.d(TAG, "new opt ? : " + this.opt);
 			thumbs.clear();
 			thumbPosition.clear();
@@ -70,7 +70,7 @@ public class DecodeBitmaps {
 				decodeBitmap();
 			}
 		}
-		Log.d(TAG, "done");
+
 	}
 	/**
 	 * this function is called everytime we have a new picture in the galleryfolder
@@ -100,29 +100,31 @@ public class DecodeBitmaps {
 				boolean match = false;
 				// check if a thumb of a given file already exists
 				for (File f : thumbList) {
+				//	Log.d(TAG, "Checking if thumb already exists for all thumbs " + i + ": " + f.getName());
 					if (f.getName().contentEquals(fileList[i].getName())) {
 						match = true;
-						Log.d(TAG, "thumb name here with :" + f.getName());
+						Log.d(TAG, "thumb name here with : " + f.getName());
 					}
 
 				}
 				if (match) {
 					thumbPosition
 							.add(thumbList[thumbCounter].getAbsolutePath());
+				
 					thumbCounter++;
 					Log.d(TAG, "thumb already exists : " + i);
 					// if a new picture is taken we didnt have a thumb so match
 					// == false
 					// so we need a new thumb
 				} else {
-					Log.d(TAG, "new thumb crashes ? created : " + i);
+					Log.d(TAG, "saving thumb with name: " + fileList[i].getName());
 					Bitmap newThumb;
-					newThumb = Bitmap.createScaledBitmap(
+					newThumb = 
 							BitmapFactory.decodeFile(
-									fileList[i].getAbsolutePath(), thumbOpt),
-							120, 80, false);
-					saveAThumb(newThumb, fileList[i].getName());
-					thumbPosition.add(fileList[i].getAbsolutePath());
+									fileList[i].getAbsolutePath(), thumbOpt);
+					saveAThumb(newThumb, fileList[i].getName(), i);
+				
+				
 
 				}
 			}
@@ -130,6 +132,7 @@ public class DecodeBitmaps {
 		} else {
 
 		}
+		Log.d(TAG, "done");
 	}
 
 	/**
@@ -141,14 +144,13 @@ public class DecodeBitmaps {
 	 * @param String imgName
 	 *            The given Name for the thumb
 	 */
-	public void saveAThumb(Bitmap bitmap, String imgName) {
+	public void saveAThumb(Bitmap bitmap, String imgName, int vecPos) {
 
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 
 			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.PNG, 60, bytes);
-
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
 			File f = new File(Environment.getExternalStorageDirectory()
 					+ "/Valkyrie/Thumbnls/" + imgName);
 			try {
@@ -161,6 +163,9 @@ public class DecodeBitmaps {
 				Log.d(TAG, "io crash ? ");
 				e.printStackTrace();
 			}
+			
+			thumbList = thumbFiles.listFiles();
+			thumbPosition.add(thumbList[vecPos].getAbsolutePath());
 			bitmap.recycle();
 
 		} else {
