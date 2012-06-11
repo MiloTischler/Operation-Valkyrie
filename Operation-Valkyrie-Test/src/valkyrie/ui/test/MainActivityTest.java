@@ -81,6 +81,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	}
 	
 
+
 	public void testTakePhoto() {
 		fail("Not yet implemented");
 	}
