@@ -1,10 +1,14 @@
 package valkyrie.ui.test;
 
+import java.io.FileReader;
+
 import com.jayway.android.robotium.solo.Solo;
 
+import valkyrie.ui.LayoutManager;
 import valkyrie.ui.MainActivity;
 import valkyrie.widget.MultiDirectionSlidingDrawer;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.view.Display;
 import android.widget.ImageView;
 
@@ -29,6 +33,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	protected void setUp() throws Exception {
 		super.setUp();
 		this.mainActivity = this.getActivity();
+		
+		LayoutManager.getInstance().setMainActivity(this.getActivity());
 		
 		solo = new Solo(this.getInstrumentation(), this.mainActivity);
 	}
@@ -58,10 +64,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		
 		this.solo.sleep(500);
 		
-		assertTrue(filterOptionsHandle.getRight() == display.getWidth());
+		assertTrue(filterOptionsHandle.getRight() == multiDirectionSlidingDrawer.getWidth());
 		
 		//Drag handler from right to left
-		this.solo.drag(display.getWidth() - (filterOptionsHandle.getWidth() / 2), 0, display.getHeight() / 2, display.getHeight() / 2, 20);
+		this.solo.drag(multiDirectionSlidingDrawer.getWidth() - (filterOptionsHandle.getWidth() / 2), 0, display.getHeight() / 2, display.getHeight() / 2, 20);
 		
 		this.solo.sleep(500);
 		

@@ -264,7 +264,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onPause() {
 		Log.i(TAG, "onPause called");
-
 		super.onPause();
 	}
 
@@ -274,9 +273,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "onResume called");
-
 		super.onResume();
-
 	}
 
 }
