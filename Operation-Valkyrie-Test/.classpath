@@ -6,7 +6,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/OpenCV-2.3.1"/>
-	<classpathentry kind="lib" path="libs/robotium-solo-3.2.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="libs/robotium-solo-3.2.1.jar"/>
+	<classpathentry kind="lib" path="robotium/libs/robotium-solo-3.2.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="robotium/libs/robotium-solo-3.2.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
