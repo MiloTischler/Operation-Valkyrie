@@ -29,7 +29,11 @@ public class FileManagerTest extends AndroidTestCase{
     
     public void testSaveImage() {
     	String comparedImage;
-    	Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
+    	int arr[] = new int[100];
+        for(int i = 0; i < 100; i++) {
+            arr[i] = 1;
+        }
+        Bitmap bitmap = Bitmap.createBitmap(arr,10, 10, Bitmap.Config.RGB_565);
     	FileManager fm = new FileManager();
     	
     	comparedImage = fm.getLatestImage();
