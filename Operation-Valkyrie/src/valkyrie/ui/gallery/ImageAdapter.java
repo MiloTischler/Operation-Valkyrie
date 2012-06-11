@@ -67,7 +67,7 @@ public class ImageAdapter extends BaseAdapter {
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		opt.inSampleSize = 2;
+		opt.inSampleSize = 4;
 		ImageView imageView;
 
 		if (convertView == null) { // if it's not recycled, initialize some
@@ -84,17 +84,13 @@ public class ImageAdapter extends BaseAdapter {
 		}
 		//decode Bitmaps for viewing in gridView
 		try{
+	//	imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));	
 		imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position)));
 		}
 		//if we have to less memory to display all the thumbs, create new thumbs with downscaled pixels and resolutions
 		catch (OutOfMemoryError e){
-			int thumbError = 1;
-			for (Bitmap b : DecodeBitmaps.thumbs)
-				{b.recycle();
-				Log.d(TAG, "recycle catch");
-				}
-			new DecodeBitmaps(thumbError);
-			imageView.setImageBitmap(DecodeBitmaps.thumbs.get(position));
+			Log.d(TAG, "Running out of Memory using more compressed bitmaps");
+			imageView.setImageBitmap(BitmapFactory.decodeFile(DecodeBitmaps.thumbPosition.get(position),opt));
 		}
 		return imageView;
 	}
