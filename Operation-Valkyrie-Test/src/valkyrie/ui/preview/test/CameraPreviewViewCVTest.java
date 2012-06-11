@@ -1,5 +1,6 @@
 package valkyrie.ui.preview.test;
 
+
 import valkyrie.main.R;
 import valkyrie.ui.MainActivity;
 import valkyrie.ui.preview.CameraPreviewViewCV;
@@ -29,6 +30,8 @@ public class CameraPreviewViewCVTest extends ActivityInstrumentationTestCase2<Ma
     }
     
     public void testPreviewSurface() {
+    	assertNotNull(this.cameraPreview);
+    	
     	assertTrue(this.cameraPreview.isShown());
     	assertNotNull(this.cameraPreview.getHolder());
     }
@@ -44,5 +47,20 @@ public class CameraPreviewViewCVTest extends ActivityInstrumentationTestCase2<Ma
     	assertTrue(this.cameraPreview.isLocked());
     	this.cameraPreview.resume();
     	assertFalse(this.cameraPreview.isLocked());
+    }
+    
+    public void testToggle() {
+    	this.cameraPreview.toggleFilter(true);
+    	
+    	assertTrue(this.cameraPreview.isFilterDisplayed() == true);
+    	
+    	this.cameraPreview.toggleFilter(false);
+    	
+    	assertTrue(this.cameraPreview.isFilterDisplayed() == false);
+    }
+    
+    public void testFilter() {
+    	// We need to create a OpenCV Camera Mockup from VideoCapture ..
+    	fail("Not yet implemented");
     }
 }
